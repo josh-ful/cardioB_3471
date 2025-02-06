@@ -10,6 +10,7 @@ For the actual programming side of this project there are 5 main requirements! T
 - For JUnit this is how we will be testing our code making sure it is clean, and has good code coverage
 - For JavaDoc this is how we will make documentation which we will put on the website for our code, PLEASE make the correct style of comments so we can just run the JavaDoc tool later. Check the link to see how to do this.
 - Our ticketing system is being run through Github Issues which can be found in the issues tab above, please familiarize yourself with this and report bugs and features we need to work on there!!!
+
 Swing:
 
 https://www.geeksforgeeks.org/introduction-to-java-swing/#
@@ -24,4 +25,5 @@ https://www.geeksforgeeks.org/what-is-javadoc-tool-and-how-to-use-it
 
 Github Issues:
 
-https://github.com/josh-ful/cardioB_3471/issues/1
+[Issues Quick Start](https://github.com/josh-ful/cardioB_3471/issues/1)
+
