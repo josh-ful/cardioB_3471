@@ -4,7 +4,7 @@ Date Created: 3/18/2025
 File Name: MainMenu.java
 Description: Holds the main file and holds the display of the menu (for now)
 
-Date Last Modified: 3/18/2025
+Date Last Modified: 3/19/2025
 
 
 PUT YOUR NAME HERE:
@@ -52,37 +52,6 @@ import java.util.Map;
 
 
 public class MainMenu {
-
-    public class companyDetail extends JPanel {
-        public companyDetail() {
-            JLabel companyName = new JLabel("CardioB™");
-            companyName.setFont(new Font("Comic Sans MS", Font.BOLD, 70));
-            companyName.setForeground(Color.BLACK);
-            //companyName.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(companyName);
-        }
-    }
-    public class buttons extends JPanel {
-        public buttons() {
-
-
-            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            JButton loginButton = new JButton("Login");
-
-            loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            loginButton.setMaximumSize(new Dimension(200, 50));
-            loginButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-
-            JButton registerButton = new JButton("Register");
-            registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            registerButton.setMaximumSize(new Dimension(200, 50));
-            registerButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-
-            this.add(loginButton);
-            this.add(Box.createVerticalStrut(25));
-            this.add(registerButton);
-        }
-    }
 
     public void createAndShowGUI() {
         Map<String,String> logins  = new LinkedHashMap<>();
@@ -240,7 +209,7 @@ public class MainMenu {
         c.weightx = 0.5;
         c.gridx = 0;
         c.gridy = 0;
-        c.ipady = 90;
+        c.ipady = 70;
         frame.add(iconLabel, c);
 
 
@@ -248,20 +217,20 @@ public class MainMenu {
         c.weightx = 0.5;
         c.gridx = 0;
         c.gridy = 3;
-        c.ipady = 30;
+        c.ipady = 10;
         frame.add(companyName, c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.gridx = 0;
         c.gridy = 5;
-        c.ipady = 30;
+        c.ipady = 40;
         frame.add(loginButton, c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.gridx = 0;
-        c.gridy = 15;
+        c.gridy = 20;
         frame.add(registerButton, c);
 
 
