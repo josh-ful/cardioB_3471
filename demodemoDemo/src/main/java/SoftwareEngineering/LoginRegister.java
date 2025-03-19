@@ -1,21 +1,4 @@
-/*
-Author: Trello Fellows
-Date Created: 3/18/2025
-File Name: MainMenu.java
-Description: Holds the main file and holds the display of the menu (for now)
-
-Date Last Modified: 3/18/2025
-
-
-PUT YOUR NAME HERE:
-Josh Fulton
-
- */
-
-
-
 package SoftwareEngineering;
-
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,67 +7,8 @@ import java.awt.event.ActionListener;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
-
-//From main we are starting program so we need to bring the UI to scene 1 (login),
-// and then from there try to give control to the individual controllers based on userType
-
-//Data Abstraction (Locally based implementation--remove when implementing database)
-//Map of valid usernames and passwords [DONE]
-//Login scene: [DONE]
-//Right now in the main file
-//Could be extracted into its own class later
-
-//within the scene the interactions should confirm validity of login [DONE]
-//then assign the user with a session
-//and in creating a session assign the correct type of controller
-//in order to bring it to the next screen
-//imo what makes sense is have a session obj that we have 3 different constructors for
-//if we have a session constructed with a admin type, in its creation its should bring
-//the user to the next scene? in its construction create a new gui? that overrides the login gui'
-
-
-//TO DO:
-//Create Login GUI, that leads to two different screens login & register [DONE]
-//Create fields in the login scene that check with the local map to see if the login info is valid [DONE]
-//Create fields in the register scene, that accept valid formatted info and add that data to the map [DONE]
-//Extract login and register button scenes to separate classes & link to one gui
-
-
-public class MainMenu {
-
-    public class companyDetail extends JPanel {
-        public companyDetail() {
-            JLabel companyName = new JLabel("CardioB™");
-            companyName.setFont(new Font("Comic Sans MS", Font.BOLD, 70));
-            companyName.setForeground(Color.BLACK);
-            //companyName.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(companyName);
-        }
-    }
-    public class buttons extends JPanel {
-        public buttons() {
-
-
-            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            JButton loginButton = new JButton("Login");
-
-            loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            loginButton.setMaximumSize(new Dimension(200, 50));
-            loginButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-
-            JButton registerButton = new JButton("Register");
-            registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            registerButton.setMaximumSize(new Dimension(200, 50));
-            registerButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-
-            this.add(loginButton);
-            this.add(Box.createVerticalStrut(25));
-            this.add(registerButton);
-        }
-    }
-
-    public void createAndShowGUI() {
+public class LoginRegister {
+    public void createAndShowGUI(JFrame frame) {
         Map<String,String> logins  = new LinkedHashMap<>();
         logins.put("Noah", "Mathew");
         logins.put("Josh", "Fulton");
@@ -93,7 +17,7 @@ public class MainMenu {
         logins.put("Carter", "Lewis");
         logins.put("Lawson", "Hale");
 
-        JFrame frame = new JFrame();
+        //JFrame frame = new JFrame();
         //frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -114,7 +38,7 @@ public class MainMenu {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                JFrame frame = new JFrame("Login");
+                //JFrame frame = new JFrame("Login");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setTitle("Login ™");
                 JPanel panel = new JPanel();
@@ -270,8 +194,4 @@ public class MainMenu {
 
     }
 
-    public static void main(String[] args) {
-        new MainMenu().createAndShowGUI();
-        //System.out.println("mommy nodes"); >:( no
-    }
 }
