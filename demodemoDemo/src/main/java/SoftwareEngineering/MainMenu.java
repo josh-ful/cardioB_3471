@@ -177,6 +177,7 @@ public class MainMenu {
                 JPanel panel = new JPanel();
                 panel.setBackground(Color.RED); // Set background color
 
+
                 frame.setSize(800, 600);
                 frame.setLocationRelativeTo(null);
                 frame.setResizable(false);
@@ -223,7 +224,7 @@ public class MainMenu {
 
         ImageIcon icon = new ImageIcon("src/main/resources/cardioB_logo.png");
         Image image = icon.getImage();
-        image = image.getScaledInstance(600, 200, Image.SCALE_SMOOTH);
+        image = image.getScaledInstance(400, 425, Image.SCALE_SMOOTH);
         icon = new ImageIcon(image);
         JLabel iconLabel = new JLabel(icon);
 
@@ -239,7 +240,7 @@ public class MainMenu {
         c.weightx = 0.5;
         c.gridx = 0;
         c.gridy = 0;
-        c.ipady = 100;
+        c.ipady = 90;
         frame.add(iconLabel, c);
 
 
@@ -247,13 +248,14 @@ public class MainMenu {
         c.weightx = 0.5;
         c.gridx = 0;
         c.gridy = 3;
-        c.ipady = 10;
+        c.ipady = 30;
         frame.add(companyName, c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.gridx = 0;
         c.gridy = 5;
+        c.ipady = 30;
         frame.add(loginButton, c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
