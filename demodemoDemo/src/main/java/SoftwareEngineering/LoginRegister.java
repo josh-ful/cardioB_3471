@@ -7,8 +7,8 @@ import java.awt.event.ActionListener;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class LoginRegister {
-    
+public class LoginRegister extends JFrame{
+
     public void createAndShowGUI(JFrame frame) {
         Map<String,String> logins  = new LinkedHashMap<>();
         logins.put("Noah", "Mathew");
@@ -17,7 +17,7 @@ public class LoginRegister {
         logins.put("Emily", "Wokoek");
         logins.put("Carter", "Lewis");
         logins.put("Lawson", "Hale");
-        
+
         //JFrame frame = frames;
         //frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.setLayout(new GridBagLayout());
@@ -45,11 +45,11 @@ public class LoginRegister {
         registerButton.setMaximumSize(new Dimension(100, 50));
         registerButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
         registerScene(registerButton, logins);
-        
-        
+
+
         ImageIcon icon = new ImageIcon("src/main/resources/cardioB_logo.png");
         Image image = icon.getImage();
-        image = image.getScaledInstance(600, 200, Image.SCALE_SMOOTH);
+        image = image.getScaledInstance(600, 500, Image.SCALE_SMOOTH);
         icon = new ImageIcon(image);
         JLabel iconLabel = new JLabel(icon);
 
@@ -60,7 +60,7 @@ public class LoginRegister {
         c.weightx = 0.5;
         c.gridx = 0;
         c.gridy = 0;
-        c.ipady = 100;
+        c.ipady = 60;
         frame.add(iconLabel, c);
 
 
@@ -75,6 +75,7 @@ public class LoginRegister {
         c.weightx = 0.5;
         c.gridx = 0;
         c.gridy = 5;
+        c.ipady = 20;
         frame.add(loginButton, c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -88,7 +89,6 @@ public class LoginRegister {
         frame.setResizable(false);
         frame.setVisible(true);
 
-
     }
 
     private static void loginScene(JFrame frame, JButton loginButton, Map<String, String> logins) {
@@ -96,23 +96,35 @@ public class LoginRegister {
             @Override
             public void actionPerformed(ActionEvent e){
 
-                frame.removeAll();
-                frame.revalidate();
-                frame.repaint();
+                frame.getContentPane().removeAll();
+                frame.getContentPane().revalidate();
+                frame.getContentPane().repaint();
+
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setTitle("Login ™");
                 JPanel panel = new JPanel();
-                panel.setBackground(Color.RED); // Set background color
 
-                frame.setSize(800, 600);
-                frame.setLocationRelativeTo(null);
-                frame.setResizable(false);
-                frame.setVisible(true);
+                panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+                //panel.setSize(450, 800);
+                panel.setBackground(Color.BLACK);
+                panel.setVisible(true);
+                //panel.setLayout(new FlowLayout());
+                frame.getContentPane().setBackground(Color.RED);// Set background color
+                //frame.setBackground(Color.WHITE);
+
+                //panel.add(Box.createRigidArea(new Dimension(100, 100)));
+
+
+                //frame.setSize(450, 800);
+                //frame.setLocationRelativeTo(null);
+                //frame.setResizable(false);
+                //frame.setVisible(true);
                 JTextField username = new JTextField(20);
+                username.setBackground(Color.PINK);
                 JPasswordField password = new JPasswordField(20);
 
-                JButton loginButton = new JButton("Login");
-                loginButton.addActionListener(new ActionListener() {
+                JButton logButton = new JButton("Login");
+                logButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e){
                         String user = username.getText();
@@ -135,9 +147,15 @@ public class LoginRegister {
                         }
                     }
                 });
+
+
+
+
                 panel.add(username);
                 panel.add(password);
-                panel.add(loginButton);
+                panel.add(logButton);
+
+
                 frame.add(panel);
                 frame.setVisible(true);
             }
@@ -154,7 +172,7 @@ public class LoginRegister {
                 JPanel panel = new JPanel();
                 panel.setBackground(Color.RED); // Set background color
 
-                frame.setSize(800, 600);
+                frame.setSize(450, 800);
                 frame.setLocationRelativeTo(null);
                 frame.setResizable(false);
                 frame.setVisible(true);
