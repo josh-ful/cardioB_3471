@@ -17,6 +17,9 @@ public class RegisterScene extends Scenes{
         frame.setTitle("Register ™");
         JButton registerButton = getConfirmRegisterButton(username, password);
         panel.add(registerButton);
+        super.addBackButton(frame);
+
+
         frame.add(panel);
     }
 

@@ -10,6 +10,7 @@ public class Scenes {
     JButton backButton = new JButton("Back");
     JPanel panel = new JPanel();
     JFrame oldFrame = null;
+
     public void createAndShowGUI(JFrame frame) {
         frame.getContentPane().removeAll();
         frame.getContentPane().repaint();
@@ -28,11 +29,13 @@ public class Scenes {
         panel.add(password);
     }
 
-    public void addBackButton() {
+    public void addBackButton(JFrame frame) {
         panel.add(backButton);
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                oldFrame = frame;
+                new homeScreen(frame);
             }
         });
     }

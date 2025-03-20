@@ -13,11 +13,13 @@ public class LoginScene extends Scenes{
     public void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
         super.addUsernamePassword();
-        super.addBackButton();
+
 
         frame.setTitle("Login");
         JButton loginButton = getConfirmLoginButton(username, password);
         panel.add(loginButton);
+        super.addBackButton(frame);
+
         frame.add(panel);
     }
 
