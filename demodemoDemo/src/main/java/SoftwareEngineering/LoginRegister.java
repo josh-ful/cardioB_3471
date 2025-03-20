@@ -1,21 +1,4 @@
-/*
-Author: Trello Fellows
-Date Created: 3/18/2025
-File Name: MainMenu.java
-Description: Holds the main file and holds the display of the menu (for now)
-
-Date Last Modified: 3/19/2025
-
-
-PUT YOUR NAME HERE:
-Josh Fulton
-
- */
-
-
-
 package SoftwareEngineering;
-
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,36 +7,9 @@ import java.awt.event.ActionListener;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
-
-//From main we are starting program so we need to bring the UI to scene 1 (login),
-// and then from there try to give control to the individual controllers based on userType
-
-//Data Abstraction (Locally based implementation--remove when implementing database)
-//Map of valid usernames and passwords [DONE]
-//Login scene: [DONE]
-//Right now in the main file
-//Could be extracted into its own class later
-
-//within the scene the interactions should confirm validity of login [DONE]
-//then assign the user with a session
-//and in creating a session assign the correct type of controller
-//in order to bring it to the next screen
-//imo what makes sense is have a session obj that we have 3 different constructors for
-//if we have a session constructed with a admin type, in its creation its should bring
-//the user to the next scene? in its construction create a new gui? that overrides the login gui'
-
-
-//TO DO:
-//Create Login GUI, that leads to two different screens login & register [DONE]
-//Create fields in the login scene that check with the local map to see if the login info is valid [DONE]
-//Create fields in the register scene, that accept valid formatted info and add that data to the map [DONE]
-//Extract login and register button scenes to separate classes & link to one gui
-
-
-public class MainMenu {
-
-    public void createAndShowGUI() {
+public class LoginRegister {
+    
+    public void createAndShowGUI(JFrame frame) {
         Map<String,String> logins  = new LinkedHashMap<>();
         logins.put("Noah", "Mathew");
         logins.put("Josh", "Fulton");
@@ -61,8 +17,8 @@ public class MainMenu {
         logins.put("Emily", "Wokoek");
         logins.put("Carter", "Lewis");
         logins.put("Lawson", "Hale");
-
-        JFrame frame = new JFrame();
+        
+        //JFrame frame = frames;
         //frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -80,10 +36,69 @@ public class MainMenu {
         companyName.setVerticalAlignment(SwingConstants.TOP);
 
         JButton loginButton = new JButton("Login");
+        loginButton.setMaximumSize(new Dimension(100, 50));
+        loginButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+        loginScene(frame, loginButton, logins);
+
+        JButton registerButton = new JButton("Register");
+        registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        registerButton.setMaximumSize(new Dimension(100, 50));
+        registerButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+        registerScene(registerButton, logins);
+        
+        
+        ImageIcon icon = new ImageIcon("src/main/resources/cardioB_logo.png");
+        Image image = icon.getImage();
+        image = image.getScaledInstance(600, 200, Image.SCALE_SMOOTH);
+        icon = new ImageIcon(image);
+        JLabel iconLabel = new JLabel(icon);
+
+
+        c.anchor = GridBagConstraints.PAGE_END;
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.ipady = 100;
+        frame.add(iconLabel, c);
+
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 0;
+        c.gridy = 3;
+        c.ipady = 10;
+        frame.add(companyName, c);
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 0;
+        c.gridy = 5;
+        frame.add(loginButton, c);
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 0;
+        c.gridy = 15;
+        frame.add(registerButton, c);
+
+
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setVisible(true);
+
+
+    }
+
+    private static void loginScene(JFrame frame, JButton loginButton, Map<String, String> logins) {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                JFrame frame = new JFrame("Login");
+
+                frame.removeAll();
+                frame.revalidate();
+                frame.repaint();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setTitle("Login ™");
                 JPanel panel = new JPanel();
@@ -125,14 +140,11 @@ public class MainMenu {
                 panel.add(loginButton);
                 frame.add(panel);
                 frame.setVisible(true);
-
-
             }
         });
-        loginButton.setMaximumSize(new Dimension(100, 50));
-        loginButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+    }
 
-        JButton registerButton = new JButton("Register");
+    private static void registerScene(JButton registerButton, Map<String, String> logins) {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -141,7 +153,6 @@ public class MainMenu {
                 frame.setTitle("Register ™");
                 JPanel panel = new JPanel();
                 panel.setBackground(Color.RED); // Set background color
-
 
                 frame.setSize(800, 600);
                 frame.setLocationRelativeTo(null);
@@ -181,60 +192,6 @@ public class MainMenu {
                 frame.setVisible(true);
             }
         });
-
-        registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        registerButton.setMaximumSize(new Dimension(100, 50));
-        registerButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-
-        ImageIcon icon = new ImageIcon("src/main/resources/cardioB_logo.png");
-        Image image = icon.getImage();
-        image = image.getScaledInstance(400, 425, Image.SCALE_SMOOTH);
-        icon = new ImageIcon(image);
-        JLabel iconLabel = new JLabel(icon);
-
-
-        c.anchor = GridBagConstraints.PAGE_END;
-
-
-
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
-        c.gridx = 0;
-        c.gridy = 0;
-        c.ipady = 70;
-        frame.add(iconLabel, c);
-
-
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
-        c.gridx = 0;
-        c.gridy = 3;
-        c.ipady = 10;
-        frame.add(companyName, c);
-
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
-        c.gridx = 0;
-        c.gridy = 5;
-        c.ipady = 40;
-        frame.add(loginButton, c);
-
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
-        c.gridx = 0;
-        c.gridy = 20;
-        frame.add(registerButton, c);
-
-
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setVisible(true);
-
-
     }
 
-    public static void main(String[] args) {
-        new MainMenu().createAndShowGUI();
-        //System.out.println("mommy nodes"); >:( no
-    }
 }
