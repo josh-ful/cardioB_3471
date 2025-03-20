@@ -7,25 +7,16 @@ import java.awt.event.ActionListener;
 
 public class RegisterScene extends LR_Scenes{
     public RegisterScene(JFrame frame) {
-        createAndShowGUI(frame);
-    }
-
-    public void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
-        super.addUsernamePassword();
-
-        frame.setTitle("Register ™");
+        super.createLR_SCENE(frame);
         JButton registerButton = getConfirmRegisterButton(username, password);
         panel.add(registerButton);
-        super.addBackButton(frame);
-
-
-        frame.add(panel);
+        addBackButton(frame);
     }
 
     private static JButton getConfirmRegisterButton(JTextField username, JPasswordField password) {
         JButton registerButton = new JButton("Register");
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        registerButton.setMaximumSize(new Dimension(400, 30));
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
