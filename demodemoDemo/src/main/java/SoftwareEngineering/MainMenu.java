@@ -126,15 +126,11 @@ public class MainMenu {
                 frame.add(panel);
                 frame.setVisible(true);
 
-                //repaint();
 
             }
         });
-
-        //loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginButton.setMaximumSize(new Dimension(100, 50));
         loginButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-        //loginButton.setHorizontalAlignment(SwingConstants.TOP);
 
         JButton registerButton = new JButton("Register");
         registerButton.addActionListener(new ActionListener() {
@@ -189,7 +185,6 @@ public class MainMenu {
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerButton.setMaximumSize(new Dimension(100, 50));
         registerButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-        //registerButton.setSize(20,20);
 
         ImageIcon icon = new ImageIcon("src/main/resources/cardioB_logo.png");
         Image image = icon.getImage();
@@ -201,9 +196,6 @@ public class MainMenu {
         c.anchor = GridBagConstraints.PAGE_END;
 
 
-
-
-        //frame.add(iconLabel, c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
