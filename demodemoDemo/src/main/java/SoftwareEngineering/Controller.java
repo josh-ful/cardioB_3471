@@ -1,4 +1,4 @@
 package SoftwareEngineering;
 
-public class Controller {
+public interface Controller {
 }

@@ -17,4 +17,6 @@ public class Session {
     public void setName(String name) {//should be used by a controller
         this.name = name;
     }
+
+    //has a controller
 }

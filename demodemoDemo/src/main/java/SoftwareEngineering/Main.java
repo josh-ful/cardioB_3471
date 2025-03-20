@@ -12,17 +12,15 @@ Josh Fulton
 Noah Mathew
 Carter Lewis
 Emily Wokoek
-
+Kiera Shepperd
  */
-
-
 
 package SoftwareEngineering;
 
-
 import javax.swing.*;
 import java.awt.*;
-
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 //From main we are starting program so we need to bring the UI to scene 1 (login),
 // and then from there try to give control to the individual controllers based on userType
@@ -38,17 +36,15 @@ import java.awt.*;
 //and in creating a session assign the correct type of controller
 //in order to bring it to the next screen
 //imo what makes sense is have a session obj that we have 3 different constructors for
+//*KIERA: can create a session interface, implimented by 3 diff classes for the diff users
 //if we have a session constructed with a admin type, in its creation its should bring
 //the user to the next scene? in its construction create a new gui? that overrides the login gui'
-
 
 //TO DO:
 //Create Login GUI, that leads to two different screens login & register [DONE]
 //Create fields in the login scene that check with the local map to see if the login info is valid [DONE]
 //Create fields in the register scene, that accept valid formatted info and add that data to the map [DONE]
 //Extract login and register button scenes to separate classes & link to one gui
-
-
 
 public class Main {
 
@@ -62,13 +58,18 @@ public class Main {
         }
     }
 
-
     public static void main(String[] args) {
         JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-        new homeScreen(frame);
+        userStorage me = new userStorage();
+        homeScreen hs = new homeScreen(frame);
+        //when me has information stored in it
+        while (!me.infoInputted()) {
+
+        }
+
         //System.out.println("mommy nodes"); >:( no
 
+        //create a new session
+        //
     }
 }

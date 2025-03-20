@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static SoftwareEngineering.Login.loginLogic;
+
 public class LoginScene extends Scenes{
 
     public LoginScene(JFrame frame){
@@ -30,7 +32,7 @@ public class LoginScene extends Scenes{
             public void actionPerformed(ActionEvent e) {
                 String user = username.getText();
                 String pass = new String(password.getPassword());
-                boolean success = new Login().loginLogic(user, pass);
+                boolean success = loginLogic(user, pass);
                 LR_Dialog l_dialog = new LR_Dialog(success);
             }
         });

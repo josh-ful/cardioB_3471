@@ -1,4 +1,4 @@
 package SoftwareEngineering;
 
-public class TrainerController {
+public class TrainerController implements Controller{
 }
