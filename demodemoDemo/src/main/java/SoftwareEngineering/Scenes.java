@@ -1,6 +1,7 @@
 package SoftwareEngineering;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,7 +10,7 @@ public class Scenes {
     JPasswordField password = new JPasswordField(20);
     JButton backButton = new JButton("Back");
     JPanel panel = new JPanel();
-    JFrame oldFrame = null;
+
 
     public void createAndShowGUI(JFrame frame) {
         frame.getContentPane().removeAll();
@@ -30,11 +31,12 @@ public class Scenes {
     }
 
     public void addBackButton(JFrame frame) {
+        backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backButton.setMaximumSize(new Dimension(frame.getWidth(), 50));
         panel.add(backButton);
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                oldFrame = frame;
                 new homeScreen(frame);
             }
         });

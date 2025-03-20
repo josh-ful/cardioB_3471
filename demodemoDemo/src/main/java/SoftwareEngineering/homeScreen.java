@@ -1,6 +1,7 @@
 package SoftwareEngineering;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,7 +40,8 @@ public class homeScreen extends Scenes{
 
         ImageIcon icon = new ImageIcon("src/main/resources/cardioB_logo.png");
         Image image = icon.getImage();
-        image = image.getScaledInstance(600, 200, Image.SCALE_SMOOTH);
+        image = image.getScaledInstance(300, 400, Image.SCALE_SMOOTH);
+
         icon = new ImageIcon(image);
         JLabel iconLabel = new JLabel(icon);
 

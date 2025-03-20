@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RegisterScene extends Scenes{
+public class RegisterScene extends LR_Scenes{
     public RegisterScene(JFrame frame) {
         createAndShowGUI(frame);
     }
@@ -25,6 +25,7 @@ public class RegisterScene extends Scenes{
 
     private static JButton getConfirmRegisterButton(JTextField username, JPasswordField password) {
         JButton registerButton = new JButton("Register");
+        registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
