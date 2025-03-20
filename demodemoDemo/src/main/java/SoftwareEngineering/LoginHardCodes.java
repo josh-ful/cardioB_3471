@@ -1,17 +1,16 @@
 package SoftwareEngineering;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class LoginHardCodes {
-    public Map<String,String> logins  = new LinkedHashMap<>();
+import static java.util.Map.entry;
 
-    public LoginHardCodes() {
-        logins.put("Noah", "Mathew");
-        logins.put("Josh", "Fulton");
-        logins.put("Kiera", "Shepperd");
-        logins.put("Emily", "Wokoek");
-        logins.put("Carter", "Lewis");
-        logins.put("Lawson", "Hale");
-    }
+public interface LoginHardCodes {
+    Map<String,String> logins  = Map.ofEntries(
+            entry( "Noah", "Mathew"),
+            entry("Josh", "Fulton"),
+            entry("Kiera", "Shepperd"),
+            entry("Emily", "Wokoek"),
+            entry("Carter", "Lewis"),
+            entry("Lawson", "Hale")
+    );
 }
