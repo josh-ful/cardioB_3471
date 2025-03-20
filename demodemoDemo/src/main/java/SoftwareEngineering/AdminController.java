@@ -1,4 +1,4 @@
 package SoftwareEngineering;
 
-public class AdminController {
+public class AdminController implements Controller{
 }

@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static SoftwareEngineering.Register.registerLogic;
+
 public class RegisterScene extends Scenes{
     public RegisterScene(JFrame frame) {
         createAndShowGUI(frame);
@@ -42,7 +44,7 @@ public class RegisterScene extends Scenes{
             public void actionPerformed(ActionEvent e) {
                 String user = username.getText();
                 String pass = new String(password.getPassword());
-                boolean success = new Register().registerLogic(user, pass);
+                boolean success = registerLogic(user, pass);
                 LR_Dialog r_dialog = new LR_Dialog(success);
             }
         });

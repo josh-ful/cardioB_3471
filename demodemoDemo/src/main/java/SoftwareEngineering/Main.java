@@ -60,7 +60,16 @@ public class Main {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame();
-        new homeScreen(frame);
+        userStorage me = new userStorage();
+        homeScreen hs = new homeScreen(frame);
+        //when me has information stored in it
+        while (!me.infoInputted()) {
+
+        }
+
         //System.out.println("mommy nodes"); >:( no
+
+        //create a new session
+        //
     }
 }

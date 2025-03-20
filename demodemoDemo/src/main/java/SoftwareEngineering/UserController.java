@@ -1,5 +1,5 @@
 package SoftwareEngineering;
 
-public class UserController {
+public class UserController implements Controller {
 
 }
