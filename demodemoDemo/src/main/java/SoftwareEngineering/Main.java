@@ -19,6 +19,7 @@ package SoftwareEngineering;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLOutput;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -60,11 +61,13 @@ public class Main {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame();
-        userStorage me = new userStorage();
         homeScreen hs = new homeScreen(frame);
         //when me has information stored in it
-        while (!me.infoInputted()) {
+        System.out.println("next command ran anyways");
 
+        if (userStorage.infoInputted()) {
+            System.out.println("Login Successful");
+            System.out.println(userStorage.userInfo());
         }
 
         //System.out.println("mommy nodes"); >:( no
