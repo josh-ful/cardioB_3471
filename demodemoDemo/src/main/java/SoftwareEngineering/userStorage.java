@@ -4,9 +4,7 @@ public class userStorage {
     private static String name;
     private static String password;
 
-    public userStorage() {}
-
-    public String getName() {
+    public static String getName() {
         return name;
     }
 
@@ -14,7 +12,7 @@ public class userStorage {
         name = n;
     }
 
-    public String getPassword() {
+    public static String getPassword() {
         return password;
     }
 
@@ -22,7 +20,11 @@ public class userStorage {
         password = p;
     }
 
-    public boolean infoInputted(){
+    public static boolean infoInputted(){
         return name != null && password != null;
+    }
+
+    public static String userInfo() {
+        return name + " " + password;
     }
 }
