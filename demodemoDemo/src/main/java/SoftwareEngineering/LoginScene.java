@@ -9,14 +9,14 @@ public class LoginScene extends LR_Scenes{
 
     public LoginScene(JFrame frame){
         super.createLR_SCENE(frame);
-        JButton loginButton = getConfirmLoginButton(username, password);
+        JButton loginButton = getConfirmLoginButton(frame, username, password);
         panel.add(loginButton);
         addBackButton(frame);
     }
 
 
 
-    private static JButton getConfirmLoginButton(JTextField username, JPasswordField password) {
+    private static JButton getConfirmLoginButton(JFrame frame, JTextField username, JPasswordField password) {
         JButton loginButton = new JButton("Login");
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginButton.setMaximumSize(new Dimension(400, 30));
@@ -26,6 +26,10 @@ public class LoginScene extends LR_Scenes{
                 String user = username.getText();
                 String pass = new String(password.getPassword());
                 boolean success = Login.loginLogic(user, pass);
+                if (success) {
+                    // update frame to reflect profile page
+                    new ProfileScreen(frame);
+                }
                 LR_Dialog l_dialog = new LR_Dialog(success);
             }
         });

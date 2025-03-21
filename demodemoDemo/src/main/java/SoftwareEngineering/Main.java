@@ -17,6 +17,8 @@ Kiera Shepperd
 
 package SoftwareEngineering;
 
+import org.w3c.dom.html.HTMLObjectElement;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLOutput;
@@ -61,7 +63,7 @@ public class Main {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame();
-        homeScreen hs = new homeScreen(frame);
+        HomeScreen hs = new HomeScreen(frame);
         //when me has information stored in it
         System.out.println("next command ran anyways");
 
