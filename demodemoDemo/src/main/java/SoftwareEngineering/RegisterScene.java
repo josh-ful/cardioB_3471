@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class RegisterScene extends LR_Scenes{
     public RegisterScene(JFrame frame) {
@@ -24,6 +25,10 @@ public class RegisterScene extends LR_Scenes{
                 String pass = new String(password.getPassword());
                 boolean success = Register.registerLogic(user, pass);
                 LR_Dialog r_dialog = new LR_Dialog(success);
+
+                // For testing only
+                //ArrayList<String> loginList = new ArrayList<>(Register.logins.keySet());
+                //loginList.stream().forEach(System.out::println);
             }
         });
         return registerButton;
