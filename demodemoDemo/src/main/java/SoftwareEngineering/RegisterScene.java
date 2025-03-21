@@ -22,7 +22,7 @@ public class RegisterScene extends LR_Scenes{
             public void actionPerformed(ActionEvent e) {
                 String user = username.getText();
                 String pass = new String(password.getPassword());
-                boolean success = new Register().registerLogic(user, pass);
+                boolean success = Register.registerLogic(user, pass);
                 LR_Dialog r_dialog = new LR_Dialog(success);
             }
         });
