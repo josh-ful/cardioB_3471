@@ -13,6 +13,7 @@ Noah Mathew
 Carter Lewis
 Emily Wokoek
 Kiera Shepperd
+Lawson Hale
  */
 
 package SoftwareEngineering;
