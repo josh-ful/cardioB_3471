@@ -8,7 +8,7 @@ public class Register implements LoginHardCodes {
 
         if(!logins.containsKey(user)){
             success = true;
-            logins.put(user,pass);
+            logins.put(user, pass);
 
             setName(user);
             setPassword(pass);
