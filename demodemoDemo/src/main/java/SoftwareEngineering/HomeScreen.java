@@ -1,13 +1,12 @@
 package SoftwareEngineering;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class homeScreen extends Scenes{
-    public homeScreen(JFrame frame) {
+public class HomeScreen extends Scenes{
+    public HomeScreen(JFrame frame) {
         createAndShowGUI(frame);
     }
 
