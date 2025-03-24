@@ -74,12 +74,12 @@ public class userMenuScene extends Scenes{
         classButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         classButton.setMaximumSize(new Dimension(frame.getWidth(), 50));
         panel.add(classButton);
-        /*profileButton.addActionListener(new ActionListener() {
+        classButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new homeScreen(frame);
+                new ClassListScene(frame);
             }
-        });*/
+        });
     }
 
 
