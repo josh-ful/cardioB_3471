@@ -63,12 +63,12 @@ public class userMenuScene extends Scenes{
         logButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         logButton.setMaximumSize(new Dimension(frame.getWidth(), 50));
         panel.add(logButton);
-        /*profileButton.addActionListener(new ActionListener() {
+        logButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new homeScreen(frame);
+                new ExerciseLogScene(frame);
             }
-        });*/
+        });
     }
     public void addClassButton(JFrame frame) {
         classButton.setAlignmentX(Component.CENTER_ALIGNMENT);
