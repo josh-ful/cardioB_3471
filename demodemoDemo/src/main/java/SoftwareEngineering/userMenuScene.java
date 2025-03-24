@@ -34,14 +34,16 @@ public class userMenuScene extends Scenes{
         JLabel welcomeText = new JLabel("Welcome!");
         welcomeText.setFont(new Font("Comic Sans MS", Font.BOLD, 60));
         welcomeText.setForeground(Color.BLACK);
-        welcomeText.setAlignmentY(Component.TOP_ALIGNMENT);
-        welcomeText.setHorizontalAlignment(SwingConstants.CENTER);
-        welcomeText.setVerticalAlignment(SwingConstants.TOP);
+        welcomeText.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //welcomeText.setAlignmentY(Component.TOP_ALIGNMENT);
+        //welcomeText.setHorizontalAlignment(SwingConstants.CENTER);
+        //welcomeText.setVerticalAlignment(SwingConstants.TOP);
         JLabel promptText = new JLabel("Ready to get your CardioB in today?");
         promptText.setForeground(Color.BLACK);
-        promptText.setAlignmentY(Component.TOP_ALIGNMENT);
-        promptText.setHorizontalAlignment(SwingConstants.CENTER);
-        promptText.setVerticalAlignment(SwingConstants.TOP);
+        promptText.setAlignmentX(Component.CENTER_ALIGNMENT);
+       // promptText.setAlignmentY(Component.TOP_ALIGNMENT);
+        //promptText.setHorizontalAlignment(SwingConstants.CENTER);
+        //promptText.setVerticalAlignment(SwingConstants.TOP);
         panel.add(welcomeText);
         panel.add(promptText);
     }

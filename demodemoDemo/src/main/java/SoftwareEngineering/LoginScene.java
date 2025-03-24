@@ -26,7 +26,7 @@ public class LoginScene extends LR_Scenes{
                 String user = username.getText();
                 String pass = new String(password.getPassword());
                 boolean success = new Login().loginLogic(user, pass);
-                LR_Dialog l_dialog = new LR_Dialog(success);
+                //LR_Dialog l_dialog = new LR_Dialog(success);
                 userMenuScene umS = new userMenuScene(frame);
             }
         });
