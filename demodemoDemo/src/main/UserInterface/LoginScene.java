@@ -26,15 +26,16 @@ public class LoginScene extends LR_Scenes{
             public void actionPerformed(ActionEvent e) {
                 String user = username.getText();
                 String pass = new String(password.getPassword());
+
                 boolean success = Login.loginLogic(user, pass);
+
                 if (success) {
                     // update frame to reflect profile page
                     new ProfileScreen(frame);
+                } else{
+                    LR_Dialog l_dialog = new LR_Dialog(success);
                 }
-                LR_Dialog l_dialog = new LR_Dialog(success);
-                boolean success = new Login().loginLogic(user, pass);
-                //LR_Dialog l_dialog = new LR_Dialog(success);
-                userMenuScene umS = new userMenuScene(frame);
+                //userMenuScene umS = new userMenuScene(frame);
             }
         });
         return loginButton;
