@@ -1,4 +1,4 @@
-package SoftwareEngineering;
+package main.UserInterface;
 
 import javax.swing.*;
 import java.awt.*;

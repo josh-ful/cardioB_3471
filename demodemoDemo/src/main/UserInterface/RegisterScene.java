@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import main.userInformation.*;
+//import java.util.ArrayList;
 
 public class RegisterScene extends LR_Scenes{
     public RegisterScene(JFrame frame) {
@@ -23,8 +24,12 @@ public class RegisterScene extends LR_Scenes{
             public void actionPerformed(ActionEvent e) {
                 String user = username.getText();
                 String pass = new String(password.getPassword());
-                boolean success = new Register().registerLogic(user, pass);
-                LR_Dialog r_dialog = new LR_Dialog(success);
+                boolean success = Register.registerLogic(user, pass);
+                new LR_Dialog(success);
+
+                // For testing only
+                //ArrayList<String> loginList = new ArrayList<>(Register.logins.keySet());
+                //loginList.forEach(System.out::println);
             }
         });
         return registerButton;

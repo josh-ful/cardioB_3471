@@ -39,7 +39,7 @@ public class LR_Scenes extends Scenes{
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new homeScreen(frame);
+                new HomeScreen(frame);
             }
         });
     }
