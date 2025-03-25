@@ -1,9 +1,10 @@
-package SoftwareEngineering;
+package main.UserInterface;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import main.userInformation.*;
 
 public class RegisterScene extends LR_Scenes{
     public RegisterScene(JFrame frame) {

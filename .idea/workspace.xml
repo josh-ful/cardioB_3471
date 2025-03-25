@@ -4,30 +4,77 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9dd17e6f-2594-435a-9364-3e4ba99e9f7c" name="Changes" comment="">
+    <list default="true" id="9dd17e6f-2594-435a-9364-3e4ba99e9f7c" name="Changes" comment="Added MainMenu to Carter's branch">
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/LR_Dialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/LR_Scenes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/LoginScene.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/MainMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/RegisterScene.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Scenes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/homeScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/controller/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/controller/Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/controller/TrainerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/fitnessCourse/Exercise.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/fitnessCourse/Session.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/test/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/userInformation/Login.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/userInformation/LoginHardCodes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/userInformation/Register.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/userInformation/userStorage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/AdminController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/LR_Dialog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/LR_Scenes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/Login.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/LoginHardCodes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/LoginScene.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/MainMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/Register.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/RegisterScene.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/Scenes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/Session.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/TrainerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/homeScreen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/userStorage.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "ksheep18"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ksheep18&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/josh-ful/cardioB_3471.git",
-    "accountId": "a54d6502-7d9e-4cca-b543-c5da12a86f08"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/josh-ful/cardioB_3471.git&quot;,
+    &quot;accountId&quot;: &quot;a54d6502-7d9e-4cca-b543-c5da12a86f08&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -41,7 +88,7 @@
     "Application.MainMenu.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Carter",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/kierashepperd/Desktop/Classes/Software_Engineering/GP/cardioB_3471",
@@ -50,12 +97,27 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/demodemoDemo/src" />
+    </key>
+  </component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
+    <configuration name="MainMenu" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.java.SoftwareEngineering.MainMenu" />
       <module name="cardioB_3471" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="SoftwareEngineering.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -87,9 +149,22 @@
       <workItem from="1742331482041" duration="36000" />
       <workItem from="1742497102791" duration="1369000" />
     </task>
+    <task id="LOCAL-00001" summary="Added MainMenu to Carter's branch">
+      <option name="closed" value="true" />
+      <created>1742911223545</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1742911223545</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added MainMenu to Carter's branch" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added MainMenu to Carter's branch" />
   </component>
 </project>

@@ -1,3 +1,5 @@
+package main.UserInterface;
+
 /*
 Author: Trello Fellows
 Date Created: 3/18/2025
@@ -12,10 +14,6 @@ Josh Fulton
 Noah Mathew
 Carter Lewis
  */
-
-
-
-package SoftwareEngineering;
 
 
 import javax.swing.*;

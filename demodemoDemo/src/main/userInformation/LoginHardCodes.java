@@ -1,4 +1,4 @@
-package SoftwareEngineering;
+package main.userInformation;
 
 import java.util.Map;
 

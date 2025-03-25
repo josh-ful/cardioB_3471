@@ -1,6 +1,7 @@
-package SoftwareEngineering;
+package main.userInformation;
 
-import static SoftwareEngineering.userStorage.*;
+import static main.userInformation.userStorage.setName;
+import static main.userInformation.userStorage.setPassword;
 
 public class Register implements LoginHardCodes {
     public static boolean registerLogic(String user, String pass){

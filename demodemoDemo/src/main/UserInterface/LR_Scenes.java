@@ -1,11 +1,9 @@
-package SoftwareEngineering;
+package main.UserInterface;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import static java.awt.Component.LEFT_ALIGNMENT;
 
 public class LR_Scenes extends Scenes{
     JTextField username = new JTextField(20);
