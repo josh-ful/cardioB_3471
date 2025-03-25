@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import main.userInformation.Login;
+import main.UserInformation.Login;
 
 public class LoginScene extends LR_Scenes{
 
@@ -31,11 +31,11 @@ public class LoginScene extends LR_Scenes{
 
                 if (success) {
                     // update frame to reflect profile page
-                    new ProfileScreen(frame);
+                    //new ProfileScreen(frame);
+                    UserMenuScene umS = new UserMenuScene(frame);
                 } else{
                     LR_Dialog l_dialog = new LR_Dialog(success);
                 }
-                //userMenuScene umS = new userMenuScene(frame);
             }
         });
         return loginButton;

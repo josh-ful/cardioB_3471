@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import main.userInformation.*;
+import main.UserInformation.*;
 //import java.util.ArrayList;
 
 public class RegisterScene extends LR_Scenes{

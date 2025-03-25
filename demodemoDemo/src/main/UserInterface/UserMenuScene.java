@@ -5,13 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class userMenuScene extends Scenes{
+public class UserMenuScene extends Scenes{
     JButton profileButton = new JButton("Profile");
     JButton logButton = new JButton("Log Exercise");
     JButton classButton = new JButton("Classes");
     JPanel panel = new JPanel();
 
-    public userMenuScene(JFrame frame){
+    public UserMenuScene(JFrame frame){
         createUM_SCENE(frame);
         addProfileButton(frame);
         addLogButton(frame);

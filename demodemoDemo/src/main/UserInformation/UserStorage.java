@@ -1,6 +1,6 @@
-package main.userInformation;
+package main.UserInformation;
 
-public class userStorage {
+public class UserStorage {
     private static String name;
     private static String password;
 
