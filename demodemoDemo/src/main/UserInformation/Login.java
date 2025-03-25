@@ -1,7 +1,7 @@
-package main.userInformation;
+package main.UserInformation;
 
-import static main.userInformation.userStorage.setName;
-import static main.userInformation.userStorage.setPassword;
+import static main.UserInformation.UserStorage.setName;
+import static main.UserInformation.UserStorage.setPassword;
 
 public class Login implements LoginHardCodes {
     public static boolean loginLogic(String user, String pass){

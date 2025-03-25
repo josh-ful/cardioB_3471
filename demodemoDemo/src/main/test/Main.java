@@ -18,10 +18,8 @@ Kiera Shepperd
 Lawson Hale
  */
 
-import main.userInformation.userStorage;
-import main.UserInterface.homeScreen;
-
-import org.w3c.dom.html.HTMLObjectElement;
+import main.UserInformation.*;
+import main.UserInterface.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -68,14 +66,13 @@ public class Main {
         //when me has information stored in it
         System.out.println("next command ran anyways");
 
-        if (userStorage.infoInputted()) {
+        if (UserStorage.infoInputted()) {
             System.out.println("Login Successful");
-            System.out.println(userStorage.userInfo());
+            System.out.println(UserStorage.userInfo());
+            //userMenuScene umS = new userMenuScene(frame);
         }
+        //userMenuScene umS = new userMenuScene(frame);
 
         //System.out.println("mommy nodes"); >:( no
-
-        //create a new session
-        //
     }
 }

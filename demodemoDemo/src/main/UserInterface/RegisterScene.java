@@ -1,10 +1,10 @@
-package SoftwareEngineering;
+package main.UserInterface;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.util.ArrayList;
+import main.userInformation.*;
 
 public class RegisterScene extends LR_Scenes{
     public RegisterScene(JFrame frame) {
@@ -23,8 +23,11 @@ public class RegisterScene extends LR_Scenes{
             public void actionPerformed(ActionEvent e) {
                 String user = username.getText();
                 String pass = new String(password.getPassword());
+
                 boolean success = Register.registerLogic(user, pass);
                 new LR_Dialog(success);
+
+                //TODO: What happens after this?? Back to login screen?
 
                 // For testing only
                 //ArrayList<String> loginList = new ArrayList<>(Register.logins.keySet());

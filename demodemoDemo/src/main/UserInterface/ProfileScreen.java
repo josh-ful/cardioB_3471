@@ -1,4 +1,6 @@
-package SoftwareEngineering;
+package main.UserInterface;
+
+import main.UserInformation.UserStorage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,12 +23,11 @@ public class ProfileScreen extends Scenes{
         JPanel panel = new JPanel();
         JLabel nameLabel = new JLabel("Name: ");
 
-        nameLabel.setText(nameLabel.getText() + userStorage.getName());
+        nameLabel.setText(nameLabel.getText() + UserStorage.getName());
         panel.add(nameLabel);
 
         frame.add(panel);
 
         // get class list and display
-
     }
 }
