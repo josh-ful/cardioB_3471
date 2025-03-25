@@ -1,4 +1,4 @@
-package SoftwareEngineering;
+package main.userInformation;
 
 public class userStorage {
     private static String name;

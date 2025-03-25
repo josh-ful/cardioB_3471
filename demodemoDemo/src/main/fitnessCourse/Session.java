@@ -1,4 +1,4 @@
-package SoftwareEngineering;
+package main.fitnessCourse;
 
 public class Session {
     //Should have a user controller object and know details about the user as well as user type
