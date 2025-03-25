@@ -69,7 +69,9 @@ public class Main {
         if (userStorage.infoInputted()) {
             System.out.println("Login Successful");
             System.out.println(userStorage.userInfo());
+            //userMenuScene umS = new userMenuScene(frame);
         }
+        //userMenuScene umS = new userMenuScene(frame);
 
         //System.out.println("mommy nodes"); >:( no
 
