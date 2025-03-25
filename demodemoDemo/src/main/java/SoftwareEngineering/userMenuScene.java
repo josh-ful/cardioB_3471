@@ -7,18 +7,21 @@ import java.awt.event.ActionListener;
 
 public class userMenuScene extends Scenes{
     JButton profileButton = new JButton("Profile");
+    JButton menuHamburgerButton = new JButton();
+
     JButton logButton = new JButton("Log Exercise");
     JButton classButton = new JButton("Classes");
     JPanel panel = new JPanel();
 
     public userMenuScene(JFrame frame){
+        addCardiBButton(frame);
         createUM_SCENE(frame);
         addProfileButton(frame);
         addLogButton(frame);
         addClassButton(frame);
     }
 
-    private void panelLayout() { panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); }
+    private void panelLayout() { panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS)); }
 
 
     public void createUM_SCENE(JFrame frame) {
@@ -41,9 +44,6 @@ public class userMenuScene extends Scenes{
         JLabel promptText = new JLabel("Ready to get your CardioB in today?");
         promptText.setForeground(Color.BLACK);
         promptText.setAlignmentX(Component.CENTER_ALIGNMENT);
-       // promptText.setAlignmentY(Component.TOP_ALIGNMENT);
-        //promptText.setHorizontalAlignment(SwingConstants.CENTER);
-        //promptText.setVerticalAlignment(SwingConstants.TOP);
         panel.add(welcomeText);
         panel.add(promptText);
     }
@@ -80,6 +80,36 @@ public class userMenuScene extends Scenes{
                 new ClassListScene(frame);
             }
         });
+    }
+    public void addCardiBButton(JFrame frame) {
+
+        menuHamburgerButton.setLocation(10, 10);
+        ImageIcon icon = new ImageIcon("src/main/resources/menuIcon.png");
+        Image image = icon.getImage();
+        int newWidth = 50; // Desired width
+        int newHeight = 50; // Desired height
+        Image scaledImage = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+
+        icon = new ImageIcon(scaledImage);
+
+
+        menuHamburgerButton = new JButton(icon);
+
+        menuHamburgerButton.setBorderPainted(false);
+        menuHamburgerButton.setFocusPainted(false);
+        menuHamburgerButton.setContentAreaFilled(false);
+
+
+
+        menuHamburgerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Image button clicked!");
+            }
+        });
+
+        menuHamburgerButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        panel.add(menuHamburgerButton);
     }
 
 
