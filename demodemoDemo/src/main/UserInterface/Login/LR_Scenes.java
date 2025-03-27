@@ -1,14 +1,15 @@
-package main.UserInterface;
+package main.UserInterface.Login;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LR_Scenes extends Scenes{
-    JTextField username;
-    JPasswordField password;
-    JPanel panel;
+import main.UserInterface.*;
+
+public class LR_Scenes extends Scenes {
+    public JTextField username;
+    public JPasswordField password;
 
     private void panelLayout() {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -30,11 +31,11 @@ public class LR_Scenes extends Scenes{
         frame.add(panel);
     }
 
-    public JLabel getUsernameLabel(){
+    private JLabel getUsernameLabel(){
         return new JLabel("Username: ");
     }
 
-    public JLabel getPasswordLabel(){
+    private JLabel getPasswordLabel(){
         return new JLabel("Password: ");
     }
 

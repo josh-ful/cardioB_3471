@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Scenes {
-    JPanel panel;
+    protected JPanel panel;
 
     /*
      * description: creates blank GUI to be overridden

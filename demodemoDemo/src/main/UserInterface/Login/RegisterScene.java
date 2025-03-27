@@ -4,10 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import main.UserInformation.*;
 //import java.util.ArrayList;
 
-public class RegisterScene extends LR_Scenes{
+public class RegisterScene extends LR_Scenes {
     public RegisterScene(JFrame frame) {
         super.createLR_SCENE(frame);
 
@@ -26,7 +27,7 @@ public class RegisterScene extends LR_Scenes{
                 String user = username.getText();
                 String pass = new String(password.getPassword());
 
-                boolean success = main.userInformation.Register.registerLogic(user, pass);
+                boolean success = Register.registerLogic(user, pass);
                 new LR_Dialog(success);
 
                 //TODO: What happens after this?? Back to login screen?
@@ -36,6 +37,7 @@ public class RegisterScene extends LR_Scenes{
                 //loginList.forEach(System.out::println);
             }
         });
+
         return registerButton;
     }
 }
