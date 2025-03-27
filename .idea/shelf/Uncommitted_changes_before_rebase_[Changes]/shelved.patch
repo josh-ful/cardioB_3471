@@ -1,0 +1,187 @@
+Index: demodemoDemo/src/main/UserInterface/LR_Scenes.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/demodemoDemo/src/main/UserInterface/LR_Scenes.java b/demodemoDemo/src/main/UserInterface/Login/LR_Scenes.java
+rename from demodemoDemo/src/main/UserInterface/LR_Scenes.java
+rename to demodemoDemo/src/main/UserInterface/Login/LR_Scenes.java
+--- a/demodemoDemo/src/main/UserInterface/LR_Scenes.java	(revision 493726ec010486b1e56af624caa0619532ebfa77)
++++ b/demodemoDemo/src/main/UserInterface/Login/LR_Scenes.java	(date 1742921890073)
+@@ -1,11 +1,14 @@
+-package main.UserInterface;
++package main.UserInterface.Login;
++
++import main.UserInterface.Scenes;
++import main.UserInterface.homeScreen;
+ 
+ import javax.swing.*;
+ import java.awt.*;
+ import java.awt.event.ActionEvent;
+ import java.awt.event.ActionListener;
+ 
+-public class LR_Scenes extends Scenes{
++public class LR_Scenes extends Scenes {
+     JTextField username = new JTextField(20);
+     JPasswordField password = new JPasswordField(20);
+     JButton backButton = new JButton("Back");
+Index: demodemoDemo/src/main/UserInterface/homeScreen.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main.UserInterface;\n\nimport javax.swing.*;\nimport java.awt.*;\nimport java.awt.event.ActionEvent;\nimport java.awt.event.ActionListener;\n\npublic class homeScreen extends Scenes{\n    public homeScreen(JFrame frame) {\n        createAndShowGUI(frame);\n    }\n\n    public void createAndShowGUI(JFrame frame) {\n        super.createAndShowGUI(frame);\n\n        frame.setLayout(new GridBagLayout());\n        GridBagConstraints c = new GridBagConstraints();\n\n        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n        frame.setTitle(\"Trello Fellows®\");\n\n        frame.setSize(450, 800);\n\n        JLabel companyName = new JLabel(\"CardioB\");\n        companyName.setFont(new Font(\"Comic Sans MS\", Font.BOLD, 70));\n        companyName.setForeground(Color.BLACK);\n        companyName.setAlignmentY(Component.CENTER_ALIGNMENT);\n        companyName.setHorizontalAlignment(SwingConstants.CENTER);\n        companyName.setVerticalAlignment(SwingConstants.TOP);\n\n        JButton loginButton = getLoginButton(frame);\n        loginButton.setMaximumSize(new Dimension(100, 50));\n        loginButton.setFont(new Font(\"Comic Sans MS\", Font.BOLD, 15));\n\n        JButton registerButton = getRegisterButton(frame);\n        registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);\n        registerButton.setMaximumSize(new Dimension(100, 50));\n        registerButton.setFont(new Font(\"Comic Sans MS\", Font.BOLD, 15));\n\n        ImageIcon icon = new ImageIcon(\"src/main/resources/cardioB_logo.png\");\n        Image image = icon.getImage();\n        image = image.getScaledInstance(300, 400, Image.SCALE_SMOOTH);\n\n        icon = new ImageIcon(image);\n        JLabel iconLabel = new JLabel(icon);\n\n        c.anchor = GridBagConstraints.PAGE_END;\n\n        c.fill = GridBagConstraints.HORIZONTAL;\n        c.weightx = 0.5;\n        c.gridx = 0;\n        c.gridy = 0;\n        c.ipady = 100;\n        frame.add(iconLabel, c);\n\n        c.fill = GridBagConstraints.HORIZONTAL;\n        c.weightx = 0.5;\n        c.gridx = 0;\n        c.gridy = 3;\n        c.ipady = 10;\n        frame.add(companyName, c);\n\n        c.fill = GridBagConstraints.HORIZONTAL;\n        c.weightx = 0.5;\n        c.gridx = 0;\n        c.gridy = 5;\n        frame.add(loginButton, c);\n\n        c.fill = GridBagConstraints.HORIZONTAL;\n        c.weightx = 0.5;\n        c.gridx = 0;\n        c.gridy = 15;\n        frame.add(registerButton, c);\n\n        frame.setLocationRelativeTo(null);\n        frame.setResizable(false);\n        frame.setVisible(true);\n    }\n\n    private static JButton getLoginButton(JFrame frame) {\n        JButton loginButton = new JButton(\"Login\");\n        loginButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n                new LoginScene(frame);\n            }\n        });\n        return loginButton;\n    }\n\n    private static JButton getRegisterButton(JFrame frame) {\n        JButton registerButton = new JButton(\"Register\");\n        registerButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n                new RegisterScene(frame);\n            }\n        });\n        return registerButton;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/demodemoDemo/src/main/UserInterface/homeScreen.java b/demodemoDemo/src/main/UserInterface/homeScreen.java
+--- a/demodemoDemo/src/main/UserInterface/homeScreen.java	(revision 493726ec010486b1e56af624caa0619532ebfa77)
++++ b/demodemoDemo/src/main/UserInterface/homeScreen.java	(date 1742921890070)
+@@ -1,5 +1,8 @@
+ package main.UserInterface;
+ 
++import main.UserInterface.Login.LoginScene;
++import main.UserInterface.Login.RegisterScene;
++
+ import javax.swing.*;
+ import java.awt.*;
+ import java.awt.event.ActionEvent;
+Index: demodemoDemo/src/main/UserInterface/LR_Dialog.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/demodemoDemo/src/main/UserInterface/LR_Dialog.java b/demodemoDemo/src/main/UserInterface/Login/LR_Dialog.java
+rename from demodemoDemo/src/main/UserInterface/LR_Dialog.java
+rename to demodemoDemo/src/main/UserInterface/Login/LR_Dialog.java
+--- a/demodemoDemo/src/main/UserInterface/LR_Dialog.java	(revision 493726ec010486b1e56af624caa0619532ebfa77)
++++ b/demodemoDemo/src/main/UserInterface/Login/LR_Dialog.java	(date 1742921890077)
+@@ -1,8 +1,10 @@
+-package main.UserInterface;
++package main.UserInterface.Login;
++
++import main.UserInterface.Scenes;
+ 
+ import javax.swing.*;
+ 
+-public class LR_Dialog extends Scenes{
++public class LR_Dialog extends Scenes {
+     public LR_Dialog(boolean success){
+         JDialog dialog = new JDialog();
+         dialog.setSize(200, 200);
+Index: demodemoDemo/src/main/UserInterface/LoginScene.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/demodemoDemo/src/main/UserInterface/LoginScene.java b/demodemoDemo/src/main/UserInterface/Login/LoginScene.java
+rename from demodemoDemo/src/main/UserInterface/LoginScene.java
+rename to demodemoDemo/src/main/UserInterface/Login/LoginScene.java
+--- a/demodemoDemo/src/main/UserInterface/LoginScene.java	(revision 493726ec010486b1e56af624caa0619532ebfa77)
++++ b/demodemoDemo/src/main/UserInterface/Login/LoginScene.java	(date 1742921890075)
+@@ -1,12 +1,13 @@
+-package main.UserInterface;
++package main.UserInterface.Login;
+ 
+ import javax.swing.*;
+ import java.awt.*;
+ import java.awt.event.ActionEvent;
+ import java.awt.event.ActionListener;
++
+ import main.userInformation.Login;
+ 
+-public class LoginScene extends LR_Scenes{
++public class LoginScene extends LR_Scenes {
+ 
+     public LoginScene(JFrame frame){
+         super.createLR_SCENE(frame);
+@@ -15,8 +16,6 @@
+         addBackButton(frame);
+     }
+ 
+-
+-
+     private static JButton getConfirmLoginButton(JTextField username, JPasswordField password) {
+         JButton loginButton = new JButton("Login");
+         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+@@ -32,5 +31,4 @@
+         });
+         return loginButton;
+     }
+-
+ }
+Index: demodemoDemo/src/main/UserInterface/RegisterScene.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/demodemoDemo/src/main/UserInterface/RegisterScene.java b/demodemoDemo/src/main/UserInterface/Login/RegisterScene.java
+rename from demodemoDemo/src/main/UserInterface/RegisterScene.java
+rename to demodemoDemo/src/main/UserInterface/Login/RegisterScene.java
+--- a/demodemoDemo/src/main/UserInterface/RegisterScene.java	(revision 493726ec010486b1e56af624caa0619532ebfa77)
++++ b/demodemoDemo/src/main/UserInterface/Login/RegisterScene.java	(date 1742921890066)
+@@ -1,12 +1,15 @@
+-package main.UserInterface;
++package main.UserInterface.Login;
+ 
+ import javax.swing.*;
+ import java.awt.*;
+ import java.awt.event.ActionEvent;
+ import java.awt.event.ActionListener;
++
++import main.UserInterface.Login.LR_Dialog;
++import main.UserInterface.Login.LR_Scenes;
+ import main.userInformation.*;
+ 
+-public class RegisterScene extends LR_Scenes{
++public class RegisterScene extends LR_Scenes {
+     public RegisterScene(JFrame frame) {
+         super.createLR_SCENE(frame);
+         JButton registerButton = getConfirmRegisterButton(username, password);
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"9dd17e6f-2594-435a-9364-3e4ba99e9f7c\" name=\"Changes\" comment=\"Added MainMenu to Carter's branch\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Interface\" />\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\n      <map>\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\n      </map>\n    </option>\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;ksheep18&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">{\n  &quot;selectedUrlAndAccountId&quot;: {\n    &quot;url&quot;: &quot;https://github.com/josh-ful/cardioB_3471.git&quot;,\n    &quot;accountId&quot;: &quot;a54d6502-7d9e-4cca-b543-c5da12a86f08&quot;\n  }\n}</component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 8\n}</component>\n  <component name=\"ProjectId\" id=\"2uV5BxKZ3DGiPkIm3Qig08pXTIt\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;Application.MainMenu.executor&quot;: &quot;Run&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;Carter&quot;,\n    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\n    &quot;last_opened_file_path&quot;: &quot;/Users/kierashepperd/Desktop/Classes/Software_Engineering/GP/cardioB_3471&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\n    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"RecentsManager\">\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/demodemoDemo/src\" />\n    </key>\n  </component>\n  <component name=\"RunManager\">\n    <configuration name=\"MainMenu\" type=\"Application\" factoryName=\"Application\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"main.test.Main\" />\n      <module name=\"cardioB_3471\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"SoftwareEngineering.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\n      <module name=\"cardioB_3471\" />\n      <option name=\"filePath\" />\n      <method v=\"2\" />\n    </configuration>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117\" />\n        <option value=\"bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"9dd17e6f-2594-435a-9364-3e4ba99e9f7c\" name=\"Changes\" comment=\"\" />\n      <created>1742320768243</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1742320768243</updated>\n      <workItem from=\"1742320769315\" duration=\"626000\" />\n      <workItem from=\"1742331120215\" duration=\"307000\" />\n      <workItem from=\"1742331482041\" duration=\"36000\" />\n      <workItem from=\"1742497102791\" duration=\"1369000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Added MainMenu to Carter's branch\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1742911223545</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1742911223545</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"2\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Added MainMenu to Carter's branch\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Added MainMenu to Carter's branch\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 493726ec010486b1e56af624caa0619532ebfa77)
++++ b/.idea/workspace.xml	(date 1742921890116)
+@@ -6,6 +6,11 @@
+   <component name="ChangeListManager">
+     <list default="true" id="9dd17e6f-2594-435a-9364-3e4ba99e9f7c" name="Changes" comment="Added MainMenu to Carter's branch">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/LR_Dialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Login/LR_Dialog.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/LR_Scenes.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Login/LR_Scenes.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/LoginScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Login/LoginScene.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/RegisterScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Login/RegisterScene.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/homeScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/homeScreen.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -73,7 +78,14 @@
+       <recent name="$PROJECT_DIR$/demodemoDemo/src" />
+     </key>
+   </component>
+-  <component name="RunManager">
++  <component name="RunManager" selected="Application.MainMenu">
++    <configuration name="Main" type="Application" factoryName="Application">
++      <option name="MAIN_CLASS_NAME" value="main.test.Main" />
++      <module name="cardioB_3471" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
+     <configuration name="MainMenu" type="Application" factoryName="Application" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="main.test.Main" />
+       <module name="cardioB_3471" />
+@@ -92,6 +104,10 @@
+       <option name="filePath" />
+       <method v="2" />
+     </configuration>
++    <list>
++      <item itemvalue="Application.MainMenu" />
++      <item itemvalue="Application.Main" />
++    </list>
+   </component>
+   <component name="SharedIndexes">
+     <attachedChunks>

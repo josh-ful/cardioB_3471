@@ -4,30 +4,79 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9dd17e6f-2594-435a-9364-3e4ba99e9f7c" name="Changes" comment="">
+    <list default="true" id="9dd17e6f-2594-435a-9364-3e4ba99e9f7c" name="Changes" comment="Refactor Packages">
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/addExercise/AddExerciseScene.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/Controller/AdminControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/Controller/TrainerControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/Controller/UserControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/FitnessCourse/ExerciseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/FitnessCourse/SessionTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInformation/LoginTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInformation/RegisterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInformation/UserStorageTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/ClassListSceneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/ExerciseLogSceneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/HomeScreenTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/Login/LR_DialogTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/Login/LR_ScenesTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/Login/LoginSceneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/Login/RegisterSceneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/MainMenuTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/ProfileInfoSceneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/ProfileScreenTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/ScenesTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/UserMenuSceneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/addExercise/AddExerciseSceneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/main/MainTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/java/SoftwareEngineering/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/FitnessCourse/Exercise.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/FitnessCourse/Exercise.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInformation/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInformation/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInformation/UserStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInformation/UserStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/ExerciseLogScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/ExerciseLogScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/HomeScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/HomeScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/LR_Dialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Login/LR_Dialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/LR_Scenes.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Login/LR_Scenes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/LoginScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Login/LoginScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/RegisterScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Login/RegisterScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/main/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "ksheep18"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ksheep18&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/josh-ful/cardioB_3471.git",
-    "accountId": "a54d6502-7d9e-4cca-b543-c5da12a86f08"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/josh-ful/cardioB_3471.git&quot;,
+    &quot;accountId&quot;: &quot;a54d6502-7d9e-4cca-b543-c5da12a86f08&quot;
   }
-}]]></component>
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -36,25 +85,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.MainMenu.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/kierashepperd/Desktop/Classes/Software_Engineering/GP/cardioB_3471",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MainMenu.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Carter&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/kierashepperd/Desktop/Classes/Software_Engineering/GP/cardioB_3471&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/demodemoDemo/src" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.main.Main" />
+      <module name="cardioB_3471" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="SoftwareEngineering.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="main.main.Main" />
       <module name="cardioB_3471" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -65,6 +137,10 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.main.main.Main" />
+      <item itemvalue="Application.Main" />
+    </list>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -86,10 +162,36 @@
       <workItem from="1742331120215" duration="307000" />
       <workItem from="1742331482041" duration="36000" />
       <workItem from="1742497102791" duration="1369000" />
+      <workItem from="1742934607131" duration="6960000" />
+      <workItem from="1743033554685" duration="872000" />
     </task>
+    <task id="LOCAL-00001" summary="Added MainMenu to Carter's branch">
+      <option name="closed" value="true" />
+      <created>1742911223545</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1742911223545</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added MainMenu to Carter's branch" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added MainMenu to Carter's branch" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Login/LR_Scenes.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
