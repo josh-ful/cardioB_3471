@@ -2,7 +2,10 @@
 // Assignment Title: CardioB
 // Java File Description: Scenes.java is a parent class to
 // all scenes in the CardioB App implementation
-
+/**
+ * this class is a parent class to all scenes in the CardioB App
+ * implementation
+ */
 package main.UserInterface;
 
 import javax.swing.*;

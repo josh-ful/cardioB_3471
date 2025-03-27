@@ -3,6 +3,10 @@
 // Java File Description: HomeScreen.java is an extension
 // of Scenes.java and creates a scene with a title and
 // options to register or log in
+/**
+ * this class is an extension of Scenes.java and creates a scene with a title and
+ * options to register or log in
+ */
 
 package main.UserInterface;
 

@@ -1,4 +1,8 @@
-package main.userInformation;
+/**
+ * this class takes the information inputted while user is
+ * registering and stores it in the logins
+ */
+package main.UserInformation;
 
 import static main.UserInformation.UserStorage.setName;
 import static main.UserInformation.UserStorage.setPassword;

@@ -1,3 +1,7 @@
+/**
+ * this class stores user information as the user
+ * uses the app
+ */
 package main.UserInformation;
 
 import main.FitnessCourse.*;

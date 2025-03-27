@@ -1,3 +1,6 @@
+/**
+ * this class is the main
+ */
 package main.main;
 
 /*

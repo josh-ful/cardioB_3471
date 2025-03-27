@@ -3,6 +3,10 @@
 // Java File Description: UserMenuScene.java is an extension
 // of Scenes.java that creates a scene with a menu and a
 // welcome method
+/**
+ * this class is an extension of Scenes.java that creates a
+ * scene with a menu and a welcome method
+ */
 
 package main.UserInterface;
 

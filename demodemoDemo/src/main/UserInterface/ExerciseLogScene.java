@@ -1,23 +1,16 @@
-// Author: Trello Fellows
-// Assignment Title: CardioB
-// Java File Description: ExerciseLogScene.java is an extension
-// of Scenes.java and creates a scene with a list of workouts
-// and a way for a user to log more workouts
+/**
+ * this class does something at some point I think
+ */
+
 package main.UserInterface;
 
 import main.UserInterface.addExercise.AddExerciseScene;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import main.UserInterface.addExercise.AddExerciseScene;
 
 public class ExerciseLogScene extends Scenes{
     JButton addWorkoutButton = new JButton("Add Workout!");

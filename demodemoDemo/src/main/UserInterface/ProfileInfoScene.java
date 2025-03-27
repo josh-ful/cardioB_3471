@@ -1,7 +1,7 @@
-// Author: Trello Fellows
-// Assignment Title: CardioB
-// Java File Description: ProfileInfoScene.java is an extension
-// of Scenes.java and creates a scene with...idk what this actually does
+/**
+ * this class creates a scene that displays
+ * the users profile info
+ */
 
 package main.UserInterface;
 

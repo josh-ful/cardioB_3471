@@ -1,3 +1,7 @@
+/**
+ * this class creates a scene that verifies that the
+ * login info is valid
+ */
 package main.UserInformation;
 
 import static main.UserInformation.UserStorage.setName;
