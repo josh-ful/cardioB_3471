@@ -4,11 +4,10 @@
  */
 package main.UserInformation;
 
-import static main.UserInformation.UserStorage.setName;
-import static main.UserInformation.UserStorage.setPassword;
+import static main.UserInformation.UserStorage.*;
 
-public class Register implements main.UserInformation.LoginHardCodes {
-    public static boolean registerLogic(String user, String pass){
+public class Register implements LoginHardCodes {
+    public static boolean registerLogic(String user, String pass, Boolean utStatus){
         boolean success = false;
 
         if(!logins.containsKey(user)){
@@ -17,6 +16,7 @@ public class Register implements main.UserInformation.LoginHardCodes {
 
             setName(user);
             setPassword(pass);
+            setType(utStatus);
         }
 
         return success;

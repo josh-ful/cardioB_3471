@@ -9,14 +9,26 @@ import main.UserInformation.*;
 //import java.util.ArrayList;
 
 public class RegisterScene extends LR_Scenes {
+    Boolean utStatus = null;
+
     public RegisterScene(JFrame frame) {
         super.createLR_SCENE(frame);
+
+        JRadioButton trainerButton = getSelectTrainerButton();
+        JRadioButton userButton = getSelectUserButton();
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(userButton);
+        group.add(trainerButton);
+
+        panel.add(userButton);
+        panel.add(trainerButton);
 
         panel.add(getConfirmRegisterButton(username, password));
         panel.add(getBackButton(frame));
     }
 
-    private static JButton getConfirmRegisterButton(JTextField username, JPasswordField password) {
+    private JButton getConfirmRegisterButton(JTextField username, JPasswordField password) {
         JButton registerButton = new JButton("Register");
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerButton.setMaximumSize(new Dimension(400, 30));
@@ -27,7 +39,7 @@ public class RegisterScene extends LR_Scenes {
                 String user = username.getText();
                 String pass = new String(password.getPassword());
 
-                boolean success = Register.registerLogic(user, pass);
+                boolean success = Register.registerLogic(user, pass, utStatus);
                 new LR_Dialog(success);
 
                 //TODO: What happens after this?? Back to login screen?
@@ -39,5 +51,33 @@ public class RegisterScene extends LR_Scenes {
         });
 
         return registerButton;
+    }
+
+    private JRadioButton getSelectTrainerButton(){
+        JRadioButton trainerButton = new JRadioButton("Trainer");
+        trainerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        trainerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                utStatus = trainerButton.isSelected();
+            }
+        });
+
+        return trainerButton;
+    }
+
+    private JRadioButton getSelectUserButton(){
+        JRadioButton userButton = new JRadioButton("User");
+        userButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        userButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                utStatus = !(userButton.isSelected());
+            }
+        });
+
+        return userButton;
     }
 }

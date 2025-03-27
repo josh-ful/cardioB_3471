@@ -12,6 +12,8 @@ import java.util.Set;
 public class UserStorage {
     private static String name;
     private static String password;
+    private static String type;
+
     private static Set<Exercise> exerciseSet = new HashSet<>();
 
     public static String getName() {
@@ -28,6 +30,18 @@ public class UserStorage {
 
     public static void setPassword(String p) {
         password = p;
+    }
+
+    public static String getType() {
+        return type;
+    }
+
+    public static void setType(Boolean utStatus) {
+        if (utStatus) {
+            type = "Trainer";
+        } else {
+            type = "User";
+        }
     }
 
     public static boolean infoInputted(){

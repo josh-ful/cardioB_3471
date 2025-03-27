@@ -8,20 +8,14 @@ import java.awt.event.ActionListener;
 import main.UserInterface.*;
 
 public class LR_Scenes extends Scenes {
-    public JTextField username;
-    public JPasswordField password;
-
-    private void panelLayout() {
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-    }
+    protected JTextField username;
+    protected JPasswordField password;
 
     public void createLR_SCENE(JFrame frame) {
+        super.createAndShowGUI(frame);
+
         username = new JTextField(20);
         password = new JPasswordField(20);
-        panel = new JPanel();
-
-        panelLayout();
-        super.createAndShowGUI(frame);
 
         panel.add(getUsernameLabel());
         panel.add(username);

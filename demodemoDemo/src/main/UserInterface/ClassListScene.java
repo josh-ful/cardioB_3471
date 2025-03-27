@@ -18,9 +18,6 @@ public class ClassListScene extends Scenes{
     public void createCL_SCENE(JFrame frame) {
         super.createAndShowGUI(frame);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
         panel.add(addTextELog());
         panel.add(addScrollClassList());
         panel.add(addWorkoutButton());

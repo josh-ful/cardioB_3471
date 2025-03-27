@@ -2,7 +2,7 @@
 // Assignment Title: CardioB
 // Java File Description: Scenes.java is a parent class to
 // all scenes in the CardioB App implementation
-/**
+/*
  * this class is a parent class to all scenes in the CardioB App
  * implementation
  */
@@ -43,6 +43,6 @@ public class Scenes {
     }
 
     private void panelLayout() {
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     }
 }
