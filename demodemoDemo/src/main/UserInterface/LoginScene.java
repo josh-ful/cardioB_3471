@@ -10,17 +10,16 @@ public class LoginScene extends LR_Scenes{
 
     public LoginScene(JFrame frame){
         super.createLR_SCENE(frame);
-        JButton loginButton = getConfirmLoginButton(frame, username, password);
-        panel.add(loginButton);
-        addBackButton(frame);
+
+        panel.add(getConfirmLoginButton(frame, username, password));
+        panel.add(getBackButton(frame));
     }
-
-
 
     private static JButton getConfirmLoginButton(JFrame frame, JTextField username, JPasswordField password) {
         JButton loginButton = new JButton("Login");
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginButton.setMaximumSize(new Dimension(400, 30));
+
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -38,6 +37,7 @@ public class LoginScene extends LR_Scenes{
                 }
             }
         });
+
         return loginButton;
     }
 

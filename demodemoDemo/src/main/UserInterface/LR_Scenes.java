@@ -6,42 +6,53 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LR_Scenes extends Scenes{
-    JTextField username = new JTextField(20);
-    JPasswordField password = new JPasswordField(20);
-    JButton backButton = new JButton("Back");
-    JPanel panel = new JPanel();
+    JTextField username;
+    JPasswordField password;
+    JPanel panel;
 
-    private void panelLayout() { panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); }
-
+    private void panelLayout() {
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    }
 
     public void createLR_SCENE(JFrame frame) {
+        username = new JTextField(20);
+        password = new JPasswordField(20);
+        panel = new JPanel();
+
         panelLayout();
         super.createAndShowGUI(frame);
-        addUsernamePassword();
+
+        panel.add(getUsernameLabel());
+        panel.add(username);
+        panel.add(getPasswordLabel());
+        panel.add(password);
+
         frame.add(panel);
     }
 
-    public void addUsernamePassword() {
-
-        JLabel u = new JLabel("Username: ");
-        JLabel p = new JLabel("Password: ");
-
-        panel.add(u);
-        panel.add(username);
-        panel.add(p);
-        panel.add(password);
+    public JLabel getUsernameLabel(){
+        return new JLabel("Username: ");
     }
 
-    public void addBackButton(JFrame frame) {
+    public JLabel getPasswordLabel(){
+        return new JLabel("Password: ");
+    }
+
+    public JButton getBackButton(JFrame frame) {
+        JButton backButton = new JButton("Back");
+
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        backButton.setMaximumSize(new Dimension(frame.getWidth(), 50));
+        backButton.setMaximumSize(new Dimension(Scenes.FRAME_W, 50));
         panel.add(backButton);
+
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new HomeScreen(frame);
             }
         });
+
+        return backButton;
     }
 
 
