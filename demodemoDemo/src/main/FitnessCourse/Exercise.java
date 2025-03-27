@@ -24,14 +24,4 @@ public class Exercise {
     }
 
     private String description;
-
-    public int getDurationMinutes() {
-        return durationMinutes;
-    }
-
-    public void setDurationMinutes(int durationMinutes) {
-        this.durationMinutes = durationMinutes;
-    }
-
-    private int durationMinutes;
 }

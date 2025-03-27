@@ -1,4 +1,4 @@
-package main.test;
+package main.main;
 
 /*
 Author: Trello Fellows

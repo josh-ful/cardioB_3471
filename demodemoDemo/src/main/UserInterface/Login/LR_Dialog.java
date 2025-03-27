@@ -1,8 +1,10 @@
-package main.UserInterface;
+package main.UserInterface.Login;
+
+import main.UserInterface.Scenes;
 
 import javax.swing.*;
 
-public class LR_Dialog extends Scenes{
+public class LR_Dialog extends Scenes {
     public LR_Dialog(boolean success){
         JDialog dialog = new JDialog();
         dialog.setSize(200, 200);

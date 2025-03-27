@@ -1,5 +1,8 @@
 package main.UserInterface;
 
+import main.UserInterface.Login.LoginScene;
+import main.UserInterface.Login.RegisterScene;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

@@ -1,9 +1,9 @@
-package main.UserInformation;
+package main.userInformation;
 
 import static main.UserInformation.UserStorage.setName;
 import static main.UserInformation.UserStorage.setPassword;
 
-public class Register implements LoginHardCodes {
+public class Register implements main.UserInformation.LoginHardCodes {
     public static boolean registerLogic(String user, String pass){
         boolean success = false;
 

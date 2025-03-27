@@ -1,4 +1,4 @@
-package main.UserInterface;
+package main.UserInterface.Login;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +25,7 @@ public class RegisterScene extends LR_Scenes{
                 String user = username.getText();
                 String pass = new String(password.getPassword());
 
-                boolean success = Register.registerLogic(user, pass);
+                boolean success = main.userInformation.Register.registerLogic(user, pass);
                 new LR_Dialog(success);
 
                 //TODO: What happens after this?? Back to login screen?

@@ -4,8 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9dd17e6f-2594-435a-9364-3e4ba99e9f7c" name="Changes" comment="Added MainMenu to Carter's branch">
+    <list default="true" id="9dd17e6f-2594-435a-9364-3e4ba99e9f7c" name="Changes" comment="Refactor Packages">
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/addExercise/AddExerciseScene.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/Controller/AdminControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/Controller/TrainerControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/Controller/UserControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/FitnessCourse/ExerciseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/FitnessCourse/SessionTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInformation/LoginTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInformation/RegisterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInformation/UserStorageTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/ClassListSceneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/ExerciseLogSceneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/HomeScreenTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/Login/LR_DialogTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/Login/LR_ScenesTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/Login/LoginSceneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/Login/RegisterSceneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/MainMenuTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/ProfileInfoSceneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/ProfileScreenTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/ScenesTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/UserMenuSceneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/UserInterface/addExercise/AddExerciseSceneTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demodemoDemo/src/test/main/MainTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/FitnessCourse/Exercise.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/FitnessCourse/Exercise.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInformation/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInformation/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInformation/UserStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInformation/UserStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/ExerciseLogScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/ExerciseLogScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/HomeScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/HomeScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/LR_Dialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Login/LR_Dialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/LR_Scenes.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Login/LR_Scenes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/LoginScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Login/LoginScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/RegisterScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Login/RegisterScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demodemoDemo/src/main/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/demodemoDemo/src/main/main/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +74,9 @@
     &quot;accountId&quot;: &quot;a54d6502-7d9e-4cca-b543-c5da12a86f08&quot;
   }
 }</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -53,6 +90,7 @@
     &quot;Application.MainMenu.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;Carter&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -73,9 +111,9 @@
       <recent name="$PROJECT_DIR$/demodemoDemo/src" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="MainMenu" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="main.test.Main" />
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.main.Main" />
       <module name="cardioB_3471" />
       <extension name="coverage">
         <pattern>
@@ -87,11 +125,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="main.main.Main" />
+      <module name="cardioB_3471" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="cardioB_3471" />
       <option name="filePath" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.main.main.Main" />
+      <item itemvalue="Application.Main" />
+    </list>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -113,6 +162,8 @@
       <workItem from="1742331120215" duration="307000" />
       <workItem from="1742331482041" duration="36000" />
       <workItem from="1742497102791" duration="1369000" />
+      <workItem from="1742934607131" duration="6960000" />
+      <workItem from="1743033554685" duration="872000" />
     </task>
     <task id="LOCAL-00001" summary="Added MainMenu to Carter's branch">
       <option name="closed" value="true" />
@@ -131,5 +182,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added MainMenu to Carter's branch" />
     <option name="LAST_COMMIT_MESSAGE" value="Added MainMenu to Carter's branch" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/demodemoDemo/src/main/UserInterface/Login/LR_Scenes.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

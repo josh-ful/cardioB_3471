@@ -1,10 +1,11 @@
-package main.UserInterface;
+package main.UserInterface.Login;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import main.UserInformation.Login;
+import main.UserInterface.UserMenuScene;
 
 public class LoginScene extends LR_Scenes{
 

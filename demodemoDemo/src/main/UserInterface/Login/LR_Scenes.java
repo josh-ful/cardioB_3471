@@ -1,11 +1,14 @@
-package main.UserInterface;
+package main.UserInterface.Login;
+
+import main.UserInterface.Scenes;
+import main.UserInterface.HomeScreen;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LR_Scenes extends Scenes{
+public class LR_Scenes extends Scenes {
     JTextField username = new JTextField(20);
     JPasswordField password = new JPasswordField(20);
     JButton backButton = new JButton("Back");
