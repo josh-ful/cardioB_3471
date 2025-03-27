@@ -1,3 +1,8 @@
+/**
+ * this class creates a scene with a list of workouts
+ * and a way for a user to log more workouts
+ */
+
 package main.UserInterface;
 
 import javax.swing.*;

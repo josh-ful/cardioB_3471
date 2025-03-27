@@ -1,102 +1,116 @@
+// Author: Trello Fellows
+// Assignment Title: CardioB
+// Java File Description: UserMenuScene.java is an extension
+// of Scenes.java that creates a scene with a menu and a
+// welcome method
+/**
+ * this class is an extension of Scenes.java that creates a
+ * scene with a menu and a welcome method
+ */
+
 package main.UserInterface;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 
 public class UserMenuScene extends Scenes{
-    
+    JPanel panel = new JPanel();
+    GridBagConstraints constraints = new GridBagConstraints();
+
     public UserMenuScene(JFrame frame){
         createUM_SCENE(frame);
     }
 
-    private void createUM_SCENE(JFrame frame) {
+    private void panelLayout() {
+        panel.setLayout(new GridBagLayout());
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+    }
+
+    public void createUM_SCENE(JFrame frame) {
+        panelLayout();
         super.createAndShowGUI(frame);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        addTextMenu();
+        initMenu(frame);
 
-        panel.add(addProfileButton(frame));
-        panel.add(addLogButton(frame));
-        panel.add(addClassButton(frame));
-
-        panel.add(addWelcomeText());
-        panel.add(addPromptText());
         frame.add(panel);
     }
 
-    private JLabel addPromptText (){
-        JLabel promptText = new JLabel("Ready to get your CardioB in today?");
-        promptText.setForeground(Color.BLACK);
-        promptText.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // promptText.setAlignmentY(Component.TOP_ALIGNMENT);
-        //promptText.setHorizontalAlignment(SwingConstants.CENTER);
-        //promptText.setVerticalAlignment(SwingConstants.TOP);
-
-        return promptText;
-    }
-
-    private JLabel addWelcomeText() {
+    public void addTextMenu() {
         JLabel welcomeText = new JLabel("Welcome!");
         welcomeText.setFont(new Font("Comic Sans MS", Font.BOLD, 60));
         welcomeText.setForeground(Color.BLACK);
-        welcomeText.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        //welcomeText.setAlignmentY(Component.TOP_ALIGNMENT);
-        //welcomeText.setHorizontalAlignment(SwingConstants.CENTER);
-        //welcomeText.setVerticalAlignment(SwingConstants.TOP);
+        constraints.gridx = 0;  // Column
+        constraints.gridy = 1;  // Row
+        constraints.gridwidth = 1;
+        constraints.gridheight = 1;
+        constraints.weightx = 1;
+        constraints.weighty = 1;
+        constraints.anchor = GridBagConstraints.CENTER; // Center it
+        constraints.fill = GridBagConstraints.NONE;
+        panel.add(welcomeText, constraints);
 
-        return welcomeText;
+        JLabel promptText = new JLabel("Ready to get your CardioB in today?");
+        promptText.setForeground(Color.BLACK);
+        constraints.gridx = 0;  // Column
+        constraints.gridy = 2;  // Row
+        constraints.anchor = GridBagConstraints.CENTER; // Center it
+        panel.add(promptText, constraints);
+    }
+    private void initMenu(JFrame frame) {
+        JMenuBar menu = getjMenu(frame);
+        constraints.gridx = 0;  // Column
+        constraints.gridy = 0;  // Row
+        constraints.gridwidth = 1;
+        constraints.gridheight = 1;
+        constraints.weightx = 1;
+        constraints.weighty = 1;
+        constraints.anchor = GridBagConstraints.WEST; // Center it
+        constraints.fill = GridBagConstraints.NONE;
+        panel.add(menu, constraints);
     }
 
-    private JButton addProfileButton(JFrame frame) {
-        JButton profileButton = new JButton("Profile");
-        
-        profileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        profileButton.setMaximumSize(new Dimension(Scenes.FRAME_W, 50));
-        
-        profileButton.addActionListener(new ActionListener() {
-            @Override
+    static JMenuBar getjMenu( JFrame frame) {
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu = new JMenu();
+
+        ImageIcon icon = new ImageIcon("main/resources/menuIcon.png");
+        Image image = icon.getImage();
+        int newWidth = 50; // Desired width
+        int newHeight = 50; // Desired height
+        Image scaledImage = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        icon = new ImageIcon(scaledImage);
+
+        menu.setIcon(icon);
+
+        JMenuItem profileItem = new JMenuItem("Profile");
+        profileItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new ProfileInfoScene(frame);
+                new ProfileScreen(frame);
             }
         });
-        
-        return profileButton;
-    }
+        menu.add(profileItem);
 
-    private JButton addLogButton(JFrame frame) {
-        JButton logButton = new JButton("Log Exercise");
-        
-        logButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        logButton.setMaximumSize(new Dimension(Scenes.FRAME_W, 50));
-       
-        logButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ExerciseLogScene(frame);
-            }
-        });
-        
-        return logButton;
-    }
-
-    private JButton addClassButton(JFrame frame) {
-        JButton classButton = new JButton("Classes");
-
-        classButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        classButton.setMaximumSize(new Dimension(Scenes.FRAME_W, 50));
-
-        classButton.addActionListener(new ActionListener() {
-            @Override
+        JMenuItem classItem = new JMenuItem("Classes");
+        classItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new ClassListScene(frame);
             }
         });
-        
-        return classButton;
-    }
+        menu.add(classItem);
 
+        JMenuItem workoutLogItem = new JMenuItem("Personal Workout Log");
+        workoutLogItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new ExerciseLogScene(frame);
+            }
+        });
+        menuBar.add(menu);
+        menu.add(workoutLogItem);
+        menu.addSeparator();
+        return menuBar;
+    }
 }

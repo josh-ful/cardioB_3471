@@ -1,3 +1,6 @@
+/**
+ * this class creates a scene that shows profile info
+ */
 package main.UserInterface;
 
 import main.UserInformation.UserStorage;

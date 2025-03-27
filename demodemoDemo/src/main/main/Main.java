@@ -1,4 +1,7 @@
-package main.test;
+/**
+ * this class is the main
+ */
+package main.main;
 
 /*
 Author: Trello Fellows

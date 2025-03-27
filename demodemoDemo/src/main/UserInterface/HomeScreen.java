@@ -1,4 +1,17 @@
+// Author: Trello Fellows
+// Assignment Title: CardioB
+// Java File Description: HomeScreen.java is an extension
+// of Scenes.java and creates a scene with a title and
+// options to register or log in
+/**
+ * this class is an extension of Scenes.java and creates a scene with a title and
+ * options to register or log in
+ */
+
 package main.UserInterface;
+
+import main.UserInterface.Login.LoginScene;
+import main.UserInterface.Login.RegisterScene;
 
 import javax.swing.*;
 import java.awt.*;

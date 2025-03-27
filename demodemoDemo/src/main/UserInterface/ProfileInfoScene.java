@@ -1,3 +1,8 @@
+/**
+ * this class creates a scene that displays
+ * the users profile info
+ */
+
 package main.UserInterface;
 
 import javax.swing.*;
@@ -9,13 +14,13 @@ public class ProfileInfoScene extends Scenes{
     JPanel panel = new JPanel();
 
     public ProfileInfoScene(JFrame frame){
-        createEL_SCENE(frame);
+        createPI_SCENE(frame);
     }
 
     private void panelLayout() { panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); }
 
 
-    public void createEL_SCENE(JFrame frame) {
+    public void createPI_SCENE(JFrame frame) {
         panelLayout();
         super.createAndShowGUI(frame);
 
