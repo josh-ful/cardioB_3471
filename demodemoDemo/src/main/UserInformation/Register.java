@@ -18,7 +18,6 @@ public class Register implements main.UserInformation.LoginHardCodes {
             setName(user);
             setPassword(pass);
         }
-
         return success;
     }
 }
