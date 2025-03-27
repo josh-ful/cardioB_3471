@@ -21,7 +21,7 @@ public class ProfileScreen extends Scenes{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Profile");
 
-        frame.setLayout(new GridLayout());
+        frame.setLayout(new GridBagLayout());
 
         JPanel panel = new JPanel();
         JLabel nameLabel = new JLabel("Name: ");
@@ -33,4 +33,6 @@ public class ProfileScreen extends Scenes{
 
         // get class list and display
     }
+
+
 }

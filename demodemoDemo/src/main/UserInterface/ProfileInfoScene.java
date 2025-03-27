@@ -19,7 +19,6 @@ public class ProfileInfoScene extends Scenes{
 
     private void panelLayout() { panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); }
 
-
     public void createPI_SCENE(JFrame frame) {
         panelLayout();
         super.createAndShowGUI(frame);
