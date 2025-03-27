@@ -1,3 +1,9 @@
+// Author: Trello Fellows
+// Assignment Title: CardioB
+// Java File Description: AddExerciseScene.java is an extension
+// of Scenes.java and creates a scene with a list of workouts
+// and a way for a user to log more workouts
+
 package main.UserInterface;
 
 import javax.swing.*;

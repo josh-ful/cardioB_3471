@@ -1,3 +1,8 @@
+// Author: Trello Fellows
+// Assignment Title: CardioB
+// Java File Description: ProfileInfoScene.java is an extension
+// of Scenes.java and creates a scene with...idk what this actually does
+
 package main.UserInterface;
 
 import javax.swing.*;
@@ -9,13 +14,13 @@ public class ProfileInfoScene extends Scenes{
     JPanel panel = new JPanel();
 
     public ProfileInfoScene(JFrame frame){
-        createEL_SCENE(frame);
+        createPI_SCENE(frame);
     }
 
     private void panelLayout() { panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); }
 
 
-    public void createEL_SCENE(JFrame frame) {
+    public void createPI_SCENE(JFrame frame) {
         panelLayout();
         super.createAndShowGUI(frame);
 

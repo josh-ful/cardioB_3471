@@ -1,20 +1,23 @@
+// Author: Trello Fellows
+// Assignment Title: CardioB
+// Java File Description: Scenes.java is a parent class to
+// all scenes in the CardioB App implementation
+
 package main.UserInterface;
 
 import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.*;
-
 
 public class Scenes {
     JPanel panel = new JPanel();
 
-
+    /*
+     * description: creates blank GUI to be overridden
+     * by other scene classes
+     * return: void
+     * precondition: JFrame is passed in some condition
+     * postcondition: JFrame is blank screen and panel
+     * layout is set to BoxLayout
+     */
     public void createAndShowGUI(JFrame frame) {
         frame.getContentPane().removeAll();
         frame.getContentPane().repaint();

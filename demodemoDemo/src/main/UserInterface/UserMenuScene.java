@@ -1,3 +1,9 @@
+// Author: Trello Fellows
+// Assignment Title: CardioB
+// Java File Description: UserMenuScene.java is an extension
+// of Scenes.java that creates a scene with a menu and a
+// welcome method
+
 package main.UserInterface;
 
 import javax.swing.*;
