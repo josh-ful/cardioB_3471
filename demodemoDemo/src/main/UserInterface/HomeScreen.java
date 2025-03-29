@@ -17,12 +17,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * this class is an extension of Scenes.java that creates a
+ * scene with options to log in and register
+ */
 public class HomeScreen extends Scenes{
+    /**
+     * Constructs a new 'HomeScreen' with the specified frame
+     *
+     * @param frame
+     */
     public HomeScreen(JFrame frame) {
         createAndShowGUI(frame);
     }
 
+    /**
+     * displays login and registration buttons along with some graphics
+     *
+     * @param frame
+     */
     public void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
 
@@ -89,7 +102,44 @@ public class HomeScreen extends Scenes{
         frame.setResizable(false);
         frame.setVisible(true);
     }
+<<<<<<< Updated upstream
 
+=======
+    /**
+     *
+     *
+     * @return JLabel
+     */
+    private static JLabel getIconLabel() {
+        ImageIcon icon = new ImageIcon("src/main/resources/cardioB_logo.png");
+        Image image = icon.getImage();
+        image = image.getScaledInstance(300, 400, Image.SCALE_SMOOTH);
+
+        icon = new ImageIcon(image);
+        return new JLabel(icon);
+    }
+    /**
+     *
+     *
+     * @return JLabel
+     */
+    private static JLabel getCompanyNameLabel() {
+        JLabel companyName = new JLabel("CardioB");
+
+        companyName.setFont(new Font("Comic Sans MS", Font.BOLD, 70));
+        companyName.setForeground(Color.BLACK);
+        companyName.setAlignmentY(Component.CENTER_ALIGNMENT);
+        companyName.setHorizontalAlignment(SwingConstants.CENTER);
+        companyName.setVerticalAlignment(SwingConstants.TOP);
+
+        return companyName;
+    }
+    /**
+     *
+     *
+     * @return JButton
+     */
+>>>>>>> Stashed changes
     private static JButton getLoginButton(JFrame frame) {
         JButton loginButton = new JButton("Login");
         loginButton.addActionListener(new ActionListener() {
@@ -100,7 +150,11 @@ public class HomeScreen extends Scenes{
         });
         return loginButton;
     }
-
+    /**
+     *
+     *
+     * @return JButton
+     */
     private static JButton getRegisterButton(JFrame frame) {
         JButton registerButton = new JButton("Register");
         registerButton.addActionListener(new ActionListener() {

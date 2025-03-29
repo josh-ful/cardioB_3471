@@ -14,8 +14,15 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * this class is an extension of Scenes that creates a
+ * scene with ability to log exercise
+ */
 public class AddExerciseScene extends Scenes{
+    /**
+     *
+     *
+     */
     public AddExerciseScene() {
         createAndShowGUI();
     }

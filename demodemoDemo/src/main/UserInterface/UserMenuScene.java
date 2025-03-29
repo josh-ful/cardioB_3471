@@ -3,10 +3,7 @@
 // Java File Description: UserMenuScene.java is an extension
 // of Scenes.java that creates a scene with a menu and a
 // welcome method
-/**
- * this class is an extension of Scenes.java that creates a
- * scene with a menu and a welcome method
- */
+
 
 package main.UserInterface;
 
@@ -14,21 +11,33 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-
+/**
+ * this class is an extension of Scenes.java that creates a
+ * scene with a menu and a welcome method
+ */
 public class UserMenuScene extends Scenes{
     JPanel panel = new JPanel();
     GridBagConstraints constraints = new GridBagConstraints();
-
+    /**
+     * Constructs a new 'UserMenuScene' with the specified frame
+     *
+     * @param frame
+     */
     public UserMenuScene(JFrame frame){
         createUM_SCENE(frame);
     }
-
+    /**
+     * sets layout of panel to GridBagLayout
+     */
     private void panelLayout() {
         panel.setLayout(new GridBagLayout());
         constraints.fill = GridBagConstraints.HORIZONTAL;
     }
-
+    /**
+     *
+     *
+     * @param frame
+     */
     public void createUM_SCENE(JFrame frame) {
         panelLayout();
         super.createAndShowGUI(frame);
@@ -38,7 +47,9 @@ public class UserMenuScene extends Scenes{
 
         frame.add(panel);
     }
-
+    /**
+     * adds title and text to panel
+     */
     public void addTextMenu() {
         JLabel welcomeText = new JLabel("Welcome!");
         welcomeText.setFont(new Font("Comic Sans MS", Font.BOLD, 60));
@@ -60,6 +71,11 @@ public class UserMenuScene extends Scenes{
         constraints.anchor = GridBagConstraints.CENTER; // Center it
         panel.add(promptText, constraints);
     }
+    /**
+     *
+     *
+     * @param frame
+     */
     private void initMenu(JFrame frame) {
         JMenuBar menu = getjMenu(frame);
         constraints.gridx = 0;  // Column
@@ -68,11 +84,15 @@ public class UserMenuScene extends Scenes{
         constraints.gridheight = 1;
         constraints.weightx = 1;
         constraints.weighty = 1;
-        constraints.anchor = GridBagConstraints.WEST; // Center it
+        constraints.anchor = GridBagConstraints.WEST;
         constraints.fill = GridBagConstraints.NONE;
         panel.add(menu, constraints);
     }
-
+    /**
+     * creates menu with menu items to lead to other scenes
+     *
+     * @return menu bar with menu items
+     */
     static JMenuBar getjMenu( JFrame frame) {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu();

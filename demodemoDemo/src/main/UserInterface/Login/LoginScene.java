@@ -6,18 +6,41 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import main.UserInformation.Login;
 import main.UserInterface.UserMenuScene;
+<<<<<<< Updated upstream
 
 public class LoginScene extends LR_Scenes{
 
+=======
+/**
+ * this class is an extension of LR_Scenes that creates a
+ * scene with a confirm button and back button
+ */
+public class LoginScene extends LR_Scenes {
+    /**
+     * Constructs a new 'LoginScene' with the specified frame
+     *
+     * @param frame
+     */
+>>>>>>> Stashed changes
     public LoginScene(JFrame frame){
         super.createLR_SCENE(frame);
         JButton loginButton = getConfirmLoginButton(frame, username, password);
         panel.add(loginButton);
         addBackButton(frame);
     }
+<<<<<<< Updated upstream
 
 
 
+=======
+    /**
+     *
+     *
+     * @param frame
+     * @param username
+     * @param password
+     */
+>>>>>>> Stashed changes
     private static JButton getConfirmLoginButton(JFrame frame, JTextField username, JPasswordField password) {
         JButton loginButton = new JButton("Login");
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
