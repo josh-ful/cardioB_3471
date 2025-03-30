@@ -6,7 +6,6 @@
 
 package main.UserInterface.addExercise;
 
-import main.UserInterface.Scenes;
 import main.Controller.*;
 
 import javax.swing.*;
@@ -15,8 +14,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddExerciseScene extends Scenes{
-    public AddExerciseScene() {
+public class AddExerciseDialog{
+    public AddExerciseDialog() {
         createAndShowGUI();
     }
 
@@ -27,12 +26,23 @@ public class AddExerciseScene extends Scenes{
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new EmptyBorder(new Insets(100, 150, 100, 150)));
 
-        JLabel nameLabel = new JLabel("Exercise Name: ");
+        panel.add( new JLabel("Exercise Name: "));
         JTextField nameField = new JTextField();
+        panel.add(nameField);
 
-        JLabel descriptionLabel = new JLabel("Exercise Description: ");
+        panel.add(new JLabel("Exercise Description: "));
         JTextField descriptionField = new JTextField();
+        panel.add(descriptionField);
 
+
+        panel.add(getSubmitButton(nameField, descriptionField));
+
+        dialog.add(panel);
+        dialog.pack();
+        dialog.setVisible(true);
+    }
+
+    private static JButton getSubmitButton(JTextField nameField, JTextField descriptionField) {
         JButton submit = new JButton("Submit");
         submit.addActionListener(new ActionListener() {
             @Override
@@ -42,14 +52,6 @@ public class AddExerciseScene extends Scenes{
             }
         });
 
-        panel.add(nameLabel);
-        panel.add(nameField);
-        panel.add(descriptionLabel);
-        panel.add(descriptionField);
-        panel.add(submit);
-
-        dialog.add(panel);
-        dialog.pack();
-        dialog.setVisible(true);
+        return submit;
     }
 }
