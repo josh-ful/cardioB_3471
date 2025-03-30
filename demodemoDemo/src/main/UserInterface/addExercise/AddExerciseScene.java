@@ -21,25 +21,24 @@ public class AddExerciseScene extends Scenes{
     }
 
     public void createAndShowGUI() {
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        JFrame frame = new JFrame("Enter exercise Information");
-        super.createAndShowGUI(frame);
+        JDialog dialog = new JDialog();
+
         JPanel panel = new JPanel();
-
-        BoxLayout layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-        panel.setLayout(layout);
-
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new EmptyBorder(new Insets(100, 150, 100, 150)));
+
         JLabel nameLabel = new JLabel("Exercise Name: ");
         JTextField nameField = new JTextField();
+
         JLabel descriptionLabel = new JLabel("Exercise Description: ");
         JTextField descriptionField = new JTextField();
+
         JButton submit = new JButton("Submit");
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 UserController.enterExercise(nameField.getText(), descriptionField.getText());
-                frame.setVisible(false);
+                //close dialog based on valid input and button click
             }
         });
 
@@ -49,9 +48,8 @@ public class AddExerciseScene extends Scenes{
         panel.add(descriptionField);
         panel.add(submit);
 
-        frame.add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        dialog.add(panel);
+        dialog.pack();
+        dialog.setVisible(true);
     }
-
 }
