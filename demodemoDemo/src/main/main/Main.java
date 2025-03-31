@@ -23,6 +23,7 @@ Lawson Hale
 
 import main.UserInformation.*;
 import main.UserInterface.*;
+import main.UserInterface.addExercise.LogCSVReaderWriter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,6 +75,10 @@ public class Main {
             System.out.println(UserStorage.userInfo());
             //userMenuScene umS = new userMenuScene(frame);
         }
+        LogCSVReaderWriter tce = new LogCSVReaderWriter("testCreateExercise.csv");
+        tce.readCSV();
+        System.out.println(UserStorage.getExercises());
+
         //userMenuScene umS = new userMenuScene(frame);
 
         //System.out.println("mommy nodes"); >:( no

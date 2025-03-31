@@ -1,6 +1,9 @@
 package main.FitnessCourse;
 
 public class Exercise {
+    private String name;
+    private String description;
+
     public Exercise(String name) {
         this.name = name;
     }
@@ -13,8 +16,6 @@ public class Exercise {
         this.name = name;
     }
 
-    private String name;
-
     public String getDescription() {
         return description;
     }
@@ -22,6 +23,4 @@ public class Exercise {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    private String description;
 }

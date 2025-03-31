@@ -1,20 +1,34 @@
 package main.UserInterface;
 
+import main.UserInformation.UserStorage;
+import main.UserInterface.addExercise.AddExerciseScene;
+import main.UserInterface.addExercise.LogCSVReaderWriter;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ExerciseLogScene extends Scenes{
+    public static JFrame frame;
 
     public ExerciseLogScene(JFrame frame){
         createEL_SCENE(frame);
+        this.frame = frame;
     }
 
     private void createEL_SCENE(JFrame frame) {
         super.createAndShowGUI(frame);
+        //JScrollPane scrollPane = new LogCSVReaderWriter("testCreateExercise.csv").;
 
         panel.add(addWorkoutButton(frame));
         panel.add(addTextELog());
+        //LogCSVReaderWriter.readCSV();
+        panel.add(LogCSVReaderWriter.logTable());
+
         frame.add(panel);
+        System.out.println(UserStorage.getExercises());
+
     }
 
     private JLabel addTextELog() {
@@ -31,13 +45,16 @@ public class ExerciseLogScene extends Scenes{
         workoutButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         workoutButton.setMaximumSize(new Dimension(Scenes.FRAME_W, 50));
 
-        /*profileButton.addActionListener(new ActionListener() {
+        workoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new homeScreen(frame);
+                new AddExerciseScene();
             }
-        });*/
+        });
 
         return workoutButton;
+    }
+    public static void submittedNewScene() {
+        new ExerciseLogScene(frame);
     }
 }

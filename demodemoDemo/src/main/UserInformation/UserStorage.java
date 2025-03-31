@@ -54,4 +54,7 @@ public class UserStorage {
     public static void addExercise(Exercise e) {
         exerciseSet.add(e);
     }
+    public static Set<Exercise> getExercises() {
+        return exerciseSet;
+    }
 }
