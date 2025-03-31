@@ -36,7 +36,7 @@ public class LogCSVReaderWriter {
         try (BufferedWriter br = new BufferedWriter(
                 new FileWriter(fileName))) {
             Iterator<Exercise> iterator = UserStorage.getExercises().iterator();
-            Exercise lastExercise = null;
+            Exercise lastExercise;
             while(iterator.hasNext()){
                 lastExercise = iterator.next();
                 if( lastExercise != null){
