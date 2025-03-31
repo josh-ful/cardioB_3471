@@ -24,14 +24,12 @@ public class ExerciseLogScene extends Scenes{
         new LogCSVReaderWriter("src/resources/testCreateExercise.csv");
         LogCSVReaderWriter.readCSV();
 
-        panel.add(addWorkoutButton(frame));
+        panel.add(addWorkoutButton());
         panel.add(addTextELog());
         panel.add(logTable());
 
         frame.add(panel);
         System.out.println(UserStorage.getExercises());
-
-
     }
 
 

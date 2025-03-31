@@ -19,6 +19,7 @@ public class LogCSVReaderWriter {
             System.out.println("Reading file " + fileName);
             BufferedReader br = new BufferedReader( new FileReader(fileName));
             String line;
+            UserController.clearExercises();
 
             while ((line = br.readLine()) != null) {
                 // System.out.println(line);
@@ -59,12 +60,11 @@ public class LogCSVReaderWriter {
         try {
             BufferedWriter br = new BufferedWriter(new FileWriter(fileName));
             br.write(name + "," + description + '\n');
-
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("IO exception");
         }
     }
 }

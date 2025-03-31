@@ -57,4 +57,8 @@ public class UserStorage {
     public static Set<Exercise> getExercises() {
         return exerciseSet;
     }
+
+    public static void clearExercises() {
+        exerciseSet.clear();
+    }
 }
