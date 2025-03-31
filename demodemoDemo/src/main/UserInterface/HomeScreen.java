@@ -66,7 +66,7 @@ public class HomeScreen extends Scenes{
     }
 
     private static JLabel getIconLabel() {
-        ImageIcon icon = new ImageIcon("src/main/resources/cardioB_logo.png");
+        ImageIcon icon = new ImageIcon("src/resources/cardioB_logo.png");
         Image image = icon.getImage();
         image = image.getScaledInstance(300, 400, Image.SCALE_SMOOTH);
 

@@ -68,16 +68,14 @@ public class Main {
         JFrame frame = new JFrame();
         HomeScreen hs = new HomeScreen(frame);
         //when me has information stored in it
-        System.out.println("next command ran anyways");
+
 
         if (UserStorage.infoInputted()) {
             System.out.println("Login Successful");
             System.out.println(UserStorage.userInfo());
             //userMenuScene umS = new userMenuScene(frame);
         }
-        LogCSVReaderWriter tce = new LogCSVReaderWriter("src/main/resources/testCreateExercise.csv");
-        tce.readCSV();
-        System.out.println(UserStorage.getExercises());
+
 
         //userMenuScene umS = new userMenuScene(frame);
 

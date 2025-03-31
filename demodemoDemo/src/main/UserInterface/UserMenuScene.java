@@ -29,8 +29,9 @@ public class UserMenuScene extends Scenes{
     }
 
     public void createUM_SCENE(JFrame frame) {
-        panelLayout();
         super.createAndShowGUI(frame);
+        panelLayout();
+
 
         addTextMenu();
         initMenu(frame);
@@ -76,7 +77,7 @@ public class UserMenuScene extends Scenes{
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu();
 
-        ImageIcon icon = new ImageIcon("main/resources/menuIcon.png");
+        ImageIcon icon = new ImageIcon("src/resources/menuIcon.png");
         Image image = icon.getImage();
         int newWidth = 50; // Desired width
         int newHeight = 50; // Desired height

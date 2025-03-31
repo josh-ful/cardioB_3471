@@ -28,6 +28,7 @@ public class Scenes {
 
     public void createAndShowGUI(JFrame frame) {
         panel = new JPanel();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         frame.getContentPane().removeAll();
         frame.getContentPane().repaint();

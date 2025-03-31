@@ -1,10 +1,12 @@
 package main.UserInterface;
 
+import main.FitnessCourse.Exercise;
 import main.UserInformation.UserStorage;
-import main.UserInterface.addExercise.AddExerciseScene;
+import main.UserInterface.addExercise.AddExerciseDialog;
 import main.UserInterface.addExercise.LogCSVReaderWriter;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,21 +16,49 @@ public class ExerciseLogScene extends Scenes{
 
     public ExerciseLogScene(JFrame frame){
         createEL_SCENE(frame);
-        this.frame = frame;
+        ExerciseLogScene.frame = frame;
     }
 
     private void createEL_SCENE(JFrame frame) {
         super.createAndShowGUI(frame);
-        //JScrollPane scrollPane = new LogCSVReaderWriter("testCreateExercise.csv").;
+        LogCSVReaderWriter reader = new LogCSVReaderWriter("src/resources/testCreateExercise.csv");
+        LogCSVReaderWriter.readCSV();
 
         panel.add(addWorkoutButton(frame));
         panel.add(addTextELog());
-        //LogCSVReaderWriter.readCSV();
-        panel.add(LogCSVReaderWriter.logTable());
+        panel.add(logTable());
 
         frame.add(panel);
         System.out.println(UserStorage.getExercises());
 
+
+    }
+
+
+
+    public static JScrollPane logTable(){
+        String[] columnNames = {"Name", "Description"};
+        DefaultTableModel tableModel = new DefaultTableModel(setToMatrix(), columnNames);
+        JTable table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setPreferredSize(new Dimension(100, 100));
+
+        return scrollPane;
+    }
+
+    public static String[][] setToMatrix(){
+        int i= 0;
+        String [][] matrix = new String[UserStorage.getExercises().size()][2];
+        for(Exercise e : UserStorage.getExercises()){
+            matrix[i][0] = e.getName();
+            //System.out.println(matrix[i][0]);
+            matrix[i][1] = e.getDescription();
+            // System.out.println(matrix[i][1]);
+            i++;
+        }
+        return matrix;
     }
 
     private JLabel addTextELog() {
@@ -48,7 +78,7 @@ public class ExerciseLogScene extends Scenes{
         workoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AddExerciseScene();
+                new AddExerciseDialog();
             }
         });
 

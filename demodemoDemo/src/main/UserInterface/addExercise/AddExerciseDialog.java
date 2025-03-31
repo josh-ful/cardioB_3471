@@ -16,8 +16,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddExerciseScene extends Scenes{
-    public AddExerciseScene() {
+public class AddExerciseDialog extends Scenes{
+    public AddExerciseDialog() {
         createAndShowGUI();
     }
 
@@ -40,8 +40,7 @@ public class AddExerciseScene extends Scenes{
             @Override
             public void actionPerformed(ActionEvent e) {
                 UserController.enterExercise(nameField.getText(), descriptionField.getText());
-                frame.setVisible(false);
-                LogCSVReaderWriter.writeCSV();
+                frame.dispose();
                 ExerciseLogScene.submittedNewScene();
             }
         });
