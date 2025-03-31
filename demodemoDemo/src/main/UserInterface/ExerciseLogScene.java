@@ -12,9 +12,6 @@ public class ExerciseLogScene extends Scenes{
     private void createEL_SCENE(JFrame frame) {
         super.createAndShowGUI(frame);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
         panel.add(addWorkoutButton(frame));
         panel.add(addTextELog());
         frame.add(panel);

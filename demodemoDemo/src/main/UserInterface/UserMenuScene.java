@@ -17,7 +17,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 
 public class UserMenuScene extends Scenes{
-    JPanel panel = new JPanel();
     GridBagConstraints constraints = new GridBagConstraints();
 
     public UserMenuScene(JFrame frame){
@@ -30,8 +29,8 @@ public class UserMenuScene extends Scenes{
     }
 
     public void createUM_SCENE(JFrame frame) {
-        panelLayout();
         super.createAndShowGUI(frame);
+        panelLayout();
 
         addTextMenu();
         initMenu(frame);
