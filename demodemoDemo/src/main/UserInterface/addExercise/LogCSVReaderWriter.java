@@ -38,13 +38,15 @@ public class LogCSVReaderWriter {
             Exercise lastExercise = null;
             while(iterator.hasNext()){
                 lastExercise = iterator.next();
+                if( lastExercise != null){
+                    br.write(lastExercise.getName() + "," + lastExercise.getDescription() + "\n");
+                    System.out.println(lastExercise.getName() + "," + lastExercise.getDescription());
+                }
             }
-            if( lastExercise != null){
-                br.write(lastExercise.getName() + lastExercise.getDescription() + "\n");
-            }
+            br.flush();
 
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("File not found");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

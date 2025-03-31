@@ -75,7 +75,7 @@ public class Main {
             System.out.println(UserStorage.userInfo());
             //userMenuScene umS = new userMenuScene(frame);
         }
-        LogCSVReaderWriter tce = new LogCSVReaderWriter("testCreateExercise.csv");
+        LogCSVReaderWriter tce = new LogCSVReaderWriter("src/main/resources/testCreateExercise.csv");
         tce.readCSV();
         System.out.println(UserStorage.getExercises());
 
