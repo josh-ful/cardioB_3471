@@ -8,6 +8,6 @@ public class UserController implements Controller{
         Exercise e = new Exercise(name);
         e.setDescription(description);
         UserStorage.addExercise(e);
-        System.out.println(name + "\n" + description);
+        System.out.println(name + " : " + description);
     }
 }

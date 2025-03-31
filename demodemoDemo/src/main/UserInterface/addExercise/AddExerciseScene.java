@@ -6,6 +6,7 @@
 
 package main.UserInterface.addExercise;
 
+import main.UserInterface.ExerciseLogScene;
 import main.UserInterface.Scenes;
 import main.Controller.*;
 
@@ -40,6 +41,8 @@ public class AddExerciseScene extends Scenes{
             public void actionPerformed(ActionEvent e) {
                 UserController.enterExercise(nameField.getText(), descriptionField.getText());
                 frame.setVisible(false);
+                LogCSVReaderWriter.writeCSV();
+                ExerciseLogScene.submittedNewScene();
             }
         });
 
