@@ -29,8 +29,8 @@ public class UserMenuScene extends Scenes{
     }
 
     public void createUM_SCENE(JFrame frame) {
-        super.createAndShowGUI(frame);
         panelLayout();
+        super.createAndShowGUI(frame);
 
         addTextMenu();
         initMenu(frame);

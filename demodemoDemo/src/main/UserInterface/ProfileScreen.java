@@ -18,10 +18,10 @@ public class ProfileScreen extends Scenes{
     @Override
     public void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
-
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Profile");
 
-        frame.setLayout(new GridLayout());
+        frame.setLayout(new GridBagLayout());
 
         JLabel nameLabel = new JLabel("Name: ");
         nameLabel.setText(nameLabel.getText() + UserStorage.getName());
