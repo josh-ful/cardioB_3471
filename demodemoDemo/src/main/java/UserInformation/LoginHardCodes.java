@@ -1,4 +1,4 @@
-package main.UserInformation;
+package UserInformation;
 
 import java.util.HashMap;
 import java.util.Map;

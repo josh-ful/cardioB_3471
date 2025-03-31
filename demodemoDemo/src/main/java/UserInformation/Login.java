@@ -1,12 +1,13 @@
-package main.UserInformation;
+package UserInformation;
 
-import static main.UserInformation.UserStorage.setName;
-import static main.UserInformation.UserStorage.setPassword;
+import static UserInformation.UserStorage.setName;
+import static UserInformation.UserStorage.setPassword;
 
 public class Login implements LoginHardCodes {
     public static boolean loginLogic(String user, String pass){
         boolean success = false;
 
+        
         if(logins.containsKey(user) && pass.equals(logins.get(user))){
             success = true;
             setName(user);

@@ -1,6 +1,6 @@
-package main.UserInterface;
+package UserInterface;
 
-import main.UserInformation.UserStorage;
+import UserInformation.UserStorage;
 
 import javax.swing.*;
 import java.awt.*;

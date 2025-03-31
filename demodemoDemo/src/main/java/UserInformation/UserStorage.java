@@ -1,4 +1,4 @@
-package main.UserInformation;
+package UserInformation;
 
 public class UserStorage {
     private static String name;

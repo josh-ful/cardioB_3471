@@ -1,4 +1,4 @@
-package main.test;
+package test;
 
 /*
 Author: Trello Fellows
@@ -18,8 +18,8 @@ Kiera Shepperd
 Lawson Hale
  */
 
-import main.UserInformation.*;
-import main.UserInterface.*;
+import UserInformation.*;
+import UserInterface.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,6 +48,9 @@ import java.awt.*;
 //Create fields in the register scene, that accept valid formatted info and add that data to the map [DONE]
 //Extract login and register button scenes to separate classes & link to one gui
 
+import java.sql.*;
+import org.mindrot.jbcrypt.BCrypt;
+
 public class Main {
 
     public class companyDetails extends JPanel {
@@ -60,7 +63,54 @@ public class Main {
         }
     }
 
+    private static void addUser(PreparedStatement ps, String username, String plainPassword) throws SQLException {
+        String hashed = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
+        ps.setString(1, username);
+        ps.setString(2, hashed);
+        ps.executeUpdate();
+    }
+
     public static void main(String[] args) {
+
+        String url = "jdbc:mysql://192.168.137.234:3306/fitnessdb";
+        String user = "fitnessuser";
+        String password = "strongpassword123";
+
+        try {
+            // Explicitly load MySQL JDBC driver clearly
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Now, connect clearly
+            Connection conn = DriverManager.getConnection(url, user, password);
+            System.out.println("✅ Connected to MySQL successfully!");
+
+            String insertSql = "INSERT INTO users (username, password) VALUES (?, ?)";
+            PreparedStatement ps = conn.prepareStatement(insertSql);
+
+            // clearly define initial users here:
+            //addUser(ps, "alice", "password1");
+            //addUser(ps, "bob", "password2");
+            //addUser(ps, "charlie", "password3");
+
+            String sql = "SELECT username FROM users";
+            PreparedStatement ps2 = conn.prepareStatement(sql);
+            ResultSet rs = ps2.executeQuery();
+            while (rs.next()) {
+                System.out.println("Username: " + rs.getString("username"));
+                //System.out.println("Password: " + rs.getString("password"));
+            }
+
+            String sql2 = "SELECT password FROM users";
+            PreparedStatement ps3 = conn.prepareStatement(sql2);
+            ResultSet rs2 = ps3.executeQuery();
+            while (rs2.next()) {
+                System.out.println("Password: " + rs2.getString("password"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         JFrame frame = new JFrame();
         HomeScreen hs = new HomeScreen(frame);
         //when me has information stored in it

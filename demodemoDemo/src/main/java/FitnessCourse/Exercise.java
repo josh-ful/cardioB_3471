@@ -1,4 +1,4 @@
-package main.FitnessCourse;
+package FitnessCourse;
 
 public class Exercise {
     public Exercise(String name) {
