@@ -21,7 +21,7 @@ public class ExerciseLogScene extends Scenes{
 
     private void createEL_SCENE(JFrame frame) {
         super.createAndShowGUI(frame);
-        LogCSVReaderWriter reader = new LogCSVReaderWriter("src/resources/testCreateExercise.csv");
+        new LogCSVReaderWriter("src/resources/testCreateExercise.csv");
         LogCSVReaderWriter.readCSV();
 
         panel.add(addWorkoutButton(frame));
@@ -70,7 +70,7 @@ public class ExerciseLogScene extends Scenes{
         return exerciseText;
     }
 
-    private JButton addWorkoutButton(JFrame frame) {
+    private JButton addWorkoutButton() {
         JButton workoutButton = new JButton("Add Workout!");
         workoutButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         workoutButton.setMaximumSize(new Dimension(Scenes.FRAME_W, 50));

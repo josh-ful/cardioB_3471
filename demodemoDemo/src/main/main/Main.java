@@ -23,7 +23,7 @@ Lawson Hale
 
 import main.UserInformation.*;
 import main.UserInterface.*;
-import main.UserInterface.addExercise.LogCSVReaderWriter;
+//import main.UserInterface.addExercise.LogCSVReaderWriter;
 
 import javax.swing.*;
 import java.awt.*;

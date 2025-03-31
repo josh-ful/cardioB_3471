@@ -3,7 +3,7 @@
 // Java File Description: UserMenuScene.java is an extension
 // of Scenes.java that creates a scene with a menu and a
 // welcome method
-/**
+/*
  * this class is an extension of Scenes.java that creates a
  * scene with a menu and a welcome method
  */
@@ -14,7 +14,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 
 public class UserMenuScene extends Scenes{
     GridBagConstraints constraints = new GridBagConstraints();
