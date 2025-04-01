@@ -7,6 +7,8 @@ import UserInformation.UserStorage;
 import java.io.*;
 import java.util.Iterator;
 
+//TODO these shouldn't be static??
+
 public class LogCSVReaderWriter {
     private static String fileName;
 

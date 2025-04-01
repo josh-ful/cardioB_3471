@@ -17,6 +17,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+//TODO fix some method/formatting things here
 public class UserMenuScene extends Scenes{
     GridBagConstraints constraints = new GridBagConstraints();
 
@@ -61,6 +63,7 @@ public class UserMenuScene extends Scenes{
         constraints.anchor = GridBagConstraints.CENTER; // Center it
         panel.add(promptText, constraints);
     }
+
     private void initMenu(JFrame frame) {
         JMenuBar menu = getjMenu(frame);
         constraints.gridx = 0;  // Column
@@ -78,14 +81,7 @@ public class UserMenuScene extends Scenes{
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu();
 
-        ImageIcon icon = new ImageIcon("src/resources/menuIcon.png");
-        Image image = icon.getImage();
-        int newWidth = 50; // Desired width
-        int newHeight = 50; // Desired height
-        Image scaledImage = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-        icon = new ImageIcon(scaledImage);
-
-        menu.setIcon(icon);
+        menu.setIcon(getMenuIcon());
 
         JMenuItem profileItem = new JMenuItem("Profile");
         profileItem.addActionListener(new ActionListener() {
@@ -109,11 +105,21 @@ public class UserMenuScene extends Scenes{
                 new ExerciseLogScene(frame);
             }
         });
+        menu.add(workoutLogItem);
 
         menuBar.add(menu);
-        menu.add(workoutLogItem);
         menu.addSeparator();
 
         return menuBar;
+    }
+
+    private static ImageIcon getMenuIcon() {
+        ImageIcon icon = new ImageIcon("src/resources/menuIcon.png");
+        Image image = icon.getImage();
+        int newWidth = 50; // Desired width
+        int newHeight = 50; // Desired height
+        Image scaledImage = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        icon = new ImageIcon(scaledImage);
+        return icon;
     }
 }

@@ -21,6 +21,8 @@ public class ExerciseLogScene extends Scenes{
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
+
+        //TODO could we put this somewhere else??
         new LogCSVReaderWriter("src/resources/testCreateExercise.csv");
         LogCSVReaderWriter.readCSV();
 
@@ -31,8 +33,6 @@ public class ExerciseLogScene extends Scenes{
         frame.add(panel);
         System.out.println(UserStorage.getExercises());
     }
-
-
 
     private static JScrollPane logTable(){
         String[] columnNames = {"Name", "Description"};
