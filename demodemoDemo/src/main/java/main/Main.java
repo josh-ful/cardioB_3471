@@ -82,12 +82,12 @@ public class Main {
         String answer = scanner.nextLine();
         if(answer.equals("y")) {
             sql = true;
-            System.out.print("Enter your database ip: ");
-            String ip = scanner.nextLine();
-            System.out.println("Connecting to " + ip + "...");
+            System.out.print("Enter your specified port (330X): ");
+            String portNumber = scanner.nextLine();
+            System.out.println("Connecting to " + portNumber + "...");
             scanner.close();
 
-            db = new DBConnection(ip);
+            db = new DBConnection(portNumber);
         }
 
 

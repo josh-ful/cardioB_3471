@@ -10,9 +10,9 @@ public class DBConnection implements DatabaseInfo {
     private static final String PASSWORD = "strongpassword123";
 
 
-    public DBConnection(String ip) {
+    public DBConnection(String port) {
         states.put("SQL", true);
-        URL = "jdbc:mysql://" + ip + ":3306/fitnessdb";
+        URL = "jdbc:mysql://localhost:" + port + "/fitnessdb";
         System.out.println(URL);
         try {
             // Explicitly load MySQL JDBC driver clearly
