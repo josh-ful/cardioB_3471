@@ -17,6 +17,10 @@ public class Login implements LoginHardCodes {
     public static boolean loginLogic(String user, String pass){
         boolean success = false;
         boolean usingSQL = DatabaseInfo.states.get("SQL");
+
+        //TODO: validate input before passing to login logic
+
+
         if(usingSQL){
             String query = "SELECT password FROM users WHERE username = ?";
 

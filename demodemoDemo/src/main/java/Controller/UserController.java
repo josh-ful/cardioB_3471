@@ -4,6 +4,7 @@ import FitnessCourse.*;
 import UserInformation.UserStorage;
 import UserInterface.addExercise.LogCSVReaderWriter;
 
+import main.DatabaseInfo;
 public class UserController implements Controller{
     public static void enterExercise(String name, String description) {
         Exercise e = new Exercise(name);
@@ -12,6 +13,11 @@ public class UserController implements Controller{
         System.out.println("Name:" + name);
         System.out.println("Description: " + description);
         LogCSVReaderWriter.writeCSV();
+
+        if(DatabaseInfo.states.get("SQL")){
+            //SQL Implementation
+
+        }
     }
 
     public static void newExercise(String name, String description) {

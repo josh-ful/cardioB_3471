@@ -9,6 +9,7 @@ public class DBConnection implements DatabaseInfo {
     private static final String USER = "fitnessuser";
     private static final String PASSWORD = "strongpassword123";
 
+
     public DBConnection(String ip) {
         states.put("SQL", true);
         URL = "jdbc:mysql://" + ip + ":3306/fitnessdb";
@@ -22,7 +23,7 @@ public class DBConnection implements DatabaseInfo {
             System.out.println("✅ Connected to MySQL successfully!");
 
             //TESTING ADDING USERS ✅
-            String insertSql = "INSERT INTO users (username, password) VALUES (?, ?)";
+            //String insertSql = "INSERT INTO users (username, password) VALUES (?, ?)";
             //PreparedStatement ps = conn.prepareStatement(insertSql);
             //addUser(ps, "alice", "password1");
             //addUser(ps, "bob", "password2");
@@ -52,7 +53,7 @@ public class DBConnection implements DatabaseInfo {
     public DBConnection() {
     }
 
-    private static void addUser(PreparedStatement ps, String username, String plainPassword) throws SQLException {
+    public static void addUser(PreparedStatement ps, String username, String plainPassword) throws SQLException {
         String hashed = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
         ps.setString(1, username);
         ps.setString(2, hashed);
