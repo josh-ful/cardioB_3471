@@ -1,6 +1,7 @@
 /**
  * this class creates a scene that verifies that the
  * login info is valid
+ * noah mathew
  */
 package UserInformation;
 
@@ -52,10 +53,8 @@ public class Login implements LoginHardCodes {
 
         }
 
-        else{
-            if(logins.containsKey(user) && pass.equals(logins.get(user))){
-                success = true;
-            }
+        else if (logins.containsKey(user) && pass.equals(logins.get(user))){
+            success = true;
         }
 
         if(success){

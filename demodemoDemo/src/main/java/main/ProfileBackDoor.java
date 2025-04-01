@@ -50,16 +50,6 @@ import java.awt.*;
 
 public class ProfileBackDoor {
 
-    public class CompanyDetails extends JPanel {
-        public CompanyDetails() {
-            JLabel companyName = new JLabel("CardioB™");
-            companyName.setFont(new Font("Comic Sans MS", Font.BOLD, 70));
-            companyName.setForeground(Color.BLACK);
-            //companyName.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(companyName);
-        }
-    }
-
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         HomeScreen hs = new HomeScreen(frame);

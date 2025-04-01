@@ -1,6 +1,9 @@
 /**
  * this class stores user information as the user
  * uses the app
+ * kiera shepperd
+ * noah mathew
+ * carter lewis
  */
 package UserInformation;
 

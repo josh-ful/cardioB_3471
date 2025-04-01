@@ -35,15 +35,14 @@ public class Register implements LoginHardCodes {
             }
 
         }
-        else{
-            if(!logins.containsKey(user)){
+        else if(!logins.containsKey(user)){
                 success = true;
                 logins.put(user, pass);
 
                 setName(user);
                 setPassword(pass);
                 setType(utStatus);
-            }
+
         }
 
         return success;
