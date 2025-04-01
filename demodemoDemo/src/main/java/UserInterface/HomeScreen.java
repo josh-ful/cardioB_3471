@@ -23,7 +23,7 @@ public class HomeScreen extends Scenes{
         createAndShowGUI(frame);
     }
 
-    public void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

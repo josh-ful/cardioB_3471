@@ -4,6 +4,7 @@
 package UserInterface;
 
 import UserInformation.UserStorage;
+import main.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +17,7 @@ public class ProfileScreen extends Scenes{
 
 
     @Override
-    public void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Profile");
@@ -29,6 +30,6 @@ public class ProfileScreen extends Scenes{
         panel.add(nameLabel);
         frame.add(panel);
 
-        // get class list and display
+        // TODO get class list and display
     }
 }

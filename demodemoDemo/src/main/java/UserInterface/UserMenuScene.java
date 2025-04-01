@@ -10,6 +10,8 @@
 
 package UserInterface;
 
+import main.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,7 +29,7 @@ public class UserMenuScene extends Scenes{
         constraints.fill = GridBagConstraints.HORIZONTAL;
     }
 
-    public void createUM_SCENE(JFrame frame) {
+    protected void createUM_SCENE(JFrame frame) {
         super.createAndShowGUI(frame);
         panelLayout();
 
@@ -38,7 +40,7 @@ public class UserMenuScene extends Scenes{
         frame.add(panel);
     }
 
-    public void addTextMenu() {
+    private void addTextMenu() {
         JLabel welcomeText = new JLabel("Welcome!");
         welcomeText.setFont(new Font("Comic Sans MS", Font.BOLD, 60));
         welcomeText.setForeground(Color.BLACK);
@@ -72,7 +74,7 @@ public class UserMenuScene extends Scenes{
         panel.add(menu, constraints);
     }
 
-    static JMenuBar getjMenu( JFrame frame) {
+    private static JMenuBar getjMenu(JFrame frame) {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu();
 
@@ -107,9 +109,11 @@ public class UserMenuScene extends Scenes{
                 new ExerciseLogScene(frame);
             }
         });
+
         menuBar.add(menu);
         menu.add(workoutLogItem);
         menu.addSeparator();
+
         return menuBar;
     }
 }

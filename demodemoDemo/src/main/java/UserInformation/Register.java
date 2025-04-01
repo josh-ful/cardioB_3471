@@ -14,11 +14,10 @@ import static main.DBConnection.addUser;
 import main.DBConnection;
 
 public class Register implements LoginHardCodes {
-    public static boolean registerLogic(String user, String pass, Boolean utStatus){
+    public static boolean registerLogic(String user, String pass, Boolean utStatus)
+            throws SQLException{
         boolean success = false;
         boolean usingSQL = DatabaseInfo.states.get("SQL");
-
-        //TODO: validate input before passing to register logic
 
         if(usingSQL){
 
@@ -29,21 +28,28 @@ public class Register implements LoginHardCodes {
                 success = ps.executeUpdate() > 0;
             } catch(SQLIntegrityConstraintViolationException e){
                 System.out.println("User already exists!");
-                //TODO: Add dialog for this message
+                throw new SQLException(e);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
+                // TODO smth about these exceptions doesnt work
+                // they always trigger the catch block in RegisterScenes
             }
-
         }
         else{
-            if(!logins.containsKey(user)){
-                success = true;
-                logins.put(user, pass);
+            success = localRegisterLogic(user, pass, utStatus, success);
+        }
 
-                setName(user);
-                setPassword(pass);
-                setType(utStatus);
-            }
+        return success;
+    }
+
+    private static boolean localRegisterLogic(String user, String pass, Boolean utStatus, boolean success) {
+        if(!logins.containsKey(user)){
+            success = true;
+            logins.put(user, pass);
+
+            setName(user);
+            setPassword(pass);
+            setType(utStatus);
         }
 
         return success;

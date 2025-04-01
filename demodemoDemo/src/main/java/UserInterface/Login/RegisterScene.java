@@ -4,8 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import UserInformation.*;
+import UserInterface.HomeScreen;
+
 //import java.util.ArrayList;
 
 public class RegisterScene extends LR_Scenes {
@@ -39,14 +43,46 @@ public class RegisterScene extends LR_Scenes {
                 String user = username.getText();
                 String pass = new String(password.getPassword());
 
-                boolean success = Register.registerLogic(user, pass, utStatus);
-                new LR_Dialog(success);
+                boolean valid = true;
+                if (!ValidateLRInputs.usernameFormatValidation(user)){
+                    JOptionPane.showMessageDialog(
+                            panel,
+                            "Sorry, \"" + user + "\" "
+                                    + "isn't a valid username.\n",
+                            "Try again",
+                            JOptionPane.ERROR_MESSAGE);
+                    username.setText("");
+                    valid = false;
+                }
+                if (!ValidateLRInputs.passwordFormatValidation(pass)){
+                    JOptionPane.showMessageDialog(
+                            panel,
+                            "Sorry, \"" + pass + "\" "
+                                    + "isn't a valid password.\n",
+                            "Try again",
+                            JOptionPane.ERROR_MESSAGE);
+                    password.setText("");
+                    valid = false;
+                }
 
-                //TODO: What happens after this?? Back to login screen?
 
-                // For testing only
-                //ArrayList<String> loginList = new ArrayList<>(Register.logins.keySet());
-                //loginList.forEach(System.out::println);
+                if (valid) {
+                    boolean success = false;
+
+                    try {
+                        success = Register.registerLogic(user, pass, utStatus);
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(
+                                panel,
+                                "Sorry, \"" + user + "\" "
+                                        + "already exists.\n",
+                                "Please log-in",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+                //TODO what happens after this? success goes back to homepage?
+                //if (success){ go back to home page? }
             }
         });
 
