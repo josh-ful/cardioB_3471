@@ -57,7 +57,7 @@ public class DBConnection implements DatabaseInfo {
         String hashed = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
         ps.setString(1, username);
         ps.setString(2, hashed);
-        ps.executeUpdate();
+        //ps.executeUpdate();
     }
 
     public static Connection getConnection() throws SQLException {

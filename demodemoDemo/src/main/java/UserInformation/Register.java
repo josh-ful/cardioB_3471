@@ -20,19 +20,17 @@ public class Register implements LoginHardCodes {
         boolean usingSQL = DatabaseInfo.states.get("SQL");
 
         if(usingSQL){
-
-            try (Connection conn = DBConnection.getConnection()) {
-                String insertSql = "INSERT INTO users (username, password) VALUES (?, ?)";
-                PreparedStatement ps = conn.prepareStatement(insertSql);
+            Connection conn = DBConnection.getConnection();
+            String insertSql = "INSERT INTO users (username, password) VALUES (?, ?)";
+            try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
                 addUser(ps, user, pass);
                 success = ps.executeUpdate() > 0;
+
             } catch(SQLIntegrityConstraintViolationException e){
                 System.out.println("User already exists!");
                 throw new SQLException(e);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-                // TODO smth about these exceptions doesnt work
-                // they always trigger the catch block in RegisterScenes
+            } catch(SQLException e){
+                e.printStackTrace();
             }
         }
         else{

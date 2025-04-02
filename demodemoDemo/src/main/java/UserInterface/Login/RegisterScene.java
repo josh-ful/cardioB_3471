@@ -27,10 +27,12 @@ public class RegisterScene extends LR_Scenes {
 
         panel.add(userButton);
         panel.add(trainerButton);
-
         panel.add(getConfirmRegisterButton(username, password));
+
         panel.add(getBackButton(frame));
     }
+
+    //TODO make sure one of the options are selected for user type before register can occur
 
     private JButton getConfirmRegisterButton(JTextField username, JPasswordField password) {
         JButton registerButton = new JButton("Register");
@@ -40,51 +42,63 @@ public class RegisterScene extends LR_Scenes {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String user = username.getText();
-                String pass = new String(password.getPassword());
 
-                boolean valid = true;
-                if (!ValidateLRInputs.usernameFormatValidation(user)){
-                    JOptionPane.showMessageDialog(
-                            panel,
-                            "Sorry, \"" + user + "\" "
-                                    + "isn't a valid username.\n",
-                            "Try again",
-                            JOptionPane.ERROR_MESSAGE);
-                    username.setText("");
-                    valid = false;
-                }
-                if (!ValidateLRInputs.passwordFormatValidation(pass)){
-                    JOptionPane.showMessageDialog(
-                            panel,
-                            "Sorry, \"" + pass + "\" "
-                                    + "isn't a valid password.\n",
-                            "Try again",
-                            JOptionPane.ERROR_MESSAGE);
-                    password.setText("");
-                    valid = false;
-                }
+                if (utStatus == null) {
+                    JOptionPane.showMessageDialog(null,
+                            "Please select user type", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    String user = username.getText();
+                    String pass = new String(password.getPassword());
 
-
-                if (valid) {
-                    boolean success = false;
-
-                    try {
-                        success = Register.registerLogic(user, pass, utStatus);
-                    } catch (SQLException ex) {
+                    boolean valid = true;
+                    if (!ValidateLRInputs.usernameFormatValidation(user)) {
                         JOptionPane.showMessageDialog(
                                 panel,
                                 "Sorry, \"" + user + "\" "
-                                        + "already exists.\n",
-                                "Please log-in",
+                                        + "isn't a valid username.\n",
+                                "Try again",
                                 JOptionPane.ERROR_MESSAGE);
+                        username.setText("");
+                        valid = false;
+                    }
+                    if (!ValidateLRInputs.passwordFormatValidation(pass)) {
+                        JOptionPane.showMessageDialog(
+                                panel,
+                                "Sorry, \"" + pass + "\" "
+                                        + "isn't a valid password.\n",
+                                "Try again",
+                                JOptionPane.ERROR_MESSAGE);
+                        password.setText("");
+                        valid = false;
+                    }
+
+
+                    if (valid) {
+                        boolean success = false;
+                        try {
+                            success = Register.registerLogic(user, pass, utStatus);
+                        } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(
+                                    panel,
+                                    "Sorry, \"" + user + "\" "
+                                            + "already exists.\n",
+                                    "Please log-in",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        if (success) {
+                            JOptionPane.showMessageDialog(
+                                    panel,
+                                    "Congrats! You have been registered! \n" +
+                                            "Return to main menu and login!",
+                                    "Registration Successful",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        }
                     }
                 }
-
-                //TODO what happens after this? success goes back to homepage?
-                //if (success){ go back to home page? }
             }
         });
+
 
         return registerButton;
     }

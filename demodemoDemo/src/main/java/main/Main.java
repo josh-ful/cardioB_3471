@@ -64,15 +64,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    public class companyDetails extends JPanel {
-        public companyDetails() {
-            JLabel companyName = new JLabel("CardioB™");
-            companyName.setFont(new Font("Comic Sans MS", Font.BOLD, 70));
-            companyName.setForeground(Color.BLACK);
-            //companyName.setHorizontalAlignment(SwingConstants.CENTER);
-            this.add(companyName);
-        }
-    }
 
     public static void main(String[] args) {
         boolean sql = false;
