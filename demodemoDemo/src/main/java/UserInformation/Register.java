@@ -13,6 +13,8 @@ import static main.DBConnection.addUser;
 
 import main.DBConnection;
 
+import javax.swing.*;
+
 public class Register implements LoginHardCodes {
     public static boolean registerLogic(String user, String pass, Boolean utStatus){
         boolean success = false;
@@ -29,7 +31,7 @@ public class Register implements LoginHardCodes {
                 success = ps.executeUpdate() > 0;
             } catch(SQLIntegrityConstraintViolationException e){
                 System.out.println("User already exists!");
-                //TODO: Add dialog for this message
+                //no dialog
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

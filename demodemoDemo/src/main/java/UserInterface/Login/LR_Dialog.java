@@ -14,18 +14,13 @@ public class LR_Dialog extends Scenes {
         dialog.setVisible(true);
 
         if (success){
-            successfulDialog(dialog);
+           dialog.setTitle("Success");
         }
-        else{
-            unsuccessfulDialog(dialog);
+        else {
+            dialog.setTitle("Error");
         }
     }
 
-    public static void successfulDialog(JDialog dialog){
-        dialog.setTitle("Success!");
-    }
 
-    public static void unsuccessfulDialog(JDialog dialog){
-        dialog.setTitle("Failure!");
-    }
+
 }
