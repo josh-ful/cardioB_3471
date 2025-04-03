@@ -15,25 +15,24 @@ import main.DBConnection;
 
 public class Register implements LoginHardCodes {
     public static boolean registerLogic(String user, String pass, Boolean utStatus)
-            throws SQLException{
+            throws SQLException {
         boolean success = false;
         boolean usingSQL = DatabaseInfo.states.get("SQL");
 
-        if(usingSQL){
+        if (usingSQL) {
             Connection conn = DBConnection.getConnection();
             String insertSql = "INSERT INTO users (username, password) VALUES (?, ?)";
             try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
                 addUser(ps, user, pass);
                 success = ps.executeUpdate() > 0;
 
-            } catch(SQLIntegrityConstraintViolationException e){
+            } catch (SQLIntegrityConstraintViolationException e) {
                 System.out.println("User already exists!");
                 throw new SQLException(e);
-            } catch(SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-        else{
+        } else {
             success = localRegisterLogic(user, pass, utStatus, success);
         }
 
@@ -41,7 +40,7 @@ public class Register implements LoginHardCodes {
     }
 
     private static boolean localRegisterLogic(String user, String pass, Boolean utStatus, boolean success) {
-        if(!logins.containsKey(user)){
+        if (!logins.containsKey(user)) {
             success = true;
             logins.put(user, pass);
 

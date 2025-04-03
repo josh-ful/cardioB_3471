@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import UserInformation.ValidateLRInputs;
 import UserInterface.*;
 
 public class LR_Scenes extends Scenes {
@@ -50,6 +51,7 @@ public class LR_Scenes extends Scenes {
 
         return backButton;
     }
+
 
 
 

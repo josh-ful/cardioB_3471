@@ -51,49 +51,29 @@ public class RegisterScene extends LR_Scenes {
                     String pass = new String(password.getPassword());
 
                     boolean valid = true;
-                    if (!ValidateLRInputs.usernameFormatValidation(user)) {
+                    try {
+                        ValidateLRInputs.validateRInputs(user, pass);
+                        Register.registerLogic(user, pass, utStatus);
+                    } catch (SQLException ex) {
+                        valid = false;
                         JOptionPane.showMessageDialog(
                                 panel,
-                                "Sorry, \"" + user + "\" "
-                                        + "isn't a valid username.\n",
-                                "Try again",
+                                ex.getMessage(),
+                                "Please log-in",
                                 JOptionPane.ERROR_MESSAGE);
-                        username.setText("");
+                    } catch (IllegalArgumentException ex) {
                         valid = false;
+                        JOptionPane.showMessageDialog(panel,
+                                ex.getMessage(), "REGISTER ERROR", JOptionPane.ERROR_MESSAGE);
                     }
-                    if (!ValidateLRInputs.passwordFormatValidation(pass)) {
-                        JOptionPane.showMessageDialog(
-                                panel,
-                                "Sorry, \"" + pass + "\" "
-                                        + "isn't a valid password.\n",
-                                "Try again",
-                                JOptionPane.ERROR_MESSAGE);
-                        password.setText("");
-                        valid = false;
-                    }
-
 
                     if (valid) {
-                        boolean success = false;
-                        try {
-                            success = Register.registerLogic(user, pass, utStatus);
-                        } catch (SQLException ex) {
-                            JOptionPane.showMessageDialog(
-                                    panel,
-                                    "Sorry, \"" + user + "\" "
-                                            + "already exists.\n",
-                                    "Please log-in",
-                                    JOptionPane.ERROR_MESSAGE);
-                        }
-
-                        if (success) {
-                            JOptionPane.showMessageDialog(
-                                    panel,
-                                    "Congrats! You have been registered! \n" +
-                                            "Return to main menu and login!",
-                                    "Registration Successful",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                        }
+                        JOptionPane.showMessageDialog(
+                                panel,
+                                "Congrats! You have been registered! \n" +
+                                        "Return to main menu and login!",
+                                "Registration Successful",
+                                JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }
@@ -103,7 +83,7 @@ public class RegisterScene extends LR_Scenes {
         return registerButton;
     }
 
-    private JRadioButton getSelectTrainerButton(){
+    private JRadioButton getSelectTrainerButton() {
         JRadioButton trainerButton = new JRadioButton("Trainer");
         trainerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -117,7 +97,7 @@ public class RegisterScene extends LR_Scenes {
         return trainerButton;
     }
 
-    private JRadioButton getSelectUserButton(){
+    private JRadioButton getSelectUserButton() {
         JRadioButton userButton = new JRadioButton("User");
         userButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 
