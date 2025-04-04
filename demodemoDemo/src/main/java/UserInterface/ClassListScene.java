@@ -5,6 +5,7 @@
 
 package UserInterface;
 
+import UserInterface.Login.LR_Dialog;
 import main.Main;
 
 import javax.swing.*;

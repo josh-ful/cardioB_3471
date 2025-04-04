@@ -23,11 +23,10 @@ Lawson Hale
 
 import UserInformation.*;
 import UserInterface.*;
-import org.w3c.dom.ls.LSInput;
+//import org.w3c.dom.ls.LSInput;
 //import UserInterface.addExercise.LogCSVReaderWriter;
 
 import javax.swing.*;
-import java.awt.*;
 
 //From main we are starting program so we need to bring the UI to scene 1 (login),
 // and then from there try to give control to the individual controllers based on userType
@@ -85,8 +84,6 @@ public class Main {
         JFrame frame = new JFrame();
         HomeScreen hs = new HomeScreen(frame);
         //when me has information stored in it
-
-
         if (UserStorage.infoInputted()) {
             System.out.println("Login Successful");
             System.out.println(UserStorage.userInfo());
@@ -96,6 +93,6 @@ public class Main {
 
         //userMenuScene umS = new userMenuScene(frame);
 
-        //System.out.println("mommy nodes"); >:( no
+        //System.out.println("mommy nodes"); // >:( no
     }
 }

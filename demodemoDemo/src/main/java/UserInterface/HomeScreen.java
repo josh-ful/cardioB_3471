@@ -15,14 +15,13 @@ import UserInterface.Login.RegisterScene;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class HomeScreen extends Scenes{
     public HomeScreen(JFrame frame) {
         createAndShowGUI(frame);
     }
 
+    // TODO: Put the GridBagConstraints inside the get<thing>Label method calls
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
 
@@ -91,12 +90,7 @@ public class HomeScreen extends Scenes{
         loginButton.setMaximumSize(new Dimension(100, 50));
         loginButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
 
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new LoginScene(frame);
-            }
-        });
+        loginButton.addActionListener(al -> new LoginScene(frame));
 
         return loginButton;
     }
@@ -108,12 +102,7 @@ public class HomeScreen extends Scenes{
         registerButton.setMaximumSize(new Dimension(100, 50));
         registerButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
 
-        registerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new RegisterScene(frame);
-            }
-        });
+        registerButton.addActionListener(al -> new RegisterScene(frame));
 
         return registerButton;
     }
