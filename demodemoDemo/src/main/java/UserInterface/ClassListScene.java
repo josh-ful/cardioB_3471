@@ -5,6 +5,8 @@
 
 package UserInterface;
 
+import UserInterface.Login.LR_Dialog;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,11 +18,13 @@ public class ClassListScene extends Scenes{
     }
 
     public void createCL_SCENE(JFrame frame) {
+        // pane is a boxLayout
         super.createAndShowGUI(frame);
 
         panel.add(addTextELog());
         panel.add(addScrollClassList());
         panel.add(addWorkoutButton());
+        panel.add(addBackButton(frame));
 
         frame.add(panel);
     }
@@ -46,7 +50,20 @@ public class ClassListScene extends Scenes{
     }
 
     private JButton addWorkoutButton() {
-       return new JButton("Add Workout!");
+        JButton button = new JButton("Add Class");
+        button.addActionListener(e -> {
+            new LR_Dialog(true);
+        });
+       return button;
+    }
+
+    private JButton addBackButton(JFrame frame) {
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(e -> {
+            new UserMenuScene(frame);
+        });
+
+        return backButton;
     }
 
 }

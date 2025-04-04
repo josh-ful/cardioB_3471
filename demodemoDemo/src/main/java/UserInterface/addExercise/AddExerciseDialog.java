@@ -16,6 +16,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//TODO: Make this a dialog so that it doesn't affect Scenes's static variables
 public class AddExerciseDialog extends Scenes{
     public AddExerciseDialog() {
         createAndShowGUI();
