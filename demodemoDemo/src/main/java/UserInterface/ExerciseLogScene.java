@@ -68,7 +68,17 @@ public class ExerciseLogScene extends Scenes{
         return workoutButton;
     }
 
+    private JButton addBackButton(JFrame frame) {
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(e -> {
+            new UserMenuScene(frame);
+        });
+
+        return backButton;
+    }
+
     public static void submittedNewScene(JFrame frame) {
+        //refreshLogTable();
         new ExerciseLogScene(frame);
     }
 
