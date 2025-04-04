@@ -24,6 +24,7 @@ public class ClassListScene extends Scenes{
         panel.add(addTextELog());
         panel.add(addScrollClassList());
         panel.add(addWorkoutButton());
+        panel.add(addBackButton(frame));
 
         frame.add(panel);
     }
@@ -49,7 +50,20 @@ public class ClassListScene extends Scenes{
     }
 
     private JButton addWorkoutButton() {
-       return new JButton("Add Workout!");
+        JButton button = new JButton("Add Class");
+        button.addActionListener(e -> {
+            new LR_Dialog(true);
+        });
+       return button;
+    }
+
+    private JButton addBackButton(JFrame frame) {
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(e -> {
+            new UserMenuScene(frame);
+        });
+
+        return backButton;
     }
 
 }

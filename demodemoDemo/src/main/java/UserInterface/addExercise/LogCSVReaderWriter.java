@@ -69,4 +69,17 @@ public class LogCSVReaderWriter {
             System.out.println("IO exception");
         }
     }
+
+    public static String[][] setToMatrix(){
+        int i= 0;
+        String [][] matrix = new String[UserStorage.getExercises().size()][2];
+        for(Exercise e : UserStorage.getExercises()){
+            matrix[i][0] = e.getName();
+            //System.out.println(matrix[i][0]);
+            matrix[i][1] = e.getDescription();
+            // System.out.println(matrix[i][1]);
+            i++;
+        }
+        return matrix;
+    }
 }
