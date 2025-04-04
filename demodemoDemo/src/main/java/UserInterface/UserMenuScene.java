@@ -10,11 +10,15 @@
 
 package UserInterface;
 
+import main.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+//TODO fix some method/formatting things here
 public class UserMenuScene extends Scenes{
     GridBagConstraints constraints = new GridBagConstraints();
 
@@ -27,7 +31,7 @@ public class UserMenuScene extends Scenes{
         constraints.fill = GridBagConstraints.HORIZONTAL;
     }
 
-    public void createUM_SCENE(JFrame frame) {
+    protected void createUM_SCENE(JFrame frame) {
         super.createAndShowGUI(frame);
         panelLayout();
 
@@ -38,7 +42,7 @@ public class UserMenuScene extends Scenes{
         frame.add(panel);
     }
 
-    public void addTextMenu() {
+    private void addTextMenu() {
         JLabel welcomeText = new JLabel("Welcome!");
         welcomeText.setFont(new Font("Comic Sans MS", Font.BOLD, 60));
         welcomeText.setForeground(Color.BLACK);
@@ -59,6 +63,7 @@ public class UserMenuScene extends Scenes{
         constraints.anchor = GridBagConstraints.CENTER; // Center it
         panel.add(promptText, constraints);
     }
+
     private void initMenu(JFrame frame) {
         JMenuBar menu = getjMenu(frame);
         constraints.gridx = 0;  // Column
@@ -72,18 +77,11 @@ public class UserMenuScene extends Scenes{
         panel.add(menu, constraints);
     }
 
-    static JMenuBar getjMenu( JFrame frame) {
+    private static JMenuBar getjMenu(JFrame frame) {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu();
 
-        ImageIcon icon = new ImageIcon("src/resources/menuIcon.png");
-        Image image = icon.getImage();
-        int newWidth = 50; // Desired width
-        int newHeight = 50; // Desired height
-        Image scaledImage = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-        icon = new ImageIcon(scaledImage);
-
-        menu.setIcon(icon);
+        menu.setIcon(getMenuIcon());
 
         JMenuItem profileItem = new JMenuItem("Profile");
         profileItem.addActionListener(new ActionListener() {
@@ -107,9 +105,21 @@ public class UserMenuScene extends Scenes{
                 new ExerciseLogScene(frame);
             }
         });
-        menuBar.add(menu);
         menu.add(workoutLogItem);
+
+        menuBar.add(menu);
         menu.addSeparator();
+
         return menuBar;
+    }
+
+    private static ImageIcon getMenuIcon() {
+        ImageIcon icon = new ImageIcon("src/resources/menuIcon.png");
+        Image image = icon.getImage();
+        int newWidth = 50; // Desired width
+        int newHeight = 50; // Desired height
+        Image scaledImage = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        icon = new ImageIcon(scaledImage);
+        return icon;
     }
 }

@@ -14,36 +14,39 @@ import static main.DBConnection.addUser;
 import main.DBConnection;
 
 public class Register implements LoginHardCodes {
-    public static boolean registerLogic(String user, String pass, Boolean utStatus){
+    public static boolean registerLogic(String user, String pass, Boolean utStatus)
+            throws SQLException {
         boolean success = false;
         boolean usingSQL = DatabaseInfo.states.get("SQL");
 
-        //TODO: validate input before passing to register logic
-
-        if(usingSQL){
-
-            try (Connection conn = DBConnection.getConnection()) {
-                String insertSql = "INSERT INTO users (username, password) VALUES (?, ?)";
-                PreparedStatement ps = conn.prepareStatement(insertSql);
+        if (usingSQL) {
+            Connection conn = DBConnection.getConnection();
+            String insertSql = "INSERT INTO users (username, password) VALUES (?, ?)";
+            try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
                 addUser(ps, user, pass);
                 success = ps.executeUpdate() > 0;
-            } catch(SQLIntegrityConstraintViolationException e){
+
+            } catch (SQLIntegrityConstraintViolationException e) {
                 System.out.println("User already exists!");
-                //TODO: Add dialog for this message
+                throw new SQLException(e);
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
-
+        } else {
+            success = localRegisterLogic(user, pass, utStatus, success);
         }
-        else{
-            if(!logins.containsKey(user)){
-                success = true;
-                logins.put(user, pass);
 
-                setName(user);
-                setPassword(pass);
-                setType(utStatus);
-            }
+        return success;
+    }
+
+    private static boolean localRegisterLogic(String user, String pass, Boolean utStatus, boolean success) {
+        if (!logins.containsKey(user)) {
+            success = true;
+            logins.put(user, pass);
+
+            setName(user);
+            setPassword(pass);
+            setType(utStatus);
         }
 
         return success;

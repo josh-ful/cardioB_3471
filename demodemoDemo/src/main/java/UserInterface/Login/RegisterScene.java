@@ -4,8 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import UserInformation.*;
+import UserInterface.HomeScreen;
+
 //import java.util.ArrayList;
 
 public class RegisterScene extends LR_Scenes {
@@ -23,10 +27,12 @@ public class RegisterScene extends LR_Scenes {
 
         panel.add(userButton);
         panel.add(trainerButton);
-
         panel.add(getConfirmRegisterButton(username, password));
+
         panel.add(getBackButton(frame));
     }
+
+    //TODO make sure one of the options are selected for user type before register can occur
 
     private JButton getConfirmRegisterButton(JTextField username, JPasswordField password) {
         JButton registerButton = new JButton("Register");
@@ -36,24 +42,48 @@ public class RegisterScene extends LR_Scenes {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String user = username.getText();
-                String pass = new String(password.getPassword());
 
-                boolean success = Register.registerLogic(user, pass, utStatus);
-                new LR_Dialog(success);
+                if (utStatus == null) {
+                    JOptionPane.showMessageDialog(null,
+                            "Please select user type", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    String user = username.getText();
+                    String pass = new String(password.getPassword());
 
-                //TODO: What happens after this?? Back to login screen?
+                    boolean valid = true;
+                    try {
+                        ValidateLRInputs.validateRInputs(user, pass);
+                        Register.registerLogic(user, pass, utStatus);
+                    } catch (SQLException ex) {
+                        valid = false;
+                        JOptionPane.showMessageDialog(
+                                panel,
+                                ex.getMessage(),
+                                "Please log-in",
+                                JOptionPane.ERROR_MESSAGE);
+                    } catch (IllegalArgumentException ex) {
+                        valid = false;
+                        JOptionPane.showMessageDialog(panel,
+                                ex.getMessage(), "REGISTER ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
 
-                // For testing only
-                //ArrayList<String> loginList = new ArrayList<>(Register.logins.keySet());
-                //loginList.forEach(System.out::println);
+                    if (valid) {
+                        JOptionPane.showMessageDialog(
+                                panel,
+                                "Congrats! You have been registered! \n" +
+                                        "Return to main menu and login!",
+                                "Registration Successful",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
             }
         });
+
 
         return registerButton;
     }
 
-    private JRadioButton getSelectTrainerButton(){
+    private JRadioButton getSelectTrainerButton() {
         JRadioButton trainerButton = new JRadioButton("Trainer");
         trainerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -67,7 +97,7 @@ public class RegisterScene extends LR_Scenes {
         return trainerButton;
     }
 
-    private JRadioButton getSelectUserButton(){
+    private JRadioButton getSelectUserButton() {
         JRadioButton userButton = new JRadioButton("User");
         userButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 

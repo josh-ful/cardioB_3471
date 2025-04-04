@@ -8,11 +8,13 @@
  */
 package UserInterface;
 
+import main.Main;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Scenes {
-    protected JPanel panel;
+    protected static JPanel panel;
 
     /*
      * description: creates blank GUI to be overridden
@@ -26,7 +28,7 @@ public class Scenes {
     public static final int FRAME_W = FRAME_DIM.width;
     public static final int FRAME_H = FRAME_DIM.height;
 
-    public void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI(JFrame frame) {
         panel = new JPanel();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

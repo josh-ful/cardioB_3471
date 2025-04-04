@@ -4,8 +4,20 @@ import UserInterface.Scenes;
 
 import javax.swing.*;
 
-public class LR_Dialog extends Scenes {
-    public LR_Dialog(boolean success){
+public class LR_Dialog extends Scenes{
+    protected JDialog dialog;
+
+    public LR_Dialog(boolean success) {
+        dialog = makeDialog();
+
+        if (success) {
+            dialog.setTitle("Success!");
+        } else {
+            dialog.setTitle("Failure!");
+        }
+    }
+
+    private JDialog makeDialog() {
         JDialog dialog = new JDialog();
         dialog.setSize(200, 200);
 
@@ -13,19 +25,6 @@ public class LR_Dialog extends Scenes {
         dialog.setResizable(false);
         dialog.setVisible(true);
 
-        if (success){
-            successfulDialog(dialog);
-        }
-        else{
-            unsuccessfulDialog(dialog);
-        }
-    }
-
-    public static void successfulDialog(JDialog dialog){
-        dialog.setTitle("Success!");
-    }
-
-    public static void unsuccessfulDialog(JDialog dialog){
-        dialog.setTitle("Failure!");
+        return dialog;
     }
 }
