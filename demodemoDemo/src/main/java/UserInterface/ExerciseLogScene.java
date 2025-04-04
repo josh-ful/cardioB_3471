@@ -4,6 +4,7 @@ import FitnessCourse.Exercise;
 import UserInformation.UserStorage;
 import UserInterface.addExercise.AddExerciseDialog;
 import UserInterface.addExercise.LogCSVReaderWriter;
+import main.Main;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,19 +13,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ExerciseLogScene extends Scenes{
-    public static JFrame frame;
 
     public ExerciseLogScene(JFrame frame){
-        createEL_SCENE(frame);
-        ExerciseLogScene.frame = frame;
+        createAndShowGUI(frame);
     }
 
-    private void createEL_SCENE(JFrame frame) {
+    @Override
+    protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
+
+        //TODO could we put this somewhere else??
         new LogCSVReaderWriter("src/resources/testCreateExercise.csv");
         LogCSVReaderWriter.readCSV();
 
-        panel.add(addWorkoutButton());
+        panel.add(addWorkoutButton(frame));
         panel.add(addTextELog());
         panel.add(logTable());
 
@@ -32,9 +34,7 @@ public class ExerciseLogScene extends Scenes{
         System.out.println(UserStorage.getExercises());
     }
 
-
-
-    public static JScrollPane logTable(){
+    private static JScrollPane logTable(){
         String[] columnNames = {"Name", "Description"};
         DefaultTableModel tableModel = new DefaultTableModel(setToMatrix(), columnNames);
         JTable table = new JTable(tableModel);
@@ -68,7 +68,7 @@ public class ExerciseLogScene extends Scenes{
         return exerciseText;
     }
 
-    private JButton addWorkoutButton() {
+    private JButton addWorkoutButton(JFrame frame) {
         JButton workoutButton = new JButton("Add Workout!");
         workoutButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         workoutButton.setMaximumSize(new Dimension(FRAME_W, 50));
@@ -76,13 +76,14 @@ public class ExerciseLogScene extends Scenes{
         workoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AddExerciseDialog();
+                new AddExerciseDialog(frame);
             }
         });
 
         return workoutButton;
     }
-    public static void submittedNewScene() {
+
+    public static void submittedNewScene(JFrame frame) {
         new ExerciseLogScene(frame);
     }
 }

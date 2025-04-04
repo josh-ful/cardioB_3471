@@ -5,6 +5,8 @@
 
 package UserInterface;
 
+import main.Main;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,10 +14,11 @@ public class ClassListScene extends Scenes{
     JTextArea textArea = new JTextArea(10, 30);
 
     public ClassListScene(JFrame frame){
-        createCL_SCENE(frame);
+        createAndShowGUI(frame);
     }
 
-    public void createCL_SCENE(JFrame frame) {
+    @Override
+    protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
 
         panel.add(addTextELog());

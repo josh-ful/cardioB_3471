@@ -5,11 +5,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import UserInformation.ValidateLRInputs;
 import UserInterface.*;
 
 public class LR_Scenes extends Scenes {
     protected JTextField username;
     protected JPasswordField password;
+//    protected String user;
+//    protected String pass;
 
     public void createLR_SCENE(JFrame frame) {
         super.createAndShowGUI(frame);
@@ -38,7 +41,6 @@ public class LR_Scenes extends Scenes {
 
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         backButton.setMaximumSize(new Dimension(Scenes.FRAME_W, 50));
-        panel.add(backButton);
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -49,6 +51,7 @@ public class LR_Scenes extends Scenes {
 
         return backButton;
     }
+
 
 
 

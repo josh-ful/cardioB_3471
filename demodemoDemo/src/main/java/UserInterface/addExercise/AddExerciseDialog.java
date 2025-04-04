@@ -7,7 +7,6 @@
 package UserInterface.addExercise;
 
 import UserInterface.ExerciseLogScene;
-import UserInterface.Scenes;
 import Controller.*;
 
 import javax.swing.*;
@@ -16,44 +15,58 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddExerciseDialog extends Scenes{
-    public AddExerciseDialog() {
-        createAndShowGUI();
+public class AddExerciseDialog{
+    private JFrame newFrame;
+    private JTextField nameField;
+    private JTextField descriptionField;
+
+    public AddExerciseDialog(JFrame frame) {
+        createAndShowGUI(frame);
     }
 
-    public void createAndShowGUI() {
+    protected void createAndShowGUI(JFrame frame) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        JFrame frame = new JFrame("Enter exercise Information");
-        super.createAndShowGUI(frame);
+        newFrame = new JFrame("Enter exercise Information");
+
         JPanel panel = new JPanel();
 
-        BoxLayout layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-        panel.setLayout(layout);
-
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new EmptyBorder(new Insets(100, 150, 100, 150)));
-        JLabel nameLabel = new JLabel("Exercise Name: ");
-        JTextField nameField = new JTextField();
-        JLabel descriptionLabel = new JLabel("Exercise Description: ");
-        JTextField descriptionField = new JTextField();
+
+        nameField = new JTextField();
+        descriptionField = new JTextField();
+
+        panel.add(getExNameLabel());
+        panel.add(nameField);
+        panel.add(getExDescriptionLabel());
+        panel.add(descriptionField);
+        panel.add(getSubmitButton(frame));
+
+        newFrame.add(panel);
+        newFrame.pack();
+        newFrame.setVisible(true);
+    }
+
+    private static JLabel getExDescriptionLabel() {
+        return new JLabel("Exercise Description: ");
+    }
+
+    private static JLabel getExNameLabel() {
+        return new JLabel("Exercise Name: ");
+    }
+
+    private JButton getSubmitButton(JFrame frame) {
         JButton submit = new JButton("Submit");
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 UserController.enterExercise(nameField.getText(), descriptionField.getText());
-                frame.dispose();
-                ExerciseLogScene.submittedNewScene();
+                newFrame.dispose();
+                ExerciseLogScene.submittedNewScene(frame);
             }
         });
 
-        panel.add(nameLabel);
-        panel.add(nameField);
-        panel.add(descriptionLabel);
-        panel.add(descriptionField);
-        panel.add(submit);
-
-        frame.add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        return submit;
     }
 
 }

@@ -4,14 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import UserInformation.Login;
+import UserInformation.ValidateLRInputs;
 import UserInterface.UserMenuScene;
 import main.Main;
 
+
 public class LoginScene extends LR_Scenes {
 
-    public LoginScene(JFrame frame){
+    public LoginScene(JFrame frame) {
         super.createLR_SCENE(frame);
 
         panel.add(getConfirmLoginButton(frame, username, password));
@@ -29,19 +32,18 @@ public class LoginScene extends LR_Scenes {
                 String user = username.getText();
                 String pass = new String(password.getPassword());
 
-                boolean success = Login.loginLogic(user, pass);
-
+                boolean success = false;
+                try {
+                    success = Login.loginLogic(user, pass);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(panel,
+                            ex.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+                }
                 if (success) {
-                    // update frame to reflect profile page
-                    //new ProfileScreen(frame);
-                    UserMenuScene umS = new UserMenuScene(frame);
-                } else{
-                    LR_Dialog l_dialog = new LR_Dialog(success);
+                    new UserMenuScene(frame);
                 }
             }
         });
-
         return loginButton;
     }
-
 }
