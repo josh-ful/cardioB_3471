@@ -8,12 +8,14 @@ import java.io.*;
 import java.util.Iterator;
 
 //TODO these shouldn't be static??
+// RESOLVED no they should because otherwise they wouldn't be accessible
+// it breaks if its not static
 
 public class LogCSVReaderWriter {
     private static String fileName;
 
-    public LogCSVReaderWriter(String file) {
-        fileName = file;
+    public static void setFileName(String fileName) {
+        LogCSVReaderWriter.fileName = fileName;
     }
 
     public static void readCSV(){
