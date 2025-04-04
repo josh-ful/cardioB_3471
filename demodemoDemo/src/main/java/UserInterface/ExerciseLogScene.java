@@ -34,9 +34,10 @@ public class ExerciseLogScene extends Scenes{
         System.out.println(UserStorage.getExercises());
     }
 
-    private static JScrollPane logTable(){
+    //TODO: make this a table? I think ScrollPane is over the top
+    public static JScrollPane logTable(){
         String[] columnNames = {"Name", "Description"};
-        DefaultTableModel tableModel = new DefaultTableModel(setToMatrix(), columnNames);
+        DefaultTableModel tableModel = new DefaultTableModel(LogCSVReaderWriter.setToMatrix(), columnNames);
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -44,19 +45,6 @@ public class ExerciseLogScene extends Scenes{
         scrollPane.setPreferredSize(new Dimension(100, 100));
 
         return scrollPane;
-    }
-
-    public static String[][] setToMatrix(){
-        int i= 0;
-        String [][] matrix = new String[UserStorage.getExercises().size()][2];
-        for(Exercise e : UserStorage.getExercises()){
-            matrix[i][0] = e.getName();
-            //System.out.println(matrix[i][0]);
-            matrix[i][1] = e.getDescription();
-            // System.out.println(matrix[i][1]);
-            i++;
-        }
-        return matrix;
     }
 
     private JLabel addTextELog() {
@@ -73,11 +61,8 @@ public class ExerciseLogScene extends Scenes{
         workoutButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         workoutButton.setMaximumSize(new Dimension(FRAME_W, 50));
 
-        workoutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        workoutButton.addActionListener(al -> {
                 new AddExerciseDialog(frame);
-            }
         });
 
         return workoutButton;
@@ -86,4 +71,6 @@ public class ExerciseLogScene extends Scenes{
     public static void submittedNewScene(JFrame frame) {
         new ExerciseLogScene(frame);
     }
+
+    public void refreshLogTable() {}
 }
