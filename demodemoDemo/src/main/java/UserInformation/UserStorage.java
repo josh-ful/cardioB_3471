@@ -15,7 +15,11 @@ public class UserStorage {
     private static String type;
 
     private static Set<Exercise> exerciseSet = new HashSet<>();
-
+    /**
+     * Gets the name of the user.
+     *
+     * @return name of the user
+     */
     public static String getName() {
         return name;
     }
