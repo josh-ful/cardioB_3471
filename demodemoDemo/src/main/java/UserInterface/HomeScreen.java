@@ -19,10 +19,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class HomeScreen extends Scenes{
+    /**
+     *
+     *
+     */
     public HomeScreen(JFrame frame) {
         createAndShowGUI(frame);
     }
-
+    /**
+     *
+     *
+     * @param
+     */
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
 
@@ -64,7 +72,11 @@ public class HomeScreen extends Scenes{
         frame.setResizable(false);
         frame.setVisible(true);
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     private static JLabel getIconLabel() {
         ImageIcon icon = new ImageIcon("src/resources/cardioB_logo.png");
         Image image = icon.getImage();
@@ -73,7 +85,11 @@ public class HomeScreen extends Scenes{
         icon = new ImageIcon(image);
         return new JLabel(icon);
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     private static JLabel getCompanyNameLabel() {
         JLabel companyName = new JLabel("CardioB");
 
@@ -85,7 +101,11 @@ public class HomeScreen extends Scenes{
 
         return companyName;
     }
-
+    /**
+     *
+     * @param
+     * @return
+     */
     private static JButton getLoginButton(JFrame frame) {
         JButton loginButton = new JButton("Login");
         loginButton.setMaximumSize(new Dimension(100, 50));
@@ -100,7 +120,11 @@ public class HomeScreen extends Scenes{
 
         return loginButton;
     }
-
+    /**
+     *
+     * @param
+     * @return
+     */
     private static JButton getRegisterButton(JFrame frame) {
         JButton registerButton = new JButton("Register");
 

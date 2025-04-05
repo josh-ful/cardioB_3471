@@ -9,7 +9,11 @@ public class DBConnection implements DatabaseInfo {
     private static final String USER = "fitnessuser";
     private static final String PASSWORD = "strongpassword123";
 
-
+    /**
+     *
+     *
+     * @param
+     */
     public DBConnection(String port) {
         states.put("SQL", true);
         URL = "jdbc:mysql://localhost:" + port + "/fitnessdb";
@@ -49,17 +53,29 @@ public class DBConnection implements DatabaseInfo {
             e.printStackTrace();
         }
     }
-
+    /**
+     *
+     *
+     *
+     */
     public DBConnection() {
     }
-
+    /**
+     *
+     *
+     * @param
+     */
     public static void addUser(PreparedStatement ps, String username, String plainPassword) throws SQLException {
         String hashed = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
         ps.setString(1, username);
         ps.setString(2, hashed);
         //ps.executeUpdate();
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }

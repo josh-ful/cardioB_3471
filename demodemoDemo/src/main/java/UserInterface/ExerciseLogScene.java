@@ -13,11 +13,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ExerciseLogScene extends Scenes{
-
+    /**
+     *
+     *
+     * @return
+     */
     public ExerciseLogScene(JFrame frame){
         createAndShowGUI(frame);
     }
-
+    /**
+     *
+     *
+     * @param
+     */
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
@@ -33,7 +41,11 @@ public class ExerciseLogScene extends Scenes{
         frame.add(panel);
         System.out.println(UserStorage.getExercises());
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     //TODO: make this a table? I think ScrollPane is over the top
     public static JScrollPane logTable(){
         String[] columnNames = {"Name", "Description"};
@@ -46,7 +58,11 @@ public class ExerciseLogScene extends Scenes{
 
         return scrollPane;
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     private JLabel addTextELog() {
         JLabel exerciseText = new JLabel("Exercise Log!");
         exerciseText.setFont(new Font("Comic Sans MS", Font.BOLD, 60));
@@ -55,7 +71,11 @@ public class ExerciseLogScene extends Scenes{
 
         return exerciseText;
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     private JButton addWorkoutButton(JFrame frame) {
         JButton workoutButton = new JButton("Add Workout!");
         workoutButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -67,7 +87,11 @@ public class ExerciseLogScene extends Scenes{
 
         return workoutButton;
     }
-
+    /**
+     *
+     * @param
+     * @return
+     */
     private JButton addBackButton(JFrame frame) {
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
@@ -76,11 +100,18 @@ public class ExerciseLogScene extends Scenes{
 
         return backButton;
     }
-
+    /**
+     *
+     *
+     * @param
+     */
     public static void submittedNewScene(JFrame frame) {
         //refreshLogTable();
         new ExerciseLogScene(frame);
     }
-
+    /**
+     *
+     *
+     */
     public void refreshLogTable() {}
 }

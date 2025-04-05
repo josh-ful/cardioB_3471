@@ -49,7 +49,11 @@ import java.awt.*;
 //Extract login and register button scenes to separate classes & link to one gui
 
 public class ProfileBackDoor {
-
+    /**
+     *
+     *
+     *
+     */
     public class CompanyDetails extends JPanel {
         public CompanyDetails() {
             JLabel companyName = new JLabel("CardioB™");
@@ -59,7 +63,11 @@ public class ProfileBackDoor {
             this.add(companyName);
         }
     }
-
+    /**
+     *
+     *
+     * @param
+     */
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         HomeScreen hs = new HomeScreen(frame);

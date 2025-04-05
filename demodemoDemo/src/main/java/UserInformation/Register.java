@@ -14,6 +14,11 @@ import static main.DBConnection.addUser;
 import main.DBConnection;
 
 public class Register implements LoginHardCodes {
+    /**
+     *
+     * @param
+     * @return
+     */
     public static boolean registerLogic(String user, String pass, Boolean utStatus)
             throws SQLException {
         boolean success = false;
@@ -38,7 +43,11 @@ public class Register implements LoginHardCodes {
 
         return success;
     }
-
+    /**
+     *
+     * @param
+     * @return
+     */
     private static boolean localRegisterLogic(String user, String pass, Boolean utStatus, boolean success) {
         if (!logins.containsKey(user)) {
             success = true;

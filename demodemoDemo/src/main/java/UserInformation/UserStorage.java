@@ -23,23 +23,43 @@ public class UserStorage {
     public static String getName() {
         return name;
     }
-
+    /**
+     *
+     *
+     * @param
+     */
     public static void setName(String n) {
         name = n;
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     public static String getPassword() {
         return password;
     }
-
+    /**
+     *
+     *
+     * @param
+     */
     public static void setPassword(String p) {
         password = p;
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     public static String getType() {
         return type;
     }
-
+    /**
+     *
+     *
+     * @param
+     */
     public static void setType(Boolean utStatus) {
         if (utStatus) {
             type = "Trainer";
@@ -47,21 +67,43 @@ public class UserStorage {
             type = "User";
         }
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     public static boolean infoInputted(){
         return name != null && password != null;
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     public static String userInfo() {
         return name + " " + password;
     }
+    /**
+     *
+     *
+     * @param
+     */
     public static void addExercise(Exercise e) {
         exerciseSet.add(e);
     }
+    /**
+     *
+     *
+     * @return
+     */
     public static Set<Exercise> getExercises() {
         return exerciseSet;
     }
-
+    /**
+     *
+     *
+     *
+     */
     public static void clearExercises() {
         exerciseSet.clear();
     }

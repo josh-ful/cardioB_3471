@@ -11,11 +11,18 @@ import java.util.Iterator;
 
 public class LogCSVReaderWriter {
     private static String fileName;
-
+    /**
+     *
+     *
+     * @param
+     */
     public LogCSVReaderWriter(String file) {
         fileName = file;
     }
-
+    /**
+     *
+     *
+     */
     public static void readCSV(){
         try {
             System.out.println("Reading file " + fileName);
@@ -34,7 +41,10 @@ public class LogCSVReaderWriter {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     *
+     *
+     */
     public static void writeCSV(){
         try (BufferedWriter br = new BufferedWriter(
                 new FileWriter(fileName))) {
@@ -57,7 +67,12 @@ public class LogCSVReaderWriter {
         }
     }
 
-
+    /**
+     *
+     *
+     * @param
+     * @param
+     */
     public static void addExercise(String name, String description) {
         try {
             BufferedWriter br = new BufferedWriter(new FileWriter(fileName));
@@ -69,7 +84,11 @@ public class LogCSVReaderWriter {
             System.out.println("IO exception");
         }
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     public static String[][] setToMatrix(){
         int i= 0;
         String [][] matrix = new String[UserStorage.getExercises().size()][2];

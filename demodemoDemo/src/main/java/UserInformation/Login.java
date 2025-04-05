@@ -14,6 +14,11 @@ import static UserInformation.UserStorage.setName;
 import static UserInformation.UserStorage.setPassword;
 
 public class Login implements LoginHardCodes {
+    /**
+     *
+     * @param
+     * @return
+     */
     public static boolean loginLogic(String user, String pass) throws SQLException {
         boolean success = false;
         boolean usingSQL = DatabaseInfo.states.get("SQL");
@@ -55,7 +60,11 @@ public class Login implements LoginHardCodes {
 
         return success;
     }
-
+    /**
+     *
+     * @param
+     * @return
+     */
     private static boolean localLoginLogic(String user, String pass, boolean success) {
         if(logins.containsKey(user) && pass.equals(logins.get(user))){
             success = true;

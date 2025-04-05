@@ -6,6 +6,12 @@ import UserInterface.addExercise.LogCSVReaderWriter;
 
 import main.DatabaseInfo;
 public class UserController implements Controller{
+    /**
+     *
+     *
+     * @param
+     * @param
+     */
     public static void enterExercise(String name, String description) {
         Exercise e = new Exercise(name);
         e.setDescription(description);
@@ -19,11 +25,19 @@ public class UserController implements Controller{
 
         }
     }
-
+    /**
+     *
+     *
+     * @param
+     * @param
+     */
     public static void newExercise(String name, String description) {
         LogCSVReaderWriter.addExercise(name, description);
     }
-
+    /**
+     *
+     *
+     */
     public static void clearExercises() {
         UserStorage.clearExercises();
     }
