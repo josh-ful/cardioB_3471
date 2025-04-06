@@ -13,7 +13,11 @@ public class ValidateLRInputs {
     private static final String PASSWORD_FORMAT =
             "^(?=.*[0-9])(?=.*[a-z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
     private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_FORMAT);
-
+    /**
+     *
+     *
+     * @param
+     */
     public static void validateRInputs(String username, String password) throws IllegalArgumentException {
         Matcher uMatcher = USERNAME_PATTERN.matcher(username);
         if (!uMatcher.matches()) {

@@ -14,7 +14,11 @@ import UserInterface.HomeScreen;
 
 public class RegisterScene extends LR_Scenes {
     Boolean utStatus = null;
-
+    /**
+     *
+     *
+     * @param
+     */
     public RegisterScene(JFrame frame) {
         super.createLR_SCENE(frame);
 
@@ -33,7 +37,11 @@ public class RegisterScene extends LR_Scenes {
     }
 
     //TODO make sure one of the options are selected for user type before register can occur
-
+    /**
+     *
+     * @param
+     * @return
+     */
     private JButton getConfirmRegisterButton(JTextField username, JPasswordField password) {
         JButton registerButton = new JButton("Register");
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -82,7 +90,11 @@ public class RegisterScene extends LR_Scenes {
 
         return registerButton;
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     private JRadioButton getSelectTrainerButton() {
         JRadioButton trainerButton = new JRadioButton("Trainer");
         trainerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -96,7 +108,11 @@ public class RegisterScene extends LR_Scenes {
 
         return trainerButton;
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     private JRadioButton getSelectUserButton() {
         JRadioButton userButton = new JRadioButton("User");
         userButton.setAlignmentX(Component.LEFT_ALIGNMENT);

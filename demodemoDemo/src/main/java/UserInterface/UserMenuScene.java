@@ -21,16 +21,26 @@ import java.awt.event.ActionListener;
 //TODO fix some method/formatting things here
 public class UserMenuScene extends Scenes{
     GridBagConstraints constraints = new GridBagConstraints();
-
+    /**
+     *
+     *
+     * @param
+     */
     public UserMenuScene(JFrame frame){
         createUM_SCENE(frame);
     }
-
+    /**
+     *
+     *
+     */
     private void panelLayout() {
         panel.setLayout(new GridBagLayout());
         constraints.fill = GridBagConstraints.HORIZONTAL;
     }
-
+    /**
+     *
+     *
+     */
     protected void createUM_SCENE(JFrame frame) {
         super.createAndShowGUI(frame);
         panelLayout();
@@ -41,7 +51,10 @@ public class UserMenuScene extends Scenes{
 
         frame.add(panel);
     }
-
+    /**
+     *
+     *
+     */
     private void addTextMenu() {
         JLabel welcomeText = new JLabel("Welcome!");
         welcomeText.setFont(new Font("Comic Sans MS", Font.BOLD, 60));
@@ -63,7 +76,11 @@ public class UserMenuScene extends Scenes{
         constraints.anchor = GridBagConstraints.CENTER; // Center it
         panel.add(promptText, constraints);
     }
-
+    /**
+     *
+     *
+     * @param
+     */
     private void initMenu(JFrame frame) {
         JMenuBar menu = getjMenu(frame);
         constraints.gridx = 0;  // Column
@@ -76,7 +93,11 @@ public class UserMenuScene extends Scenes{
         constraints.fill = GridBagConstraints.NONE;
         panel.add(menu, constraints);
     }
-
+    /**
+     *
+     * @param
+     * @return
+     */
     private static JMenuBar getjMenu(JFrame frame) {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu();
@@ -112,7 +133,11 @@ public class UserMenuScene extends Scenes{
 
         return menuBar;
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     private static ImageIcon getMenuIcon() {
         ImageIcon icon = new ImageIcon("src/resources/menuIcon.png");
         Image image = icon.getImage();

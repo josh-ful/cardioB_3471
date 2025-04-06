@@ -27,7 +27,11 @@ public class Scenes {
     public static final Dimension FRAME_DIM = new Dimension(450, 800);
     public static final int FRAME_W = FRAME_DIM.width;
     public static final int FRAME_H = FRAME_DIM.height;
-
+    /**
+     *
+     *
+     * @param
+     */
     protected void createAndShowGUI(JFrame frame) {
         panel = new JPanel();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -44,7 +48,10 @@ public class Scenes {
 
         panelLayout();
     }
-
+    /**
+     *
+     *
+     */
     private void panelLayout() {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     }

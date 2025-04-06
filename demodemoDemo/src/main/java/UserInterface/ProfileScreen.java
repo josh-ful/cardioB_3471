@@ -12,16 +12,27 @@ import java.awt.*;
 public class ProfileScreen extends Scenes{
 
     GridBagConstraints c;
-
+    /**
+     *
+     *
+     * @param
+     */
     public ProfileScreen(JFrame frame) {
         createAndShowGUI(frame);
     }
-
+    /**
+     *
+     *
+     */
     private void panelLayout() {
         panel.setLayout(new GridBagLayout());
         c = new GridBagConstraints();
     }
-
+    /**
+     *
+     *
+     * @param
+     */
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
@@ -41,7 +52,11 @@ public class ProfileScreen extends Scenes{
 
         // TODO get class list and display
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     private JLabel createNameLabel() {
         JLabel label = new JLabel("Name: " + UserStorage.getName());
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -50,7 +65,11 @@ public class ProfileScreen extends Scenes{
 
         return label;
     }
-
+    /**
+     *
+     * @param
+     * @return
+     */
     private JButton createBackButton(JFrame frame) {
         JButton button = new JButton("Back");
 

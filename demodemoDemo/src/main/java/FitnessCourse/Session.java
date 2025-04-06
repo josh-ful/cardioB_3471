@@ -11,9 +11,19 @@ public class Session {
         this.name = name;
         sessionID++;
     }
+    /**
+     *
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
+    /**
+     *
+     *
+     * @param
+     */
     public void setName(String name) {//should be used by a controller
         this.name = name;
     }

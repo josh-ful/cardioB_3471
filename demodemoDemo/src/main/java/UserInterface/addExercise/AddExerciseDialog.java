@@ -19,11 +19,19 @@ public class AddExerciseDialog{
     private JFrame newFrame;
     private JTextField nameField;
     private JTextField descriptionField;
-
+    /**
+     *
+     *
+     * @param
+     */
     public AddExerciseDialog(JFrame frame) {
         createAndShowGUI(frame);
     }
-
+    /**
+     *
+     *
+     * @param
+     */
     protected void createAndShowGUI(JFrame frame) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         newFrame = new JFrame("Enter exercise Information");
@@ -46,15 +54,27 @@ public class AddExerciseDialog{
         newFrame.pack();
         newFrame.setVisible(true);
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     private static JLabel getExDescriptionLabel() {
         return new JLabel("Exercise Description: ");
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     private static JLabel getExNameLabel() {
         return new JLabel("Exercise Name: ");
     }
-
+    /**
+     *
+     * @param
+     * @return
+     */
     private JButton getSubmitButton(JFrame frame) {
         JButton submit = new JButton("Submit");
         submit.addActionListener(new ActionListener() {

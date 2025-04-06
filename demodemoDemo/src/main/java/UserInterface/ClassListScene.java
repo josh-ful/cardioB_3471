@@ -13,11 +13,19 @@ import java.awt.*;
 
 public class ClassListScene extends Scenes{
     JTextArea textArea = new JTextArea(10, 30);
-
+    /**
+     *
+     *
+     * @param
+     */
     public ClassListScene(JFrame frame){
         createAndShowGUI(frame);
     }
-
+    /**
+     *
+     *
+     * @param
+     */
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
@@ -29,7 +37,11 @@ public class ClassListScene extends Scenes{
 
         frame.add(panel);
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     private JLabel addTextELog() {
         JLabel exerciseText = new JLabel("Classes!");
         exerciseText.setFont(new Font("Comic Sans MS", Font.BOLD, 40));
@@ -38,7 +50,11 @@ public class ClassListScene extends Scenes{
 
         return exerciseText;
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     private JScrollPane addScrollClassList() {
         JScrollPane scrollPane = new JScrollPane(textArea,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -49,7 +65,11 @@ public class ClassListScene extends Scenes{
 
         return scrollPane;
     }
-
+    /**
+     *
+     *
+     * @return
+     */
     private JButton addWorkoutButton() {
         JButton button = new JButton("Add Class");
         button.addActionListener(e -> {
@@ -57,7 +77,11 @@ public class ClassListScene extends Scenes{
         });
        return button;
     }
-
+    /**
+     *
+     * @param
+     * @return
+     */
     private JButton addBackButton(JFrame frame) {
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
