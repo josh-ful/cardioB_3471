@@ -32,8 +32,8 @@ public class Register implements LoginHardCodes {
                 success = ps.executeUpdate() > 0;
 
             } catch (SQLIntegrityConstraintViolationException e) {
-                System.out.println("User already exists!");
-                throw new SQLException(e);
+                System.out.println("Sorry, that username is already in use.!");
+                throw new SQLException("User already exists!");
             } catch (SQLException e) {
                 e.printStackTrace();
             }

@@ -21,7 +21,6 @@ public class RegisterScene extends LR_Scenes {
      */
     public RegisterScene(JFrame frame) {
         super.createLR_SCENE(frame);
-
         JRadioButton trainerButton = getSelectTrainerButton();
         JRadioButton userButton = getSelectUserButton();
 
@@ -29,11 +28,18 @@ public class RegisterScene extends LR_Scenes {
         group.add(userButton);
         group.add(trainerButton);
 
+
         panel.add(userButton);
         panel.add(trainerButton);
         panel.add(getConfirmRegisterButton(username, password));
 
         panel.add(getBackButton(frame));
+
+        panel.add(new JLabel(
+                "Username must: "));
+        panel.add(new JLabel("be at least 6 characters in length "));
+        panel.add(new JLabel("start with a letter "));
+        panel.add(new JLabel("not have special characters other than \".\", \"-\", \"_\""));
     }
 
     //TODO make sure one of the options are selected for user type before register can occur

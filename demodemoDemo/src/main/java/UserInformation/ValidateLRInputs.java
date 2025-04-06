@@ -21,7 +21,7 @@ public class ValidateLRInputs {
     public static void validateRInputs(String username, String password) throws IllegalArgumentException {
         Matcher uMatcher = USERNAME_PATTERN.matcher(username);
         if (!uMatcher.matches()) {
-            throw new IllegalArgumentException("Sorry, \"" + username + "\" already exists.\n");
+            throw new IllegalArgumentException("Sorry, \"" + username + "\" does not meet criteria\n");
         }
 
         Matcher pMatcher = PASSWORD_PATTERN.matcher(password);
