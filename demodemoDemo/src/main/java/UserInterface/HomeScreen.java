@@ -103,7 +103,6 @@ public class HomeScreen extends Scenes{
 
     private static JButton getRegisterButton(JFrame frame) {
         JButton registerButton = new JButton("Register");
-
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerButton.setMaximumSize(new Dimension(100, 50));
         registerButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));

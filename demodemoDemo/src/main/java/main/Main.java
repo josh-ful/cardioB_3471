@@ -80,8 +80,6 @@ public class Main {
 
             db = new DBConnection(portNumber);
         }
-
-
         JFrame frame = new JFrame();
         HomeScreen hs = new HomeScreen(frame);
         //when me has information stored in it
@@ -90,12 +88,6 @@ public class Main {
         if (UserStorage.infoInputted()) {
             System.out.println("Login Successful");
             System.out.println(UserStorage.userInfo());
-            //userMenuScene umS = new userMenuScene(frame);
         }
-
-
-        //userMenuScene umS = new userMenuScene(frame);
-
-        //System.out.println("mommy nodes"); >:( no
     }
 }
