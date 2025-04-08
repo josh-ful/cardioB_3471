@@ -111,7 +111,7 @@
       <recent name="$PROJECT_DIR$/demodemoDemo/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.main.Main" />
       <module name="cardioB_3471" />
@@ -137,10 +137,6 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Application.main.main.Main" />
-      <item itemvalue="Application.Main" />
-    </list>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>

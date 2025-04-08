@@ -59,7 +59,7 @@ public class ProfileBackDoor {
             JLabel companyName = new JLabel("CardioB™");
             companyName.setFont(new Font("Comic Sans MS", Font.BOLD, 70));
             companyName.setForeground(Color.BLACK);
-            //companyName.setHorizontalAlignment(SwingConstants.CENTER);
+
             this.add(companyName);
         }
     }
@@ -77,9 +77,7 @@ public class ProfileBackDoor {
         if (UserStorage.infoInputted()) {
             System.out.println("Login Successful");
             System.out.println(UserStorage.userInfo());
-            //userMenuScene umS = new userMenuScene(frame);
         }
-        //userMenuScene umS = new userMenuScene(frame);
 
         //System.out.println("mommy nodes"); >:( no
     }
