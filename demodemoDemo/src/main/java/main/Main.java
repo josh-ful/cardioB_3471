@@ -23,7 +23,7 @@ Lawson Hale
 
 import UserInformation.*;
 import UserInterface.*;
-import org.w3c.dom.ls.LSInput;
+//import org.w3c.dom.ls.LSInput;
 //import UserInterface.addExercise.LogCSVReaderWriter;
 
 import javax.swing.*;
@@ -63,12 +63,6 @@ import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
-
-    /**
-     *
-     *
-     * @param
-     */
     public static void main(String[] args) {
         boolean sql = false;
         DBConnection db = new DBConnection();
@@ -84,10 +78,10 @@ public class Main {
 
             db = new DBConnection(portNumber);
         }
+
         JFrame frame = new JFrame();
         HomeScreen hs = new HomeScreen(frame);
         //when me has information stored in it
-
 
         if (UserStorage.infoInputted()) {
             System.out.println("Login Successful");

@@ -30,14 +30,13 @@ public class ExerciseLogScene extends Scenes{
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
-
         //TODO could we put this somewhere else??
-        new LogCSVReaderWriter("src/resources/testCreateExercise.csv");
         LogCSVReaderWriter.readCSV();
 
         panel.add(addWorkoutButton(frame));
         panel.add(addTextELog());
         panel.add(logTable());
+        panel.add(createBackButton(frame, UserMenuScene.class));
 
         frame.add(panel);
         System.out.println(UserStorage.getExercises());
@@ -49,6 +48,8 @@ public class ExerciseLogScene extends Scenes{
      */
     //TODO: make this a table? I think ScrollPane is over the top
     public static JScrollPane logTable(){
+        LogCSVReaderWriter.setFileName("src/resources/testCreateExercise.csv");
+        LogCSVReaderWriter.readCSV();
         String[] columnNames = {"Name", "Description"};
         DefaultTableModel tableModel = new DefaultTableModel(LogCSVReaderWriter.setToMatrix(), columnNames);
         JTable table = new JTable(tableModel);
@@ -83,9 +84,7 @@ public class ExerciseLogScene extends Scenes{
         workoutButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         workoutButton.setMaximumSize(new Dimension(FRAME_W, 50));
 
-        workoutButton.addActionListener(al -> {
-                new AddExerciseDialog(frame);
-        });
+        workoutButton.addActionListener(al -> new AddExerciseDialog(frame));
 
         return workoutButton;
     }
@@ -108,6 +107,7 @@ public class ExerciseLogScene extends Scenes{
      *
      * @param frame which scene is created on
      */
+
     public static void submittedNewScene(JFrame frame) {
         //refreshLogTable();
         new ExerciseLogScene(frame);

@@ -32,6 +32,8 @@ public class HomeScreen extends Scenes{
      *
      * @param frame which scenes are created on
      */
+
+    // TODO: Put the GridBagConstraints inside the get<thing>Label method calls
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
 
@@ -113,12 +115,7 @@ public class HomeScreen extends Scenes{
         loginButton.setMaximumSize(new Dimension(100, 50));
         loginButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
 
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new LoginScene(frame);
-            }
-        });
+        loginButton.addActionListener(al -> new LoginScene(frame));
 
         return loginButton;
     }
@@ -130,16 +127,12 @@ public class HomeScreen extends Scenes{
      */
     private static JButton getRegisterButton(JFrame frame) {
         JButton registerButton = new JButton("Register");
+
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerButton.setMaximumSize(new Dimension(100, 50));
         registerButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
 
-        registerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new RegisterScene(frame);
-            }
-        });
+        registerButton.addActionListener(al -> new RegisterScene(frame));
 
         return registerButton;
     }

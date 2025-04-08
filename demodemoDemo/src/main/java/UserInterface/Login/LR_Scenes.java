@@ -2,10 +2,6 @@ package UserInterface.Login;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import UserInformation.ValidateLRInputs;
 import UserInterface.*;
 
 public class LR_Scenes extends Scenes {
@@ -54,17 +50,10 @@ public class LR_Scenes extends Scenes {
      * @return button with back button functionality
      */
     public JButton getBackButton(JFrame frame) {
-        JButton backButton = new JButton("Back");
+        JButton backButton = createBackButton(frame, HomeScreen.class);
 
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         backButton.setMaximumSize(new Dimension(Scenes.FRAME_W, 50));
-
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new HomeScreen(frame);
-            }
-        });
 
         return backButton;
     }

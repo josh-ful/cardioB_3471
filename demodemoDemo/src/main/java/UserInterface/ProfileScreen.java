@@ -73,16 +73,16 @@ public class ProfileScreen extends Scenes{
      * @return JButton with back button functionality
      */
     private JButton createBackButton(JFrame frame) {
-        JButton button = new JButton("Back");
+        JButton button = super.createBackButton(frame, UserMenuScene.class);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
 
-        button.addActionListener(e -> {
-            //ScreenController.goto(UserMenuScene);
-            new UserMenuScene(frame);
-        });
+//        button.addActionListener(e -> {
+//            //ScreenController.goto(UserMenuScene);
+//            new UserMenuScene(frame);
+//        });
 
         return button;
     }

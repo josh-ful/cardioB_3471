@@ -8,10 +8,9 @@
  */
 package UserInterface;
 
-import main.Main;
-
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 
 public class Scenes {
     protected static JPanel panel;
@@ -55,5 +54,20 @@ public class Scenes {
      */
     private void panelLayout() {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    }
+
+    protected JButton createBackButton(JFrame frame, Class<? extends Scenes> scene) throws RuntimeException {
+
+        JButton button = new JButton("Back");
+        button.addActionListener(e -> {
+            try {
+                scene.getDeclaredConstructor(JFrame.class).newInstance(frame);
+            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
+                     InvocationTargetException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        return button;
     }
 }
