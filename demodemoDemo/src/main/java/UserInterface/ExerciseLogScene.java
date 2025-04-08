@@ -34,6 +34,7 @@ public class ExerciseLogScene extends Scenes{
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
         //TODO could we put this somewhere else??
+        LogCSVReaderWriter.setFileName("src/resources/testCreateExercise.csv");
         LogCSVReaderWriter.readCSV();
 
         panel.add(addWorkoutButton(frame));

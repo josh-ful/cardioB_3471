@@ -15,7 +15,7 @@ public class ValidateLRInputs {
     private static final String USERNAME_REGEX = "^[a-zA-Z][a-zA-Z0-9_.-]{5,}$";
     private static final Pattern USERNAME_PATTERN = Pattern.compile(USERNAME_REGEX);
     private static final String PASSWORD_FORMAT =
-            "^(?=.*[0-9])(?=.*[a-z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+!])(?=\\S+$).{8,}$";
     private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_FORMAT);
     /**
      * confirms that a username is valid

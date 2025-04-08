@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import UserInformation.*;
 
 public class RegisterScene extends LR_Scenes {
-    Boolean utStatus = null;
+    Boolean utButtonStatus = false;
     /**
      * Constructs a RegisterScene object
      *
@@ -15,7 +15,6 @@ public class RegisterScene extends LR_Scenes {
      */
 
     // TODO: change utStatus name to utButtonStatus
-    Boolean utStatus = false;
 
     public RegisterScene(JFrame frame) {
         super.createLR_SCENE(frame);
@@ -32,12 +31,24 @@ public class RegisterScene extends LR_Scenes {
         panel.add(getConfirmRegisterButton(username, password));
 
         panel.add(getBackButton(frame));
+        panel.add(getSpecificationLabel());
+    }
 
-        panel.add(new JLabel(
-                "Username must: "));
-        panel.add(new JLabel("be at least 6 characters in length "));
-        panel.add(new JLabel("start with a letter "));
-        panel.add(new JLabel("not have special characters other than \".\", \"-\", \"_\""));
+    private static JTextArea getSpecificationLabel() {
+        JTextArea label = new JTextArea("Username must meet the following criteria:\n" +
+                " - be at least 6 characters in length\n" +
+                " - start with a letter\n" +
+                " - not have special characters other than \".\", \"-\", \"_\n\n" +
+                "Password must meet the following criteria:\n" +
+                " - have at least one digit (0-9)\n" +
+                " - have at least one lowercase letter (a-z)\n" +
+                " - have at least one uppercase letter (A-Z)n" +
+                " - have at least one special character (@#$%^&+!)\n" +
+                " - have no whitespace characters anywhere\n" +
+                " - have a minimum length of 8 characters.");
+
+        label.setEditable(false);
+        return label;
     }
 
     //TODO make sure one of the options are selected for user type before register can occur
@@ -54,7 +65,7 @@ public class RegisterScene extends LR_Scenes {
         registerButton.setMaximumSize(new Dimension(400, 30));
 
         registerButton.addActionListener(e -> {
-            if (!utStatus) {
+            if (!utButtonStatus) {
                 JOptionPane.showMessageDialog(null,
                         "Please select user type", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
@@ -64,7 +75,7 @@ public class RegisterScene extends LR_Scenes {
                 boolean valid = true;
                 try {
                     ValidateLRInputs.validateRInputs(user, pass);
-                    Register.registerLogic(user, pass, utStatus);
+                    Register.registerLogic(user, pass, utButtonStatus);
                 } catch (SQLException ex) {
                     valid = false;
                     JOptionPane.showMessageDialog(
@@ -97,7 +108,7 @@ public class RegisterScene extends LR_Scenes {
         JRadioButton trainerButton = new JRadioButton("Trainer");
         trainerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        trainerButton.addActionListener(e -> utStatus = trainerButton.isSelected());
+        trainerButton.addActionListener(e -> utButtonStatus = trainerButton.isSelected());
 
         return trainerButton;
     }
@@ -110,7 +121,7 @@ public class RegisterScene extends LR_Scenes {
         JRadioButton userButton = new JRadioButton("User");
         userButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        userButton.addActionListener(e -> utStatus = userButton.isSelected());
+        userButton.addActionListener(e -> utButtonStatus = userButton.isSelected());
 
         return userButton;
     }
