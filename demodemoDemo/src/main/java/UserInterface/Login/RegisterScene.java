@@ -44,7 +44,7 @@ public class RegisterScene extends LR_Scenes {
             public void actionPerformed(ActionEvent e) {
 
                 if (utStatus == null) {
-                    JOptionPane.showMessageDialog(null,
+                    JOptionPane.showMessageDialog(panel,
                             "Please select user type", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     String user = username.getText();
@@ -93,13 +93,12 @@ public class RegisterScene extends LR_Scenes {
                                             "Return to main menu and login!",
                                     "Registration Successful",
                                     JOptionPane.INFORMATION_MESSAGE);
+                            //TODO go back to HomeScreen, trigger the back button logic?
                         }
                     }
                 }
             }
         });
-
-
         return registerButton;
     }
 
