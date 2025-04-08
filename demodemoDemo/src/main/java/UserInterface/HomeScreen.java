@@ -20,16 +20,17 @@ import java.awt.event.ActionListener;
 
 public class HomeScreen extends Scenes{
     /**
-     *
+     * Constructs a HomeScreen object
      *
      */
     public HomeScreen(JFrame frame) {
         createAndShowGUI(frame);
     }
     /**
+     * creates a HomeScreen using the super's createAndShowGUI
+     * method and adds 2 buttons and an icon
      *
-     *
-     * @param
+     * @param frame which scenes are created on
      */
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
@@ -73,9 +74,9 @@ public class HomeScreen extends Scenes{
         frame.setVisible(true);
     }
     /**
+     * gets the label containing an image
      *
-     *
-     * @return
+     * @return label containing icon
      */
     private static JLabel getIconLabel() {
         ImageIcon icon = new ImageIcon("src/resources/cardioB_logo.png");
@@ -86,9 +87,9 @@ public class HomeScreen extends Scenes{
         return new JLabel(icon);
     }
     /**
+     * gets positioned label of company name
      *
-     *
-     * @return
+     * @return label containing company name
      */
     private static JLabel getCompanyNameLabel() {
         JLabel companyName = new JLabel("CardioB");
@@ -102,9 +103,10 @@ public class HomeScreen extends Scenes{
         return companyName;
     }
     /**
+     * creates a button that leads to login scene
      *
-     * @param
-     * @return
+     * @param frame which scenes are created on
+     * @return JButton that creates a login scene
      */
     private static JButton getLoginButton(JFrame frame) {
         JButton loginButton = new JButton("Login");
@@ -121,9 +123,10 @@ public class HomeScreen extends Scenes{
         return loginButton;
     }
     /**
+     * creates a button that leads to registration scene
      *
-     * @param
-     * @return
+     * @param frame which scenes are created on
+     * @return JButton that creates registration scene
      */
     private static JButton getRegisterButton(JFrame frame) {
         JButton registerButton = new JButton("Register");

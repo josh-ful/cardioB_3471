@@ -28,9 +28,10 @@ public class Scenes {
     public static final int FRAME_W = FRAME_DIM.width;
     public static final int FRAME_H = FRAME_DIM.height;
     /**
+     * creates a new GUI by repainting and removing the content
+     * to reset to its original state
      *
-     *
-     * @param
+     * @param frame which scene is created on
      */
     protected void createAndShowGUI(JFrame frame) {
         panel = new JPanel();
@@ -49,7 +50,7 @@ public class Scenes {
         panelLayout();
     }
     /**
-     *
+     *sets panel layout to BoxLayout along the y-axis
      *
      */
     private void panelLayout() {

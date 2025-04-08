@@ -14,17 +14,18 @@ import java.awt.event.ActionListener;
 
 public class ExerciseLogScene extends Scenes{
     /**
+     * Constructs a ExerciseLogScene object
      *
-     *
-     * @return
+     * @param frame which scene is created on
      */
     public ExerciseLogScene(JFrame frame){
         createAndShowGUI(frame);
     }
     /**
+     * creates a ExerciseLogScene using the super's createAndShowGUI
+     * method and adds text and a table
      *
-     *
-     * @param
+     * @param frame which scene is created on
      */
     @Override
     protected void createAndShowGUI(JFrame frame) {
@@ -42,9 +43,9 @@ public class ExerciseLogScene extends Scenes{
         System.out.println(UserStorage.getExercises());
     }
     /**
+     * makes a scroll pane with log information
      *
-     *
-     * @return
+     * @return JScrollPane containing exercise names and descriptions
      */
     //TODO: make this a table? I think ScrollPane is over the top
     public static JScrollPane logTable(){
@@ -59,9 +60,9 @@ public class ExerciseLogScene extends Scenes{
         return scrollPane;
     }
     /**
+     * adds title
      *
-     *
-     * @return
+     * @return JLabel with title text
      */
     private JLabel addTextELog() {
         JLabel exerciseText = new JLabel("Exercise Log!");
@@ -72,9 +73,10 @@ public class ExerciseLogScene extends Scenes{
         return exerciseText;
     }
     /**
+     * adds button to add a workout
      *
-     *
-     * @return
+     * @param frame which scene is created on
+     * @return JButton that creates AddExerciseDialog scene
      */
     private JButton addWorkoutButton(JFrame frame) {
         JButton workoutButton = new JButton("Add Workout!");
@@ -88,9 +90,10 @@ public class ExerciseLogScene extends Scenes{
         return workoutButton;
     }
     /**
+     * adds button leading to previous scene
      *
-     * @param
-     * @return
+     * @param frame which scene is created on
+     * @return button with back button functionality
      */
     private JButton addBackButton(JFrame frame) {
         JButton backButton = new JButton("Back");
@@ -101,9 +104,9 @@ public class ExerciseLogScene extends Scenes{
         return backButton;
     }
     /**
+     * creates new ExerciseLogScene
      *
-     *
-     * @param
+     * @param frame which scene is created on
      */
     public static void submittedNewScene(JFrame frame) {
         //refreshLogTable();

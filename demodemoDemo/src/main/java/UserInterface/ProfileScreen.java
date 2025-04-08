@@ -13,15 +13,16 @@ public class ProfileScreen extends Scenes{
 
     GridBagConstraints c;
     /**
+     * Constructs a ProfileScreen object
      *
-     *
-     * @param
+     * @param frame which scene is created on
      */
     public ProfileScreen(JFrame frame) {
         createAndShowGUI(frame);
     }
     /**
-     *
+     * sets the panel layout to GridBagLayout and initializes
+     * the GridBagConstraints
      *
      */
     private void panelLayout() {
@@ -29,8 +30,8 @@ public class ProfileScreen extends Scenes{
         c = new GridBagConstraints();
     }
     /**
-     *
-     *
+     * creates a ProfileSreen using the super's createAndShowGUI
+     * method and adds title with profile info
      * @param
      */
     @Override
@@ -53,9 +54,9 @@ public class ProfileScreen extends Scenes{
         // TODO get class list and display
     }
     /**
+     * creates and positions name label
      *
-     *
-     * @return
+     * @return JLabel containing name of user
      */
     private JLabel createNameLabel() {
         JLabel label = new JLabel("Name: " + UserStorage.getName());
@@ -66,9 +67,10 @@ public class ProfileScreen extends Scenes{
         return label;
     }
     /**
+     * creates button to load and display previous scene
      *
-     * @param
-     * @return
+     * @param frame which scene is created on
+     * @return JButton with back button functionality
      */
     private JButton createBackButton(JFrame frame) {
         JButton button = new JButton("Back");

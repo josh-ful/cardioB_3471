@@ -14,17 +14,18 @@ import java.awt.*;
 public class ClassListScene extends Scenes{
     JTextArea textArea = new JTextArea(10, 30);
     /**
+     * Constructs a ClassListScene object
      *
-     *
-     * @param
+     * @param frame which scene is created on
      */
     public ClassListScene(JFrame frame){
         createAndShowGUI(frame);
     }
     /**
+     * creates a ClassListScene using the super's createAndShowGUI
+     * method and adds on a menu and text
      *
-     *
-     * @param
+     * @param frame which scene is created on
      */
     @Override
     protected void createAndShowGUI(JFrame frame) {
@@ -38,9 +39,9 @@ public class ClassListScene extends Scenes{
         frame.add(panel);
     }
     /**
+     * adds text to scene
      *
-     *
-     * @return
+     * @return JLabel with title and font
      */
     private JLabel addTextELog() {
         JLabel exerciseText = new JLabel("Classes!");
@@ -51,9 +52,9 @@ public class ClassListScene extends Scenes{
         return exerciseText;
     }
     /**
+     * creates scroll pane for classes
      *
-     *
-     * @return
+     * @return JScrollPane for classes
      */
     private JScrollPane addScrollClassList() {
         JScrollPane scrollPane = new JScrollPane(textArea,
@@ -66,9 +67,9 @@ public class ClassListScene extends Scenes{
         return scrollPane;
     }
     /**
+     * create a button leading to add workout dialog page
      *
-     *
-     * @return
+     * @return JButton to create add workout dialog scene
      */
     private JButton addWorkoutButton() {
         JButton button = new JButton("Add Class");
@@ -78,9 +79,10 @@ public class ClassListScene extends Scenes{
        return button;
     }
     /**
+     * adds button leading to previous scene
      *
-     * @param
-     * @return
+     * @param frame which scene is created on
+     * @return button with back button functionality
      */
     private JButton addBackButton(JFrame frame) {
         JButton backButton = new JButton("Back");

@@ -23,14 +23,16 @@ public class UserMenuScene extends Scenes{
     GridBagConstraints constraints = new GridBagConstraints();
     /**
      *
+     * Constructs a UserMenuScene object
      *
-     * @param
+     * @param frame which scene is created on
      */
     public UserMenuScene(JFrame frame){
         createUM_SCENE(frame);
     }
     /**
      *
+     * sets the panel layout to GridBagLayout
      *
      */
     private void panelLayout() {
@@ -38,7 +40,8 @@ public class UserMenuScene extends Scenes{
         constraints.fill = GridBagConstraints.HORIZONTAL;
     }
     /**
-     *
+     * creates a UserMenuScene using the super's createAndShowGUI
+     * method and adds on a menu and text
      *
      */
     protected void createUM_SCENE(JFrame frame) {
@@ -52,7 +55,7 @@ public class UserMenuScene extends Scenes{
         frame.add(panel);
     }
     /**
-     *
+     * adds a welcome message using constraints
      *
      */
     private void addTextMenu() {
@@ -77,9 +80,9 @@ public class UserMenuScene extends Scenes{
         panel.add(promptText, constraints);
     }
     /**
+     * adds a menu to panel using getjMenu method
      *
-     *
-     * @param
+     * @param frame which menu is added to
      */
     private void initMenu(JFrame frame) {
         JMenuBar menu = getjMenu(frame);
@@ -94,9 +97,11 @@ public class UserMenuScene extends Scenes{
         panel.add(menu, constraints);
     }
     /**
+     * creates menu bar which has menu items
+     * which create new scenes
      *
-     * @param
-     * @return
+     * @param frame which scenes are created on
+     * @return JMenuBar which holds menu items
      */
     private static JMenuBar getjMenu(JFrame frame) {
         JMenuBar menuBar = new JMenuBar();
@@ -134,9 +139,9 @@ public class UserMenuScene extends Scenes{
         return menuBar;
     }
     /**
+     * creates image icon out of the resource
      *
-     *
-     * @return
+     * @return ImageIcon that is scaled
      */
     private static ImageIcon getMenuIcon() {
         ImageIcon icon = new ImageIcon("src/resources/menuIcon.png");

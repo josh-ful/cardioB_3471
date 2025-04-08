@@ -22,7 +22,7 @@ public class AddExerciseDialog{
     /**
      *
      *
-     * @param
+     * @param frame which scene is created on
      */
     public AddExerciseDialog(JFrame frame) {
         createAndShowGUI(frame);
@@ -30,7 +30,7 @@ public class AddExerciseDialog{
     /**
      *
      *
-     * @param
+     * @param frame which dialog is created on
      */
     protected void createAndShowGUI(JFrame frame) {
         JFrame.setDefaultLookAndFeelDecorated(true);
