@@ -8,7 +8,10 @@ import java.io.*;
 import java.util.Iterator;
 
 //TODO these shouldn't be static??
-
+/**
+ * this class contains functionality to read and to write from a
+ * CSV file and use the information to include in our classes
+ */
 public class LogCSVReaderWriter {
     private static String fileName;
     /**
@@ -68,10 +71,10 @@ public class LogCSVReaderWriter {
     }
 
     /**
+     * adds exercise to file
      *
-     *
-     * @param
-     * @param
+     * @param name of exercise
+     * @param description of exercise
      */
     public static void addExercise(String name, String description) {
         try {
@@ -85,9 +88,9 @@ public class LogCSVReaderWriter {
         }
     }
     /**
+     * converts set of exercises to 2D matrix for conversion to table
      *
-     *
-     * @return
+     * @return matrix of exercises by name and description
      */
     public static String[][] setToMatrix(){
         int i= 0;

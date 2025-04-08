@@ -16,8 +16,10 @@ import static UserInformation.UserStorage.setPassword;
 public class Login implements LoginHardCodes {
     /**
      *
-     * @param
-     * @return
+     *
+     * @param user string username
+     * @param pass string password
+     * @return boolean of login success
      */
     public static boolean loginLogic(String user, String pass) throws SQLException {
         boolean success = false;

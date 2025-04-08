@@ -15,9 +15,10 @@ import main.DBConnection;
 
 public class Register implements LoginHardCodes {
     /**
-     *
-     * @param
-     * @return
+     * confirms that a registration scenario was a success
+     * @param user username of user
+     * @param pass password of user
+     * @param utStatus
      */
     public static boolean registerLogic(String user, String pass, Boolean utStatus)
             throws SQLException {
@@ -44,9 +45,12 @@ public class Register implements LoginHardCodes {
         return success;
     }
     /**
+     * confirms registration against hardcoded logins
      *
-     * @param
-     * @return
+     * @param user username of user
+     * @param pass password of user
+     * @param utStatus
+     * @return boolean if registration was a success
      */
     private static boolean localRegisterLogic(String user, String pass, Boolean utStatus, boolean success) {
         if (!logins.containsKey(user)) {

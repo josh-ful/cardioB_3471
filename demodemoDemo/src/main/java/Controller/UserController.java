@@ -5,12 +5,15 @@ import UserInformation.UserStorage;
 import UserInterface.addExercise.LogCSVReaderWriter;
 
 import main.DatabaseInfo;
+/*
+ * this class serves as the general user type controller
+ */
 public class UserController implements Controller{
     /**
+     * enters exercise information
      *
-     *
-     * @param
-     * @param
+     * @param name of exercise
+     * @param description of exercise
      */
     public static void enterExercise(String name, String description) {
         Exercise e = new Exercise(name);
@@ -26,7 +29,7 @@ public class UserController implements Controller{
         }
     }
     /**
-     *
+     * adds exercise
      *
      * @param
      * @param

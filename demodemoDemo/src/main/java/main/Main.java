@@ -65,9 +65,9 @@ import java.util.Scanner;
 public class Main {
 
     /**
+     * main runner connects user to database
      *
-     *
-     * @param
+     * @param args runner arguments
      */
     public static void main(String[] args) {
         boolean sql = false;
