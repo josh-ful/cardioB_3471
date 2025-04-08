@@ -24,9 +24,10 @@ public class LogCSVReaderWriter {
      */
     public LogCSVReaderWriter(String file) {
         fileName = file;
+    }
 
-    public static void setFileName(String fileName) {
-        LogCSVReaderWriter.fileName = fileName;
+    public static void setFileName(String fileN) {
+        LogCSVReaderWriter.fileName = fileN;
     }
     /**
      * reads CSV and updates exercise list
