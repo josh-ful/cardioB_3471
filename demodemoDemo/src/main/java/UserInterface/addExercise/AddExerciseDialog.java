@@ -20,7 +20,7 @@ public class AddExerciseDialog{
     private JTextField nameField;
     private JTextField descriptionField;
     /**
-     *
+     * Constructs AddExerciseDialog object
      *
      * @param frame which scene is created on
      */
@@ -28,9 +28,9 @@ public class AddExerciseDialog{
         createAndShowGUI(frame);
     }
     /**
+     * creates a AddExerciseDialog with specific size and texts with buttons
      *
-     *
-     * @param frame which dialog is created on
+     * @param frame which scene is created on
      */
     protected void createAndShowGUI(JFrame frame) {
         JFrame.setDefaultLookAndFeelDecorated(true);
@@ -55,25 +55,25 @@ public class AddExerciseDialog{
         newFrame.setVisible(true);
     }
     /**
+     * gets description of exercise in label form
      *
-     *
-     * @return
+     * @return JLabel with description of exercise
      */
     private static JLabel getExDescriptionLabel() {
         return new JLabel("Exercise Description: ");
     }
     /**
+     * gets name of exercise in label form
      *
-     *
-     * @return
+     * @return JLabel with name of exercise
      */
     private static JLabel getExNameLabel() {
         return new JLabel("Exercise Name: ");
     }
     /**
-     *
-     * @param
-     * @return
+     * gets button that submits information of exercise to list
+     * @param frame which scene is created on
+     * @return button that submits information to storage
      */
     private JButton getSubmitButton(JFrame frame) {
         JButton submit = new JButton("Submit");

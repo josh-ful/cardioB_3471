@@ -6,7 +6,11 @@ import javax.swing.*;
 
 public class LR_Dialog extends Scenes{
     protected JDialog dialog;
-
+    /**
+     * Constructs a RegisterScene object
+     *
+     * @param success boolean if dialog was successful
+     */
     public LR_Dialog(boolean success) {
         dialog = makeDialog();
 
@@ -16,7 +20,10 @@ public class LR_Dialog extends Scenes{
             dialog.setTitle("Failure!");
         }
     }
-
+    /**
+     * creates dialog page
+     *
+     */
     private JDialog makeDialog() {
         JDialog dialog = new JDialog();
         dialog.setSize(200, 200);

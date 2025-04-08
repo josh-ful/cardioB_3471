@@ -12,15 +12,15 @@ import java.util.Iterator;
 public class LogCSVReaderWriter {
     private static String fileName;
     /**
+     * Constructs LogCSVReaderWriter object
      *
-     *
-     * @param
+     * @param file to read in and to write to
      */
     public LogCSVReaderWriter(String file) {
         fileName = file;
     }
     /**
-     *
+     * reads CSV and updates exercise list
      *
      */
     public static void readCSV(){
@@ -42,7 +42,7 @@ public class LogCSVReaderWriter {
         }
     }
     /**
-     *
+     * writes to csv what is in the exercise list
      *
      */
     public static void writeCSV(){
