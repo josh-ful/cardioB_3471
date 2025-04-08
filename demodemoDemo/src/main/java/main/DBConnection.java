@@ -3,16 +3,19 @@ package main;
 import java.sql.*;
 import org.mindrot.jbcrypt.BCrypt;
 import static main.DatabaseInfo.*;
-
+/*
+ * this class represents a DBConnection object
+ * which implements the DatabaseInfo interface
+ */
 public class DBConnection implements DatabaseInfo {
     private static  String URL;
     private static final String USER = "fitnessuser";
     private static final String PASSWORD = "strongpassword123";
 
     /**
+     * establishes connection to the port
      *
-     *
-     * @param
+     * @param port id
      */
     public DBConnection(String port) {
         states.put("SQL", true);
@@ -54,16 +57,18 @@ public class DBConnection implements DatabaseInfo {
         }
     }
     /**
-     *
+     * Creates DBConnection object
      *
      *
      */
     public DBConnection() {
     }
     /**
+     * adds user
      *
-     *
-     * @param
+     * @param ps
+     * @param username
+     * @param plainPassword
      */
     public static void addUser(PreparedStatement ps, String username, String plainPassword) throws SQLException {
         String hashed = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
@@ -72,9 +77,9 @@ public class DBConnection implements DatabaseInfo {
         //ps.executeUpdate();
     }
     /**
+     * gets connection
      *
-     *
-     * @return
+     * @return Connection
      */
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);

@@ -11,7 +11,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * this class contains functionality to read and to write from a
+ * CSV file and use the information to include in our classes
+ */
 public class ExerciseLogScene extends Scenes{
     /**
      * Constructs a ExerciseLogScene object
