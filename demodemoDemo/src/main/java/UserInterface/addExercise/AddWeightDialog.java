@@ -53,6 +53,7 @@ public class AddWeightDialog extends JDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // TODO throw exceptions about invalid input (ie not a integer is entered)
                 UserController.enterWeight(Integer.parseInt(weightField.getText()));
                 newFrame.dispose();
                 ProfileScreen.submittedNewScene(frame);

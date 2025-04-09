@@ -45,12 +45,8 @@ public class ProfileScreen extends Scenes{
 
         frame.setLayout(new GridBagLayout());
 
-        JLabel nameLabel = new JLabel("Name: " + UserStorage.getName() + "\n");
-        JLabel weightLabel = new JLabel("Weight: " + UserStorage.getWeight());
-
-        panel.add(new JLabel("Name: " + UserStorage.getName()));
-        // TODO: add a seperator here!
-        panel.add(new JLabel("Weight: " + UserStorage.getWeight()));
+        panel.add(createNameLabel(), c);
+        panel.add(createWeightLabel(), c);
 
         // TODO: don't want to pass frame to create method
         panel.add(createAddWeightButton(frame), c);
@@ -59,6 +55,7 @@ public class ProfileScreen extends Scenes{
 
         // TODO get class list and display
     }
+
     /**
      * creates and positions name label
      *
@@ -73,6 +70,39 @@ public class ProfileScreen extends Scenes{
         return label;
     }
     /**
+     * creates and positions weight label
+     *
+     * @return JLabel containing weight of user
+     */
+    private JLabel createWeightLabel() {
+        JLabel label = new JLabel("Weight: " + UserStorage.getWeight());
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+
+        return label;
+    }
+
+    /**
+     * creates button to display scene to log weight
+     *
+     * @param frame which scene is created on
+     * @return JButton with back button functionality
+     */
+    private JButton createAddWeightButton(JFrame frame) {
+        JButton button = new JButton("Add Weight");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 2;
+
+        button.addActionListener(e -> {
+            new AddWeightDialog(frame);
+        });
+
+        return button;
+    }
+
+    /**
      * creates button to load and display previous scene
      *
      * @param frame which scene is created on
@@ -83,25 +113,7 @@ public class ProfileScreen extends Scenes{
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 2;
-
-//        button.addActionListener(e -> {
-//            //ScreenController.goto(UserMenuScene);
-//            new UserMenuScene(frame);
-//        });
-
-        return button;
-    }
-
-    private JButton createAddWeightButton(JFrame frame) {
-        JButton button = new JButton("Add Weight");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 1;
-
-        button.addActionListener(e -> {
-            new AddWeightDialog(frame);
-        });
+        c.gridy = 3;
 
         return button;
     }
