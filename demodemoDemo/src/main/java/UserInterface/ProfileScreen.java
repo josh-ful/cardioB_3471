@@ -4,6 +4,8 @@
 package UserInterface;
 
 import UserInformation.UserStorage;
+import UserInterface.addExercise.AddExerciseDialog;
+import UserInterface.addExercise.AddWeightDialog;
 import main.Main;
 
 import javax.swing.*;
@@ -43,11 +45,15 @@ public class ProfileScreen extends Scenes{
 
         frame.setLayout(new GridBagLayout());
 
-        JLabel nameLabel = new JLabel("Name: ");
-        nameLabel.setText(nameLabel.getText() + UserStorage.getName());
+        JLabel nameLabel = new JLabel("Name: " + UserStorage.getName() + "\n");
+        JLabel weightLabel = new JLabel("Weight: " + UserStorage.getWeight());
 
-        panel.add(nameLabel);
+        panel.add(new JLabel("Name: " + UserStorage.getName()));
+        // TODO: add a seperator here!
+        panel.add(new JLabel("Weight: " + UserStorage.getWeight()));
+
         // TODO: don't want to pass frame to create method
+        panel.add(createAddWeightButton(frame), c);
         panel.add(createBackButton(frame), c);
         frame.add(panel);
 
@@ -77,7 +83,7 @@ public class ProfileScreen extends Scenes{
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 1;
+        c.gridy = 2;
 
 //        button.addActionListener(e -> {
 //            //ScreenController.goto(UserMenuScene);
@@ -87,5 +93,22 @@ public class ProfileScreen extends Scenes{
         return button;
     }
 
+    private JButton createAddWeightButton(JFrame frame) {
+        JButton button = new JButton("Add Weight");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+
+        button.addActionListener(e -> {
+            new AddWeightDialog(frame);
+        });
+
+        return button;
+    }
+
+    public static void submittedNewScene(JFrame frame) {
+        //refreshLogTable();
+        new ProfileScreen(frame);
+    }
 
 }

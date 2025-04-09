@@ -18,6 +18,7 @@ public class UserStorage {
     private static String type;
 
     private static Set<Exercise> exerciseSet = new HashSet<>();
+    private static Integer weight;
     /**
      * Gets the name of the user.
      *
@@ -109,5 +110,12 @@ public class UserStorage {
      */
     public static void clearExercises() {
         exerciseSet.clear();
+    }
+
+    public static void addWeight(int w) {
+        weight = w;
+    }
+    public static Integer getWeight() {
+        return weight;
     }
 }

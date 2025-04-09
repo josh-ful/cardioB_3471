@@ -42,7 +42,7 @@ public class LogCSVReaderWriter {
 
             while ((line = br.readLine()) != null) {
                 // System.out.println(line);
-                String[] row = line.split(", ");
+                String[] row = line.split(",");
                 UserController.enterExercise(row[0], row[1]);
             }
         } catch (FileNotFoundException e) {

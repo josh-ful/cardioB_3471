@@ -9,6 +9,10 @@ import main.DatabaseInfo;
  * this class serves as the general user type controller
  */
 public class UserController implements Controller{
+    public static void enterWeight(int weight){
+        UserStorage.addWeight(weight);
+    }
+
     /**
      * enters exercise information
      *
