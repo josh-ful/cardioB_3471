@@ -118,6 +118,12 @@ public class ProfileScreen extends Scenes{
         return button;
     }
 
+    /**
+     * creates a new profileScreen
+     *
+     * @param frame which scene is created on
+     *
+     */
     public static void submittedNewScene(JFrame frame) {
         //refreshLogTable();
         new ProfileScreen(frame);

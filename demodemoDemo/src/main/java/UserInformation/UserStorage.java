@@ -28,41 +28,41 @@ public class UserStorage {
         return name;
     }
     /**
+     * sets the name of the user
      *
-     *
-     * @param
+     * @param n string name
      */
     public static void setName(String n) {
         name = n;
     }
     /**
+     * gets the password of the user
      *
-     *
-     * @return
+     * @return password of the user
      */
     public static String getPassword() {
         return password;
     }
     /**
+     * set the password of the user
      *
-     *
-     * @param
+     * @param p string password
      */
     public static void setPassword(String p) {
         password = p;
     }
     /**
+     * get the type of the user
      *
-     *
-     * @return
+     * @return type of user
      */
     public static String getType() {
         return type;
     }
     /**
+     * set the type of the user
      *
-     *
-     * @param
+     * @param utStatus boolean user trainer status
      */
     public static void setType(Boolean utStatus) {
         if (utStatus) {
@@ -72,49 +72,58 @@ public class UserStorage {
         }
     }
     /**
+     * checks if the user has been instantiated
      *
-     *
-     * @return
+     * @return boolean if there is info stored in the user
      */
     public static boolean infoInputted(){
         return name != null && password != null;
     }
     /**
+     * gets the name and password of the user
      *
-     *
-     * @return
+     * @return username and description
      */
     public static String userInfo() {
         return name + " " + password;
     }
     /**
+     * adds an exercise to the user's exercise set
      *
-     *
-     * @param
+     * @param e exercise new exercise
      */
     public static void addExercise(Exercise e) {
         exerciseSet.add(e);
     }
     /**
+     * gets the user's exercise set
      *
-     *
-     * @return
+     * @return exercise set of the user
      */
     public static Set<Exercise> getExercises() {
         return exerciseSet;
     }
     /**
-     *
+     * removes all exercises from the user's exercise set
      *
      *
      */
     public static void clearExercises() {
         exerciseSet.clear();
     }
-
-    public static void addWeight(int w) {
+    /**
+     * set user's weight
+     *
+     * @param w int weight
+     */
+    public static void setWeight(int w) {
         weight = w;
     }
+    /**
+     * get the user's weight
+     *
+     * @return weight of the user
+     */
     public static Integer getWeight() {
         return weight;
     }

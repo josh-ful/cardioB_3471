@@ -15,7 +15,7 @@ import static UserInformation.UserStorage.setPassword;
 
 public class Login implements LoginHardCodes {
     /**
-     *
+     * validates login inputs with logins stored in database
      *
      * @param user string username
      * @param pass string password
@@ -63,9 +63,11 @@ public class Login implements LoginHardCodes {
         return success;
     }
     /**
-     *
-     * @param
-     * @return
+     * validates login inputs with locally stored login pairs
+     * @param user string username
+     * @param pass string password
+     * @param success boolean successStatus
+     * @return boolean of login based on locally stored login inputs
      */
     private static boolean localLoginLogic(String user, String pass, boolean success) {
         if(logins.containsKey(user) && pass.equals(logins.get(user))){

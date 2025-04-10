@@ -13,7 +13,11 @@ import main.Main;
 
 
 public class LoginScene extends LR_Scenes {
-
+    /**
+     * Constructs a LoginScene object
+     *
+     * @param frame which scene is created on
+     */
     public LoginScene(JFrame frame) {
         super.createLR_SCENE(frame);
 
@@ -21,6 +25,13 @@ public class LoginScene extends LR_Scenes {
         panel.add(getBackButton(frame));
     }
 
+    /**
+     * Constructs a LoginScene object
+     *
+     * @param frame JFrame frame which scene is created on
+     * @param username JTextField field to input username
+     * @param password JPasswordField field to input password
+     */
     private static JButton getConfirmLoginButton(JFrame frame, JTextField username, JPasswordField password) {
         JButton loginButton = new JButton("Login");
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);

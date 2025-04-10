@@ -10,7 +10,7 @@ import main.DatabaseInfo;
  */
 public class UserController implements Controller{
     public static void enterWeight(int weight){
-        UserStorage.addWeight(weight);
+        UserStorage.setWeight(weight);
     }
 
     /**
@@ -35,8 +35,8 @@ public class UserController implements Controller{
     /**
      * adds exercise
      *
-     * @param
-     * @param
+     * @param name String name
+     * @param description String description
      */
     public static void newExercise(String name, String description) {
         LogCSVReaderWriter.addExercise(name, description);

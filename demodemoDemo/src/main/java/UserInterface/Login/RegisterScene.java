@@ -34,6 +34,11 @@ public class RegisterScene extends LR_Scenes {
         panel.add(getSpecificationLabel());
     }
 
+    /**
+     * creates a text area with all the specifications for a new login/password
+     *
+     * @return JTextArea with specifications for registration
+     */
     private static JTextArea getSpecificationLabel() {
         JTextArea label = new JTextArea("Username must meet the following criteria:\n" +
                 " - be at least 6 characters in length\n" +

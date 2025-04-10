@@ -66,9 +66,9 @@ public class DBConnection implements DatabaseInfo {
     /**
      * adds user
      *
-     * @param ps
-     * @param username
-     * @param plainPassword
+     * @param ps PreparedStatement ps
+     * @param username string username
+     * @param plainPassword string normal text password
      */
     public static void addUser(PreparedStatement ps, String username, String plainPassword) throws SQLException {
         String hashed = BCrypt.hashpw(plainPassword, BCrypt.gensalt());

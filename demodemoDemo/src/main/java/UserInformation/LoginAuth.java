@@ -9,7 +9,7 @@ public class LoginAuth extends DBConnection {
     /**
      *
      *
-     * @param
+     * @param ip string ip
      */
     public LoginAuth(String ip) {
         super(ip);
