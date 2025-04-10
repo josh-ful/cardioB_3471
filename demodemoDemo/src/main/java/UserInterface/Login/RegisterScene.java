@@ -40,17 +40,18 @@ public class RegisterScene extends LR_Scenes {
      * @return JTextArea with specifications for registration
      */
     private static JTextArea getSpecificationLabel() {
-        JTextArea label = new JTextArea("Username must meet the following criteria:\n" +
+        JTextArea label = new JTextArea(
+                "Username must meet the following criteria:\n" +
                 " - be at least 6 characters in length\n" +
                 " - start with a letter\n" +
-                " - not have special characters other than \".\", \"-\", \"_\n\n" +
+                " - not have special characters other than (.-_)\n\n" +
                 "Password must meet the following criteria:\n" +
+                " - be at least 8 characters in length\n" +
                 " - have at least one digit (0-9)\n" +
                 " - have at least one lowercase letter (a-z)\n" +
-                " - have at least one uppercase letter (A-Z)n" +
+                " - have at least one uppercase letter (A-Z)\n" +
                 " - have at least one special character (@#$%^&+!)\n" +
-                " - have no whitespace characters anywhere\n" +
-                " - have a minimum length of 8 characters.");
+                " - have no whitespace characters anywhere");
 
         label.setEditable(false);
         return label;
