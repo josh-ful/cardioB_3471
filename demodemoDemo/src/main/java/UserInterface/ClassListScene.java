@@ -6,12 +6,11 @@
 package UserInterface;
 
 import UserInterface.Login.LR_Dialog;
-import main.Main;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ClassListScene extends Scenes{
+public class ClassListScene extends Scene {
     JTextArea textArea = new JTextArea(10, 30);
 
     public ClassListScene(JFrame frame){

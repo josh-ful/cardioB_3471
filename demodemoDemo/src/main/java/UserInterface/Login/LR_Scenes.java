@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import UserInterface.*;
 
-public class LR_Scenes extends Scenes {
+public class LR_Scenes extends Scene {
     protected JTextField username;
     protected JPasswordField password;
 //    protected String user;
@@ -36,7 +36,7 @@ public class LR_Scenes extends Scenes {
         JButton backButton = createBackButton(frame, HomeScreen.class);
 
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        backButton.setMaximumSize(new Dimension(Scenes.FRAME_W, 50));
+        backButton.setMaximumSize(new Dimension(Scene.FRAME_W, 50));
 
         return backButton;
     }

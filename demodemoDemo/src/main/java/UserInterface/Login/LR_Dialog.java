@@ -1,10 +1,10 @@
 package UserInterface.Login;
 
-import UserInterface.Scenes;
+import UserInterface.Scene;
 
 import javax.swing.*;
 
-public class LR_Dialog extends Scenes{
+public class LR_Dialog extends Scene {
     protected JDialog dialog;
 
     public LR_Dialog(boolean success) {

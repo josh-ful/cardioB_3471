@@ -8,7 +8,7 @@ import UserInformation.UserStorage;
 import javax.swing.*;
 import java.awt.*;
 
-public class ProfileScreen extends Scenes{
+public class ProfileScreen extends Scene {
 
     GridBagConstraints c;
 
@@ -57,11 +57,6 @@ public class ProfileScreen extends Scenes{
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
-
-//        button.addActionListener(e -> {
-//            //ScreenController.goto(UserMenuScene);
-//            new UserMenuScene(frame);
-//        });
 
         return button;
     }

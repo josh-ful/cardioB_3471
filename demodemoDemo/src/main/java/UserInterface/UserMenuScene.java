@@ -10,8 +10,6 @@
 
 package UserInterface;
 
-import main.Main;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,7 +17,7 @@ import java.awt.event.ActionListener;
 
 
 //TODO fix some method/formatting things here
-public class UserMenuScene extends Scenes{
+public class UserMenuScene extends Scene {
     GridBagConstraints constraints = new GridBagConstraints();
 
     public UserMenuScene(JFrame frame){

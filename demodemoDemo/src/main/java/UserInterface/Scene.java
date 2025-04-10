@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 
-public class Scenes {
+public class Scene {
     protected static JPanel panel;
 
     /*
@@ -48,7 +48,7 @@ public class Scenes {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     }
 
-    protected JButton createBackButton(JFrame frame, Class<? extends Scenes> scene) throws RuntimeException {
+    protected JButton createBackButton(JFrame frame, Class<? extends Scene> scene) throws RuntimeException {
 
         JButton button = new JButton("Back");
         button.addActionListener(e -> {

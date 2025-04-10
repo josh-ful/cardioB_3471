@@ -8,7 +8,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class ExerciseLogScene extends Scenes{
+public class ExerciseLogScene extends Scene {
 
     public ExerciseLogScene(JFrame frame){
         createAndShowGUI(frame);

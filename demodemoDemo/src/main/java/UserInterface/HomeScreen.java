@@ -16,7 +16,7 @@ import UserInterface.Login.RegisterScene;
 import javax.swing.*;
 import java.awt.*;
 
-public class HomeScreen extends Scenes{
+public class HomeScreen extends Scene {
     public HomeScreen(JFrame frame) {
         createAndShowGUI(frame);
     }
