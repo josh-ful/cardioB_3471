@@ -43,7 +43,7 @@ public class Scenes {
         frame.setSize(FRAME_DIM);
         frame.setResizable(false);
 
-        frame.setLocationRelativeTo(null);
+        frame.setLocation(0,0);
         frame.setVisible(true);
 
         panelLayout();

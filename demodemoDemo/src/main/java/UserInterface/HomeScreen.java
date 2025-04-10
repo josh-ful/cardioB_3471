@@ -71,8 +71,6 @@ public class HomeScreen extends Scenes{
         c.gridy = 15;
         frame.add(getRegisterButton(frame), c);
 
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
         frame.setVisible(true);
     }
     /**
