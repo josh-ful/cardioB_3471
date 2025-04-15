@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Group Project Dashboard</title>
+  <title>CardioB</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
@@ -65,48 +65,57 @@
 </head>
 <body>
   <div class="container">
-    <h1>Group Project Dashboard</h1>
+    <h1>CardioB</h1>
 
     <div class="section">
       <h2>Group Overview</h2>
       <p><strong>Group Name:</strong> CardioB</p>
       <ul>
-        <li><strong>Carter Lewis:</strong> Design Engineer
+        <li><strong>Carter Lewis:</strong> <em>Design Engineer</em></li>
           <ul>
             <li>Trainer wants to create account</li>
             <li>Trainer wants to create a fitness course</li>
             <li>Trainer wants to modify a fitness course</li>
+            <br><br>
           </ul>
         </li>
-        <li><strong>Emily Wokeok:</strong>Project Librarian</li>
+        <li><strong>Emily Wokoek:</strong> <em>Project Librarian</em></li>
         <ul>
           <li>User wants to add a workout (duration, exercise, calories)</li>
           <li>Trainer wants to create a self-paced plan</li>
           <li>Trainer wnats to modify self-paced exercsise plan</li>
+          <br><br>
         </ul>
-        <li><strong>Josh Fulton:</strong> Project Manager</li>
+        <li><strong>Josh Fulton:</strong> <em>Project Manager</em></li>
         <ul>
           <li>User wants to login</li>
           <li>Admin wants to create an account</li>
           <li>Admin wants to add a new user</li>
+          <br><br>
         </ul>
-        <li><strong>Kiera Sheppherd:</strong> Quality Assurance</li>
+        <li><strong>Kiera Shepperd:</strong> <em>Quality Assurance</em></li>
         <ul>
           <li>User wants to add metrics (sleep, weight, calories)</li>
           <li>Trainer wants to host class</li>
           <li>Trainer wants to view class report</li>
+                    <br><br>
+
         </ul>
-        <li><strong>Lawson Hale:</strong> Quality Assurance</li>
+        <li><strong>Lawson Hale:</strong> <em>Quality Assurance</em></li>
         <ul>
           <li>User wants to register for self-paced exercise plan</li>
           <li>User wants to register for a class</li>
           <li>User wants to attend a class</li>
+                    <br><br>
+
         </ul>
-        <li><strong>Noah Mathew:</strong> Requirements Engineer</li>
+        <li><strong>Noah Mathew:</strong> <em>Requirements Engineer</em></li>
         <ul>
           <li>User wants to create account</li>
           <li>User wants to reset password</li>
           <li>User wants to view self-report</li>
+                    <br><br>
+
         </ul>
       </ul>
     </div>
@@ -120,29 +129,35 @@
     <div class="section download-links">
       <h2>Downloads</h2>
       <a href="Itr1.zip" download>Download Iteration 1</a>
-      <a href="Itr2.zip" download>Download Iteration 2 (NOT YET PUBLISHED)</a>
-      <a href="Itr3.zip" download>Download Iteration 3 (NOT YET PUBLISHED)</a>
+      <br><br>
+      <a href="Itr2_Imple.zip" download>Download Iteration 2 Implementation</a>
+      <a href="Itr2_Deliv.pdf" download>Download Iteration 2 Deliverables</a>
+
+      <br><br>
+      <a href="Itr3_Imple.zip" download>Download Iteration Implementation (NOT YET PUBLISHED)</a>
+      <a href="Itr3_Deliv.pdf." download>Download Iteration Deliverables (NOT YET PUBLISHED)</a>
+
     </div>
 
     <!-- Command (Powershell): powershell -command "Get-ChildItem -Recurse -Include *.c,*.cpp,*.py,*.java,*.js,*.ts,*.cs | Get-Content | Measure-Object -Line"-->
     <div class="section grid">
       <div class="stat-box">
         <h3>Lines of Code</h3>
-        <p>1,701</p>
+        <p>2075</p>
       </div>
       <!-- Total: git rev-list --count HEAD  -->
       <!-- By Author: git shortlog -s -n -->
       <div class="stat-box">
         <h3>Total Commits</h3>
-        <p>139</p>
+        <p>185</p>
       </div>
       <div class="stat-box">
         <h3>Total Hours</h3>
-        <p>183</p>
+        <p>188</p>
       </div>
       <div class="stat-box">
         <h3>Issues Closed</h3>
-        <p>9</p>
+        <p>16</p>
       </div>
     </div>
 
@@ -158,7 +173,12 @@
 
     <div class="section">
       <h2>Project Overview Video</h2>
-      <iframe src="https://www.youtube.com/embed/[VIDEO_ID]" frameborder="0" allowfullscreen></iframe>
+        <iframe src="https://drive.google.com/file/d/1jEhEHeQ_-ndHC01UjpJOSzqu2DRApzuh/preview" width="640" height="480" allow="autoplay" allowfullscreen></iframe>    
+    </div>
+
+    <div class = "section">
+      <h2>Man in the Mirror</h2>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/Z9NYDgbKsBE?si=JYM_b0X_XZcuMkDO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
   </div>
 
@@ -172,7 +192,7 @@
         labels: ['Carter', 'Emily', 'Josh', 'Kiera', 'Lawson', 'Noah' ],
         datasets: [{
           label: '# of Commits',
-          data: [6, 18, 32, 28, 39, 16],
+          data: [6, 18, 70, 33, 39, 19],
           backgroundColor: '#58a6ff'
         }]
       },
@@ -190,7 +210,7 @@
         labels: ['Carter', 'Emily', 'Josh', 'Kiera', 'Lawson', 'Noah' ],
         datasets: [{
           label: 'Hours Worked',
-          data: [25, 27, 48, 24,  23, 36],
+          data: [25, 35, 56, 31,  23, 42],
           backgroundColor: '#58a6ff'
         }]
       },
