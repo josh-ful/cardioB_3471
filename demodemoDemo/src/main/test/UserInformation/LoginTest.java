@@ -17,13 +17,11 @@ public class LoginTest {
     @BeforeAll
     static void init() throws SQLException {
         DBConnection db = new DBConnection("3312");
-        boolean success = false;
         Connection conn = DBConnection.getConnection();
         String insertUser = "INSERT INTO users (username, password) VALUES (?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(insertUser)) {
             addUser(ps, "TEST", "TESTPASSWORD123");
-            success = ps.executeUpdate() > 0;
-
+            ps.executeUpdate();
         } catch (SQLIntegrityConstraintViolationException e) {
             System.out.println("Sorry, that username is already in use.!");
             throw new SQLException("User already exists!");
