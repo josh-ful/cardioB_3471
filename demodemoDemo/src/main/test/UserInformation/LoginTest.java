@@ -1,5 +1,7 @@
 package UserInformation;
 
+import Exceptions.IncorrectPasswordException;
+import Exceptions.UserNotFoundException;
 import main.DatabaseInfo;
 
 import java.sql.*;
@@ -39,7 +41,7 @@ public class LoginTest {
     }
 
     @Test
-    @DisplayName("Log in to TEST user")
+    @DisplayName("Test SQL connection")
     void logInTestUser() throws SQLException {
         String query = "SELECT password FROM users WHERE username = ?";
         Connection conn = DBConnection.getConnection();
@@ -54,5 +56,27 @@ public class LoginTest {
 
             assertTrue(BCrypt.checkpw("TESTPASSWORD123", hashedPassword));
         }
+    }
+
+    @Test
+    @DisplayName("Success")
+    void successCaseLoginLogic() throws SQLException {
+        assertTrue(Login.loginLogic("TEST", "TESTPASSWORD123"));
+    }
+
+    @Test
+    @DisplayName("Password incorrect case")
+    void incorrectCasePasswordLoginLogic() throws SQLException {
+        assertThrows(IncorrectPasswordException.class, () -> {
+            Login.loginLogic("TEST", "testpassword123");
+        });
+    }
+
+    @Test
+    @DisplayName("Incorrect username")
+    void incorrectUserNameCase() {
+        assertThrows(UserNotFoundException.class, () -> {
+            Login.loginLogic("qwerty", "STRONGPASSWORD123");
+        });
     }
 }
