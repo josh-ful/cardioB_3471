@@ -21,6 +21,7 @@ Kiera Shepperd
 Lawson Hale
  */
 
+import Controller.UserController;
 import UserInformation.*;
 import UserInterface.*;
 import org.w3c.dom.ls.LSInput;
@@ -84,8 +85,10 @@ public class Main {
 
             db = new DBConnection(portNumber);
         }
+        new UserController();
         JFrame frame = new JFrame();
         HomeScreen hs = new HomeScreen(frame);
+
         //when me has information stored in it
 
         if (UserStorage.infoInputted()) {

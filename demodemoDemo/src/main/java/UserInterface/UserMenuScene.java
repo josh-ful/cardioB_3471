@@ -10,6 +10,7 @@
 
 package UserInterface;
 
+import Controller.UserController;
 import main.Main;
 
 import javax.swing.*;
@@ -45,6 +46,7 @@ public class UserMenuScene extends Scenes{
      *
      */
     protected void createUM_SCENE(JFrame frame) {
+        new UserController();
         super.createAndShowGUI(frame);
         panelLayout();
 

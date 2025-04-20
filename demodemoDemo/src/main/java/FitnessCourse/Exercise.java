@@ -15,6 +15,16 @@ public class Exercise {
         this.name = name;
     }
     /**
+     * Creates Exercise object
+     *
+     * @param name of exercise
+     * @param description of exercise
+     */
+    public Exercise(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+    /**
      * get name of exercise
      *
      * @return name string of exercise
