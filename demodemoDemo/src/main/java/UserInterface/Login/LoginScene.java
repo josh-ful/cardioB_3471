@@ -46,7 +46,7 @@ public class LoginScene extends LR_Scenes {
                 boolean success = false;
                 try {
                     success = Login.loginLogic(user, pass);
-                } catch (SQLException ex) {
+                } catch (RuntimeException | SQLException ex) {
                     JOptionPane.showMessageDialog(panel,
                             ex.getMessage(), null, JOptionPane.ERROR_MESSAGE);
                 }
