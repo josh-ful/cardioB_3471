@@ -43,6 +43,7 @@ public class LoginScene extends LR_Scenes {
                 String user = username.getText();
                 String pass = new String(password.getPassword());
 
+                // give something else the information and allow it to make the screen
                 boolean success = false;
                 try {
                     success = Login.loginLogic(user, pass);
@@ -52,6 +53,9 @@ public class LoginScene extends LR_Scenes {
                 }
                 if (success) {
                     new UserMenuScene(frame);
+                }
+                else {
+                    new LR_Dialog(success);
                 }
             }
         });
