@@ -9,7 +9,8 @@ package UserInformation;
 
 import FitnessCourse.*;
 
-import java.util.HashSet;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Set;
 
 public class UserStorage {
@@ -17,7 +18,7 @@ public class UserStorage {
     private static String password;
     private static String type;
 
-    private static Set<Exercise> exerciseSet = new HashSet<>();
+    private static ArrayList<Exercise> exerciseList = new ArrayList<>();
     private static Integer weight;
     /**
      * Gets the name of the user.
@@ -93,15 +94,15 @@ public class UserStorage {
      * @param e exercise new exercise
      */
     public static void addExercise(Exercise e) {
-        exerciseSet.add(e);
+        exerciseList.add(e);
     }
     /**
      * gets the user's exercise set
      *
      * @return exercise set of the user
      */
-    public static Set<Exercise> getExercises() {
-        return exerciseSet;
+    public static ArrayList<Exercise> getExercises() {
+        return exerciseList;
     }
     /**
      * removes all exercises from the user's exercise set
@@ -109,7 +110,7 @@ public class UserStorage {
      *
      */
     public static void clearExercises() {
-        exerciseSet.clear();
+        exerciseList.clear();
     }
     /**
      * set user's weight
@@ -126,5 +127,10 @@ public class UserStorage {
      */
     public static Integer getWeight() {
         return weight;
+    }
+
+    public static void importExercises(ArrayList<Exercise> set) {
+        clearExercises();
+        exerciseList.addAll(set);
     }
 }

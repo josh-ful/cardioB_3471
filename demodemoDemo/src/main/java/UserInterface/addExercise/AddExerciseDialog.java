@@ -77,13 +77,10 @@ public class AddExerciseDialog{
      */
     private JButton getSubmitButton(JFrame frame) {
         JButton submit = new JButton("Submit");
-        submit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                UserController.enterExercise(nameField.getText(), descriptionField.getText());
+        submit.addActionListener(e -> {
+                UserController.addExercise(nameField.getText(), descriptionField.getText());
                 newFrame.dispose();
-                ExerciseLogScene.submittedNewScene(frame);
-            }
+                ExerciseLogScene.updateTable();
         });
 
         return submit;
