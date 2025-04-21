@@ -74,10 +74,11 @@ public class ClassListScene extends Scenes{
     private JButton addWorkoutButton() {
         JButton button = new JButton("Register for New Class");
         button.addActionListener(e -> {
-            new LR_Dialog(true);
+            new CourseSearch(); // new class you'll create
         });
-       return button;
+        return button;
     }
+
     /**
      * adds button leading to previous scene
      *
