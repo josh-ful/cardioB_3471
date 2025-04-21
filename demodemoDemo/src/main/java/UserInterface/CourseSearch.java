@@ -2,45 +2,54 @@ package UserInterface;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.*;
-import java.util.ArrayList;
 
-public class CourseSearch extends JFrame {
+public class CourseSearch extends Scenes {
+    private JTextArea resultsArea;
     private JComboBox<String> courseTypeCombo;
     private JTextField searchField;
-    private JTextArea resultsArea;
 
-    public CourseSearch() {
-        setTitle("Course Search");
-        setSize(500, 400);
-        setLayout(new BorderLayout());
+    public CourseSearch(JFrame frame) {
+        createAndShowGUI(frame);
+    }
 
-        // Top bar
-        JPanel topPanel = new JPanel(new FlowLayout());
+    @Override
+    protected void createAndShowGUI(JFrame frame) {
+        super.createAndShowGUI(frame);
+
+        JLabel title = new JLabel("Find a Class");
+        title.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(title);
+
+        JPanel filterPanel = new JPanel(new FlowLayout());
         courseTypeCombo = new JComboBox<>(new String[]{"self", "group"});
         searchField = new JTextField(20);
-        JButton searchButton = new JButton("Search");
-        topPanel.add(courseTypeCombo);
-        topPanel.add(searchField);
-        topPanel.add(searchButton);
+        JButton searchBtn = new JButton("Search");
+        searchBtn.addActionListener(e -> performSearch());
 
-        add(topPanel, BorderLayout.NORTH);
+        filterPanel.add(courseTypeCombo);
+        filterPanel.add(searchField);
+        filterPanel.add(searchBtn);
 
-        // Results area
-        resultsArea = new JTextArea();
+        panel.add(filterPanel);
+
+        resultsArea = new JTextArea(15, 40);
         resultsArea.setEditable(false);
-        add(new JScrollPane(resultsArea), BorderLayout.CENTER);
+        JScrollPane scroll = new JScrollPane(resultsArea);
+        panel.add(scroll);
 
-        searchButton.addActionListener(e -> performSearch());
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(e -> new ClassListScene(frame));
+        panel.add(backButton);
 
-        setVisible(true);
+        frame.setContentPane(panel);
+        frame.revalidate();
     }
 
     private void performSearch() {
         String type = (String) courseTypeCombo.getSelectedItem();
-        String query = searchField.getText();
+        String search = searchField.getText();
 
         try (Connection conn = main.DBConnection.getConnection()) {
             PreparedStatement stmt;
@@ -50,21 +59,22 @@ public class CourseSearch extends JFrame {
                 stmt = conn.prepareStatement("SELECT id, name, description FROM group_courses WHERE name LIKE ?");
             }
 
-            stmt.setString(1, "%" + query + "%");
+            stmt.setString(1, "%" + search + "%");
             ResultSet rs = stmt.executeQuery();
 
             StringBuilder sb = new StringBuilder();
             while (rs.next()) {
                 sb.append("ID: ").append(rs.getInt("id"))
-                        .append(", Name: ").append(rs.getString("name"))
-                        .append(", Description: ").append(rs.getString("description")).append("\n");
+                        .append(" | Name: ").append(rs.getString("name"))
+                        .append(" | Desc: ").append(rs.getString("description"))
+                        .append("\n");
             }
 
             resultsArea.setText(sb.toString());
 
         } catch (SQLException e) {
             e.printStackTrace();
-            resultsArea.setText("Database error occurred.");
+            resultsArea.setText("Error fetching results.");
         }
     }
 }

@@ -33,7 +33,7 @@ public class ClassListScene extends Scenes{
 
         panel.add(addTextELog());
         panel.add(addScrollClassList());
-        panel.add(addWorkoutButton());
+        panel.add(addWorkoutButton(frame));
         panel.add(addBackButton(frame));
 
         frame.add(panel);
@@ -71,10 +71,10 @@ public class ClassListScene extends Scenes{
      *
      * @return JButton to create add workout dialog scene
      */
-    private JButton addWorkoutButton() {
+    private JButton addWorkoutButton(JFrame frame) {
         JButton button = new JButton("Register for New Class");
         button.addActionListener(e -> {
-            new CourseSearch(); // new class you'll create
+            new CourseSearch(frame);
         });
         return button;
     }
