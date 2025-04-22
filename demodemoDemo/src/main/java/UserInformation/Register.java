@@ -27,9 +27,11 @@ public class Register implements LoginHardCodes {
 
         if (usingSQL) {
             Connection conn = DBConnection.getConnection();
-            String insertSql = "INSERT INTO users (username, password) VALUES (?, ?)";
+            String insertSql = "INSERT INTO users (username, password, type) VALUES (?, ?, ?)";
             try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
-                addUser(ps, user, pass);
+                ps.setString(1, user);
+                ps.setString(2, pass);
+                ps.setString(3, utStatus ? "trainer" : "member");//adds type to db
                 success = ps.executeUpdate() > 0;
 
             } catch (SQLIntegrityConstraintViolationException e) {
