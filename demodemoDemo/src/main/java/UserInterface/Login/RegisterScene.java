@@ -8,6 +8,8 @@ import UserInformation.*;
 
 public class RegisterScene extends LR_Scenes {
     Boolean utButtonStatus = false;
+    Boolean trainer;
+    Boolean user;
     /**
      * Constructs a RegisterScene object
      *
@@ -18,7 +20,6 @@ public class RegisterScene extends LR_Scenes {
 
     public RegisterScene(JFrame frame) {
         super.createLR_SCENE(frame);
-
         JRadioButton trainerButton = getSelectTrainerButton();
         JRadioButton userButton = getSelectUserButton();
 
@@ -78,15 +79,21 @@ public class RegisterScene extends LR_Scenes {
                 String user = username.getText();
                 String pass = new String(password.getPassword());
 
-                boolean valid = true;
+                boolean valid;
                 try {
                     ValidateLRInputs.validateRInputs(user, pass);
-                    Register.registerLogic(user, pass, utButtonStatus);
-                } catch (SQLException ex) {
+                    String type = "general";
+                    if(trainer) {
+                        type = "trainer";
+                    }
+                    valid = Register.registerLogic(user, pass, type);
+                }
+                catch (SQLException ex) {
                     valid = false;
                     JOptionPane.showMessageDialog(
                             panel, ex.getMessage(), "Please log-in", JOptionPane.ERROR_MESSAGE);
-                } catch (IllegalArgumentException ex) {
+                }
+                catch (IllegalArgumentException ex) {
                     valid = false;
                     JOptionPane.showMessageDialog(panel,
                             ex.getMessage(), "REGISTER ERROR", JOptionPane.ERROR_MESSAGE);
@@ -114,7 +121,12 @@ public class RegisterScene extends LR_Scenes {
         JRadioButton trainerButton = new JRadioButton("Trainer");
         trainerButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        trainerButton.addActionListener(e -> utButtonStatus = trainerButton.isSelected());
+        trainerButton.addActionListener(e -> {
+                    utButtonStatus = trainerButton.isSelected();
+                    trainer = trainerButton.isSelected();
+                    user = !trainer;
+                });
+
 
         return trainerButton;
     }
@@ -127,7 +139,11 @@ public class RegisterScene extends LR_Scenes {
         JRadioButton userButton = new JRadioButton("User");
         userButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        userButton.addActionListener(e -> utButtonStatus = userButton.isSelected());
+        userButton.addActionListener(e -> {
+            utButtonStatus = userButton.isSelected();
+            user = userButton.isSelected();
+            trainer = !user;
+        });
 
         return userButton;
     }

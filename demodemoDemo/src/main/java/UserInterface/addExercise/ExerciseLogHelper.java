@@ -2,10 +2,7 @@ package UserInterface.addExercise;
 
 import Controller.UserController;
 import FitnessCourse.Exercise;
-import UserInformation.UserStorage;
-
-import java.io.*;
-import java.util.Iterator;
+import UserInformation.CurrentUser;
 
 //TODO these shouldn't be static??
 /**
@@ -27,7 +24,7 @@ public abstract class ExerciseLogHelper {
     public static String[][] getTableMatrix(){
         int i= 0;
         String [][] matrix = new String[UserController.getExercises().size()][2];
-        for(Exercise e : UserStorage.getExercises()){
+        for(Exercise e : CurrentUser.getExercises()){
             matrix[i][0] = e.getName();
             //System.out.println(matrix[i][0]);
             matrix[i][1] = e.getDescription();

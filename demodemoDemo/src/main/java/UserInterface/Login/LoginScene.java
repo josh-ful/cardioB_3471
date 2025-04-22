@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import UserInformation.Login;
-import UserInformation.ValidateLRInputs;
+import UserInformation.CurrentUser;
+import UserInterface.AdminDashboardScene;
 import UserInterface.UserMenuScene;
-import main.Main;
 
 
 public class LoginScene extends LR_Scenes {
@@ -42,7 +42,6 @@ public class LoginScene extends LR_Scenes {
             public void actionPerformed(ActionEvent e) {
                 String user = username.getText();
                 String pass = new String(password.getPassword());
-
                 // give something else the information and allow it to make the screen
                 boolean success = false;
                 try {
@@ -51,9 +50,12 @@ public class LoginScene extends LR_Scenes {
                     JOptionPane.showMessageDialog(panel,
                             ex.getMessage(), null, JOptionPane.ERROR_MESSAGE);
                 }
-                if (success) {
-                    new UserMenuScene(frame);
+
+                if (success){
+                    CurrentUser.controller.createDashboard(frame);
+                    System.out.println("Loading " + CurrentUser.getType() + " dashboard");
                 }
+
                 else {
                     new LR_Dialog(success);
                 }

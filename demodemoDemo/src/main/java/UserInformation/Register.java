@@ -8,7 +8,7 @@ import main.DatabaseInfo;
 
 import java.sql.*;
 
-import static UserInformation.UserStorage.*;
+import static UserInformation.CurrentUser.*;
 import static main.DBConnection.addUser;
 
 import main.DBConnection;
@@ -18,18 +18,19 @@ public class Register implements LoginHardCodes {
      * confirms that a registration scenario was a success
      * @param user username of user
      * @param pass password of user
-     * @param utStatus
+     * @param type
      */
-    public static boolean registerLogic(String user, String pass, Boolean utStatus)
+    public static boolean registerLogic(String user, String pass, String type)
             throws SQLException {
         boolean success = false;
         boolean usingSQL = DatabaseInfo.states.get("SQL");
 
         if (usingSQL) {
             Connection conn = DBConnection.getConnection();
-            String insertSql = "INSERT INTO users (username, password) VALUES (?, ?)";
+            String insertSql = "INSERT INTO users (username, password, type) VALUES (?, ?, ?)";
             try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
                 addUser(ps, user, pass);
+                ps.setString(3, type);
                 success = ps.executeUpdate() > 0;
 
             } catch (SQLIntegrityConstraintViolationException e) {
@@ -39,7 +40,7 @@ public class Register implements LoginHardCodes {
                 e.printStackTrace();
             }
         } else {
-            success = localRegisterLogic(user, pass, utStatus, success);
+            success = localRegisterLogic(user, pass, type, success);
         }
 
         return success;
@@ -49,17 +50,17 @@ public class Register implements LoginHardCodes {
      *
      * @param user username of user
      * @param pass password of user
-     * @param utStatus
+     * @param type
      * @return boolean if registration was a success
      */
-    private static boolean localRegisterLogic(String user, String pass, Boolean utStatus, boolean success) {
+    private static boolean localRegisterLogic(String user, String pass, String type, boolean success) {
         if (!logins.containsKey(user)) {
             success = true;
             logins.put(user, pass);
 
             setName(user);
             setPassword(pass);
-            setType(utStatus);
+            setType(type);
         }
 
         return success;

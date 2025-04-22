@@ -3,10 +3,8 @@
  */
 package UserInterface;
 
-import UserInformation.UserStorage;
-import UserInterface.addExercise.AddExerciseDialog;
+import UserInformation.CurrentUser;
 import UserInterface.addExercise.AddWeightDialog;
-import main.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,7 +60,7 @@ public class ProfileScreen extends Scenes{
      * @return JLabel containing name of user
      */
     private JLabel createNameLabel() {
-        JLabel label = new JLabel("Name: " + UserStorage.getName());
+        JLabel label = new JLabel("Name: " + CurrentUser.getName());
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -75,7 +73,7 @@ public class ProfileScreen extends Scenes{
      * @return JLabel containing weight of user
      */
     private JLabel createWeightLabel() {
-        JLabel label = new JLabel("Weight: " + UserStorage.getWeight());
+        JLabel label = new JLabel("Weight: " + CurrentUser.getWeight());
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;

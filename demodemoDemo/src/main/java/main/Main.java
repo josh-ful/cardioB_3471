@@ -24,11 +24,9 @@ Lawson Hale
 import Controller.UserController;
 import UserInformation.*;
 import UserInterface.*;
-import org.w3c.dom.ls.LSInput;
 //import UserInterface.addExercise.LogCSVReaderWriter;
 
 import javax.swing.*;
-import java.awt.*;
 
 //From main we are starting program so we need to bring the UI to scene 1 (login),
 // and then from there try to give control to the individual controllers based on userType
@@ -55,12 +53,6 @@ import java.awt.*;
 //Extract login and register button scenes to separate classes & link to one gui
 
 
-
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
@@ -91,9 +83,9 @@ public class Main {
 
         //when me has information stored in it
 
-        if (UserStorage.infoInputted()) {
+        if (CurrentUser.infoInputted()) {
             System.out.println("Login Successful");
-            System.out.println(UserStorage.userInfo());
+            System.out.println(CurrentUser.userInfo());
         }
     }
 }

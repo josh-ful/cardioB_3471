@@ -2,11 +2,9 @@ package UserInformation;
 
 import Exceptions.IncorrectPasswordException;
 import Exceptions.UserNotFoundException;
-import main.DatabaseInfo;
 
 import java.sql.*;
 
-import static UserInformation.UserStorage.*;
 import static main.DBConnection.addUser;
 
 import main.DBConnection;
