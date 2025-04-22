@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import UserInformation.Login;
 import UserInformation.UserStorage;
 import UserInformation.ValidateLRInputs;
+import UserInterface.AdminDashboardScene;
 import UserInterface.UserMenuScene;
 import main.Main;
 
@@ -60,7 +61,7 @@ public class LoginScene extends LR_Scenes {
                     System.out.println("Loading Trainer Dashboard");
                 }
                 else if (success && UserStorage.getTypeInt() == 2) {
-                    //new AdminDashboard(frame);
+                    new AdminDashboardScene(frame);
                     System.out.println("Loading Admin Dashboard");
                 }
                 else {
