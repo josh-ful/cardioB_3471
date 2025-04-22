@@ -97,6 +97,7 @@ public class CourseSearch extends Scenes {
                 textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
                 JLabel nameLabel = new JLabel(courseName);
                 nameLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+                //for no overlap
                 JLabel descLabel = new JLabel("<html><body style='width: 400px'>" + courseDesc + "</body></html>");
 
                 textPanel.add(nameLabel);
@@ -105,9 +106,52 @@ public class CourseSearch extends Scenes {
                 // Register button
                 JButton registerBtn = new JButton("Register");
                 registerBtn.addActionListener(e -> {
-                    // Replace this with logic to insert into course_registrations
-                    JOptionPane.showMessageDialog(panel, "Registered for: " + courseName);
+                    String username = UserInformation.UserStorage.getName();
+                    String courseType = (String) courseTypeCombo.getSelectedItem();  // "self" or "group"
+
+                    try (Connection conn2 = DBConnection.getConnection()) {
+                        //get id from username
+                        //TODO make this something stored in UserStorage
+                        PreparedStatement getUserStmt = conn2.prepareStatement("SELECT id FROM users WHERE username = ?");
+                        getUserStmt.setString(1, username);
+                        ResultSet userRs = getUserStmt.executeQuery();
+
+                        if (!userRs.next()) {
+                            JOptionPane.showMessageDialog(panel, "User not found in database.");
+                            return;
+                        }
+                        int userId = userRs.getInt("id");
+
+                        //check edge case already registered
+                        PreparedStatement checkStmt = conn2.prepareStatement(
+                                "SELECT * FROM course_registrations WHERE user_id = ? AND course_id = ? AND course_type = ?"
+                        );
+                        checkStmt.setInt(1, userId);
+                        checkStmt.setInt(2, courseId);
+                        checkStmt.setString(3, courseType);
+                        ResultSet checkRs = checkStmt.executeQuery();
+                        if (checkRs.next()) {
+                            JOptionPane.showMessageDialog(panel, "You're already registered for this class.");
+                            return;
+                        }
+
+                        //finally register
+                        PreparedStatement insertStmt = conn2.prepareStatement(
+                                "INSERT INTO course_registrations (user_id, course_id, course_type) VALUES (?, ?, ?)"
+                        );
+                        insertStmt.setInt(1, userId);
+                        insertStmt.setInt(2, courseId);
+                        insertStmt.setString(3, courseType);
+                        insertStmt.executeUpdate();
+                        JOptionPane.showMessageDialog(panel, "Successfully registered for: " + courseName);
+
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(panel, "Error during registration.");
+                    }
                 });
+
+
 
                 courseItem.add(textPanel, BorderLayout.CENTER);
                 courseItem.add(registerBtn, BorderLayout.EAST);
