@@ -15,6 +15,9 @@ import java.util.Set;
 
 public class UserStorage {
     private static String name;
+    //TODO delete password from here?
+    // I don't know why its here but password should
+    // definitely not be stored locally by the program?
     private static String password;
     private static String type;
 
@@ -60,15 +63,30 @@ public class UserStorage {
     public static String getType() {
         return type;
     }
+
+    public static int getTypeInt() {
+        if(type.equals("Admin")){
+            return 2;
+        } else if (type .equals("Trainer")) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
     /**
      * set the type of the user
      *
      * @param utStatus boolean user trainer status
      */
-    public static void setType(Boolean utStatus) {
-        if (utStatus) {
+    public static void setType(int utStatus) {
+        if(utStatus == 2){
+            System.out.println("setting type to Admin");
+            type = "Admin";
+        } else if (utStatus == 1) {
+            System.out.println("setting type to Trainer");
             type = "Trainer";
         } else {
+            System.out.println("setting type to User");
             type = "User";
         }
     }

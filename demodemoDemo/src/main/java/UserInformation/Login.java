@@ -32,31 +32,40 @@ public class Login implements LoginHardCodes {
         boolean usingSQL = DatabaseInfo.states.get("SQL");
 
         if(usingSQL){
-            String query = "SELECT password FROM users WHERE username = ?";
+            String query = "SELECT * FROM users WHERE username = ?";
             Connection conn = DBConnection.getConnection();
 
+            /*
+                Carter changed the conditional blocks with this -
+                if there's a problem we can change it back
+                 */
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setString(1, user);
                 ResultSet rs = stmt.executeQuery();
 
-                /*
-                Carter changed the conditional blocks with this -
-                if there's a problem we can change it back
-                 */
-                try {
-                    if(!rs.next()) throw new UserNotFoundException("User not found\n");
-                    String hashedPassword = rs.getString("password");
-                    if(!BCrypt.checkpw(pass, hashedPassword)) throw new IncorrectPasswordException("Incorrect password\n");
-
-                } catch(UserNotFoundException e) {
-                    logger.log(Level.WARNING, e.getMessage());
-                    throw e;
-                } catch(IncorrectPasswordException e) {
-                    logger.log(Level.INFO, e.getMessage());
-                    throw e;
+                if(!rs.next()){
+                    throw new UserNotFoundException("User not found\n");
                 }
-                success = true;
+                String hashedPassword = rs.getString("password");
 
+                if(!BCrypt.checkpw(pass, hashedPassword)){
+                    throw new IncorrectPasswordException("Incorrect password\n");
+                }
+
+                if (rs.next()){
+                    setUserType(rs.getString("type"));
+                }
+
+            } catch(UserNotFoundException e) {
+                logger.log(Level.WARNING, e.getMessage());
+                throw e;
+            } catch(IncorrectPasswordException e) {
+                logger.log(Level.INFO, e.getMessage());
+                throw e;
+            }
+
+            success = true;
+        }
 
 //                if (rs.next()) {
 //                    String hashedPassword = rs.getString("password");
@@ -72,14 +81,12 @@ public class Login implements LoginHardCodes {
 //                    // TODO throw an exception for this and catch with dialog in LoginScene??
 //                    System.out.println("User not found");
 //                    throw new SQLException("User not found");
-//                }
-            }
-        }
 
         else{
             success = localLoginLogic(user, pass, success);
         }
 
+        //TODO make one function that does this in controller and put it up with setUserType
         if(success){
             setName(user);
             setPassword(pass);
@@ -87,6 +94,24 @@ public class Login implements LoginHardCodes {
 
         return success;
     }
+
+
+//TODO move to controller
+//TODO fix int/boolean thing
+    private static void setUserType(String userType){
+        switch (userType) {
+            case "admin":
+                UserStorage.setType(2);
+                break;
+            case "trainer":
+                UserStorage.setType(1);
+                break;
+            case "general":
+                UserStorage.setType(0);
+                break;
+        }
+    }
+
     /**
      * validates login inputs with locally stored login pairs
      * @param user string username
