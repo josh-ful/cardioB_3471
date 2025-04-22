@@ -18,7 +18,7 @@ Kiera Shepperd
 Lawson Hale
  */
 
-import UserInformation.UserStorage;
+import UserInformation.CurrentUser;
 import UserInterface.HomeScreen;
 
 import javax.swing.*;
@@ -74,9 +74,9 @@ public class ProfileBackDoor {
         //when me has information stored in it
         System.out.println("next command ran anyways");
 
-        if (UserStorage.infoInputted()) {
+        if (CurrentUser.infoInputted()) {
             System.out.println("Login Successful");
-            System.out.println(UserStorage.userInfo());
+            System.out.println(CurrentUser.userInfo());
         }
 
         //System.out.println("mommy nodes"); >:( no

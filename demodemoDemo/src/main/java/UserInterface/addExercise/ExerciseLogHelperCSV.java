@@ -1,8 +1,7 @@
 package UserInterface.addExercise;
 
-import Controller.UserController;
 import FitnessCourse.Exercise;
-import UserInformation.UserStorage;
+import UserInformation.CurrentUser;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class ExerciseLogHelperCSV extends ExerciseLogHelper {
         try {
 
             BufferedWriter br = new BufferedWriter(new FileWriter(fileName));
-            for (Exercise e : UserStorage.getExercises()) {
+            for (Exercise e : CurrentUser.getExercises()) {
                 br.write(e.getName() + "," + e.getDescription() + '\n');
             }
             br.flush();
@@ -85,7 +84,7 @@ public class ExerciseLogHelperCSV extends ExerciseLogHelper {
     public static void writeCSV(){
         try (BufferedWriter br = new BufferedWriter(
                 new FileWriter(fileName))) {
-            Iterator<Exercise> iterator = UserStorage.getExercises().iterator();
+            Iterator<Exercise> iterator = CurrentUser.getExercises().iterator();
             Exercise lastExercise;
             while(iterator.hasNext()){
                 lastExercise = iterator.next();

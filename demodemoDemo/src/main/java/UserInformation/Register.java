@@ -8,7 +8,7 @@ import main.DatabaseInfo;
 
 import java.sql.*;
 
-import static UserInformation.UserStorage.*;
+import static UserInformation.CurrentUser.*;
 import static main.DBConnection.addUser;
 
 import main.DBConnection;
@@ -20,7 +20,7 @@ public class Register implements LoginHardCodes {
      * @param pass password of user
      * @param type
      */
-    public static boolean registerLogic(String user, String pass, int type)
+    public static boolean registerLogic(String user, String pass, String type)
             throws SQLException {
         boolean success = false;
         boolean usingSQL = DatabaseInfo.states.get("SQL");
@@ -30,8 +30,7 @@ public class Register implements LoginHardCodes {
             String insertSql = "INSERT INTO users (username, password, type) VALUES (?, ?, ?)";
             try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
                 addUser(ps, user, pass);
-                if (type == 1) ps.setString(3, "trainer");
-                else ps.setString(3, "general");//adds type to db
+                ps.setString(3, type);
                 success = ps.executeUpdate() > 0;
 
             } catch (SQLIntegrityConstraintViolationException e) {
@@ -54,7 +53,7 @@ public class Register implements LoginHardCodes {
      * @param type
      * @return boolean if registration was a success
      */
-    private static boolean localRegisterLogic(String user, String pass, int type, boolean success) {
+    private static boolean localRegisterLogic(String user, String pass, String type, boolean success) {
         if (!logins.containsKey(user)) {
             success = true;
             logins.put(user, pass);

@@ -1,5 +1,6 @@
 package UserInterface;
 
+import UserInformation.CurrentUser;
 import main.DBConnection;
 
 import javax.swing.*;
@@ -106,7 +107,7 @@ public class CourseSearch extends Scenes {
                 // Register button
                 JButton registerBtn = new JButton("Register");
                 registerBtn.addActionListener(e -> {
-                    String username = UserInformation.UserStorage.getName();
+                    String username = CurrentUser.getName();
                     String courseType = (String) courseTypeCombo.getSelectedItem();  // "self" or "group"
 
                     try (Connection conn2 = DBConnection.getConnection()) {

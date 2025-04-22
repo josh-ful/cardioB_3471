@@ -1,16 +1,17 @@
 package Controller;
 
 import FitnessCourse.*;
-import UserInformation.UserStorage;
-import UserInterface.ExerciseLogScene;
+import UserInformation.CurrentUser;
+import UserInterface.UserMenuScene;
 import UserInterface.addExercise.ExerciseLogHelperCSV;
 import UserInterface.addExercise.ExerciseLogHelperSQL;
 import UserInterface.addExercise.ExerciseLogHelper;
 
 import main.DatabaseInfo;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.Set;
 
 /*
  * this class serves as the general user type controller
@@ -25,13 +26,13 @@ public class UserController implements Controller{
         }
         else {
             new ExerciseLogHelperCSV("src/resources/testCreateExercise.csv");
-            UserStorage.importExercises(ExerciseLogHelperCSV.readCSV());
+            CurrentUser.importExercises(ExerciseLogHelperCSV.readCSV());
         }
     }
 
 
     public static void enterWeight(int weight){
-        UserStorage.setWeight(weight);
+        CurrentUser.setWeight(weight);
     }
 
     /**
@@ -45,7 +46,7 @@ public class UserController implements Controller{
         e.setDescription(description);
         System.out.println("Name:" + e.getName());
         System.out.println("Description: " + e.getDescription());
-        UserStorage.addExercise(e);
+        CurrentUser.addExercise(e);
 
         if(DatabaseInfo.states.get("SQL")){
             // TODO SQL Implementation
@@ -69,14 +70,18 @@ public class UserController implements Controller{
      *
      */
     public static void clearExercises() {
-        UserStorage.clearExercises();
+        CurrentUser.clearExercises();
     }
 
     public static ArrayList<Exercise> getExercises() {
-        return UserStorage.getExercises();
+        return CurrentUser.getExercises();
     }
 
     public static String[][] getTableMatrix() {
         return ExerciseLogHelper.getTableMatrix();
+    }
+
+    public void createDashboard(JFrame frame) {
+        new UserMenuScene(frame);
     }
 }

@@ -7,22 +7,24 @@
  */
 package UserInformation;
 
+import Controller.*;
 import FitnessCourse.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.Locale;
 
-public class UserStorage {
+public class CurrentUser {
     private static String name;
     //TODO delete password from here?
     // I don't know why its here but password should
     // definitely not be stored locally by the program?
     private static String password;
     private static String type;
+    public static Controller controller;
 
     private static ArrayList<Exercise> exerciseList = new ArrayList<>();
     private static Integer weight;
+
     /**
      * Gets the name of the user.
      *
@@ -76,20 +78,28 @@ public class UserStorage {
     /**
      * set the type of the user
      *
-     * @param utStatus boolean user trainer status
+     * @param userType String
      */
-    public static void setType(int utStatus) {
-        if(utStatus == 2){
-            System.out.println("setting type to Admin");
-            type = "Admin";
-        } else if (utStatus == 1) {
-            System.out.println("setting type to Trainer");
-            type = "Trainer";
-        } else {
-            System.out.println("setting type to User");
-            type = "User";
+    public static void setType(String userType) {
+        type = userType.toLowerCase();
+        System.out.println("setting type to " + type);
+
+        createController();
+    }
+
+    private static void createController() {
+        switch (type){
+            case ("admin"):
+                controller = new AdminController();
+                break;
+            case ("trainer"):
+                controller = new TrainerController();
+                break;
+            case ("general"):
+                controller = new UserController();
         }
     }
+
     /**
      * checks if the user has been instantiated
      *

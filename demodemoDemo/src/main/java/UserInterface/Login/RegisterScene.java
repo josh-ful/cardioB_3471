@@ -79,14 +79,14 @@ public class RegisterScene extends LR_Scenes {
                 String user = username.getText();
                 String pass = new String(password.getPassword());
 
-                boolean valid = true;
+                boolean valid;
                 try {
                     ValidateLRInputs.validateRInputs(user, pass);
-                    int type = 0;
+                    String type = "general";
                     if(trainer) {
-                        type = 1;
+                        type = "trainer";
                     }
-                    Register.registerLogic(user, pass, type);
+                    valid = Register.registerLogic(user, pass, type);
                 }
                 catch (SQLException ex) {
                     valid = false;

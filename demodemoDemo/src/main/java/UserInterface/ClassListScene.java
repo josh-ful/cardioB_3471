@@ -5,8 +5,7 @@
 
 package UserInterface;
 
-import UserInterface.Login.LR_Dialog;
-import main.Main;
+import UserInformation.CurrentUser;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,7 +61,7 @@ public class ClassListScene extends Scenes{
         JPanel resultPanel = new JPanel();
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
 
-        String username = UserInformation.UserStorage.getName();
+        String username = CurrentUser.getName();
 
         try (Connection conn = main.DBConnection.getConnection()) {
             //get id

@@ -7,11 +7,9 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import UserInformation.Login;
-import UserInformation.UserStorage;
-import UserInformation.ValidateLRInputs;
+import UserInformation.CurrentUser;
 import UserInterface.AdminDashboardScene;
 import UserInterface.UserMenuScene;
-import main.Main;
 
 
 public class LoginScene extends LR_Scenes {
@@ -52,18 +50,12 @@ public class LoginScene extends LR_Scenes {
                     JOptionPane.showMessageDialog(panel,
                             ex.getMessage(), null, JOptionPane.ERROR_MESSAGE);
                 }
-                if (success && UserStorage.getTypeInt() == 0) {
-                    new UserMenuScene(frame);
-                    System.out.println("Loading User Dashboard");
+
+                if (success){
+                    CurrentUser.controller.createDashboard(frame);
+                    System.out.println("Loading " + CurrentUser.getType() + " dashboard");
                 }
-                else if (success && UserStorage.getTypeInt() == 1) {
-                    //new TrainerDashboard(frame);
-                    System.out.println("Loading Trainer Dashboard");
-                }
-                else if (success && UserStorage.getTypeInt() == 2) {
-                    new AdminDashboardScene(frame);
-                    System.out.println("Loading Admin Dashboard");
-                }
+
                 else {
                     new LR_Dialog(success);
                 }
