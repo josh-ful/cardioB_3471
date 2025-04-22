@@ -38,12 +38,43 @@ public class Login implements LoginHardCodes {
 
                     if (BCrypt.checkpw(pass, hashedPassword)) {//compares hashed and plaintext password
                         success = true;
-                    } else {
+                        try (Connection conn2 = DBConnection.getConnection()) {
+                            PreparedStatement stmt2 = conn.prepareStatement(
+                                    "SELECT * FROM users WHERE username = ?"
+                            );
+                            stmt2.setString(1, user);
+                            ResultSet rs2 = stmt2.executeQuery();
+                            System.out.println("Login Success");
+                            if (rs2.next()) {
+                                System.out.println("Inside rs2");
+                                String userType = rs2.getString("type");  // 'admin', 'trainer', 'general'
+                                UserStorage.setName(user);// store for use? not sure when this is supposed to be done
+
+                                switch (userType) {
+                                    case "admin":
+                                        UserStorage.setType(2);
+                                        break;
+                                    case "trainer":
+                                        UserStorage.setType(1);
+                                        break;
+                                    case "general":
+                                        UserStorage.setType(0);
+                                        break;
+                                }
+                            }
+                        }catch (SQLException e) {
+                                e.printStackTrace();
+                                return false;
+                        }
+                    }
+
+                    else {
                         // TODO throw an exception for this and catch with dialog in LoginScene??
                         System.out.println("Password Incorrect");
                         throw new SQLException("Password incorrect");
                     }
-                } else {
+                }
+                else {
                     // TODO throw an exception for this and catch with dialog in LoginScene??
                     System.out.println("User not found");
                     throw new SQLException("User not found");
