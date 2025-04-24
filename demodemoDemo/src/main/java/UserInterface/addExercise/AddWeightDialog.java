@@ -43,7 +43,7 @@ public class AddWeightDialog extends JDialog {
         JPanel panel = panelLayout();
 
         weightField = new JTextField();
-        panel.add(new JTextField());
+        panel.add(weightField);
         panel.add(getSubmitButton(frame));
 
         newFrame.add(panel);
