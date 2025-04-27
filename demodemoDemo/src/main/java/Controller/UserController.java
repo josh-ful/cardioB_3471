@@ -84,50 +84,44 @@ public class UserController implements Controller {
         return ExerciseLogHelper.getTableMatrix();
     }
 
-    public void createDashboard(JFrame frame) {
-        new UserMenuScene(frame);
-    }
-
-    public static void addCourseRegistration(String courseType, JPanel panel, int courseId, String courseName) {
+    public static void addCourseRegistration(String courseType, int courseId, String courseName) throws SQLException {
         String username = CurrentUser.getName();
 
-        try (Connection conn2 = DBConnection.getConnection()) {
-            //get id from username
-            //TODO make this something stored in UserStorage
-            PreparedStatement getUserStmt = conn2.prepareStatement("SELECT id FROM users WHERE username = ?");
-            getUserStmt.setString(1, username);
-            ResultSet userRs = getUserStmt.executeQuery();
+        Connection conn2 = DBConnection.getConnection();
+        //get id from username
+        //TODO make this something stored in UserStorage
+        PreparedStatement getUserStmt = conn2.prepareStatement("SELECT id FROM users WHERE username = ?");
+        getUserStmt.setString(1, username);
+        ResultSet userRs = getUserStmt.executeQuery();
 
-            if (!userRs.next()) {
-                throw new UserNotFoundException("User not found in database.");
-            }
-            int userId = userRs.getInt("id");
-
-            //check edge case already registered
-            PreparedStatement checkStmt = conn2.prepareStatement(
-                    "SELECT * FROM course_registrations WHERE user_id = ? AND course_id = ? AND course_type = ?"
-            );
-            checkStmt.setInt(1, userId);
-            checkStmt.setInt(2, courseId);
-            checkStmt.setString(3, courseType);
-            ResultSet checkRs = checkStmt.executeQuery();
-            if (checkRs.next()) {
-                throw new AlreadyRegisteredException("You're already registered for this class.");
-            }
-
-            //finally register
-            PreparedStatement insertStmt = conn2.prepareStatement(
-                    "INSERT INTO course_registrations (user_id, course_id, course_type) VALUES (?, ?, ?)"
-            );
-            insertStmt.setInt(1, userId);
-            insertStmt.setInt(2, courseId);
-            insertStmt.setString(3, courseType);
-            insertStmt.executeUpdate();
-            JOptionPane.showMessageDialog(panel, "Successfully registered for: " + courseName);
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(panel, "Error during registration.");
+        if (!userRs.next()) {
+            throw new UserNotFoundException("User not found in database.");
         }
+        int userId = userRs.getInt("id");
+
+        //check edge case already registered
+        PreparedStatement checkStmt = conn2.prepareStatement(
+                "SELECT * FROM course_registrations WHERE user_id = ? AND course_id = ? AND course_type = ?"
+        );
+        checkStmt.setInt(1, userId);
+        checkStmt.setInt(2, courseId);
+        checkStmt.setString(3, courseType);
+        ResultSet checkRs = checkStmt.executeQuery();
+        if (checkRs.next()) {
+            throw new AlreadyRegisteredException("You're already registered for this class.");
+        }
+
+        //finally register
+        PreparedStatement insertStmt = conn2.prepareStatement(
+                "INSERT INTO course_registrations (user_id, course_id, course_type) VALUES (?, ?, ?)"
+        );
+        insertStmt.setInt(1, userId);
+        insertStmt.setInt(2, courseId);
+        insertStmt.setString(3, courseType);
+        insertStmt.executeUpdate();
+    }
+
+    public void createDashboard(JFrame frame) {
+        new UserMenuScene(frame);
     }
 }

@@ -111,9 +111,12 @@ public class CourseSearch extends Scenes {
                 JButton registerBtn = new JButton("Register");
                 registerBtn.addActionListener(e -> {
                     try {
-                        UserController.addCourseRegistration((String) courseTypeCombo.getSelectedItem(), panel, courseId, courseName);
+                        UserController.addCourseRegistration((String) courseTypeCombo.getSelectedItem(), courseId, courseName);
+                        JOptionPane.showMessageDialog(panel, "Successfully registered for: " + courseName);
                     } catch (RuntimeException ex) {
                         JOptionPane.showMessageDialog(panel, ex.getMessage());
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
                     }
                 });
 
