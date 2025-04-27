@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LoginTest {
     @BeforeAll
     static void init() throws SQLException {
-        DBConnection db = new DBConnection("3312");
+        DBConnection dbConnection = new DBConnection("3312");
         Connection conn = DBConnection.getConnection();
         String insertUser = "INSERT INTO users (username, password) VALUES (?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(insertUser)) {
