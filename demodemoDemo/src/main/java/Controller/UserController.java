@@ -1,5 +1,7 @@
 package Controller;
 
+import Exceptions.AlreadyRegisteredException;
+import Exceptions.UserNotFoundException;
 import FitnessCourse.Exercise;
 import UserInformation.CurrentUser;
 import UserInterface.UserMenuScene;
@@ -86,9 +88,8 @@ public class UserController implements Controller {
         new UserMenuScene(frame);
     }
 
-    public static void addCourseRegistration(JComboBox<String> courseTypeCombo, JPanel panel, int courseId, String courseName) {
+    public static void addCourseRegistration(String courseType, JPanel panel, int courseId, String courseName) {
         String username = CurrentUser.getName();
-        String courseType = (String) courseTypeCombo.getSelectedItem();  // "self" or "group"
 
         try (Connection conn2 = DBConnection.getConnection()) {
             //get id from username
@@ -98,8 +99,7 @@ public class UserController implements Controller {
             ResultSet userRs = getUserStmt.executeQuery();
 
             if (!userRs.next()) {
-                JOptionPane.showMessageDialog(panel, "User not found in database.");
-                return;
+                throw new UserNotFoundException("User not found in database.");
             }
             int userId = userRs.getInt("id");
 
@@ -112,8 +112,7 @@ public class UserController implements Controller {
             checkStmt.setString(3, courseType);
             ResultSet checkRs = checkStmt.executeQuery();
             if (checkRs.next()) {
-                JOptionPane.showMessageDialog(panel, "You're already registered for this class.");
-                return;
+                throw new AlreadyRegisteredException("You're already registered for this class.");
             }
 
             //finally register

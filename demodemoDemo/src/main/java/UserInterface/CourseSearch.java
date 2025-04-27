@@ -1,6 +1,7 @@
 package UserInterface;
 
 import Controller.UserController;
+import Exceptions.UserNotFoundException;
 import UserInformation.CurrentUser;
 import main.DBConnection;
 
@@ -109,7 +110,11 @@ public class CourseSearch extends Scenes {
                 // Register button
                 JButton registerBtn = new JButton("Register");
                 registerBtn.addActionListener(e -> {
-                    UserController.addCourseRegistration(courseTypeCombo, panel, courseId, courseName);
+                    try {
+                        UserController.addCourseRegistration((String) courseTypeCombo.getSelectedItem(), panel, courseId, courseName);
+                    } catch (RuntimeException ex) {
+                        JOptionPane.showMessageDialog(panel, ex.getMessage());
+                    }
                 });
 
 
