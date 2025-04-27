@@ -1,44 +1,45 @@
 package Controller;
 
-import FitnessCourse.*;
+import FitnessCourse.Exercise;
 import UserInformation.CurrentUser;
 import UserInterface.UserMenuScene;
+import UserInterface.addExercise.ExerciseLogHelper;
 import UserInterface.addExercise.ExerciseLogHelperCSV;
 import UserInterface.addExercise.ExerciseLogHelperSQL;
-import UserInterface.addExercise.ExerciseLogHelper;
-
+import main.DBConnection;
 import main.DatabaseInfo;
 
 import javax.swing.*;
-import java.awt.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /*
  * this class serves as the general user type controller
  */
-public class UserController implements Controller{
+public class UserController implements Controller {
 
     public UserController() {
         System.out.println("UserController");
-        if (DatabaseInfo.states.get("SQL"))
-        {
+        if (DatabaseInfo.states.get("SQL")) {
             // Establish SQL connection to ExerciseLogHelper
-        }
-        else {
+        } else {
             new ExerciseLogHelperCSV("src/resources/testCreateExercise.csv");
             CurrentUser.importExercises(ExerciseLogHelperCSV.readCSV());
         }
     }
 
 
-    public static void enterWeight(int weight){
+    public static void enterWeight(int weight) {
         CurrentUser.setWeight(weight);
     }
 
     /**
      * enters exercise information
      *
-     * @param name of exercise
+     * @param name        of exercise
      * @param description of exercise
      */
     public static void addExercise(String name, String description) {
@@ -48,25 +49,25 @@ public class UserController implements Controller{
         System.out.println("Description: " + e.getDescription());
         CurrentUser.addExercise(e);
 
-        if(DatabaseInfo.states.get("SQL")){
+        if (DatabaseInfo.states.get("SQL")) {
             // TODO SQL Implementation
             ExerciseLogHelperSQL.addExercise(name, description);
-        }
-        else {
+        } else {
             ExerciseLogHelperCSV.update();
         }
     }
+
     /**
      * adds exercise
      *
-     * @param name String name
+     * @param name        String name
      * @param description String description
      */
     public static void newExercise(String name, String description) {
         ExerciseLogHelper.addExercise(name, description);
     }
+
     /**
-     *
      *
      */
     public static void clearExercises() {
@@ -83,5 +84,51 @@ public class UserController implements Controller{
 
     public void createDashboard(JFrame frame) {
         new UserMenuScene(frame);
+    }
+
+    public static void addCourseRegistration(JComboBox<String> courseTypeCombo, JPanel panel, int courseId, String courseName) {
+        String username = CurrentUser.getName();
+        String courseType = (String) courseTypeCombo.getSelectedItem();  // "self" or "group"
+
+        try (Connection conn2 = DBConnection.getConnection()) {
+            //get id from username
+            //TODO make this something stored in UserStorage
+            PreparedStatement getUserStmt = conn2.prepareStatement("SELECT id FROM users WHERE username = ?");
+            getUserStmt.setString(1, username);
+            ResultSet userRs = getUserStmt.executeQuery();
+
+            if (!userRs.next()) {
+                JOptionPane.showMessageDialog(panel, "User not found in database.");
+                return;
+            }
+            int userId = userRs.getInt("id");
+
+            //check edge case already registered
+            PreparedStatement checkStmt = conn2.prepareStatement(
+                    "SELECT * FROM course_registrations WHERE user_id = ? AND course_id = ? AND course_type = ?"
+            );
+            checkStmt.setInt(1, userId);
+            checkStmt.setInt(2, courseId);
+            checkStmt.setString(3, courseType);
+            ResultSet checkRs = checkStmt.executeQuery();
+            if (checkRs.next()) {
+                JOptionPane.showMessageDialog(panel, "You're already registered for this class.");
+                return;
+            }
+
+            //finally register
+            PreparedStatement insertStmt = conn2.prepareStatement(
+                    "INSERT INTO course_registrations (user_id, course_id, course_type) VALUES (?, ?, ?)"
+            );
+            insertStmt.setInt(1, userId);
+            insertStmt.setInt(2, courseId);
+            insertStmt.setString(3, courseType);
+            insertStmt.executeUpdate();
+            JOptionPane.showMessageDialog(panel, "Successfully registered for: " + courseName);
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(panel, "Error during registration.");
+        }
     }
 }
