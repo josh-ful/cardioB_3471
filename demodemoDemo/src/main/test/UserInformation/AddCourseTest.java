@@ -1,11 +1,9 @@
 package UserInformation;
 
 import Controller.UserController;
+import Exceptions.UserNotFoundException;
 import main.DBConnection;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
@@ -15,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AddCourseTest {
 
-    @BeforeEach
-    void login() throws SQLException {
+    @BeforeAll
+    static void addTestUser() throws SQLException {
         DBConnection dbConnection = new DBConnection("3312");
         Connection conn = DBConnection.getConnection();
         String insertUser = "INSERT INTO users (username, password) VALUES (?, ?)";
@@ -30,10 +28,18 @@ public class AddCourseTest {
             e.printStackTrace();
         }
     }
-
-    @AfterEach
-    void clean() throws SQLException {
+    @AfterAll
+    static void removeTestUser() throws SQLException {
+        DBConnection dbConnection = new DBConnection("3312");
         Connection conn = DBConnection.getConnection();
+
+        //Delete courses associated with TEST user
+        String deleteCourse = "DELETE FROM course_registrations WHERE course_id = 999";
+        try(PreparedStatement delete = conn.prepareStatement(deleteCourse)) {
+            delete.execute();
+        }
+
+        //Remove TEST user
         String removeUser = "DELETE FROM users WHERE username = 'TEST'";
         try(PreparedStatement ps = conn.prepareStatement(removeUser)) {
             ps.execute();
@@ -46,8 +52,18 @@ public class AddCourseTest {
         CurrentUser.setName(username);
         UserController.addCourseRegistration("self", 999, "Test Course");
 
+        Connection conn2 = DBConnection.getConnection();
+        PreparedStatement getUserStmt = conn2.prepareStatement("SELECT id FROM users WHERE username = ?");
+        getUserStmt.setString(1, username);
+        ResultSet userRs = getUserStmt.executeQuery();
 
-        String query = "SELECT course_id FROM course_registrations WHERE id = ?";
+        if (!userRs.next()) {
+            throw new UserNotFoundException("User not found in database.");
+        }
+        int userId = userRs.getInt("id");
+
+
+        String query = "SELECT * FROM course_registrations WHERE course_id = ?";
         Connection conn = DBConnection.getConnection();
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -56,7 +72,8 @@ public class AddCourseTest {
 
             assertNotNull(rs);
             int ans = 0;
-            if(rs.next()) ans = rs.getInt("course_id");
+            if(rs.next())
+                ans = rs.getInt("course_id");
 
             assertEquals(ans, 999);
         }
