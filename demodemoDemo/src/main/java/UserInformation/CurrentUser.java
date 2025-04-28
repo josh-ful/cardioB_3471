@@ -82,7 +82,7 @@ public class CurrentUser {
      */
     public static void setType(String userType) {
         type = userType.toLowerCase();
-        System.out.println("setting type to " + type);
+//        System.out.println("setting type to " + type);
 
         createController();
     }

@@ -72,7 +72,7 @@ public class Main {
             sql = true;
             System.out.print("Enter your specified port (330X): ");
             String portNumber = scanner.nextLine();
-            System.out.println("Connecting to " + portNumber + "...");
+//            System.out.println("Connecting to " + portNumber + "...");
             scanner.close();
 
             db = new DBConnection(portNumber);
@@ -84,8 +84,8 @@ public class Main {
         //when me has information stored in it
 
         if (CurrentUser.infoInputted()) {
-            System.out.println("Login Successful");
-            System.out.println(CurrentUser.userInfo());
+//            System.out.println("Login Successful");
+//            System.out.println(CurrentUser.userInfo());
         }
     }
 }

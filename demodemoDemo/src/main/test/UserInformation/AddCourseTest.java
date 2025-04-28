@@ -1,6 +1,7 @@
 package UserInformation;
 
 import Controller.UserController;
+import Exceptions.AlreadyRegisteredException;
 import Exceptions.UserNotFoundException;
 import main.DBConnection;
 import org.junit.jupiter.api.*;
@@ -33,16 +34,23 @@ public class AddCourseTest {
         DBConnection dbConnection = new DBConnection("3312");
         Connection conn = DBConnection.getConnection();
 
-        //Delete courses associated with TEST user
-        String deleteCourse = "DELETE FROM course_registrations WHERE course_id = 999";
-        try(PreparedStatement delete = conn.prepareStatement(deleteCourse)) {
-            delete.execute();
-        }
+
 
         //Remove TEST user
         String removeUser = "DELETE FROM users WHERE username = 'TEST'";
         try(PreparedStatement ps = conn.prepareStatement(removeUser)) {
             ps.execute();
+        }
+    }
+
+    @AfterEach
+    void removeTestCourse() throws SQLException {
+        DBConnection dbConnection = new DBConnection("3312");
+        Connection conn = DBConnection.getConnection();
+        //Delete courses associated with TEST user
+        String deleteCourse = "DELETE FROM course_registrations WHERE course_id = 999";
+        try(PreparedStatement delete = conn.prepareStatement(deleteCourse)) {
+            delete.execute();
         }
     }
 
@@ -77,5 +85,16 @@ public class AddCourseTest {
 
             assertEquals(ans, 999);
         }
+    }
+
+    @Test
+    void duplicateCourseRegistration() throws SQLException {
+        String username = "TEST";
+        CurrentUser.setName(username);
+        UserController.addCourseRegistration("self", 999, "Test Course");
+
+        assertThrows(AlreadyRegisteredException.class, () -> {
+            UserController.addCourseRegistration("self", 999, "Test Course");
+        });
     }
 }

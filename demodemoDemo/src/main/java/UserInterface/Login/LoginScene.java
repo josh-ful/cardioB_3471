@@ -53,7 +53,7 @@ public class LoginScene extends LR_Scenes {
 
                 if (success){
                     CurrentUser.controller.createDashboard(frame);
-                    System.out.println("Loading " + CurrentUser.getType() + " dashboard");
+//                    System.out.println("Loading " + CurrentUser.getType() + " dashboard");
                 }
 
                 else {

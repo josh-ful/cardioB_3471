@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class UserController implements Controller {
 
     public UserController() {
-        System.out.println("UserController");
+//        System.out.println("UserController");
         if (DatabaseInfo.states.get("SQL")) {
             // Establish SQL connection to ExerciseLogHelper
         } else {
@@ -47,8 +47,8 @@ public class UserController implements Controller {
     public static void addExercise(String name, String description) {
         Exercise e = new Exercise(name);
         e.setDescription(description);
-        System.out.println("Name:" + e.getName());
-        System.out.println("Description: " + e.getDescription());
+//        System.out.println("Name:" + e.getName());
+//        System.out.println("Description: " + e.getDescription());
         CurrentUser.addExercise(e);
 
         if (DatabaseInfo.states.get("SQL")) {

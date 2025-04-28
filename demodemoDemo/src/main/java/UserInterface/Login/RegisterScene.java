@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
+import Exceptions.AlreadyRegisteredException;
 import UserInformation.*;
 
 public class RegisterScene extends LR_Scenes {
@@ -97,6 +98,10 @@ public class RegisterScene extends LR_Scenes {
                     valid = false;
                     JOptionPane.showMessageDialog(panel,
                             ex.getMessage(), "REGISTER ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (AlreadyRegisteredException ex) {
+                    valid = false;
+                    JOptionPane.showMessageDialog(panel, "Please log in to existing account", ex.getMessage(), JOptionPane.PLAIN_MESSAGE);
                 }
 
                 if (valid) {

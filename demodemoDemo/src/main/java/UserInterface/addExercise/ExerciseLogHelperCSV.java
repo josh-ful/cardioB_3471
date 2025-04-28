@@ -2,13 +2,17 @@ package UserInterface.addExercise;
 
 import FitnessCourse.Exercise;
 import UserInformation.CurrentUser;
+import UserInformation.Login;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ExerciseLogHelperCSV extends ExerciseLogHelper {
     protected static String fileName;
+    private static final Logger logger = Logger.getLogger(ExerciseLogHelperCSV.class.getName());
 
     public ExerciseLogHelperCSV() {
         super();
@@ -42,13 +46,12 @@ public class ExerciseLogHelperCSV extends ExerciseLogHelper {
             br.flush();
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            logger.log(Level.WARNING, "File not found");
         } catch (IOException e) {
-            System.out.println("IO exception");
+            logger.log(Level.WARNING, e.getMessage());
         }
         catch (Exception e) {
             e.printStackTrace();
-
         }
     }
     /**
@@ -66,11 +69,11 @@ public class ExerciseLogHelperCSV extends ExerciseLogHelper {
             while ((line = br.readLine()) != null) {
                 // System.out.println(line);
                 String[] row = line.split(",");
-                System.out.println(row[0]+","+row[1]);
+//                System.out.println(row[0]+","+row[1]);
                 exercises.add(new Exercise(row[0], row[1]));
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            logger.log(Level.WARNING, e.getMessage());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -91,13 +94,13 @@ public class ExerciseLogHelperCSV extends ExerciseLogHelper {
                 if( lastExercise != null){
                     br.write(lastExercise.getName() + ","
                             + lastExercise.getDescription() + "\n");
-                    System.out.println(lastExercise.getName() + "," + lastExercise.getDescription());
+//                    System.out.println(lastExercise.getName() + "," + lastExercise.getDescription());
                 }
             }
             br.flush();
 
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            logger.log(Level.WARNING, e.getMessage());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

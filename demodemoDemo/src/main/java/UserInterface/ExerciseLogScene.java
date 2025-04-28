@@ -45,7 +45,7 @@ public class ExerciseLogScene extends Scenes{
         panel.add(createBackButton(frame));
 
         frame.add(panel);
-        System.out.println(CurrentUser.getExercises());
+//        System.out.println(CurrentUser.getExercises());
     }
     /**
      * makes a scroll pane with log information

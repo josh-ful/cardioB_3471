@@ -20,14 +20,14 @@ public class DBConnection implements DatabaseInfo {
     public DBConnection(String port) {
         states.put("SQL", true);
         URL = "jdbc:mysql://localhost:" + port + "/fitnessdb";
-        System.out.println(URL);
+//        System.out.println(URL);
         try {
             // Explicitly load MySQL JDBC driver clearly
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Now, connect clearly
             Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("✅ Connected to MySQL successfully!");
+//            System.out.println("✅ Connected to MySQL successfully!");
 
             //TESTING ADDING USERS ✅
             //String insertSql = "INSERT INTO users (username, password) VALUES (?, ?)";
@@ -42,14 +42,14 @@ public class DBConnection implements DatabaseInfo {
             PreparedStatement ps2 = conn.prepareStatement(sql);
             ResultSet rs = ps2.executeQuery();
             while (rs.next()) {
-                System.out.println("Username: " + rs.getString("username"));
+//                System.out.println("Username: " + rs.getString("username"));
                 //System.out.println("Password: " + rs.getString("password"));
             }
             String sql2 = "SELECT password FROM users";
             PreparedStatement ps3 = conn.prepareStatement(sql2);
             ResultSet rs2 = ps3.executeQuery();
             while (rs2.next()) {
-                System.out.println("Password: " + rs2.getString("password"));
+//                System.out.println("Password: " + rs2.getString("password"));
             }
 
         } catch (Exception e) {

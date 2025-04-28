@@ -4,9 +4,12 @@
  */
 package UserInformation;
 
+import Exceptions.AlreadyRegisteredException;
 import main.DatabaseInfo;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static UserInformation.CurrentUser.*;
 import static main.DBConnection.addUser;
@@ -14,6 +17,8 @@ import static main.DBConnection.addUser;
 import main.DBConnection;
 
 public class Register implements LoginHardCodes {
+
+    private static final Logger logger = Logger.getLogger(LoginHardCodes.class.getName());
     /**
      * confirms that a registration scenario was a success
      * @param user username of user
@@ -21,7 +26,7 @@ public class Register implements LoginHardCodes {
      * @param type
      */
     public static boolean registerLogic(String user, String pass, String type)
-            throws SQLException {
+            throws SQLException, AlreadyRegisteredException {
         boolean success = false;
         boolean usingSQL = DatabaseInfo.states.get("SQL");
 
@@ -34,8 +39,8 @@ public class Register implements LoginHardCodes {
                 success = ps.executeUpdate() > 0;
 
             } catch (SQLIntegrityConstraintViolationException e) {
-                System.out.println("Sorry, that username is already in use.!");
-                throw new SQLException("User already exists!");
+                logger.log(Level.INFO, "Sorry, that username is already in use.!");
+                throw new AlreadyRegisteredException("User already exists!");
             } catch (SQLException e) {
                 e.printStackTrace();
             }

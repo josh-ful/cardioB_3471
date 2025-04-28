@@ -72,11 +72,11 @@ public class ProfileBackDoor {
         JFrame frame = new JFrame();
         HomeScreen hs = new HomeScreen(frame);
         //when me has information stored in it
-        System.out.println("next command ran anyways");
+//        System.out.println("next command ran anyways");
 
         if (CurrentUser.infoInputted()) {
-            System.out.println("Login Successful");
-            System.out.println(CurrentUser.userInfo());
+//            System.out.println("Login Successful");
+//            System.out.println(CurrentUser.userInfo());
         }
 
         //System.out.println("mommy nodes"); >:( no
