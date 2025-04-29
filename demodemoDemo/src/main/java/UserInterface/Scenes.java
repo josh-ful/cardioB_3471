@@ -52,7 +52,7 @@ public class Scenes {
      *sets panel layout to BoxLayout along the y-axis
      *
      */
-    private void panelLayout() {
+    protected void panelLayout() {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     }
 
