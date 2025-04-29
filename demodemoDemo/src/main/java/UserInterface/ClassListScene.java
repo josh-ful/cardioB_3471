@@ -38,10 +38,9 @@ public class ClassListScene extends Scenes{
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
+        //frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
         frame.setLayout(new BorderLayout());
-
         System.out.println(panel.getLayout().getClass().getSimpleName());
-
 
         panel.add(addTextELog());
         panel.add(addScrollClassList());
@@ -51,6 +50,9 @@ public class ClassListScene extends Scenes{
         panel.add(Box.createVerticalGlue());
 
         frame.add(panel, BorderLayout.CENTER);
+
+        frame.revalidate();
+        frame.repaint();
     }
     /**
      * adds text to scene
