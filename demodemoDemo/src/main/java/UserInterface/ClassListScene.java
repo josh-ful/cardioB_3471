@@ -5,11 +5,18 @@
 
 package UserInterface;
 
+import FitnessCourse.Exercise;
+import FitnessCourse.ExerciseClass;
 import UserInformation.CurrentUser;
 
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import Controller.*;
+import main.DBConnection;
 
 public class ClassListScene extends Scenes{
     //Replacing
@@ -31,13 +38,19 @@ public class ClassListScene extends Scenes{
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
+        frame.setLayout(new BorderLayout());
+
+        System.out.println(panel.getLayout().getClass().getSimpleName());
+
 
         panel.add(addTextELog());
         panel.add(addScrollClassList());
         panel.add(addWorkoutButton(frame));
-        panel.add(addBackButton(frame));
+        panel.add(createBackButton(frame, UserMenuScene.class));
 
-        frame.add(panel);
+        panel.add(Box.createVerticalGlue());
+
+        frame.add(panel, BorderLayout.CENTER);
     }
     /**
      * adds text to scene
@@ -61,64 +74,22 @@ public class ClassListScene extends Scenes{
         JPanel resultPanel = new JPanel();
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
 
-        String username = CurrentUser.getName();
-
-        try (Connection conn = main.DBConnection.getConnection()) {
-            //get id
-            //TODO add to UserStorage
-            PreparedStatement userStmt = conn.prepareStatement("SELECT id FROM users WHERE username = ?");
-            userStmt.setString(1, username);
-            ResultSet userRs = userStmt.executeQuery();
-
-            if (!userRs.next()) {
-                JLabel error = new JLabel("User not found.");
-                resultPanel.add(error);
-                return new JScrollPane(resultPanel);
-            }
-
-            int userId = userRs.getInt("id");
+        try {
+            // get user id
+            int userId = UserController.getUserId();
 
             // request all registered classes
-            PreparedStatement regStmt = conn.prepareStatement(
-                    "SELECT course_id, course_type FROM course_registrations WHERE user_id = ?"
-            );
-            regStmt.setInt(1, userId);
-            ResultSet regRs = regStmt.executeQuery();
+            List<ExerciseClass> exerciseList = UserController.getAllExercises(userId);
 
-            while (regRs.next()) {
-                int courseId = regRs.getInt("course_id");
-                String courseType = regRs.getString("course_type");
-
-                if (courseType.equals("self")) {
-                    PreparedStatement selfStmt = conn.prepareStatement(
-                            "SELECT name, description FROM self_paced_courses WHERE id = ?"
-                    );
-                    selfStmt.setInt(1, courseId);
-                    ResultSet rs = selfStmt.executeQuery();
-                    if (rs.next()) {
-                        String name = rs.getString("name");
-                        String desc = rs.getString("description");
-                        resultPanel.add(createCoursePanel(name, desc, "Continue"));
-                    }
-                } else if (courseType.equals("group")) {
-                    PreparedStatement groupStmt = conn.prepareStatement(
-                            "SELECT name, description, schedule FROM group_courses WHERE id = ?"
-                    );
-                    groupStmt.setInt(1, courseId);
-                    ResultSet rs = groupStmt.executeQuery();
-                    if (rs.next()) {
-                        String name = rs.getString("name");
-                        String desc = rs.getString("description");
-                        String sched = rs.getString("schedule");
-                        String fullDesc = desc + " | Meeting Time: " + sched;
-                        resultPanel.add(createCoursePanel(name, fullDesc, "Join"));
-                    }
-                }
+            if (exerciseList.isEmpty()) {
+                JLabel error = new JLabel("Error getting classes");
+                resultPanel.add(error);
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JLabel error = new JLabel("Error loading your registered classes.");
+            for (ExerciseClass exerciseClass : exerciseList) {
+                resultPanel.add(createCoursePanel(exerciseClass));
+            }
+        }catch (SQLException e) {
+            JLabel error = new JLabel(e.getMessage());
             resultPanel.add(error);
         }
 
@@ -127,7 +98,7 @@ public class ClassListScene extends Scenes{
         return scroll;
     }
 
-    private JPanel createCoursePanel(String name, String desc, String buttonLabel) {
+    private JPanel createCoursePanel(ExerciseClass exercise) {
         JPanel coursePanel = new JPanel(new BorderLayout());
         coursePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
         coursePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
@@ -135,24 +106,28 @@ public class ClassListScene extends Scenes{
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
 
-        JLabel nameLabel = new JLabel(name);
+        JLabel nameLabel = new JLabel(exercise.getName());
         nameLabel.setFont(new Font("SansSerif", Font.BOLD, 16));//no wrapping/overlapping
-        JLabel descLabel = new JLabel("<html><body style='width: 400px'>" + desc + "</body></html>");
+        JLabel descLabel = new JLabel("<html>" + exercise.getDescription() + "</html>");
+        descLabel.setPreferredSize(new Dimension(100, 30));
 
         textPanel.add(nameLabel);
         textPanel.add(descLabel);
 
+        String buttonLabel = switch (exercise.getType()) {
+            case "self" -> "Continue";
+            case "group" -> "Join";
+            default -> "Error";
+        };
+
         JButton actionBtn = new JButton(buttonLabel);
         actionBtn.addActionListener(e -> {
-            JOptionPane.showMessageDialog(panel, buttonLabel + " " + name);
+            JOptionPane.showMessageDialog(panel, buttonLabel + " " + exercise.getName());
         });
-
         coursePanel.add(textPanel, BorderLayout.CENTER);
         coursePanel.add(actionBtn, BorderLayout.EAST);
-
         return coursePanel;
     }
-
 
     /**
      * create a button leading to add workout dialog page
@@ -165,21 +140,6 @@ public class ClassListScene extends Scenes{
             new CourseSearch(frame);
         });
         return button;
-    }
-
-    /**
-     * adds button leading to previous scene
-     *
-     * @param frame which scene is created on
-     * @return button with back button functionality
-     */
-    private JButton addBackButton(JFrame frame) {
-        JButton backButton = new JButton("Back");
-        backButton.addActionListener(e -> {
-            new UserMenuScene(frame);
-        });
-
-        return backButton;
     }
 
 }

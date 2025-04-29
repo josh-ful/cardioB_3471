@@ -36,7 +36,7 @@ public class UserMenuScene extends Scenes{
      * sets the panel layout to GridBagLayout
      *
      */
-    private void panelLayout() {
+    protected void panelLayout() {
         panel.setLayout(new GridBagLayout());
         constraints.fill = GridBagConstraints.HORIZONTAL;
     }

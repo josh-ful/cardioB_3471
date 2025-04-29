@@ -25,7 +25,7 @@ public class ProfileScreen extends Scenes{
      * the GridBagConstraints
      *
      */
-    private void panelLayout() {
+    protected void panelLayout() {
         panel.setLayout(new GridBagLayout());
         c = new GridBagConstraints();
     }
