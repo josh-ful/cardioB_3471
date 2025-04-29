@@ -24,6 +24,16 @@ public class CurrentUser {
 
     private static ArrayList<Exercise> exerciseList = new ArrayList<>();
     private static Integer weight;
+    private static Integer id;
+
+    public static Integer getId() {
+        return id;
+    }
+
+    public static void setId(Integer id) {
+        CurrentUser.id = id;
+    }
+
 
     /**
      * Gets the name of the user.

@@ -51,7 +51,6 @@ public class Login implements LoginHardCodes {
 
                     setType(rs.getString("type"));
                 }
-
                 else{
                     throw new UserNotFoundException("User not found\n");
                 }
@@ -87,7 +86,7 @@ public class Login implements LoginHardCodes {
         //TODO make one function that does this in controller and put it up with setUserType
         if (success) {
             setName(user);
-            setPassword(pass);
+            setPassword(pass); // Idk anywhere that the program uses password anymore
         }
 
         return success;

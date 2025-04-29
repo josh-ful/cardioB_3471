@@ -74,12 +74,15 @@ public class ClassListScene extends Scenes{
         JPanel resultPanel = new JPanel();
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
 
+        int exerciseQuantity = 0;
+
         try {
             // get user id
             int userId = UserController.getUserId();
 
             // request all registered classes
             List<ExerciseClass> exerciseList = UserController.getAllExercises(userId);
+            exerciseQuantity = exerciseList.size();
 
             if (exerciseList.isEmpty()) {
                 JLabel error = new JLabel("Error: Classes are empty");
@@ -93,8 +96,12 @@ public class ClassListScene extends Scenes{
             resultPanel.add(error);
         }
 
+        resultPanel.setPreferredSize(new Dimension(400, exerciseQuantity*80));
         JScrollPane scroll = new JScrollPane(resultPanel);
-        scroll.setPreferredSize(new Dimension(600, 400));
+        scroll.setPreferredSize(new Dimension(FRAME_W, 400));
+
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
         return scroll;
     }
 
@@ -109,6 +116,7 @@ public class ClassListScene extends Scenes{
         JLabel nameLabel = new JLabel(exercise.getName());
         nameLabel.setFont(new Font("SansSerif", Font.BOLD, 16));//no wrapping/overlapping
         JLabel descLabel = new JLabel("<html>" + exercise.getDescription() + "</html>");
+        descLabel.setMinimumSize(new Dimension(100, 30));
         descLabel.setPreferredSize(new Dimension(100, 30));
 
         textPanel.add(nameLabel);

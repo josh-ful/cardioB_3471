@@ -100,7 +100,7 @@ public class UserController implements Controller {
             selfStmt.setInt(1, courseId);
             ResultSet rs = selfStmt.executeQuery();
             if (rs.next()) {
-                System.out.println("Got exercise");
+                //System.out.println("Got exercise");
                 String name = rs.getString("name");
                 String desc = rs.getString("description");
                 String type = rs.getString("type");
