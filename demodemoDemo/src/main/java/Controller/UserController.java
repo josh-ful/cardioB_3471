@@ -118,6 +118,7 @@ public class UserController implements Controller {
         return retExercise;
     }
 
+    //todo just access the userstorage lol
     public static int getUserId() throws SQLException {
         int userId = 0;
         try (Connection conn = main.DBConnection.getConnection()) {
@@ -157,37 +158,30 @@ public class UserController implements Controller {
         return exerciseClassList;
     }
 
-    public static boolean isRegistered(int userId, int courseId) throws SQLException{
-        try (Connection conn = main.DBConnection.getConnection()) {
-            PreparedStatement checkStmt = conn.prepareStatement(
-                    "SELECT * FROM course_registrations WHERE user_id = ? AND course_id = ?"
-            );
-            checkStmt.setInt(1, userId);
-            checkStmt.setInt(2, courseId);
-            ResultSet checkRs = checkStmt.executeQuery();
-            if (checkRs.next()) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new SQLException("Error registering for classes");
+    public static void isRegistered(int courseId) throws SQLException{
+        Connection conn = main.DBConnection.getConnection();
+        PreparedStatement checkStmt = conn.prepareStatement(
+        "SELECT * FROM course_registrations WHERE user_id = ? AND course_id = ?"
+        );
+        checkStmt.setInt(1, getUserId());
+        checkStmt.setInt(2, courseId);
+        ResultSet checkRs = checkStmt.executeQuery();
+        if (checkRs.next()) {
+            throw new AlreadyRegisteredException("You're already registered for this class.");
         }
     }
 
-    public static boolean registerForClass(int courseId) {
-        try (Connection conn = main.DBConnection.getConnection()) {
-            PreparedStatement insertStmt = conn.prepareStatement(
-                    "INSERT INTO course_registrations (user_id, course_id) VALUES (?, ?)"
-            );
-            insertStmt.setInt(1, UserController.getUserId());
-            insertStmt.setInt(2, courseId);
-            insertStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+    public static void registerForClass(String courseType, int courseId, String courseName) throws SQLException {
+        isRegistered(courseId);
+
+        Connection conn = main.DBConnection.getConnection();
+        PreparedStatement insertStmt = conn.prepareStatement(
+        "INSERT INTO course_registrations (user_id, course_id, course_type) VALUES (?, ?, ?)"
+        );
+        insertStmt.setInt(1, UserController.getUserId());
+        insertStmt.setInt(2, courseId);
+        insertStmt.setString(3, courseType);
+        insertStmt.executeUpdate();
     }
 
     public static ArrayList<ExerciseClass> getAllExercises(String type, String query) throws SQLException{
@@ -215,43 +209,6 @@ public class UserController implements Controller {
             throw new SQLException("Database error occurred");
         }
         return exerciseClassList;
-    }
-
-    public static void addCourseRegistration(String courseType, int courseId, String courseName) throws SQLException {
-        String username = CurrentUser.getName();
-
-        Connection conn2 = DBConnection.getConnection();
-        //get id from username
-        //TODO make this something stored in UserStorage
-        PreparedStatement getUserStmt = conn2.prepareStatement("SELECT id FROM users WHERE username = ?");
-        getUserStmt.setString(1, username);
-        ResultSet userRs = getUserStmt.executeQuery();
-
-        if (!userRs.next()) {
-            throw new UserNotFoundException("User not found in database.");
-        }
-        int userId = userRs.getInt("id");
-
-        //check edge case already registered
-        PreparedStatement checkStmt = conn2.prepareStatement(
-                "SELECT * FROM course_registrations WHERE user_id = ? AND course_id = ? AND course_type = ?"
-        );
-        checkStmt.setInt(1, userId);
-        checkStmt.setInt(2, courseId);
-        checkStmt.setString(3, courseType);
-        ResultSet checkRs = checkStmt.executeQuery();
-        if (checkRs.next()) {
-            throw new AlreadyRegisteredException("You're already registered for this class.");
-        }
-
-        //finally register
-        PreparedStatement insertStmt = conn2.prepareStatement(
-                "INSERT INTO course_registrations (user_id, course_id, course_type) VALUES (?, ?, ?)"
-        );
-        insertStmt.setInt(1, userId);
-        insertStmt.setInt(2, courseId);
-        insertStmt.setString(3, courseType);
-        insertStmt.executeUpdate();
     }
 
     public void createDashboard(JFrame frame) {
