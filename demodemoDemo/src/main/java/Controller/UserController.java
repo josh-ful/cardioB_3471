@@ -3,6 +3,7 @@ package Controller;
 import Exceptions.AlreadyRegisteredException;
 import Exceptions.UserNotFoundException;
 import FitnessCourse.Exercise;
+import FitnessCourse.ExerciseClass;
 import UserInformation.CurrentUser;
 import UserInterface.UserMenuScene;
 import UserInterface.addExercise.ExerciseLogHelper;
