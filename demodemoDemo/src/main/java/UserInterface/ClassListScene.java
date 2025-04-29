@@ -82,7 +82,7 @@ public class ClassListScene extends Scenes{
             List<ExerciseClass> exerciseList = UserController.getAllExercises(userId);
 
             if (exerciseList.isEmpty()) {
-                JLabel error = new JLabel("Error getting classes");
+                JLabel error = new JLabel("Error: Classes are empty");
                 resultPanel.add(error);
             }
             for (ExerciseClass exerciseClass : exerciseList) {

@@ -7,6 +7,7 @@ import UserInterface.addExercise.ExerciseLogHelperCSV;
 import UserInterface.addExercise.ExerciseLogHelperSQL;
 import UserInterface.addExercise.ExerciseLogHelper;
 
+import main.DBConnection;
 import main.DatabaseInfo;
 import org.junit.jupiter.api.Disabled;
 
@@ -179,6 +180,33 @@ public class UserController implements Controller {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static ArrayList<ExerciseClass> getAllExercises(String type, String query) throws SQLException{
+        String sql = "SELECT id, name, description FROM courses WHERE type LIKE ? AND name LIKE ?";
+
+        ArrayList<ExerciseClass> exerciseClassList = new ArrayList<>();
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, type);
+            stmt.setString(2, "%" + query + "%");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int courseId = rs.getInt("id");
+                String courseName = rs.getString("name");
+                String courseDesc = rs.getString("description");
+                ExerciseClass exercise = new ExerciseClass();
+                exercise.setId(courseId);
+                exercise.setName(courseName);
+                exercise.setDescription(courseDesc);
+                exerciseClassList.add(exercise);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new SQLException("Database error occurred");
+        }
+        return exerciseClassList;
     }
 
 

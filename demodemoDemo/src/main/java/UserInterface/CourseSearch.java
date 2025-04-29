@@ -1,6 +1,7 @@
 package UserInterface;
 
 import Controller.UserController;
+import FitnessCourse.ExerciseClass;
 import UserInformation.CurrentUser;
 import main.DBConnection;
 
@@ -11,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CourseSearch extends Scenes {
     private JComboBox<String> courseTypeCombo;
@@ -72,80 +74,70 @@ public class CourseSearch extends Scenes {
     private void performSearch(String type, String query) {
         resultsPanel.removeAll();  // Clear previous results
 
-        String sql = "SELECT id, name, description FROM courses WHERE type LIKE ? AND name LIKE ?";
+        try {
+        ArrayList<ExerciseClass> classes = new ArrayList<>();
+        classes = UserController.getAllExercises(type, query);
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        for (ExerciseClass exerciseClass : classes) {
 
-            stmt.setString(1, type);
-            stmt.setString(2, "%" + query + "%");
-            ResultSet rs = stmt.executeQuery();
+            // Each course item panel
+            JPanel courseItem = new JPanel(new BorderLayout());
+            courseItem.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
+            courseItem.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
 
-            while (rs.next()) {
-                int courseId = rs.getInt("id");
-                String courseName = rs.getString("name");
-                String courseDesc = rs.getString("description");
+            // Course name + description panel
+            JPanel textPanel = new JPanel();
+            textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+            JLabel nameLabel = new JLabel(exerciseClass.getName());
+            nameLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+            //for no overlap
+            JLabel descLabel = new JLabel("<html>" + exerciseClass.getDescription() + "</html>");
+            descLabel.setPreferredSize(new Dimension(100, 30));
 
-                // Each course item panel
-                JPanel courseItem = new JPanel(new BorderLayout());
-                courseItem.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
-                courseItem.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
+            textPanel.add(nameLabel);
+            textPanel.add(descLabel);
 
-                // Course name + description panel
-                JPanel textPanel = new JPanel();
-                textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
-                JLabel nameLabel = new JLabel(courseName);
-                nameLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
-                //for no overlap
-                JLabel descLabel = new JLabel("<html>" + courseDesc + "</html>");
-                descLabel.setPreferredSize(new Dimension(100, 30));
+            // Register button
+            JButton registerBtn = new JButton("Register");
+            registerBtn.addActionListener(e -> {
+                String courseType = (String) courseTypeCombo.getSelectedItem();  // "self" or "group"
 
-                textPanel.add(nameLabel);
-                textPanel.add(descLabel);
-
-                // Register button
-                JButton registerBtn = new JButton("Register");
-                registerBtn.addActionListener(e -> {
-                    String courseType = (String) courseTypeCombo.getSelectedItem();  // "self" or "group"
-
-                    try {
-                        //get id from username
-                        //TODO make this something stored in UserStorage
-                        int userId = UserController.getUserId();
-                        if (userId == 0) {
-                            JOptionPane.showMessageDialog(panel, "User not found in database.");
-                            return;
-                        }
-
-
-                        //if not already registered, then register
-                        if (!UserController.isRegistered(userId, courseId)) {
-                            UserController.registerForClass(courseId);
-                            JOptionPane.showMessageDialog(panel, "Successfully registered for: " + courseName);
-                        } else {
-                            JOptionPane.showMessageDialog(panel, "You're already registered for this class.");
-                        }
-
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                        JOptionPane.showMessageDialog(panel, "Error during registration.");
+                try {
+                    //get id from username
+                    //TODO make this something stored in UserStorage
+                    int userId = UserController.getUserId();
+                    if (userId == 0) {
+                        JOptionPane.showMessageDialog(panel, "User not found in database.");
+                        return;
                     }
-                });
+                    //if not already registered, then register
+                    if (!UserController.isRegistered(userId, exerciseClass.getId())) {
+                        UserController.registerForClass(exerciseClass.getId());
+                        JOptionPane.showMessageDialog(panel, "Successfully registered for: " + exerciseClass.getName());
+                    } else {
+                        JOptionPane.showMessageDialog(panel, "You're already registered for this class.");
+                    }
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(panel, "Error during registration.");
+                }
+            });
 
 
+            courseItem.add(textPanel, BorderLayout.CENTER);
+            courseItem.add(registerBtn, BorderLayout.EAST);
 
-                courseItem.add(textPanel, BorderLayout.CENTER);
-                courseItem.add(registerBtn, BorderLayout.EAST);
+            resultsPanel.add(courseItem);
+        }
 
-                resultsPanel.add(courseItem);
-            }
+        resultsPanel.revalidate();
+        resultsPanel.repaint();
+        panelLayout();
 
-            resultsPanel.revalidate();
-            resultsPanel.repaint();panelLayout();
-
-        } catch (SQLException e) {
+    } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(panel, "Database error occurred.");
+            JOptionPane.showMessageDialog(panel, e.getMessage());
         }
     }
 }
