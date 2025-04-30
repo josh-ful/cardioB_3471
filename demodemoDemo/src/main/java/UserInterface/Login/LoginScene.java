@@ -21,8 +21,8 @@ public class LoginScene extends LR_Scenes {
     public LoginScene(JFrame frame) {
         super.createLR_SCENE(frame);
 
-        panel.add(getConfirmLoginButton(frame, username, password));
-        panel.add(getBackButton(frame));
+        panel.add(getConfirmLoginButton(frame, username, password), BorderLayout.SOUTH);
+        panel.add(getBackButton(frame), BorderLayout.AFTER_LAST_LINE);
     }
 
     /**

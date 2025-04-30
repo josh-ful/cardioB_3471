@@ -20,12 +20,13 @@ public class LR_Scenes extends Scenes {
         username = new JTextField(20);
         password = new JPasswordField(20);
 
-        panel.add(getUsernameLabel());
-        panel.add(username);
-        panel.add(getPasswordLabel());
-        panel.add(password);
+        panel.add(getUsernameLabel(), BorderLayout.CENTER);
+        panel.add(username, BorderLayout.AFTER_LAST_LINE);
+        panel.add(getPasswordLabel(), BorderLayout.CENTER);
+        panel.add(password, BorderLayout.AFTER_LAST_LINE);
 
-        frame.add(panel);
+
+        frame.add(panel, BorderLayout.SOUTH);
     }
     /**
      * gets label titled username

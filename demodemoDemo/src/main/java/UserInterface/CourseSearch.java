@@ -115,7 +115,7 @@ public class CourseSearch extends Scenes {
 //                        }
 //                        //if not already registered, then register
 //                        if (!UserController.isRegistered(userId, exerciseClass.getId())) {
-//                            UserController.registerForClass(exerciseClass.getId());
+//                             UserController.registerForClass(exerciseClass.getId());
 //                            JOptionPane.showMessageDialog(panel, "Successfully registered for: " + exerciseClass.getName());
 //                        } else {
 //                            JOptionPane.showMessageDialog(panel, "You're already registered for this class.");
