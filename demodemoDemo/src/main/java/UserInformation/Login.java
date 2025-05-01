@@ -34,10 +34,6 @@ public class Login implements LoginHardCodes {
             String query = "SELECT * FROM users WHERE username = ?";
             Connection conn = DBConnection.getConnection();
 
-            /*
-                Carter changed the conditional blocks with this -
-                if there's a problem we can change it back
-                 */
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setString(1, user);
                 ResultSet rs = stmt.executeQuery();
@@ -65,20 +61,6 @@ public class Login implements LoginHardCodes {
 
             success = true;
         }
-
-//                if (rs.next()) {
-//                    String hashedPassword = rs.getString("password");
-//
-//                    if (BCrypt.checkpw(pass, hashedPassword)) {//compares hashed and plaintext password
-//                        success = true;
-//                    } else {
-//                        System.out.println("Password Incorrect");
-//                        throw new SQLException("Password incorrect");
-//                    }
-//                } else {
-//                    System.out.println("User not found");
-//                    throw new SQLException("User not found");
-
         else {
             success = localLoginLogic(user, pass, success);
         }
