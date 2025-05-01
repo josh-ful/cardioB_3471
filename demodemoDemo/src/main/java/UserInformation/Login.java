@@ -4,6 +4,7 @@
  */
 package UserInformation;
 
+import Controller.UserController;
 import Exceptions.IncorrectPasswordException;
 import Exceptions.UserNotFoundException;
 import main.DBConnection;
@@ -65,20 +66,6 @@ public class Login implements LoginHardCodes {
 
             success = true;
         }
-
-//                if (rs.next()) {
-//                    String hashedPassword = rs.getString("password");
-//
-//                    if (BCrypt.checkpw(pass, hashedPassword)) {//compares hashed and plaintext password
-//                        success = true;
-//                    } else {
-//                        System.out.println("Password Incorrect");
-//                        throw new SQLException("Password incorrect");
-//                    }
-//                } else {
-//                    System.out.println("User not found");
-//                    throw new SQLException("User not found");
-
         else {
             success = localLoginLogic(user, pass, success);
         }
@@ -87,6 +74,8 @@ public class Login implements LoginHardCodes {
         if (success) {
             setName(user);
             setPassword(pass); // Idk anywhere that the program uses password anymore
+            UserController.setCurrentUserId();
+            System.out.println(CurrentUser.getId());
         }
 
         return success;
