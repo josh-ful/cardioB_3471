@@ -1,65 +1,69 @@
 package FitnessCourse;
-/*
- * this class represents a session object
- * containing information about sessions
- */
-public class Course {
-    //Should have a user controller object and know details about the user as well as user type
-    //either explicitly or implicitly through overriden constructors
 
+public class Course {
+    private int id;
     private String name;
+    private String type;
     private String description;
-    /**
-     * Creates Session object
-     *
-     * @param name of session
-     */
-    public Course(String name) {
+    private String time;
+    private int trainerId;
+
+    public Course(int id, String name, String type, int trainerId , String description, String time) {
+        this.id = id;
         this.name = name;
-    }
-    /**
-     * Creates Session object with description
-     *
-     * @param name of session
-     * @param description of session
-     */
-    public Course(String name, String description) {
-        this(name);
+        this.type = type;
+        this.trainerId = trainerId;
         this.description = description;
+        this.time = time;
     }
-    /**
-     * gets name of Session
-     *
-     * @return name of course
-     */
+
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
-    /**
-     * sets name of Session
-     *
-     * @param name of session
-     */
-    public void setName(String name) {//should be used by a controller
+
+
+
+    public int getTrainerId() {
+        return trainerId;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     *
-     * @return description of course
-     */
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    /**
-     * sets description
-     *
-     * @param description
-     */
     public void setDescription(String description) {
         this.description = description;
     }
 
-    //has a controller
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setTrainerId(int trainerId) {
+        this.trainerId = trainerId;
+    }
 }
