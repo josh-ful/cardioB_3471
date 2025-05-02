@@ -26,91 +26,79 @@ public class HostClassScene extends Scenes {
         panel.removeAll();
         panel.setLayout(new BorderLayout(10, 10));
 
-        //filter and search
+        //search abr
         JPanel topBar = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        //typefilter
-        String[] types = { "All", "self", "group" };
-        JComboBox<String> filterBox = new JComboBox<>(types);
-        topBar.add(new JLabel("Show:"));
-        topBar.add(filterBox);
-
-        //search text field
         JTextField searchField = new JTextField(20);
         topBar.add(new JLabel("Search:"));
         topBar.add(searchField);
-
         panel.add(topBar, BorderLayout.NORTH);
 
-        // --- Center: scrollable list container ---
+        //scroll wheel
         listContainer = new JPanel();
         listContainer.setLayout(new BoxLayout(listContainer, BoxLayout.Y_AXIS));
         scrollPane = new JScrollPane(listContainer);
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        //create new class button -> dialog
-        JButton newClassBtn = new JButton("Create New Class");
-        newClassBtn.addActionListener(e -> new CreateClassDialog(frame));
-        JPanel bottomBar = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        bottomBar.add(newClassBtn);
-        panel.add(bottomBar, BorderLayout.SOUTH);
-
-        //fetching all classes
+        //fetch all classes but show only group courses
         allClasses = TrainerController.getClassesForCurrentTrainer();
 
-        Runnable refreshList = this::rebuildList;
-        filterBox.addActionListener(e -> refreshList.run());
-        searchField.getDocument().addDocumentListener(new DocumentListener() {
-            public void insertUpdate(DocumentEvent e)    { refreshList.run(); }
-            public void removeUpdate(DocumentEvent e)    { refreshList.run(); }
-            public void changedUpdate(DocumentEvent e)   { refreshList.run(); }
-        });
+        //reload list on search changes
+        DocumentListener dl = new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) { rebuildList(searchField.getText(), frame); }
+            public void removeUpdate(DocumentEvent e) { rebuildList(searchField.getText(), frame); }
+            public void changedUpdate(DocumentEvent e) { rebuildList(searchField.getText(), frame); }
+        };
+        searchField.getDocument().addDocumentListener(dl);
 
-        // Initial build
-        rebuildList();
+        //init query with empty search
+        rebuildList("", frame);
 
         frame.setContentPane(panel);
         frame.revalidate();
     }
 
-    private void rebuildList() {
-        // Grab current filter & search
-        JComboBox<?> filterBox = (JComboBox<?>)((JPanel)panel.getComponent(0)).getComponent(1);
-        String selected = (String)filterBox.getSelectedItem();
-        String search = ((JTextField)((JPanel)panel.getComponent(0)).getComponent(3))
-                .getText().trim().toLowerCase();
 
-        // Filter in-memory
+    private void rebuildList(String searchText, JFrame frame) {
+        String search = searchText.trim().toLowerCase();
+
         List<Course> filtered = allClasses.stream()
-                .filter(c -> {
-                    boolean typeMatch = selected.equals("All")
-                            || (selected.equals("self") && c.getType().equalsIgnoreCase("self"))
-                            || (selected.equals("group")     && c.getType().equalsIgnoreCase("group"));
-                    boolean textMatch = c.getName().toLowerCase().contains(search);
-                    return typeMatch && textMatch;
-                }).collect(Collectors.toList());
+                .filter(c -> c.getType().equalsIgnoreCase("group")
+                        && c.getName().toLowerCase().contains(search))
+                .collect(Collectors.toList());
 
-        listContainer.removeAll();
+        listContainer.removeAll();        //update
         for (Course cls : filtered) {
-            listContainer.add(makeClassPanel(cls));
+            listContainer.add(makeClassPanel(cls, frame));
         }
         listContainer.revalidate();
         listContainer.repaint();
     }
 
-    private JPanel makeClassPanel(Course cls) {
+    private JPanel makeClassPanel(Course cls, JFrame frame) {
         JPanel row = new JPanel(new BorderLayout(10, 5));
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
         row.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
 
-        //class info
-        JLabel info = new JLabel("<html><b>" + cls.getName() + "</b><br/>" + cls.getTime() + "</html>");
+        //class desc
+        JLabel info = new JLabel(
+                "<html><b>" + cls.getName() + "</b><br/>" + cls.getTime() + "</html>"
+        );
         row.add(info, BorderLayout.CENTER);
 
-        //host button on the right
+        //host button
         JButton hostBtn = new JButton("Host");
         hostBtn.addActionListener(e -> {
-            System.out.println("Clicking host button");
-            //new HostClassDialog((JFrame)SwingUtilities.getWindowAncestor(row), cls);
+            int choice = JOptionPane.showConfirmDialog(
+                    frame,
+                    "Are you sure you want to start " + cls.getName() + "?",
+                    "Start Class",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+            );
+            if (choice == JOptionPane.YES_OPTION) {
+                //TODO implement actual hosting class
+                JOptionPane.showMessageDialog(frame, "Class started.");
+            }
         });
         row.add(hostBtn, BorderLayout.EAST);
 
