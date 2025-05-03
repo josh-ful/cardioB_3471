@@ -62,7 +62,7 @@ public class UserMenuScene extends Scenes{
      */
     private void addTextMenu() {
         JLabel welcomeText = new JLabel("Welcome!");
-        welcomeText.setFont(new Font("Comic Sans MS", Font.BOLD, 60));
+        welcomeText.setFont(new Font("Roboto", Font.BOLD, 60));
         welcomeText.setForeground(Color.BLACK);
         constraints.gridx = 0;  // Column
         constraints.gridy = 1;  // Row

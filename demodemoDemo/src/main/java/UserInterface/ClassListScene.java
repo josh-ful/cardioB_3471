@@ -59,7 +59,7 @@ public class ClassListScene extends Scenes{
      */
     private JLabel addTextELog() {
         JLabel exerciseText = new JLabel("Classes!");
-        exerciseText.setFont(new Font("Comic Sans MS", Font.BOLD, 40));
+        exerciseText.setFont(new Font("Roboto", Font.BOLD, 40));
         exerciseText.setForeground(Color.BLACK);
         exerciseText.setAlignmentX(Component.CENTER_ALIGNMENT);
 

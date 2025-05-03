@@ -45,6 +45,7 @@ public class Scenes {
         frame.setResizable(false);
 
         //frame.setLocation(0,0);
+        frame.setBackground(Color.BLUE);
         frame.setVisible(true);
 
         panelLayout();

@@ -17,8 +17,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class WeightChart {
-    WeightChart(JPanel panel) {
+public class WeightBarGraph {
+    WeightBarGraph(JPanel panel) {
 
        JFreeChart chart= makeChart();
        ChartPanel chartPanel = new ChartPanel(chart);
