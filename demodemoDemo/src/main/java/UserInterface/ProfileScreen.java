@@ -3,11 +3,18 @@
  */
 package UserInterface;
 
+import FitnessCourse.Exercise;
 import UserInformation.CurrentUser;
 import UserInterface.addExercise.AddWeightDialog;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class ProfileScreen extends Scenes{
 
@@ -48,7 +55,9 @@ public class ProfileScreen extends Scenes{
 
         // TODO: don't want to pass frame to create method
         panel.add(createAddWeightButton(frame), c);
+        panel.add(weightGraphButton(frame), c);
         panel.add(createBackButton(frame), c);
+
         frame.add(panel);
 
         // TODO get class list and display
@@ -106,12 +115,24 @@ public class ProfileScreen extends Scenes{
      * @param frame which scene is created on
      * @return JButton with back button functionality
      */
+    private JButton weightGraphButton(JFrame frame) {
+        JButton button = new JButton("Weight Graph");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 3;
+
+        button.addActionListener(e -> {
+            new WeightGraphScene(frame);
+        });
+
+        return button;
+    }
     private JButton createBackButton(JFrame frame) {
         JButton button = super.createBackButton(frame, UserMenuScene.class);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 3;
+        c.gridy = 4;
 
         return button;
     }
@@ -126,5 +147,6 @@ public class ProfileScreen extends Scenes{
         //refreshLogTable();
         new ProfileScreen(frame);
     }
+
 
 }
