@@ -72,6 +72,7 @@ public class Scenes {
     }
 
     protected JMenuBar createMenuBar(JFrame frame) throws RuntimeException {
+        //TODO make sure this stays in the upper-right corner of screen
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
         JMenu menu = new JMenu(Controller.getUsername());
