@@ -32,9 +32,9 @@ public class AdminDashboardScene extends Scenes {
             new AddUserDialog(frame);
         });
 
-        resetPassBtn.addActionListener(e -> {
-            new ResetPasswordDialog(frame);
-        });
+//        resetPassBtn.addActionListener(e -> {
+//            new ResetPasswordDialog(frame);
+//        });
 
         //list title
         JLabel userListTitle = new JLabel("Registered Users");

@@ -16,9 +16,9 @@ import static main.DBConnection.addUser;
 
 import main.DBConnection;
 
-public class Register implements LoginHardCodes {
+public class Register {
 
-    private static final Logger logger = Logger.getLogger(LoginHardCodes.class.getName());
+    private static final Logger logger = Logger.getLogger(Register.class.getName());
     /**
      * confirms that a registration scenario was a success
      * @param user username of user
@@ -30,18 +30,20 @@ public class Register implements LoginHardCodes {
         boolean success = false;
         boolean usingSQL = DatabaseInfo.states.get("SQL");
 
-        Connection conn = DBConnection.getConnection();
-        String insertSql = "INSERT INTO users (username, password, type) VALUES (?, ?, ?)";
-        try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
+        String insertSql = "INSERT INTO userInfo (username, password, type) VALUES (?, ?, ?)";
+
+        try (Connection conn = DBConnection.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(insertSql);
             addUser(ps, user, pass, type);
             success = ps.executeUpdate() > 0;
-
         } catch (SQLIntegrityConstraintViolationException e) {
-            logger.log(Level.INFO, "Sorry, that username is already in use.!");
+            logger.log(Level.INFO, "Sorry, that username is already in use!");
             throw new AlreadyRegisteredException("User already exists!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        CurrentUser.setName(user);
 
         return success;
     }

@@ -118,24 +118,8 @@ public class UserController implements Controller {
         return retExercise;
     }
 
-    //todo just access the userstorage lol
     public static int getUserId() throws SQLException {
-        int userId = 0;
-        try (Connection conn = main.DBConnection.getConnection()) {
-            // get user id from table users
-            PreparedStatement stmt = conn.prepareStatement(
-                    "SELECT id FROM users WHERE username = ?"
-            );
-            stmt.setString(1, CurrentUser.getName());
-            ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) {
-                userId = resultSet.getInt("id");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new SQLException("User not found");
-        }
-        return userId;
+        return CurrentUser.getId();
     }
 
     public static ArrayList getAllExercises(int userId) {

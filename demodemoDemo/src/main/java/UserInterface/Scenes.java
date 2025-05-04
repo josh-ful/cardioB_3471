@@ -9,7 +9,6 @@
 package UserInterface;
 
 import Controller.Controller;
-import UserInformation.Login;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,8 +45,6 @@ public class Scenes {
         frame.setSize(FRAME_DIM);
         frame.setResizable(false);
 
-        //TODO add backButton and menuBar here?
-
         frame.setVisible(true);
         panelLayout();
     }
@@ -74,7 +71,7 @@ public class Scenes {
         return button;
     }
 
-    protected JMenuBar createMenuBar(JFrame frame, Class<? extends Scenes> scene) throws RuntimeException {
+    protected JMenuBar createMenuBar(JFrame frame) throws RuntimeException {
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
         JMenu menu = new JMenu(Controller.getUsername());

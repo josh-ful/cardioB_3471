@@ -14,6 +14,7 @@ public class Profile extends Scenes{
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
 
+        //TODO make this look so much nicer
         panel.add(new JLabel("Username:"));
         panel.add(new JLabel(CurrentUser.getName()));
         panel.add(new JLabel("User Type:"));
@@ -30,6 +31,8 @@ public class Profile extends Scenes{
 
         panel.add(getEditOnboardingBtn());
         panel.add(getLogoutBtn(frame));
+
+        frame.add(panel);
     }
 
     private static JButton getEditOnboardingBtn() {

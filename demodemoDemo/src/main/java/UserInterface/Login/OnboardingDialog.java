@@ -1,8 +1,11 @@
 package UserInterface.Login;
 
 import Controller.Controller;
+import Exceptions.UserNotFoundException;
+import UserInformation.CurrentUser;
 
 import javax.swing.*;
+import java.sql.SQLException;
 
 public class OnboardingDialog extends JDialog {
     static JSpinner txtAge;
@@ -52,8 +55,19 @@ public class OnboardingDialog extends JDialog {
         JButton btnSubmit = new JButton("Submit");
 
         btnSubmit.addActionListener(e -> {
-            Controller.insertOnboardingInfo((int)txtAge.getValue(), txtGender.getSelectedItem().toString(),
-                    txtEmail.getText(), txtSecurityQuestion.getSelectedIndex(), txtSecurityAnswer.getText());
+            try{
+                Controller.insertOnboardingInfo((int)txtAge.getValue(), txtGender.getSelectedItem().toString(),
+                        txtEmail.getText(), txtSecurityQuestion.getSelectedIndex(), txtSecurityAnswer.getText());
+                CurrentUser.initialize();
+            }catch(SQLException ex){
+                // TODO maybe this should throw a runtime exception cuz it should work
+                JOptionPane.showMessageDialog(null, ex.getMessage() + ". Please try again",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }catch(UserNotFoundException ex){
+                // TODO maybe this should throw a runtime exception cuz it should work
+                JOptionPane.showMessageDialog(this, ex.getMessage() + ". Please try again",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
             dispose();
         });
 

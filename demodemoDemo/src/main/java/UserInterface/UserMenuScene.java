@@ -110,7 +110,7 @@ public class UserMenuScene extends Scenes{
 
         menu.setIcon(getMenuIcon());
 
-        JMenuItem profileItem = new JMenuItem("Profile");
+        JMenuItem profileItem = new JMenuItem("Dashboard");
         profileItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new UserDashboard(frame);

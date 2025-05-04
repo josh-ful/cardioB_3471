@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 import static UserInformation.CurrentUser.*;
 
-public class Login implements LoginHardCodes {
+public class Login {
     private static final Logger logger = Logger.getLogger(Login.class.getName());
     /**
      * validates login inputs with logins stored in database
@@ -27,8 +27,7 @@ public class Login implements LoginHardCodes {
      */
 
     public static boolean loginLogic(String user, String pass) throws RuntimeException, SQLException {
-        boolean success = false;
-        String query = "SELECT * FROM users WHERE username = ?";
+        String query = "SELECT * FROM userInfo WHERE username = ?";
         Connection conn = DBConnection.getConnection();
 
             /*
@@ -45,10 +44,8 @@ public class Login implements LoginHardCodes {
                 if (!BCrypt.checkpw(pass, hashedPassword)) {
                     throw new IncorrectPasswordException("Incorrect password\n");
                 }
-
                 setType(rs.getString("type"));
             }
-
             else{
                 throw new UserNotFoundException("User not found\n");
             }
@@ -61,11 +58,9 @@ public class Login implements LoginHardCodes {
             throw e;
         }
 
-        success = true;
+        CurrentUser.setName(user);
+        CurrentUser.initialize();
 
-        //TODO change to setID and then call fillInCurrentUser
-        setName(user);
-
-        return success;
+        return true;
     }
 }

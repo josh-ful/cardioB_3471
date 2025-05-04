@@ -8,16 +8,19 @@
 package UserInformation;
 
 import Controller.*;
+import Exceptions.UserNotFoundException;
 import FitnessCourse.*;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import static UserInterface.Login.OnboardingDialog.securityQuestions;
 
-//TODO when does this stuff get inputted?
 //todo make sure all onboarding info is inputted at register
-//Can we pull from database at login?
 
 public class CurrentUser {
     private static Integer id;
@@ -40,6 +43,31 @@ public class CurrentUser {
         //query users table with name
         //set id? type? (in theory) these can't be changed
         //def set age, gender, email, sQ, sA from what is stored in database
+    }
+
+    //TODO make sure this works,
+    public static void initialize() throws UserNotFoundException{
+        try (Connection conn = main.DBConnection.getConnection()) {
+
+            PreparedStatement stmt = conn.prepareStatement(
+                    "SELECT * FROM userInfo WHERE username = ?"
+            );
+            stmt.setString(1, name);
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                id = resultSet.getInt("id");
+                type = resultSet.getString("type");
+                age = resultSet.getInt("age");
+                gender = resultSet.getString("gender");
+                email = resultSet.getString("email");
+                securityQ = resultSet.getInt("securityQ");
+                securityAnswer = resultSet.getString("securityA");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new UserNotFoundException("User not found");
+        }
     }
 
     /**
@@ -91,10 +119,6 @@ public class CurrentUser {
     public static Integer getId() {
         return id;
     }
-    public static void setId(Integer id) {
-        CurrentUser.id = id;
-    }
-
     public static Integer getAge() {
         return age;
     }
