@@ -9,7 +9,7 @@ import UserInterface.addExercise.AddWeightDialog;
 import javax.swing.*;
 import java.awt.*;
 
-public class ProfileScreen extends Scenes{
+public class UserDashboard extends Scenes{
 
     GridBagConstraints c;
     /**
@@ -17,7 +17,7 @@ public class ProfileScreen extends Scenes{
      *
      * @param frame which scene is created on
      */
-    public ProfileScreen(JFrame frame) {
+    public UserDashboard(JFrame frame) {
         createAndShowGUI(frame);
     }
     /**
@@ -51,7 +51,7 @@ public class ProfileScreen extends Scenes{
         panel.add(createBackButton(frame), c);
         frame.add(panel);
 
-        // TODO get class list and display
+        // TODO get metrics and display
     }
 
     /**
@@ -124,7 +124,7 @@ public class ProfileScreen extends Scenes{
      */
     public static void submittedNewScene(JFrame frame) {
         //refreshLogTable();
-        new ProfileScreen(frame);
+        new UserDashboard(frame);
     }
 
 }

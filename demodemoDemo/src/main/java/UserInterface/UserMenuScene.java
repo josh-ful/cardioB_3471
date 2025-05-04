@@ -11,7 +11,6 @@
 package UserInterface;
 
 import Controller.UserController;
-import main.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -114,7 +113,7 @@ public class UserMenuScene extends Scenes{
         JMenuItem profileItem = new JMenuItem("Profile");
         profileItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new ProfileScreen(frame);
+                new UserDashboard(frame);
             }
         });
         menu.add(profileItem);

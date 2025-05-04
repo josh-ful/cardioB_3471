@@ -105,6 +105,7 @@ public class RegisterScene extends LR_Scenes {
                 }
 
                 if (valid) {
+                    new OnboardingDialog();
                     JOptionPane.showMessageDialog(
                             panel,
                             "Congrats! You have been registered! \n" +

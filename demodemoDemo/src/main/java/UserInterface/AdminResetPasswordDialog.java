@@ -8,21 +8,30 @@ import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class ResetPasswordDialog extends JDialog {
-    public ResetPasswordDialog(JFrame parent) {
+
+//TODO move the logic elsewhere
+public class AdminResetPasswordDialog extends JDialog {
+    public AdminResetPasswordDialog(JFrame parent) {
         super(parent, "Reset User Password", true);
         setLayout(new GridLayout(3, 2, 10, 10));
 
         JTextField usernameField = new JTextField();
         JPasswordField passwordField = new JPasswordField();
-        JButton confirmBtn = new JButton("Confirm");
+
 
         add(new JLabel("Username:"));
         add(usernameField);
         add(new JLabel("New Password:"));
         add(passwordField);
-        add(confirmBtn);
+        add(getConfirmBtn(usernameField, passwordField));
 
+        setSize(300, 150);
+        setLocationRelativeTo(parent);
+        setVisible(true);
+    }
+
+    private JButton getConfirmBtn(JTextField usernameField, JPasswordField passwordField) {
+        JButton confirmBtn = new JButton("Confirm");
         confirmBtn.addActionListener(e -> {
             String username = usernameField.getText().trim();
             String password = new String(passwordField.getPassword());
@@ -54,8 +63,6 @@ public class ResetPasswordDialog extends JDialog {
             }
         });
 
-        setSize(300, 150);
-        setLocationRelativeTo(parent);
-        setVisible(true);
+        return confirmBtn;
     }
 }

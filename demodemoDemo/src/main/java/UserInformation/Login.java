@@ -28,83 +28,44 @@ public class Login implements LoginHardCodes {
 
     public static boolean loginLogic(String user, String pass) throws RuntimeException, SQLException {
         boolean success = false;
-        boolean usingSQL = DatabaseInfo.states.get("SQL");
-
-        if (usingSQL) {
-            String query = "SELECT * FROM users WHERE username = ?";
-            Connection conn = DBConnection.getConnection();
+        String query = "SELECT * FROM users WHERE username = ?";
+        Connection conn = DBConnection.getConnection();
 
             /*
                 Carter changed the conditional blocks with this -
                 if there's a problem we can change it back
                  */
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                stmt.setString(1, user);
-                ResultSet rs = stmt.executeQuery();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, user);
+            ResultSet rs = stmt.executeQuery();
 
-                if (rs.next()) {
-                    String hashedPassword = rs.getString("password");
+            if (rs.next()) {
+                String hashedPassword = rs.getString("password");
 
-                    if (!BCrypt.checkpw(pass, hashedPassword)) {
-                        throw new IncorrectPasswordException("Incorrect password\n");
-                    }
-
-                    setType(rs.getString("type"));
+                if (!BCrypt.checkpw(pass, hashedPassword)) {
+                    throw new IncorrectPasswordException("Incorrect password\n");
                 }
 
-                else{
-                    throw new UserNotFoundException("User not found\n");
-                }
-
-            } catch (UserNotFoundException e) {
-                logger.log(Level.WARNING, e.getMessage());
-                throw e;
-            } catch (IncorrectPasswordException e) {
-                logger.log(Level.INFO, e.getMessage());
-                throw e;
+                setType(rs.getString("type"));
             }
 
-            success = true;
+            else{
+                throw new UserNotFoundException("User not found\n");
+            }
+
+        } catch (UserNotFoundException e) {
+            logger.log(Level.WARNING, e.getMessage());
+            throw e;
+        } catch (IncorrectPasswordException e) {
+            logger.log(Level.INFO, e.getMessage());
+            throw e;
         }
 
-//                if (rs.next()) {
-//                    String hashedPassword = rs.getString("password");
-//
-//                    if (BCrypt.checkpw(pass, hashedPassword)) {//compares hashed and plaintext password
-//                        success = true;
-//                    } else {
-//                        System.out.println("Password Incorrect");
-//                        throw new SQLException("Password incorrect");
-//                    }
-//                } else {
-//                    System.out.println("User not found");
-//                    throw new SQLException("User not found");
+        success = true;
 
-        else {
-            success = localLoginLogic(user, pass, success);
-        }
-
-        //TODO make one function that does this in controller and put it up with setUserType
-        if (success) {
-            setName(user);
-            setPassword(pass);
-        }
+        //TODO change to setID and then call fillInCurrentUser
+        setName(user);
 
         return success;
     }
-
-    /**
-     * validates login inputs with locally stored login pairs
-     * @param user string username
-     * @param pass string password
-     * @param success boolean successStatus
-     * @return boolean of login based on locally stored login inputs
-     */
-    private static boolean localLoginLogic(String user, String pass, boolean success) {
-        if(logins.containsKey(user) && pass.equals(logins.get(user))){
-            success = true;
-        }
-        return success;
-    }
-
 }

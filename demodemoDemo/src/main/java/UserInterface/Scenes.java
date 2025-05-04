@@ -8,6 +8,9 @@
  */
 package UserInterface;
 
+import Controller.Controller;
+import UserInformation.Login;
+
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
@@ -43,6 +46,8 @@ public class Scenes {
         frame.setSize(FRAME_DIM);
         frame.setResizable(false);
 
+        //TODO add backButton and menuBar here?
+
         frame.setVisible(true);
         panelLayout();
     }
@@ -67,5 +72,27 @@ public class Scenes {
         });
 
         return button;
+    }
+
+    protected JMenuBar createMenuBar(JFrame frame, Class<? extends Scenes> scene) throws RuntimeException {
+        JMenuBar menuBar = new JMenuBar();
+        frame.setJMenuBar(menuBar);
+        JMenu menu = new JMenu(Controller.getUsername());
+        menuBar.add(menu);
+        JMenuItem menuItem = new JMenuItem("profile");
+        JMenuItem menuItem2 = new JMenuItem("log-out");
+
+        menuItem.addActionListener(e -> {
+            new Profile(frame);
+        });
+        menuItem2.addActionListener(e -> {
+            Controller.destroyCurrentUser();
+            new HomeScreen(frame);
+        });
+
+        menu.add(menuItem);
+        menu.add(menuItem2);
+
+        return menuBar;
     }
 }

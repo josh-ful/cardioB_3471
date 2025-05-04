@@ -6,10 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import Controller.Controller;
 import UserInformation.Login;
 import UserInformation.CurrentUser;
 import UserInterface.AdminDashboardScene;
 import UserInterface.UserMenuScene;
+import UserInterface.UserResetPasswordDialog;
 
 
 public class LoginScene extends LR_Scenes {
@@ -22,6 +24,7 @@ public class LoginScene extends LR_Scenes {
         super.createLR_SCENE(frame);
 
         panel.add(getConfirmLoginButton(frame, username, password));
+        panel.add(getResetPasswordBtn());
         panel.add(getBackButton(frame));
     }
 
@@ -62,5 +65,19 @@ public class LoginScene extends LR_Scenes {
             }
         });
         return loginButton;
+    }
+
+    private static JButton getResetPasswordBtn() {
+        JButton btnResetPassword = new JButton("Reset Password");
+
+        btnResetPassword.addActionListener(e->{
+            int confirm = JOptionPane.showConfirmDialog(null,
+                    "Are you sure you want to reset your password?");
+            if (confirm == JOptionPane.YES_OPTION) {
+                new UserResetPasswordDialog(Controller.getUsername());
+            }
+        });
+
+        return btnResetPassword;
     }
 }
