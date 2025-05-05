@@ -47,16 +47,16 @@ public class LoginScene extends LR_Scenes {
                 String pass = new String(password.getPassword());
                 // give something else the information and allow it to make the screen
                 boolean success = false;
+
                 try {
                     success = Login.loginLogic(user, pass);
                 } catch (RuntimeException | SQLException ex) {
-                    JOptionPane.showMessageDialog(panel,
-                            ex.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
                 if (success){
                     CurrentUser.controller.createDashboard(frame);
-//                    System.out.println("Loading " + CurrentUser.getType() + " dashboard");
                 }
             }
         });
@@ -67,10 +67,11 @@ public class LoginScene extends LR_Scenes {
         JButton btnResetPassword = new JButton("Reset Password");
 
         btnResetPassword.addActionListener(e->{
+            // TODO change confirm dialog to inside reset dialog?
             int confirm = JOptionPane.showConfirmDialog(null,
                     "Are you sure you want to reset your password?");
             if (confirm == JOptionPane.YES_OPTION) {
-                new UserResetPasswordDialog(Controller.getUsername());
+                new UserResetPasswordDialog();
             }
         });
 

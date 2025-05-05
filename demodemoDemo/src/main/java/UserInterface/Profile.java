@@ -52,7 +52,6 @@ public class Profile extends Scenes{
             int confirm = JOptionPane.showConfirmDialog(null,
                     "Are you sure you want to reset your password?");
             if (confirm == JOptionPane.YES_OPTION) {
-                //TODO check if this works
                 new UserResetPasswordDialog(Controller.getUsername());
             }
         });

@@ -7,18 +7,14 @@ import UserInformation.CurrentUser;
 import javax.swing.*;
 import java.sql.SQLException;
 
+import static UserInformation.SecurityQuestions.securityQuestions;
+
 public class OnboardingDialog extends JDialog {
     static JSpinner txtAge;
     static JComboBox txtGender;
     static JTextField txtEmail;
     static JComboBox txtSecurityQuestion;
     static JTextField txtSecurityAnswer;
-
-    public final static String[] securityQuestions = {"What is the name of your first pet?",
-            "What is your mother's maiden name?",
-            "What was the name of your elementary school?",
-            "What was the model of your first car?",
-            "What was the name of the street you grew up on?"};
 
     public OnboardingDialog() {
         setTitle("Onboarding");

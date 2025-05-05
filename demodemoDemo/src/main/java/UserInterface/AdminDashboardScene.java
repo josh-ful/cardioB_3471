@@ -3,6 +3,11 @@ package UserInterface;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
+import java.util.Map;
+
+import UserInformation.CurrentUser.*;
+
+import static UserInformation.CurrentUser.controller;
 
 public class AdminDashboardScene extends Scenes {
 
@@ -25,28 +30,19 @@ public class AdminDashboardScene extends Scenes {
         panel.add(title);
         panel.add(subtitle);
 
-        JButton addUserBtn = new JButton("Add User");
-        JButton resetPassBtn = new JButton("Reset User Password");
-
-        addUserBtn.addActionListener(e -> {
-            new AddUserDialog(frame);
-        });
-
-//        resetPassBtn.addActionListener(e -> {
-//            new ResetPasswordDialog(frame);
-//        });
-
         //list title
-        JLabel userListTitle = new JLabel("Registered Users");
-        userListTitle.setFont(new Font("SansSerif", Font.BOLD, 20));
-        userListTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(Box.createRigidArea(new Dimension(0, 20)));
-        panel.add(userListTitle);
+        panel.add(getUserListTitle());
 
         // ist of users
         JPanel userListPanel = new JPanel();
         userListPanel.setLayout(new BoxLayout(userListPanel, BoxLayout.Y_AXIS));
 
+        //todo figure out why this won't work
+//        List<Map<String, String>> allUsers = controller.getAllUsers();
+//        for (int i = 0; i < allUsers.getLength; i++)
+
+        //todo move this elsewhere
         try (Connection conn = main.DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement("SELECT username, type FROM users ORDER BY type, username");
              ResultSet rs = stmt.executeQuery()) {
@@ -71,18 +67,42 @@ public class AdminDashboardScene extends Scenes {
             userListPanel.add(new JLabel("Error loading users."));
         }
 
-        JScrollPane userScroll = new JScrollPane(userListPanel);
-        userScroll.setPreferredSize(new Dimension(500, 300));
-        panel.add(userScroll);
-
-
-
+        panel.add(getScrollPane(userListPanel));
 
         panel.add(Box.createRigidArea(new Dimension(0, 20)));
-        panel.add(addUserBtn);
-        panel.add(resetPassBtn);
+        panel.add(getAddUserBtn(frame));
+        panel.add(getResetPassBtn(frame));
 
         frame.setContentPane(panel);
         frame.revalidate();
+    }
+
+    private static JScrollPane getScrollPane(JPanel userListPanel) {
+        JScrollPane userScroll = new JScrollPane(userListPanel);
+        userScroll.setPreferredSize(new Dimension(500, 300));
+        return userScroll;
+    }
+
+    private static JButton getResetPassBtn(JFrame frame) {
+        JButton resetPassBtn = new JButton("Reset User Password");
+        resetPassBtn.addActionListener(e -> {
+            new AdminResetPasswordDialog(frame);
+        });
+        return resetPassBtn;
+    }
+
+    private static JButton getAddUserBtn(JFrame frame) {
+        JButton addUserBtn = new JButton("Add User");
+        addUserBtn.addActionListener(e -> {
+            new AddUserDialog(frame);
+        });
+        return addUserBtn;
+    }
+
+    private static JLabel getUserListTitle() {
+        JLabel userListTitle = new JLabel("Registered Users");
+        userListTitle.setFont(new Font("SansSerif", Font.BOLD, 20));
+        userListTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return userListTitle;
     }
 }

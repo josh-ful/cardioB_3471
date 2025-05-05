@@ -115,6 +115,7 @@ public class CourseSearch extends Scenes {
                         exerciseClass.getName());
             } catch (RuntimeException ex) {
                 JOptionPane.showMessageDialog(panel, ex.getMessage());
+                //todo throw a runtime exception here?
             } catch (SQLException ex) {
                 //todo change to SQLException?
                 JOptionPane.showMessageDialog(panel, "Error with database during registration.");

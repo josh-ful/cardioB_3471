@@ -1,12 +1,19 @@
 package UserInterface;
 
+import Exceptions.IncorrectPasswordException;
 import Exceptions.IncorrectSecurityAnswer;
-import UserInformation.CurrentUser;
+import Exceptions.IncorrectSecurityQuestion;
+import Exceptions.UserNotFoundException;
+import UserInformation.UserQuery;
 
 import javax.swing.*;
 import java.awt.*;
 
+import static UserInformation.SecurityQuestions.securityQuestions;
+
 public class UserResetPasswordDialog extends JDialog {
+    JTextField username;
+    JComboBox securityQuestion;
     JTextField securityAnswer;
     JPasswordField newPasswordField;
     JPasswordField newPasswordField2;
@@ -22,39 +29,54 @@ public class UserResetPasswordDialog extends JDialog {
     }
 
     private void createAndShowGui(String user) {
-        setLayout(new GridLayout(3, 2, 10, 10));
+        JPanel panel = (JPanel) super.getContentPane();
 
-        JTextField securityAnswer = new JTextField();
+        username = new JTextField(user);
+        securityQuestion = new JComboBox(securityQuestions);
+        securityAnswer = new JTextField();
         newPasswordField = new JPasswordField();
         newPasswordField2 = new JPasswordField();
 
-        add(new JLabel("Security Question:" + CurrentUser.getSecurityQ()));
-        add(new JLabel("Security Answer:"));
-        add(securityAnswer);
-        add(new JLabel("New Password:"));
-        add(newPasswordField);
-        add(new JLabel("Confirm New Password:"));
-        add(newPasswordField2);
+        panel.add(new JLabel("Username:"));
+        panel.add(username);
+        panel.add(new JLabel("Security Question:"));
+        panel.add(securityQuestion);
+        panel.add(new JLabel("Security Answer:"));
+        panel.add(securityAnswer);
+        panel.add(new JLabel("New Password:"));
+        panel.add(newPasswordField);
+        panel.add(new JLabel("Confirm New Password:"));
+        panel.add(newPasswordField2);
 
-        add(getConfirmButton());
-        add(getCancelButton());
+        panel.add(getConfirmButton());
+        panel.add(getCancelButton());
+
+        setVisible(true);
     }
 
-    private JButton getConfirmButton() {
+    private JButton getConfirmButton(){
         JButton confirmBtn = new JButton("Confirm");
 
         confirmBtn.addActionListener(e -> {
             try {
-                if (!(securityAnswer.getText().equals(CurrentUser.getSecurityAnswer()))) {
+                UserQuery.userExists(username.getText());
+                if (securityQuestion.getSelectedIndex() != UserQuery.securityQ(username.getText())) {
+                    throw new IncorrectSecurityQuestion("Security question is not associated with this user");
+                } else if (!(securityAnswer.getText().equals(UserQuery.securityA(username.getText())))) {
                     throw new IncorrectSecurityAnswer("Answer to the security question is incorrect");
+                } else if (newPasswordField2.getPassword().length == 0) {
+                    throw new IncorrectPasswordException("New password cannot be empty");
                 } else if (!(newPasswordField.toString().equals(newPasswordField2.toString()))) {
-                    JOptionPane.showMessageDialog(null, "Passwords do not match");
+                    throw new IncorrectPasswordException("Passwords do not match");
                 }
-                else {
-                    //TODO is good: change password, close dialog
-                }
-            }catch(IncorrectSecurityAnswer ex){
-                JOptionPane.showMessageDialog(null, ex.getMessage());
+
+                UserQuery.changePassword(username.getText(), newPasswordField.toString());
+                JOptionPane.showMessageDialog(UserResetPasswordDialog.this, "Password changed successfully");
+                dispose();
+            }catch(UserNotFoundException | IncorrectSecurityAnswer |
+                   IncorrectSecurityQuestion | IncorrectPasswordException ex){
+                JOptionPane.showMessageDialog(UserResetPasswordDialog.this, ex.getMessage() + "\n Please try again",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 

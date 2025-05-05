@@ -1,5 +1,6 @@
 package UserInterface;
 
+import UserInformation.UserQuery;
 import main.DBConnection;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -9,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 
-//TODO move the logic elsewhere
 public class AdminResetPasswordDialog extends JDialog {
     public AdminResetPasswordDialog(JFrame parent) {
         super(parent, "Reset User Password", true);
@@ -23,7 +23,9 @@ public class AdminResetPasswordDialog extends JDialog {
         add(usernameField);
         add(new JLabel("New Password:"));
         add(passwordField);
+
         add(getConfirmBtn(usernameField, passwordField));
+        add(getCancelButton());
 
         setSize(300, 150);
         setLocationRelativeTo(parent);
@@ -37,32 +39,26 @@ public class AdminResetPasswordDialog extends JDialog {
             String password = new String(passwordField.getPassword());
 
             if (username.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Fields cannot be empty.");
-                return;
+                JOptionPane.showMessageDialog(this, "Fields cannot be empty. \n Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
-            String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
-
-            try (Connection conn = DBConnection.getConnection()) {
-                PreparedStatement stmt = conn.prepareStatement(
-                        "UPDATE users SET password = ? WHERE username = ?"
-                );
-                stmt.setString(1, hashed);
-                stmt.setString(2, username);
-                int updated = stmt.executeUpdate();
-
-                if (updated > 0) {
-                    JOptionPane.showMessageDialog(this, "Password updated successfully!");
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "User not found.");
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Failed to update password.");
+            int updated = UserQuery.changePassword(username, password);
+            if (updated > 0) {
+                JOptionPane.showMessageDialog(this, "Password was successfully changed.");
+                dispose();
             }
         });
 
         return confirmBtn;
+    }
+
+    private JButton getCancelButton() {
+        JButton cancelBtn = new JButton("Cancel");
+
+        cancelBtn.addActionListener(e -> {
+            dispose();
+        });
+
+        return cancelBtn;
     }
 }

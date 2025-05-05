@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static UserInterface.Login.OnboardingDialog.securityQuestions;
+import static UserInformation.SecurityQuestions.securityQuestions;
 
 //todo make sure all onboarding info is inputted at register
 
