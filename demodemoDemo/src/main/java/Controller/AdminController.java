@@ -4,6 +4,8 @@ import UserInformation.UserQuery;
 import UserInterface.AdminDashboardScene;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +18,7 @@ public class AdminController implements Controller{
         new AdminDashboardScene(frame);
     }
 
-    public List<Map<String, String>> getAllUsers(){
-
-
-    }
+//    public ArrayList<Map<String, String>> getAllUsers() {
+//        return new ArrayList<HashMap<String, String>>();
+//    }
 }
