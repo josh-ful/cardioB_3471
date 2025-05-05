@@ -1,3 +1,6 @@
+/**
+ * this class creates a bar graph of weight
+ */
 package UserInterface;
 
 import org.jfree.chart.ChartFactory;
@@ -18,8 +21,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class WeightBarGraph {
+    /**
+     * constructs a WeightBarGraph object
+     *
+     * @param panel JPanel which graph is created on
+     */
     WeightBarGraph(JPanel panel) {
-
        JFreeChart chart= makeChart();
        ChartPanel chartPanel = new ChartPanel(chart);
        chartPanel.setBackground(Color.pink);
@@ -29,6 +36,10 @@ public class WeightBarGraph {
        chartPanel.setPreferredSize(new Dimension(800, 600));
        panel.add(chartPanel);
     }
+    /**
+     * creates bar graph of weights
+     *
+     */
     public static JFreeChart makeChart(){
         ArrayList<Point> points = readInCSV();
         DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
@@ -48,6 +59,11 @@ public class WeightBarGraph {
 
         return chart;
     }
+    /**
+     * reads in csv of weights and inputs them into a list of points
+     *
+     * @param
+     */
     public static ArrayList<Point> readInCSV() {
         ArrayList<Point>points = new ArrayList<>();
         try {

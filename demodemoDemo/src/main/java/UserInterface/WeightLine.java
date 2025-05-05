@@ -1,3 +1,6 @@
+/**
+ * this class creates a line graph of weight
+ */
 package UserInterface;
 
 import org.jfree.chart.ChartFactory;
@@ -17,6 +20,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class WeightLine {
+    /**
+     * constructs a WeightLine objects
+     *
+     * @param panel JPanel
+     */
     WeightLine(JPanel panel, int goalWeight) {
         JFreeChart chart= makeLineChart(goalWeight);
         ChartPanel chartPanel = new ChartPanel(chart);
@@ -27,6 +35,11 @@ public class WeightLine {
         chartPanel.setPreferredSize(new Dimension(800, 600));
         panel.add(chartPanel);
     }
+    /**
+     *
+     *
+     * @param
+     */
     public static JFreeChart makeLineChart(int goalWeight) {
         ArrayList<Point> points = readInCSV();
         DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
@@ -55,6 +68,11 @@ public class WeightLine {
 
         return chart;
     }
+    /**
+     *
+     *
+     * @param
+     */
     public static ArrayList<Point> readInCSV() {
         ArrayList<Point>points = new ArrayList<>();
         try {

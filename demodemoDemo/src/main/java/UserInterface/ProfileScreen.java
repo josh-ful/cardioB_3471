@@ -130,6 +130,11 @@ public class ProfileScreen extends Scenes{
 
         return button;
     }
+    /**
+     * back button repaints to previous scene
+     *
+     * @param frame JFrame which back button is added on
+     */
     private JButton createBackButton(JFrame frame) {
         JButton button = super.createBackButton(frame, UserMenuScene.class);
 
