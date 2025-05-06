@@ -41,11 +41,12 @@ public class Login implements LoginHardCodes {
 
                 if (rs.next()) {
                     String hashedPassword = rs.getString("password");
-
+                    int userId = rs.getInt("id");
                     if (!BCrypt.checkpw(pass, hashedPassword)) {
                         throw new IncorrectPasswordException("Incorrect password\n");
                     }
-
+                    setId(userId);
+                    setName(rs.getString("username")); // or whatever your name-column is
                     setType(rs.getString("type"));
                 }
                 else{
@@ -68,6 +69,8 @@ public class Login implements LoginHardCodes {
 
         //TODO make one function that does this in controller and put it up with setUserType
         if (success) {
+            //setId(); no id numbers for local, local will be sort of impossible to use soon
+            //TODO REMOVE ALL LOCAL IMPLEMENTATIONS
             setName(user);
             setPassword(pass); // Idk anywhere that the program uses password anymore
             UserController.setCurrentUserId();

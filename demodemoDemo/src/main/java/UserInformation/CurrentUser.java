@@ -26,12 +26,14 @@ public class CurrentUser {
     private static Integer weight;
     private static Integer id;
 
-    public static Integer getId() {
-        return id;
+
+    //needs to be called after successful login!
+    public static void setId(int userId) {
+        id = userId;
     }
 
-    public static void setId(Integer id) {
-        CurrentUser.id = id;
+    public static Integer getId() {
+        return id;
     }
 
 
