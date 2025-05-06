@@ -42,7 +42,7 @@ public class ClassListScene extends Scenes{
         panel.add(addTextELog());
         panel.add(addScrollClassList(frame));
         panel.add(addWorkoutButton(frame));
-        panel.add(createBackButton(frame, UserMainDash.class));
+        panel.add(createBackButton(UserMainDash.class));
 
         panel.add(Box.createVerticalGlue());
 
@@ -147,7 +147,7 @@ public class ClassListScene extends Scenes{
     private JButton addWorkoutButton(JFrame frame) {
         JButton button = new JButton("Register for New Class");
         button.addActionListener(e -> {
-            new CourseSearch(frame);
+            new CourseSearch();
         });
         return button;
     }

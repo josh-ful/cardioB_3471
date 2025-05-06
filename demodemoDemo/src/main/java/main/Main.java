@@ -84,8 +84,7 @@ public class Main {
             }
         }
         new UserController();
-        JFrame frame = new JFrame();
-        new HomeScreen(frame);
+        new HomeScreen();
 
         //when me has information stored in it
 

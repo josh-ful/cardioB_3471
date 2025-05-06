@@ -36,10 +36,9 @@ public class UserMainDash extends Scenes{
      *
      * Constructs a UserMenuScene object
      *
-     * @param frame which scene is created on
      */
-    public UserMainDash(JFrame frame) throws SQLException {
-        createUM_SCENE(frame);
+    public UserMainDash() throws SQLException {
+        createUM_SCENE();
     }
     /**
      *
@@ -78,9 +77,9 @@ public class UserMainDash extends Scenes{
      * method and adds on a menu and text
      *
      */
-    protected void createUM_SCENE(JFrame frame) throws SQLException {
+    protected void createUM_SCENE() throws SQLException {
         new UserController();
-        super.createAndShowGUI(frame);
+        super.createAndShowGUI();
         panelLayout();
 
         //welcome text
@@ -109,7 +108,7 @@ public class UserMainDash extends Scenes{
         JButton dashBtn = new JButton("Daily Metrics");
         dashBtn.addActionListener(e -> {
                     System.out.println("Clicking daily metrics tab");
-                    new UserDailyMetricsGraphs(frame);
+                    new UserDailyMetricsGraphs();
                 }
         );
 
@@ -123,14 +122,14 @@ public class UserMainDash extends Scenes{
         JButton exerciseLogBtn = new JButton("Exercise Log");
         exerciseLogBtn.addActionListener(e -> {
                     System.out.println("Clicking profile tab");
-                    new ExerciseLogScene(frame);
+                    new ExerciseLogScene();
                 }
         );
 
         JButton profileBtn = new JButton("Profile");
         profileBtn.addActionListener(e -> {
                     System.out.println("Clicking profile tab");
-                    new Profile(frame);
+                    new Profile();
                 }
         );
 
@@ -173,10 +172,9 @@ public class UserMainDash extends Scenes{
     /**
      * adds a menu to panel using getjMenu method
      *
-     * @param frame which menu is added to
      */
-    private void initMenu(JFrame frame) {
-        JMenuBar menu = getjMenu(frame);
+    private void initMenu() {
+        JMenuBar menu = getjMenu();
         constraints.gridx = 0;  // Column
         constraints.gridy = 0;  // Row
         constraints.gridwidth = 1;
@@ -191,10 +189,9 @@ public class UserMainDash extends Scenes{
      * creates menu bar which has menu items
      * which create new scenes
      *
-     * @param frame which scenes are created on
      * @return JMenuBar which holds menu items
      */
-    private static JMenuBar getjMenu(JFrame frame) {
+    private static JMenuBar getjMenu() {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu();
 
@@ -203,7 +200,7 @@ public class UserMainDash extends Scenes{
         JMenuItem profileItem = new JMenuItem("Dashboard");
         profileItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new UserDailyMetricsGraphs(frame);
+                new UserDailyMetricsGraphs();
             }
         });
         menu.add(profileItem);
@@ -219,7 +216,7 @@ public class UserMainDash extends Scenes{
         JMenuItem workoutLogItem = new JMenuItem("Personal Workout Log");
         workoutLogItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new ExerciseLogScene(frame);
+                new ExerciseLogScene();
             }
         });
         menu.add(workoutLogItem);

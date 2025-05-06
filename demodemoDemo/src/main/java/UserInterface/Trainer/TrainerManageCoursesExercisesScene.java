@@ -8,7 +8,6 @@ import UserInterface.SearchExercisesDialog;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.SQLException;
 import java.util.List;
 
 public class TrainerManageCoursesExercisesScene extends Scenes {
@@ -16,14 +15,14 @@ public class TrainerManageCoursesExercisesScene extends Scenes {
     private JPanel listContainer;
     private JScrollPane scrollPane;
 
-    public TrainerManageCoursesExercisesScene(JFrame frame, Course course) throws SQLException {
+    public TrainerManageCoursesExercisesScene(Course course) {
         this.course = course;
-        createAndShowGUI(frame);
+        createAndShowGUI();
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
         panel.removeAll();
         panel.setLayout(new BorderLayout(10, 10));
 
@@ -52,7 +51,7 @@ public class TrainerManageCoursesExercisesScene extends Scenes {
         JButton backBtn = new JButton("Back");
         backBtn.addActionListener(e -> {
             // go back to the trainer view
-                new TrainerViewClassesScene(frame);
+            new TrainerViewClassesScene();
         });
         JPanel bottomBar = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         bottomBar.add(backBtn);

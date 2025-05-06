@@ -19,8 +19,8 @@ import java.util.Map;
 
 public class TrainerController implements Controller {
 
-    public void createDashboard(JFrame frame) throws SQLException {
-        new TrainerMenuScene(frame);
+    public void createDashboard() {
+        new TrainerMenuScene();
     }
 
     //Fetches all courses records for the currently logged-in trainer.
@@ -67,7 +67,7 @@ public class TrainerController implements Controller {
             stmt.setString(5, schedule);
             stmt.executeUpdate();
 
-//            JOptionPane.showMessageDialog(null, "Class created successfully!");
+            JOptionPane.showMessageDialog(null, "Class created successfully!");
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error creating class: " + e.getMessage());
@@ -99,7 +99,7 @@ public class TrainerController implements Controller {
 
             stmt.executeUpdate();
 
-//            JOptionPane.showMessageDialog(null, "Class edited successfully!");
+            JOptionPane.showMessageDialog(null, "Class edited successfully!");
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error editing class: " + e.getMessage());

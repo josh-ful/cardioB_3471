@@ -102,7 +102,7 @@ public class UserActiveClassScene extends ActiveClassScene {
 
         JButton stopBtn = new JButton("Leave Class");
         stopBtn.addActionListener(e -> {
-            leaveClass(frame);
+            leaveClass();
         });
         south.add(stopBtn);
         panel.add(south, BorderLayout.SOUTH);
