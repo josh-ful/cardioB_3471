@@ -1,65 +1,58 @@
 package FitnessCourse;
-/*
- * this class represents a session object
- * containing information about sessions
- */
-public class Course {
-    //Should have a user controller object and know details about the user as well as user type
-    //either explicitly or implicitly through overriden constructors
 
-    private String name;
-    private String description;
-    /**
-     * Creates Session object
-     *
-     * @param name of session
-     */
-    public Course(String name) {
+public class Course {
+    String name, description, type;
+    int id, trainerId;
+
+    public Course() {
+    }
+
+    public Course(String name, String desc, String type, int id, int trainerId) {
         this.name = name;
+        this.description = desc;
+        this.type = type;
+        this.id = id;
+        this.trainerId = trainerId;
     }
-    /**
-     * Creates Session object with description
-     *
-     * @param name of session
-     * @param description of session
-     */
-    public Course(String name, String description) {
-        this(name);
-        this.description = description;
-    }
-    /**
-     * gets name of Session
-     *
-     * @return name of course
-     */
+
     public String getName() {
         return name;
     }
-    /**
-     * sets name of Session
-     *
-     * @param name of session
-     */
-    public void setName(String name) {//should be used by a controller
+
+    public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     *
-     * @return description of course
-     */
     public String getDescription() {
         return description;
     }
 
-    /**
-     * sets description
-     *
-     * @param description
-     */
     public void setDescription(String description) {
         this.description = description;
     }
 
-    //has a controller
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public int getTrainerId() {
+        return trainerId;
+    }
+
+    public void setTrainerId(int trainerId) {
+        this.trainerId = trainerId;
+    }
 }

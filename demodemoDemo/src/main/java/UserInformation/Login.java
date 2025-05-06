@@ -4,6 +4,7 @@
  */
 package UserInformation;
 
+import Controller.UserController;
 import Exceptions.IncorrectPasswordException;
 import Exceptions.UserNotFoundException;
 import main.DBConnection;
@@ -69,6 +70,8 @@ public class Login implements LoginHardCodes {
         if (success) {
             setName(user);
             setPassword(pass); // Idk anywhere that the program uses password anymore
+            UserController.setCurrentUserId();
+            System.out.println(CurrentUser.getId());
         }
 
         return success;

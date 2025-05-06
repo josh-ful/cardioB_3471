@@ -11,6 +11,7 @@ public class DBConnection implements DatabaseInfo {
     private static  String URL;
     private static final String USER = "fitnessuser";
     private static final String PASSWORD = "strongpassword123";
+    private static Connection conn;
 
     /**
      * establishes connection to the port
@@ -26,8 +27,13 @@ public class DBConnection implements DatabaseInfo {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Now, connect clearly
-            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//            System.out.println("✅ Connected to MySQL successfully!");
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            if (conn != null) {
+                System.out.println("✅ Connected to MySQL successfully!");
+            }
+            else {
+                System.out.println("Connection failed!");
+            }
 
             //TESTING ADDING USERS ✅
             //String insertSql = "INSERT INTO users (username, password) VALUES (?, ?)";
@@ -81,8 +87,18 @@ public class DBConnection implements DatabaseInfo {
      *
      * @return Connection
      */
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+    public static Connection getConnection() {
+        try {
+            if (conn.isClosed()) {
+                System.out.println("Connection closed!");
+                conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            }
+            return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Connection doesn't exist!");
+        }
+        return null;
     }
 
 }

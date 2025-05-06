@@ -53,6 +53,7 @@ import javax.swing.*;
 //Extract login and register button scenes to separate classes & link to one gui
 
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
@@ -64,22 +65,27 @@ public class Main {
      */
     public static void main(String[] args) {
         boolean sql = false;
-        DBConnection db = new DBConnection();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Use SQL server y/n: ");
         String answer = scanner.nextLine();
         if(answer.equals("y")) {
-            sql = true;
-            System.out.print("Enter your specified port (330X): ");
-            String portNumber = scanner.nextLine();
+            try {
+                sql = true;
+                do {
+                    System.out.print("Enter your specified port (33XX): ");
+                    String portNumber = scanner.nextLine();
 //            System.out.println("Connecting to " + portNumber + "...");
-            scanner.close();
+                    scanner.close();
 
-            db = new DBConnection(portNumber);
+                    new DBConnection(portNumber);
+                } while (DBConnection.getConnection().isClosed());
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         new UserController();
         JFrame frame = new JFrame();
-        HomeScreen hs = new HomeScreen(frame);
+        new HomeScreen(frame);
 
         //when me has information stored in it
 
