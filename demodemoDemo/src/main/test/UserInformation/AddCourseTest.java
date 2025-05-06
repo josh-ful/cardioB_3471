@@ -1,4 +1,4 @@
-package UserInformation;
+package UserInformationTest;
 
 import Controller.UserController;
 import Exceptions.AlreadyRegisteredException;

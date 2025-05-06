@@ -1,4 +1,4 @@
-package UserInformation;
+package UserInformationTest;
 
 public class RegisterTest {
 }
