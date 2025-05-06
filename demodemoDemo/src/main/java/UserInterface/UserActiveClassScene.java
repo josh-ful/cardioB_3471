@@ -12,9 +12,9 @@ import java.util.List;
 
 public class UserActiveClassScene extends ActiveClassScene {
     private Timer pollTimer;
-    public UserActiveClassScene(JFrame frame, Course course) {
+    public UserActiveClassScene(Course course) {
 
-        super(frame, course);
+        super(course);
         //cange the DB flag so users can join
         //TrainerController.setCourseJoinable(course.getId(), true);
         sessionID = UserController.getSessionId(course);
@@ -36,16 +36,16 @@ public class UserActiveClassScene extends ActiveClassScene {
         }
     }
 
-    private void leaveClass(JFrame frame) {
+    private void leaveClass() {
         pollTimer.stop();
         totalTimer.stop();
         exerciseTimer.stop();
-        new ClassListScene(frame);
+        new ClassListScene();
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
         panel.removeAll();
         panel.setLayout(new BorderLayout(10,10));
 

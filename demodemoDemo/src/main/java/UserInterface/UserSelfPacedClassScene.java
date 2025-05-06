@@ -10,13 +10,13 @@ import java.util.List;
 
 public class UserSelfPacedClassScene extends ActiveClassScene {
 
-    public UserSelfPacedClassScene(JFrame frame, Course course) {
-        super(frame, course);
+    public UserSelfPacedClassScene(Course course) {
+        super(course);
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
         panel.removeAll();
         panel.setLayout(new BorderLayout(10,10));
 
@@ -71,7 +71,7 @@ public class UserSelfPacedClassScene extends ActiveClassScene {
             totalTimer.stop();
             exerciseTimer.stop();
             JOptionPane.showMessageDialog(frame, "Class ended.");
-            new ClassListScene(frame);
+            new ClassListScene();
         });
         south.add(stopBtn);
 

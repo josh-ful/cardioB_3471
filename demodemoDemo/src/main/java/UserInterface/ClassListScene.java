@@ -20,20 +20,20 @@ public class ClassListScene extends Scenes{
     /**
      * Constructs a ClassListScene object
      *
-     * @param frame which scene is created on
+     *
      */
-    public ClassListScene(JFrame frame){
-        createAndShowGUI(frame);
+    public ClassListScene(){
+        createAndShowGUI();
     }
     /**
      * creates a ClassListScene using the super's createAndShowGUI
      * method and adds on a menu and text
      *
-     * @param frame which scene is created on
+     *
      */
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
         frame.setLayout(new BorderLayout());
 
         System.out.println(panel.getLayout().getClass().getSimpleName());
@@ -127,12 +127,12 @@ public class ClassListScene extends Scenes{
         JButton actionBtn = new JButton(buttonLabel);
         actionBtn.addActionListener(e -> {
             if(buttonLabel.equals("Continue")) {
-                new  UserSelfPacedClassScene(frame, course);
+                new  UserSelfPacedClassScene(course);
             }
             else if(buttonLabel.equals("Join")) {
                 System.out.println(course.getName() + " " + course.getId());
                 if(UserController.isCourseJoinable(course.getId())) {
-                    new UserActiveClassScene(frame, course);
+                    new UserActiveClassScene(course);
                 }
                 else{//class is not joinable
                     JOptionPane.showMessageDialog(frame, course.getName() + " is not joinable currently");

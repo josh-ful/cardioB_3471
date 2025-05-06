@@ -116,7 +116,7 @@ public class UserMainDash extends Scenes{
         JButton classBtn = new JButton("Classes");
         classBtn.addActionListener(e -> {
                     System.out.println("Clicking  classes tab");
-                    new ClassListScene(frame);
+                    new ClassListScene();
                 }
         );
 
@@ -211,7 +211,7 @@ public class UserMainDash extends Scenes{
         JMenuItem classItem = new JMenuItem("Classes");
         classItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new ClassListScene(frame);
+                new ClassListScene();
             }
         });
         menu.add(classItem);
