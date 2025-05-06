@@ -19,10 +19,9 @@ public class ExerciseLogScene extends Scenes{
     /**
      * Constructs a ExerciseLogScene object
      *
-     * @param frame which scene is created on
      */
-    public ExerciseLogScene(JFrame frame){
-        createAndShowGUI(frame);
+    public ExerciseLogScene(){
+        createAndShowGUI();
     }
 
 
@@ -30,11 +29,10 @@ public class ExerciseLogScene extends Scenes{
      * creates a ExerciseLogScene using the super's createAndShowGUI
      * method and adds text and a table
      *
-     * @param frame which scene is created on
      */
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
         // src/resources/testCreateExercise.csv
 
 
@@ -99,7 +97,7 @@ public class ExerciseLogScene extends Scenes{
      * @return button with back button functionality
      */
     private JButton createBackButton(JFrame frame) {
-        return createBackButton(frame, UserMainDash.class);
+        return createBackButton(UserMainDash.class);
     }
 
     /**
@@ -109,7 +107,7 @@ public class ExerciseLogScene extends Scenes{
      */
     public static void submittedNewScene(JFrame frame) {
         //refreshLogTable();
-        new ExerciseLogScene(frame);
+        new ExerciseLogScene();
     }
 
     /**

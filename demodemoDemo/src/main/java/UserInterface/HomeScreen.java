@@ -23,19 +23,18 @@ public class HomeScreen extends Scenes{
      * Constructs a HomeScreen object
      *
      */
-    public HomeScreen(JFrame frame) {
-        createAndShowGUI(frame);
+    public HomeScreen() {
+        createAndShowGUI();
     }
     /**
      * creates a HomeScreen using the super's createAndShowGUI
      * method and adds 2 buttons and an icon
      *
-     * @param frame which scenes are created on
      */
 
     // TODO: Put the GridBagConstraints inside the get<thing>Label method calls
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
 
         frame.setTitle("Trello Fellows®");
 
@@ -61,13 +60,13 @@ public class HomeScreen extends Scenes{
         c.weightx = 0.5;
         c.gridx = 0;
         c.gridy = 5;
-        frame.add(getLoginButton(frame), c);
+        frame.add(getLoginButton(), c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.weightx = 0.5;
         c.gridx = 0;
         c.gridy = 15;
-        frame.add(getRegisterButton(frame), c);
+        frame.add(getRegisterButton(), c);
 
         frame.setVisible(true);
     }
@@ -103,32 +102,30 @@ public class HomeScreen extends Scenes{
     /**
      * creates a button that leads to login scene
      *
-     * @param frame which scenes are created on
      * @return JButton that creates a login scene
      */
-    private static JButton getLoginButton(JFrame frame) {
+    private static JButton getLoginButton() {
         JButton loginButton = new JButton("Login");
         loginButton.setMaximumSize(new Dimension(100, 50));
         loginButton.setFont(new Font("Roboto", Font.BOLD, 15));
 
-        loginButton.addActionListener(al -> new LoginScene(frame));
+        loginButton.addActionListener(al -> new LoginScene());
 
         return loginButton;
     }
     /**
      * creates a button that leads to registration scene
      *
-     * @param frame which scenes are created on
      * @return JButton that creates registration scene
      */
-    private static JButton getRegisterButton(JFrame frame) {
+    private static JButton getRegisterButton() {
         JButton registerButton = new JButton("Register");
 
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerButton.setMaximumSize(new Dimension(100, 50));
         registerButton.setFont(new Font("Roboto", Font.BOLD, 15));
 
-        registerButton.addActionListener(al -> new RegisterScene(frame));
+        registerButton.addActionListener(al -> new RegisterScene());
 
         return registerButton;
     }

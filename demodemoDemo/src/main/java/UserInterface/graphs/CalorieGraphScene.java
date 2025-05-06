@@ -14,10 +14,9 @@ public class CalorieGraphScene extends Scenes {
     /**
      * constructs a CalorieGraphScene object
      *
-     * @param frame JFrame that sleep graph is created on
      */
-    public CalorieGraphScene(JFrame frame) {
-        createAndShowGUI(frame);
+    public CalorieGraphScene() {
+        createAndShowGUI();
     }
     /**
      * sets layout of panel to GridBagLayout
@@ -31,11 +30,10 @@ public class CalorieGraphScene extends Scenes {
     /**
      * creates gui of CalorieGraphScene
      *
-     * @param frame JFrame which the gui will be created on
      */
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
         panelLayout();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Calorie Graph");
@@ -56,7 +54,7 @@ public class CalorieGraphScene extends Scenes {
      * @param frame JFrame which back button is displayed on
      */
     private JButton createBackButton(JFrame frame) {
-        JButton button = super.createBackButton(frame, UserDailyMetricsGraphs.class);
+        JButton button = super.createBackButton(UserDailyMetricsGraphs.class);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;

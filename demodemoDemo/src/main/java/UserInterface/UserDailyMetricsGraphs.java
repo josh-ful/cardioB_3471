@@ -22,10 +22,9 @@ public class UserDailyMetricsGraphs extends Scenes{
     /**
      * Constructs a ProfileScreen object
      *
-     * @param frame which scene is created on
      */
-    public UserDailyMetricsGraphs(JFrame frame) {
-        createAndShowGUI(frame);
+    public UserDailyMetricsGraphs() {
+        createAndShowGUI();
     }
     /**
      * sets the panel layout to GridBagLayout and initializes
@@ -42,10 +41,9 @@ public class UserDailyMetricsGraphs extends Scenes{
      * @param
      */
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
         panelLayout();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Fitness Information");
         JLabel profilePageText = new JLabel("Today Health Info");
         profilePageText.setFont(new Font("Roboto", Font.BOLD, 30));
@@ -59,7 +57,7 @@ public class UserDailyMetricsGraphs extends Scenes{
         panel.add(createAddDailyMetric(frame), c);
         panel.add(weightGraphButton(frame), c);
         panel.add(sleepGraphButton(frame), c);
-        panel.add(calorieGraphButton(frame), c);
+        panel.add(calorieGraphButton(), c);
         panel.add(createBackButton(frame), c);
 
         frame.add(panel);
@@ -153,7 +151,7 @@ public class UserDailyMetricsGraphs extends Scenes{
         c.gridy = 4;
 
         button.addActionListener(e -> {
-            new WeightGraphScene(frame);
+            new WeightGraphScene();
         });
 
         return button;
@@ -172,7 +170,7 @@ public class UserDailyMetricsGraphs extends Scenes{
         c.gridy = 5;
 
         button.addActionListener(e -> {
-            new SleepGraphScene(frame);
+            new SleepGraphScene();
         });
 
         return button;
@@ -180,17 +178,16 @@ public class UserDailyMetricsGraphs extends Scenes{
     /**
      * creates button to load and display previous scene
      *
-     * @param frame which scene is created on
      * @return JButton with back button functionality
      */
-    private JButton calorieGraphButton(JFrame frame) {
+    private JButton calorieGraphButton() {
         JButton button = new JButton("Calorie Graph");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 6;
 
         button.addActionListener(e -> {
-            new CalorieGraphScene(frame);
+            new CalorieGraphScene();
         });
 
         return button;
@@ -201,7 +198,7 @@ public class UserDailyMetricsGraphs extends Scenes{
      * @param frame JFrame which back button is added on
      */
     private JButton createBackButton(JFrame frame) {
-        JButton button = super.createBackButton(frame, UserMainDash.class);
+        JButton button = super.createBackButton(UserMainDash.class);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -213,12 +210,11 @@ public class UserDailyMetricsGraphs extends Scenes{
     /**
      * creates a new profileScreen
      *
-     * @param frame which scene is created on
      *
      */
-    public static void submittedNewScene(JFrame frame) {
+    public static void submittedNewScene() {
         //refreshLogTable();
-        new UserDailyMetricsGraphs(frame);
+        new UserDailyMetricsGraphs();
     }
 
 

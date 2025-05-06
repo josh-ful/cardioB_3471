@@ -12,8 +12,8 @@ public class Profile extends Scenes{
     private static JPanel metricsPanel;
     GridBagConstraints c;
 
-    public Profile(JFrame frame) {
-        createAndShowGUI(frame);
+    public Profile() {
+        createAndShowGUI();
     }
 
     @Override
@@ -24,8 +24,8 @@ public class Profile extends Scenes{
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
         //frame.setLocationRelativeTo(frame);
         panelLayout();
 
@@ -155,7 +155,7 @@ public class Profile extends Scenes{
 
         btnLogout.addActionListener(e->{
             Controller.destroyCurrentUser();
-            new HomeScreen(frame);
+            new HomeScreen();
         });
 
         return btnLogout;

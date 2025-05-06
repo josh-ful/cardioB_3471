@@ -25,14 +25,13 @@ public class AddExerciseDialog{
      * @param frame which scene is created on
      */
     public AddExerciseDialog(JFrame frame) {
-        createAndShowGUI(frame);
+        createAndShowGUI();
     }
     /**
      * creates a AddExerciseDialog with specific size and texts with buttons
      *
-     * @param frame which scene is created on
      */
-    protected void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI() {
         JFrame.setDefaultLookAndFeelDecorated(true);
         newFrame = new JFrame("Enter exercise Information");
 
@@ -48,7 +47,7 @@ public class AddExerciseDialog{
         panel.add(nameField);
         panel.add(getExDescriptionLabel());
         panel.add(descriptionField);
-        panel.add(getSubmitButton(frame));
+        panel.add(getSubmitButton());
 
         newFrame.add(panel);
         newFrame.pack();
@@ -72,10 +71,9 @@ public class AddExerciseDialog{
     }
     /**
      * gets button that submits information of exercise to list
-     * @param frame which scene is created on
      * @return button that submits information to storage
      */
-    private JButton getSubmitButton(JFrame frame) {
+    private JButton getSubmitButton() {
         JButton submit = new JButton("Submit");
         submit.addActionListener(e -> {
                 UserController.addExercise(nameField.getText(), descriptionField.getText());

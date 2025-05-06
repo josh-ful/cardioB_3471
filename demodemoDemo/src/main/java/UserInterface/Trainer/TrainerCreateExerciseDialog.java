@@ -59,7 +59,7 @@ public class TrainerCreateExerciseDialog extends JDialog {
             TrainerController.addExerciseToCourse(course.getId(), name, desc, nextIndex);
             JOptionPane.showMessageDialog(this, "Exercise added successfully!");
             dispose();
-            new TrainerManageCoursesExercisesScene((JFrame)getParent(), course);
+            new TrainerManageCoursesExercisesScene(course);
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this,

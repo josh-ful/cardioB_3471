@@ -15,24 +15,22 @@ public class LoginScene extends LR_Scenes {
     /**
      * Constructs a LoginScene object
      *
-     * @param frame which scene is created on
      */
-    public LoginScene(JFrame frame) {
-        super.createLR_SCENE(frame);
+    public LoginScene() {
+        super.createLR_SCENE();
 
-        panel.add(getConfirmLoginButton(frame, username, password), BorderLayout.SOUTH);
+        panel.add(getConfirmLoginButton(username, password), BorderLayout.SOUTH);
         panel.add(getResetPasswordBtn());
-        panel.add(getBackButton(frame), BorderLayout.AFTER_LAST_LINE);
+        panel.add(getBackButton(), BorderLayout.AFTER_LAST_LINE);
     }
 
     /**
      * Constructs a LoginScene object
      *
-     * @param frame JFrame frame which scene is created on
      * @param username JTextField field to input username
      * @param password JPasswordField field to input password
      */
-    private static JButton getConfirmLoginButton(JFrame frame, JTextField username, JPasswordField password) {
+    private static JButton getConfirmLoginButton(JTextField username, JPasswordField password) {
         JButton loginButton = new JButton("Login");
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginButton.setMaximumSize(new Dimension(400, 30));
@@ -54,7 +52,7 @@ public class LoginScene extends LR_Scenes {
 
                 if (success){
                     try {
-                        CurrentUser.controller.createDashboard(frame);
+                        CurrentUser.controller.createDashboard();
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }

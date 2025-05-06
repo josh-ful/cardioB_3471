@@ -10,8 +10,8 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 
 public class TrainerActiveClassScene extends ActiveClassScene {
-    public TrainerActiveClassScene(JFrame frame, Course course) {
-        super(frame, course);
+    public TrainerActiveClassScene(Course course) {
+        super(course);
         //cange the DB flag so users can join
         TrainerController.setCourseJoinable(course.getId(), true);
         sessionID = TrainerController.startCourseSession(course.getId(),course.getName());
@@ -19,8 +19,8 @@ public class TrainerActiveClassScene extends ActiveClassScene {
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
         panel.removeAll();
         panel.setLayout(new BorderLayout(10,10));
 
@@ -79,7 +79,7 @@ public class TrainerActiveClassScene extends ActiveClassScene {
             TrainerController.setCourseJoinable(course.getId(), false);
             TrainerController.endCourseSession(sessionID);
             JOptionPane.showMessageDialog(frame, "Class ended.");
-            new TrainerMenuScene(frame);
+            new TrainerMenuScene();
         });
         south.add(stopBtn);
 

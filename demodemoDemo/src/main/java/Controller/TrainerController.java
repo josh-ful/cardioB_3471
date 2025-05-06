@@ -19,8 +19,8 @@ import java.util.Map;
 
 public class TrainerController implements Controller {
 
-    public void createDashboard(JFrame frame) {
-        new TrainerMenuScene(frame);
+    public void createDashboard() {
+        new TrainerMenuScene();
     }
 
     //Fetches all courses records for the currently logged-in trainer.

@@ -32,7 +32,9 @@ public class Scenes {
     public static final int FRAME_H = FRAME_DIM.height;
 
     protected Scenes() {
-        frame = new JFrame();
+        if (frame == null) {
+            frame = new JFrame();
+        }
     }
     /**
      * creates a new GUI by repainting and removing the content
@@ -42,6 +44,7 @@ public class Scenes {
      */
     protected void createAndShowGUI() {
         panel = new JPanel();
+//        frame = new JFrame();
         frame.setLayout(new FlowLayout());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,7 +69,7 @@ public class Scenes {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     }
 
-    protected JButton createBackButton(JFrame frame, Class<? extends Scenes> scene) throws RuntimeException {
+    protected JButton createBackButton(Class<? extends Scenes> scene) throws RuntimeException {
 
         JButton button = new JButton("Back");
         button.addActionListener(e -> {
@@ -94,17 +97,17 @@ public class Scenes {
 
         menuItem.addActionListener(e -> {
             try {
-                CurrentUser.controller.createDashboard(frame);
+                CurrentUser.controller.createDashboard();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
         });
         menuItem2.addActionListener(e -> {
-            new Profile(frame);
+            new Profile();
         });
         menuItem3.addActionListener(e -> {
             Controller.destroyCurrentUser();
-            new HomeScreen(frame);
+            new HomeScreen();
         });
 
         menu.add(menuItem);

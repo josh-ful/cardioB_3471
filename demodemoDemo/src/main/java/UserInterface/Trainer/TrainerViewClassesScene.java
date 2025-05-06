@@ -17,13 +17,13 @@ public class TrainerViewClassesScene extends Scenes {
     private JPanel listContainer;
     private JScrollPane scrollPane;
 
-    public TrainerViewClassesScene(JFrame frame) {
-        createAndShowGUI(frame);
+    public TrainerViewClassesScene() {
+        createAndShowGUI();
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
         panel.removeAll();
         panel.setLayout(new BorderLayout(10, 10));
 
@@ -124,7 +124,7 @@ public class TrainerViewClassesScene extends Scenes {
             // open a new scene in the same frame
             JFrame owner = (JFrame) SwingUtilities.getWindowAncestor(row);
             System.out.println("Clicking exercises button");
-            new TrainerManageCoursesExercisesScene(owner, cls);
+            new TrainerManageCoursesExercisesScene(cls);
         });
         buttonPanel.add(exercisesBtn);
         row.add(buttonPanel, BorderLayout.EAST);

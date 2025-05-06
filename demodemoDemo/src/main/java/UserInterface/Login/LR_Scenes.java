@@ -12,10 +12,9 @@ public class LR_Scenes extends Scenes {
     /**
      * Constructs a RegisterScene object
      *
-     * @param frame which scene is created on
      */
-    public void createLR_SCENE(JFrame frame) {
-        super.createAndShowGUI(frame);
+    public void createLR_SCENE() {
+        super.createAndShowGUI();
 
         username = new JTextField(20);
         password = new JPasswordField(20);
@@ -47,11 +46,10 @@ public class LR_Scenes extends Scenes {
     /**
      * adds button leading to previous scene
      *
-     * @param frame which scene is created on
      * @return button with back button functionality
      */
-    public JButton getBackButton(JFrame frame) {
-        JButton backButton = createBackButton(frame, HomeScreen.class);
+    public JButton getBackButton() {
+        JButton backButton = createBackButton(HomeScreen.class);
 
         backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         backButton.setMaximumSize(new Dimension(Scenes.FRAME_W, 50));

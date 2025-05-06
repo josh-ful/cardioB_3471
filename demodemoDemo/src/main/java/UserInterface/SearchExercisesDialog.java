@@ -73,6 +73,6 @@ public class SearchExercisesDialog extends JDialog {
         TrainerController.linkExistingExerciseToCourse(course.getId(), selected.getId(), nextIndex);
         JOptionPane.showMessageDialog(this, "Exercise linked successfully!");
         dispose();
-        new TrainerManageCoursesExercisesScene((JFrame)getParent(), course);
+        new TrainerManageCoursesExercisesScene(course);
     }
 }
