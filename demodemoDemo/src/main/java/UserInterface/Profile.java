@@ -37,11 +37,12 @@ public class Profile extends Scenes{
         panel.add(metricsPanel, BorderLayout.CENTER);
 
         //buttons
-        panel.add(makeButtonBar(frame), BorderLayout.SOUTH);
+        panel.add(makeButtonBar1(frame), BorderLayout.SOUTH);
 
         frame.setContentPane(panel);
         frame.pack();
-        frame.setLocationRelativeTo(null);
+        frame.setSize(FRAME_DIM);
+        frame.setLocationRelativeTo(frame);
         frame.revalidate();
         frame.repaint();
     }
@@ -49,7 +50,7 @@ public class Profile extends Scenes{
     private JPanel makeUserInfoPanel() {
         JPanel info = new JPanel(new GridLayout(0, 2, 10, 10));
         info.setBorder(
-                BorderFactory.createTitledBorder("Profile Information")
+            BorderFactory.createTitledBorder("Profile Information")
         );
 
         info.add(new JLabel("Username:"));
@@ -66,6 +67,8 @@ public class Profile extends Scenes{
 
         info.add(new JLabel("Email:"));
         info.add(new JLabel(CurrentUser.getEmail()));
+
+        info.add(getEditOnboardingBtn());
 
         return info;
     }
@@ -85,7 +88,7 @@ public class Profile extends Scenes{
 
         JPanel box = new JPanel(new BorderLayout());
         box.setBorder(
-                BorderFactory.createTitledBorder("This Week: Current vs. Goal")
+            BorderFactory.createTitledBorder("This Week: Current vs. Goal")
         );
 
         String[] cols = { "", "Current", "Goal" };
@@ -103,13 +106,13 @@ public class Profile extends Scenes{
         return box;
     }
 
-    private JPanel makeButtonBar(JFrame frame) {
+    private JPanel makeButtonBar1(JFrame frame) {
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
 
         buttons.add(getGoalsBtn(frame));
-        buttons.add(getEditOnboardingBtn());
         buttons.add(getResetPasswordBtn());
         buttons.add(getLogoutBtn(frame));
+        buttons.add(createBackButton(frame, UserMainDash.class));
 
         return buttons;
     }
@@ -160,6 +163,7 @@ public class Profile extends Scenes{
 
         return btnLogout;
     }
+
     public void addRow(JPanel panel, Component comp, int row, int col) {
         c = new GridBagConstraints();
         c.gridx = col;

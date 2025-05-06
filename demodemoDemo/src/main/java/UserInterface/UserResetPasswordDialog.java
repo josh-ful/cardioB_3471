@@ -96,10 +96,10 @@ public class UserResetPasswordDialog extends JDialog {
                 int confirm = JOptionPane.showConfirmDialog(null,
                         "Are you sure you want to reset your password?");
                 if (confirm == JOptionPane.YES_OPTION) {
-                    UserQuery.changePassword(username.getText(), newPasswordField.toString());
+                    UserQuery.changePassword(username.getText(), Arrays.toString(newPasswordField.getPassword()));
                     JOptionPane.showMessageDialog(UserResetPasswordDialog.this, "Password changed successfully");
                 }
-
+                
                 dispose();
             }catch(UserNotFoundException | IncorrectSecurityAnswer |
                    IncorrectSecurityQuestion | IncorrectPasswordException ex){

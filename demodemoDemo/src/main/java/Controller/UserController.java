@@ -463,10 +463,9 @@ public class UserController implements Controller {
         return 0.0;
     }
 
-    public static void addDailyMetric(Double w, Double s, Double c, Double wkt) throws SQLException {
-        LocalDate d = LocalDate.now();
+    public static void addDailyMetric(Double w, Double s, Double c, Double wkt, LocalDate d) throws SQLException {
         DailyMetric dm = new DailyMetric(w, s, c, wkt, d);
 
-        DailyMetricDAO.addDMtoDB(dm, getUserId());
+        DailyMetricDAO.updateDailyMetrics(dm);
     }
 }

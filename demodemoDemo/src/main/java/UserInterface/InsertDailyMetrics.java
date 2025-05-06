@@ -2,6 +2,7 @@ package UserInterface;
 
 import Controller.UserController;
 import UserInformation.CurrentUser;
+import UserInformation.DailyMetrics.DailyMetric;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,7 +48,7 @@ public class InsertDailyMetrics extends JDialog {
         addRow(panel, caloriesField, 3, 1);
         addRow(panel, new JLabel("Workout (min/day):"), 4, 0);
         addRow(panel, workoutField, 4, 1);
-        addRow(panel, new JLabel("Date (dd/MM/yyyy):"), 5, 0);
+        addRow(panel, new JLabel("Date (yyyy-mm-dd):"), 5, 0);
         addRow(panel, dateField, 5, 1);
 
         add(panel);
@@ -68,15 +69,19 @@ public class InsertDailyMetrics extends JDialog {
                 s = Double.parseDouble(sleepField.getText());
                 c = Double.parseDouble(caloriesField.getText());
                 wkt = Double.parseDouble(workoutField.getText());
+                LocalDate date = LocalDate.parse(dateField.getText());
 
-                UserController.addDailyMetric(w, s, c, wkt);
+                UserController.addDailyMetric(w, s, c, wkt, date);
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Please enter valid numbers…");
-            } catch (SQLException ex){
+            } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(InsertDailyMetrics.this,
-                    "Could not save goals:\n" + ex.getMessage(),
-                    "Save Failed", JOptionPane.ERROR_MESSAGE);
+                        "Could not save daily metrics:\n" + ex.getMessage(),
+                        "Save Failed", JOptionPane.ERROR_MESSAGE);
             }
+            JOptionPane.showMessageDialog(InsertDailyMetrics.this,
+                    "Successfully saved daily metrics");
+            dispose();
         });
 
         return save;

@@ -19,13 +19,16 @@ import java.util.List;
  */
 public class DailyMetricDAO {
     private final DataSource ds;
-    public DailyMetricDAO(DataSource ds) { this.ds = ds; }
+
+    public DailyMetricDAO(DataSource ds) {
+        this.ds = ds;
+    }
 
     /**
      * Fetches all non-null daily metrics of a specific type for a user, ordered by date.
      * Assumes daily_metrics has columns: user_id, metric_date, weight, sleep, calories, wktduration.
      *
-     * @param type   the metric type to fetch
+     * @param type the metric type to fetch
      * @return list of DailyMetric objects
      * @throws SQLException if a database access error occurs
      */
@@ -36,7 +39,7 @@ public class DailyMetricDAO {
         List<Point> metrics = new ArrayList<>();
 
         try (Connection conn = DBConnection.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, UserController.getUserId());
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -141,10 +144,9 @@ public class DailyMetricDAO {
         CurrentUser.setAvgWorkout(val);
     }
 
-    //TODO update or insert??
-    public static void updateDailyMetrics(LocalDate date, Double weight, Double sleep, Double calories, Double wktDuration) {
+    public static void updateDailyMetrics(DailyMetric dm) throws SQLException {
         String sql = """
-            INSERT INTO daily_metrics
+                INSERT INTO daily_metrics
                (user_id, metric_date, weight, sleep, calories, wktduration)
             VALUES (?, ?, ?,     ?,     ?,        ?)
             ON DUPLICATE KEY UPDATE
@@ -156,31 +158,24 @@ public class DailyMetricDAO {
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement p = conn.prepareStatement(sql)) {
+
             p.setInt(1, UserController.getUserId());
-            p.setDate(2, Date.valueOf(date));
-            if (weight   != null) p.setDouble(3, weight);   else p.setNull(3, java.sql.Types.DOUBLE);
-            if (sleep    != null) p.setDouble(4, sleep);    else p.setNull(4, java.sql.Types.DOUBLE);
-            if (calories != null) p.setDouble(5, calories); else p.setNull(5, java.sql.Types.DOUBLE);
-            if (wktDuration != null) p.setDouble(6, wktDuration); else p.setNull(6, java.sql.Types.DOUBLE);
+            p.setDate(2, Date.valueOf(dm.getDate()));
+
+            if (dm.getW()   != null) p.setDouble(3, dm.getW());
+            else p.setNull(3, java.sql.Types.DOUBLE); if (dm.getS()   != null) p.setDouble(4, dm.getS());
+            else p.setNull(4, java.sql.Types.DOUBLE);
+
+            if (dm.getC( )   != null) p.setDouble(5, dm.getC());
+            else p.setNull(5, java.sql.Types.DOUBLE);
+
+            if (dm.getWkt() != null) p.setDouble(6, dm.getWkt());
+            else p.setNull(6, java.sql.Types.DOUBLE);
 
             p.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null,
-                    "Error updating daily metrics: " + ex.getMessage(),
-                    "Database Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    public static void addDMtoDB(DailyMetric dm, int id) throws SQLException {
-        String insert = "";
-
-        try (Connection c = DBConnection.getConnection()){
-
-
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage() + "error adding dm to db");
+            throw new SQLException(ex.getMessage());
         }
     }
 }
