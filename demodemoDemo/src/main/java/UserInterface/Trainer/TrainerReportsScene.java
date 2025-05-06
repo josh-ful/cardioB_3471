@@ -1,11 +1,11 @@
-package UserInterface;
+package UserInterface.Trainer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import FitnessCourse.Course;
 import Controller.TrainerController;
-import UserInformation.CurrentUser;
+import UserInterface.Scenes;
 
 
 public class TrainerReportsScene extends Scenes {

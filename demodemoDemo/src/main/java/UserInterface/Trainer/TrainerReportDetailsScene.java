@@ -1,11 +1,11 @@
-package UserInterface;
+package UserInterface.Trainer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 import FitnessCourse.Course;
 import Controller.TrainerController;
-import UserInformation.CurrentUser;
+import UserInterface.Scenes;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

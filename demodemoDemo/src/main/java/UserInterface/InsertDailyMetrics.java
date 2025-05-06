@@ -13,35 +13,49 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class InsertDailyMetrics extends JDialog {
-    private final JTextField weightField   = new JTextField(6);
-    private final JTextField sleepField    = new JTextField(6);
-    private final JTextField caloriesField = new JTextField(6);
-    private final JTextField workoutField  = new JTextField(6);
-    private final JTextField dateField = new JTextField(10);
+    GridBagConstraints c;
 
+    private final JTextField weightField;
+    private final JTextField sleepField;
+    private final JTextField caloriesField;
+    private final JTextField workoutField;
+    private final JTextField dateField;
 
     public InsertDailyMetrics(Frame owner) {
-        super(owner, "Set Your Weekly Goals", true);
-        setLayout(new BorderLayout(10,10));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JPanel grid = new JPanel(new GridLayout(4,2,10,10));
-        grid.add(new JLabel("Weight (lbs):"));
-        grid.add(weightField);
-        grid.add(new JLabel("Sleep (hrs/day):"));
-        grid.add(sleepField);
-        grid.add(new JLabel("Calories/day:"));
-        grid.add(caloriesField);
-        grid.add(new JLabel("Workout (min/day):"));
-        grid.add(workoutField);
-        grid.add(new JLabel("Date (dd/MM/yyyy):"));
-        grid.add(dateField);
+        setTitle("Add daily metrics");
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        c = new GridBagConstraints();
 
-        add(grid, BorderLayout.CENTER);
+        JLabel instructionsLbl = new JLabel("Add your daily metrics here. " +
+                "Any field left blank will not be inserted");
+
+        weightField   = new JTextField(6);
+        sleepField    = new JTextField(6);
+        caloriesField = new JTextField(6);
+        workoutField  = new JTextField(6);
+        dateField = new JTextField(10);
+
+        addRow(panel, instructionsLbl, 0, 0);
+        addRow(panel, new JLabel("Weight (lbs):"), 1, 0);
+        addRow(panel, weightField, 1, 1);
+        addRow(panel, new JLabel("Sleep (hrs/day):"), 2, 0);
+        addRow(panel, sleepField, 2, 1);
+        addRow(panel, new JLabel("Calories/day:"), 3, 0);
+        addRow(panel, caloriesField, 3, 1);
+        addRow(panel, new JLabel("Workout (min/day):"), 4, 0);
+        addRow(panel, workoutField, 4, 1);
+        addRow(panel, new JLabel("Date (dd/MM/yyyy):"), 5, 0);
+        addRow(panel, dateField, 5, 1);
+
+        add(panel);
         add(getSaveBtn(), BorderLayout.SOUTH);
 
         pack();
         setLocationRelativeTo(owner);
+        setVisible(true);
     }
 
     private JButton getSaveBtn(){
@@ -58,16 +72,29 @@ public class InsertDailyMetrics extends JDialog {
                 UserController.addDailyMetric(w, s, c, wkt);
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Please enter valid numbers…");
-                return;
+            } catch (SQLException ex){
+                JOptionPane.showMessageDialog(InsertDailyMetrics.this,
+                    "Could not save goals:\n" + ex.getMessage(),
+                    "Save Failed", JOptionPane.ERROR_MESSAGE);
             }
-//            catch (SQLException ex){
-//                JOptionPane.showMessageDialog(InsertDailyMetrics.this,
-//                    "Could not save goals:\n" + ex.getMessage(),
-//                    "Save Failed", JOptionPane.ERROR_MESSAGE);
-//            }
         });
 
         return save;
     }
 
+    public void addRow(JPanel panel, Component comp, int row, int col) {
+        c = new GridBagConstraints();
+        c.gridx = col;
+        c.gridy = row;
+        c.insets = new Insets(5, 5, 5, 5);
+        c.anchor = GridBagConstraints.WEST;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        if(col == 1){
+            c.weightx = 1.0;
+        }
+        else{
+            c.weightx = 0.0;
+        }
+        panel.add(comp, c);
+    }
 }

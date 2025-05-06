@@ -3,6 +3,8 @@ package UserInterface;
 import FitnessCourse.Course;
 import FitnessCourse.Exercise;
 import Controller.TrainerController;
+import UserInterface.Trainer.TrainerManageCoursesExercisesScene;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;

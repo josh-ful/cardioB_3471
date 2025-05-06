@@ -19,11 +19,10 @@ public class OnboardingDialog extends JDialog {
     static JTextField txtSecurityAnswer;
 
     public OnboardingDialog(boolean editOnboarding) {
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         setTitle("Onboarding");
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         c = new GridBagConstraints();

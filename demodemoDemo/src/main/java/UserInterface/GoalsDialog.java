@@ -66,9 +66,7 @@ public class GoalsDialog extends JDialog {
                 double wkt = Double.parseDouble(workoutField.getText());
 
                 // go to the DB
-                UserController.updateUserGoals(
-                        CurrentUser.getId(), w, s, c, wkt
-                );
+                UserController.updateUserGoals(w, s, c, wkt);
                 return null;
             }
 

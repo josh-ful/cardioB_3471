@@ -10,15 +10,14 @@ import UserInterface.UserMainDash;
 import UserInterface.addExercise.ExerciseLogHelper;
 import UserInterface.addExercise.ExerciseLogHelperCSV;
 import UserInterface.addExercise.ExerciseLogHelperSQL;
+import UserInformation.DailyMetrics.*;
 import main.DBConnection;
 
 import main.DatabaseInfo;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -320,7 +319,6 @@ public class UserController implements Controller {
         return list;
     }
 
-
     public static void setUserAsJoined(int sessionId) {
         String sql = "UPDATE active_courses SET total_joined = total_joined + 1 WHERE session_id = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -366,7 +364,6 @@ public class UserController implements Controller {
         }
     }
 
-
     public static String getCurrentExerciseName(int courseId) {
         String sql = "SELECT current_exercise FROM active_courses WHERE course_id = ?";
         String exerciseName = "";
@@ -394,112 +391,7 @@ public class UserController implements Controller {
         return exerciseName;
     }
 
-    private static final String GET_LATEST = ""
-            + "SELECT ? "
-            + "  FROM daily_metrics "
-            + " WHERE user_id = ? "
-            + "   AND metric_type = ? "
-            + " ORDER BY date DESC "
-            + " LIMIT 1";
-
-    private static final String GET_AVG = ""
-            + "SELECT AVG(?) AS avg_val "
-            + "  FROM daily_metrics "
-            + " WHERE user_id = ? "
-            + "   AND metric_type = ? "
-            + "   AND date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)";
-
-
-    private static double fetchSingle(MetricTypes mt) {
-        try (Connection c = DBConnection.getConnection();
-             PreparedStatement ps = c.prepareStatement(GET_LATEST)) {
-            ps.setString(1, mt.toString());
-            ps.setInt(2, getUserId());
-
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getDouble("metric_value");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0.0;
-    }
-
-    private static double fetchAverage(MetricTypes mt) {
-        try (Connection c = DBConnection.getConnection();
-             PreparedStatement ps = c.prepareStatement(GET_AVG)) {
-            ps.setString(1, mt.toString());
-            ps.setInt(2, getUserId());
-
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getDouble("avg_val");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0.0;
-    }
-
-    public static void getCurrentWeight() {
-        double val = fetchSingle(MetricTypes.WEIGHT);
-        CurrentUser.setCurrentWeight(val);
-    }
-
-    public static void getAvgSleep() {
-        CurrentUser.setAvgSleep(0.0);
-        double val = fetchAverage(MetricTypes.SLEEP);
-        CurrentUser.setAvgSleep(val);
-    }
-
-    public static void getAvgCalories() {
-        CurrentUser.setAvgCalories(0.0);
-        double val = fetchAverage(MetricTypes.CALORIES);
-        CurrentUser.setAvgCalories(val);
-    }
-
-    public static void getAvgWorkoutDur() {
-        CurrentUser.setAvgWorkout(0.0);
-        double val = fetchAverage(MetricTypes.WKTDURATION);
-        CurrentUser.setAvgWorkout(val);
-    }
-
-    public static void updateDailyMetrics(int userId, LocalDate date, Double weight, Double sleep, Double calories, Double wktDuration) {
-        String sql = """
-            INSERT INTO daily_metrics
-               (user_id, metric_date, weight, sleep, calories, wktduration)
-            VALUES (?, ?, ?,     ?,     ?,        ?)
-            ON DUPLICATE KEY UPDATE
-              weight      = VALUES(weight),
-              sleep       = VALUES(sleep),
-              calories    = VALUES(calories),
-              wktduration = VALUES(wktduration)
-            """;
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement p = conn.prepareStatement(sql)) {
-            p.setInt(1, userId);
-            p.setDate(2, Date.valueOf(date));
-            if (weight   != null) p.setDouble(3, weight);   else p.setNull(3, java.sql.Types.DOUBLE);
-            if (sleep    != null) p.setDouble(4, sleep);    else p.setNull(4, java.sql.Types.DOUBLE);
-            if (calories != null) p.setDouble(5, calories); else p.setNull(5, java.sql.Types.DOUBLE);
-            if (wktDuration != null) p.setDouble(6, wktDuration); else p.setNull(6, java.sql.Types.DOUBLE);
-
-            p.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null,
-                    "Error updating daily metrics: " + ex.getMessage(),
-                    "Database Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-
-    public static void updateUserGoals(int userId, double weightGoal, double sleepGoal, double caloriesGoal, double workoutGoal) {
+    public static void updateUserGoals(double weightGoal, double sleepGoal, double caloriesGoal, double workoutGoal) {
         String sql = """
     INSERT INTO user_goals
       (user_id, weight_goal, avg_sleep_goal, avg_calories_goal, avg_workout_goal)
@@ -518,7 +410,7 @@ public class UserController implements Controller {
         try (Connection c = DBConnection.getConnection();
              PreparedStatement p = c.prepareStatement(sql)) {
 
-            p.setInt(1, userId);
+            p.setInt(1, getUserId());
             p.setDouble(2, weightGoal);
             p.setDouble(3, sleepGoal);
             p.setDouble(4, caloriesGoal);
@@ -532,7 +424,7 @@ public class UserController implements Controller {
         }
     }
 
-    public static double getUserGoal(int userId, String goalType) {
+    public static double getUserGoal(String goalType) {
         String column;
         switch (goalType.toLowerCase()) {
             case "weight":
@@ -555,7 +447,7 @@ public class UserController implements Controller {
         try ( Connection conn = DBConnection.getConnection();
               PreparedStatement ps = conn.prepareStatement(sql) ) {
 
-            ps.setInt(1, userId);
+            ps.setInt(1, getUserId());
             try ( ResultSet rs = ps.executeQuery() ) {
                 if (rs.next()) {
                     return rs.getDouble(column);
@@ -571,12 +463,10 @@ public class UserController implements Controller {
         return 0.0;
     }
 
-    public static void addDailyMetric(Double w, Double s, Double c, Double wkt){
+    public static void addDailyMetric(Double w, Double s, Double c, Double wkt) throws SQLException {
         LocalDate d = LocalDate.now();
         DailyMetric dm = new DailyMetric(w, s, c, wkt, d);
 
-        //TODO add to db
-        //TODO add to user
+        DailyMetricDAO.addDMtoDB(dm, getUserId());
     }
-
 }

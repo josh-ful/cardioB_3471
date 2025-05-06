@@ -1,13 +1,13 @@
-package UserInterface;
+package UserInterface.Trainer;
 
 import Controller.TrainerController;
 import FitnessCourse.Course;
 import FitnessCourse.CourseExercise;
+import UserInterface.ActiveClassScene;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.util.List;
 
 public class TrainerActiveClassScene extends ActiveClassScene {
     public TrainerActiveClassScene(JFrame frame, Course course) {

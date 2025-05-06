@@ -6,12 +6,10 @@ import javax.swing.*;
 import FitnessCourse.Course;
 import FitnessCourse.CourseExercise;
 import FitnessCourse.Exercise;
-import UserInterface.*;
 import UserInformation.CurrentUser;
 import main.DBConnection;
-import UserInterface.TrainerMenuScene;
-import javax.swing.*;
-import java.awt.event.ActionListener;
+import UserInterface.Trainer.TrainerMenuScene;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ import java.util.Map;
 public class TrainerController implements Controller {
 
     public void createDashboard(JFrame frame) {
-        new UserInterface.TrainerMenuScene(frame);
+        new TrainerMenuScene(frame);
     }
 
     //Fetches all courses records for the currently logged-in trainer.

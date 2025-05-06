@@ -9,7 +9,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.List;
 
-abstract class ActiveClassScene extends Scenes {
+abstract public class ActiveClassScene extends Scenes {
     protected final Course course;
     protected final List<CourseExercise> exercises;
     protected int sessionID;

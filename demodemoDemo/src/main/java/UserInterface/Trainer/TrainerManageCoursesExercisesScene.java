@@ -1,8 +1,10 @@
-package UserInterface;
+package UserInterface.Trainer;
 
 import Controller.TrainerController;
 import FitnessCourse.Course;
 import FitnessCourse.CourseExercise;
+import UserInterface.Scenes;
+import UserInterface.SearchExercisesDialog;
 
 import javax.swing.*;
 import java.awt.*;

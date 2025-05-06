@@ -1,4 +1,4 @@
-package UserInterface;
+package UserInterface.Trainer;
 
 import Controller.TrainerController;
 

@@ -1,4 +1,4 @@
-package UserInterface;
+package UserInterface.Admin;
 
 import main.DBConnection;
 import org.mindrot.jbcrypt.BCrypt;

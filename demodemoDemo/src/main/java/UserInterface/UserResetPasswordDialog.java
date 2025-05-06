@@ -8,6 +8,7 @@ import UserInformation.UserQuery;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 import static UserInformation.SecurityQuestions.securityQuestions;
 
@@ -52,8 +53,10 @@ public class UserResetPasswordDialog extends JDialog {
         addRow(panel, new JLabel("Username:"), row++);
         addRow(panel, username, row++);
         addRow(panel, new JLabel("Security Question:"), row++);
-        addRow(panel, securityAnswer, row++);
+        addRow(panel, securityQuestion, row++);
         addRow(panel, new JLabel("Security Answer:"), row++);
+        addRow(panel, securityAnswer, row++);
+        addRow(panel, new JLabel("New Password:"), row++);
         addRow(panel, newPasswordField, row++);
         addRow(panel, new JLabel("Confirm New Password:"), row++);
         addRow(panel, newPasswordField2, row++);
@@ -86,7 +89,7 @@ public class UserResetPasswordDialog extends JDialog {
                     throw new IncorrectSecurityAnswer("Answer to the security question is incorrect");
                 } else if (newPasswordField2.getPassword().length == 0) {
                     throw new IncorrectPasswordException("New password cannot be empty");
-                } else if (!(newPasswordField.toString().equals(newPasswordField2.toString()))) {
+                } else if (!(Arrays.equals(newPasswordField.getPassword(), newPasswordField2.getPassword()))) {
                     throw new IncorrectPasswordException("Passwords do not match");
                 }
 

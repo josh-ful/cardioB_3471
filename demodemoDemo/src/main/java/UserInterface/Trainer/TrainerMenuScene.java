@@ -1,10 +1,11 @@
-package UserInterface;
+package UserInterface.Trainer;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import UserInformation.CurrentUser;
+import UserInterface.Scenes;
 
 public class TrainerMenuScene extends Scenes {
 

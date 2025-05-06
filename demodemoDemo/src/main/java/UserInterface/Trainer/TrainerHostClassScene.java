@@ -1,7 +1,8 @@
-package UserInterface;
+package UserInterface.Trainer;
 
 import Controller.TrainerController;
 import FitnessCourse.Course;
+import UserInterface.Scenes;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

@@ -4,11 +4,11 @@
 package UserInterface;
 
 import UserInformation.CurrentUser;
-import UserInterface.addExercise.AddWeightDialog;
+//import UserInterface.addExercise.AddWeightDialog;
 import UserInterface.graphs.CalorieGraphScene;
 import UserInterface.graphs.SleepGraphScene;
 import UserInterface.graphs.WeightGraphScene;
-import UserInterface.MetricTypes;
+import UserInformation.DailyMetrics.MetricTypes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,8 +47,8 @@ public class UserDailyMetricsGraphs extends Scenes{
         panelLayout();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Fitness Information");
-        JLabel profilePageText = new JLabel("Today's Daily Health Metrics");
-        profilePageText.setFont(new Font("Roboto", Font.BOLD, 40));
+        JLabel profilePageText = new JLabel("Today Health Info");
+        profilePageText.setFont(new Font("Roboto", Font.BOLD, 30));
 
         frame.setLayout(new GridBagLayout());
 
@@ -107,7 +107,7 @@ public class UserDailyMetricsGraphs extends Scenes{
         c.gridy = 3;
 
         button.addActionListener(e -> {
-            new AddSleepDialog(frame);
+            //new AddSleepDialog(frame);
         });
 
         return button;

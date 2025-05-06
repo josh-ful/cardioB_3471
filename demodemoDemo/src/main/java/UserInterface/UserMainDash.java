@@ -12,8 +12,7 @@ package UserInterface;
 
 import Controller.UserController;
 import UserInformation.CurrentUser;
-import UserInformation.DailyMetrics.DailyMetricDAO;
-import UserInformation.DailyMetrics.MetricTypes;
+import UserInformation.DailyMetrics.*;
 import UserInterface.graphs.Point;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -25,7 +24,6 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.ZoneId;
 import java.util.List;
-import UserInformation.DailyMetrics.DailyMetric;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
@@ -54,7 +52,7 @@ public class UserMainDash extends Scenes{
     }
 
     private ChartPanel makeTimeSeriesChart(MetricTypes type, String title) throws SQLException {
-        List<Point> data = DailyMetricDAO.fetchMetrics(type);
+        List<Point> data = DailyMetricDAO.fetchAllMetrics(type);
         TimeSeries series = new TimeSeries(type.name());
         for (Point dm : data) {
             series.add(new Day(java.util.Date.from(dm.getX().toInstant())), dm.getY());
