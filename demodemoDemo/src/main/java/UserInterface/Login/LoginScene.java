@@ -15,6 +15,7 @@ import UserInterface.UserResetPasswordDialog;
 
 
 public class LoginScene extends LR_Scenes {
+    GridBagConstraints c;
     /**
      * Constructs a LoginScene object
      *
@@ -22,10 +23,37 @@ public class LoginScene extends LR_Scenes {
      */
     public LoginScene(JFrame frame) {
         super.createLR_SCENE(frame);
+        createLR_SCENE(frame);
+    }
+    protected void panelLayout() {
+        //panel.setSize(600, 600);
+        panel.setLayout(new GridBagLayout());
+        c = new GridBagConstraints();
+    }
+    @Override
+    public void createLR_SCENE(JFrame frame) {
+        super.createAndShowGUI(frame);
+        panelLayout();
+        c = new GridBagConstraints();
 
-        panel.add(getConfirmLoginButton(frame, username, password), BorderLayout.SOUTH);
-        panel.add(getResetPasswordBtn());
-        panel.add(getBackButton(frame), BorderLayout.AFTER_LAST_LINE);
+        int row = 0;
+        addRow(panel, new JLabel("Username: "), row, 0 );
+        addRow(panel, username, row++, 1 );
+        addRow(panel, new JLabel("Password: "), row, 0 );
+        addRow(panel, password, row++, 1 );
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.add(getConfirmLoginButton(frame, username, password));
+        buttonPanel.add(getResetPasswordBtn());
+        buttonPanel.add(getBackButton(frame));
+        c.gridx = 0;
+        c.gridy = row++;
+        c.gridwidth = 3;
+        panel.add(buttonPanel, c);
+        frame.add(panel);
+        //frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     /**
@@ -72,4 +100,20 @@ public class LoginScene extends LR_Scenes {
 
         return btnResetPassword;
     }
+    public void addRow(JPanel panel, Component comp, int row, int col) {
+        c = new GridBagConstraints();
+        c.gridx = col;
+        c.gridy = row;
+        c.insets = new Insets(5, 5, 5, 5);
+        c.anchor = GridBagConstraints.WEST;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        if(col == 1){
+            c.weightx = 1.0;
+        }
+        else{
+            c.weightx = 0.0;
+        }
+        panel.add(comp, c);
+    }
+
 }
