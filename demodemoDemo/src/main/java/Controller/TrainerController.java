@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class TrainerController implements Controller {
 
-    public void createDashboard(JFrame frame) {
+    public void createDashboard(JFrame frame) throws SQLException {
         new TrainerMenuScene(frame);
     }
 

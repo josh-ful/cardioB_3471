@@ -8,6 +8,7 @@ import UserInterface.Scenes;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class SleepGraphScene extends Scenes {
     GridBagConstraints c;
@@ -16,7 +17,7 @@ public class SleepGraphScene extends Scenes {
      *
      * @param frame JFrame that sleep graph is created on
      */
-    public SleepGraphScene(JFrame frame) {
+    public SleepGraphScene(JFrame frame) throws SQLException {
         createAndShowGUI(frame);
     }
     /**
@@ -34,7 +35,7 @@ public class SleepGraphScene extends Scenes {
      * @param frame JFrame which the gui will be created on
      */
     @Override
-    protected void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI(JFrame frame) throws SQLException {
         super.createAndShowGUI(frame);
         panelLayout();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -303,25 +303,25 @@ public class CurrentUser {
         return avgWorkoutGoal;
     }
 
-    public static Double getAvgSleep() {
+    public static Double getAvgSleep() throws SQLException {
         if(avgSleep == null){
             DailyMetricDAO.getAvgSleep();
         }
         return avgSleep;
     }
-    public static Double getCurrentWeight() {
+    public static Double getCurrentWeight() throws SQLException {
         if(CurrentUser.currentWeight == null){
             DailyMetricDAO.getCurrentWeight();
         }
         return currentWeight;
     }
-    public static Double getAvgCalories() {
+    public static Double getAvgCalories() throws SQLException {
         if(avgCalories == null){
             DailyMetricDAO.getAvgCalories();
         }
         return avgCalories;
     }
-    public static Double getAvgWorkout() {
+    public static Double getAvgWorkout() throws SQLException {
         if(avgWorkout == null){
             DailyMetricDAO.getAvgWorkoutDur();
         }

@@ -7,6 +7,7 @@ import UserInterface.Trainer.TrainerManageCoursesExercisesScene;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.List;
 
 public class SearchExercisesDialog extends JDialog {
@@ -45,7 +46,13 @@ public class SearchExercisesDialog extends JDialog {
 
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton addBtn = new JButton("Add Selected");
-        addBtn.addActionListener(e -> onAdd());
+        addBtn.addActionListener(e -> {
+            try {
+                onAdd();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         JButton cancelBtn = new JButton("Cancel");
         cancelBtn.addActionListener(e -> dispose());
         buttons.add(addBtn);
@@ -63,7 +70,7 @@ public class SearchExercisesDialog extends JDialog {
         results.forEach(listModel::addElement);
     }
 
-    private void onAdd() {
+    private void onAdd() throws SQLException {
         Exercise selected = resultList.getSelectedValue();
         if (selected == null) {
             JOptionPane.showMessageDialog(this, "Please select an exercise.", "No Selection", JOptionPane.WARNING_MESSAGE);

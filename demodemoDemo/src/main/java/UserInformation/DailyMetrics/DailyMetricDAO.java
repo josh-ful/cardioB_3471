@@ -73,50 +73,73 @@ public class DailyMetricDAO {
             + "   AND metric_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)";
 
 
-    /**
-     * Returns the most recent value for a given metric.
-     */
-    private static double fetchSingle(MetricTypes mt) {
-        try (Connection c = DBConnection.getConnection();
-             PreparedStatement ps = c.prepareStatement(GET_LATEST)) {
-            ps.setString(1, mt.toString());
-            ps.setInt(2, UserController.getUserId());
-
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getDouble("metric_value");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0.0;
+    private static String mapTypeToColumn(MetricTypes mt) {
+        return switch (mt) {
+            case WEIGHT      -> "weight";
+            case SLEEP       -> "sleep";
+            case CALORIES    -> "calories";
+            case WKTDURATION -> "wktduration";
+        };
     }
 
     /**
+     * Returns the most recent value for a given metric.
+     */
+    private static double fetchSingle(MetricTypes mt) throws SQLException {
+        String column = mapTypeToColumn(mt);
+        String sql = String.format("""
+        SELECT %1$s
+          FROM daily_metrics
+         WHERE user_id = ?
+           AND %1$s IS NOT NULL
+         ORDER BY metric_date DESC
+         LIMIT 1
+        """,
+                column  // both %1$s instances become your column name
+        );
+
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, UserController.getUserId());
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    // pull the real numeric column
+                    return rs.getDouble(column);
+                }
+            }
+        }
+        return 0.0;
+    }    /**
      * Returns the 7-day average for a given metric.
      */
-    private static double fetchAverage(MetricTypes mt) {
-        try (Connection c = DBConnection.getConnection();
-             PreparedStatement ps = c.prepareStatement(GET_AVG)) {
-            ps.setString(1, mt.toString());
-            ps.setInt(2, UserController.getUserId());
+    private static double fetchAverage(MetricTypes mt) throws SQLException {
+        String column = mapTypeToColumn(mt);
+        // note the two “%s” placeholders
+        String sql = String.format("""
+        SELECT AVG(%s) AS avg_val
+          FROM daily_metrics
+         WHERE user_id = ?
+           AND %s IS NOT NULL
+           AND metric_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+        """,
+                column,   // first %s → column in SELECT
+                column    // second %s → column in WHERE
+        );
 
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, UserController.getUserId());
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return rs.getDouble("avg_val");
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return 0.0;
-    }
-
-    /**
+    }    /**
      * Updates CurrentUser with the latest stored weight.
      */
-    public static void getCurrentWeight() {
+    public static void getCurrentWeight() throws SQLException {
         double val = fetchSingle(MetricTypes.WEIGHT);
         CurrentUser.setCurrentWeight(val);
     }
@@ -124,7 +147,7 @@ public class DailyMetricDAO {
     /**
      * Updates CurrentUser with the average sleep over the past 7 days.
      */
-    public static void getAvgSleep() {
+    public static void getAvgSleep() throws SQLException {
         CurrentUser.setAvgSleep(0.0);
         double val = fetchAverage(MetricTypes.SLEEP);
         CurrentUser.setAvgSleep(val);
@@ -133,7 +156,7 @@ public class DailyMetricDAO {
     /**
      * Updates CurrentUser with the average calories over the past 7 days.
      */
-    public static void getAvgCalories() {
+    public static void getAvgCalories() throws SQLException {
         CurrentUser.setAvgCalories(0.0);
         double val = fetchAverage(MetricTypes.CALORIES);
         CurrentUser.setAvgCalories(val);
@@ -143,7 +166,7 @@ public class DailyMetricDAO {
     /**
      * Updates CurrentUser with the average workout duration over the past 7 days.
      */
-    public static void getAvgWorkoutDur() {
+    public static void getAvgWorkoutDur() throws SQLException {
         CurrentUser.setAvgWorkout(0.0);
         double val = fetchAverage(MetricTypes.WKTDURATION);
         CurrentUser.setAvgWorkout(val);

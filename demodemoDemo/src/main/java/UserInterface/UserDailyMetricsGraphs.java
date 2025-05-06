@@ -12,6 +12,7 @@ import UserInformation.DailyMetrics.MetricTypes;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class UserDailyMetricsGraphs extends Scenes{
@@ -24,7 +25,7 @@ public class UserDailyMetricsGraphs extends Scenes{
      *
      * @param frame which scene is created on
      */
-    public UserDailyMetricsGraphs(JFrame frame) {
+    public UserDailyMetricsGraphs(JFrame frame) throws SQLException {
         createAndShowGUI(frame);
     }
     /**
@@ -42,7 +43,7 @@ public class UserDailyMetricsGraphs extends Scenes{
      * @param
      */
     @Override
-    protected void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI(JFrame frame) throws SQLException {
         super.createAndShowGUI(frame);
         panelLayout();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -153,7 +154,11 @@ public class UserDailyMetricsGraphs extends Scenes{
         c.gridy = 4;
 
         button.addActionListener(e -> {
-            new WeightGraphScene(frame);
+            try {
+                new WeightGraphScene(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         return button;
@@ -172,7 +177,11 @@ public class UserDailyMetricsGraphs extends Scenes{
         c.gridy = 5;
 
         button.addActionListener(e -> {
-            new SleepGraphScene(frame);
+            try {
+                new SleepGraphScene(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         return button;
@@ -216,7 +225,7 @@ public class UserDailyMetricsGraphs extends Scenes{
      * @param frame which scene is created on
      *
      */
-    public static void submittedNewScene(JFrame frame) {
+    public static void submittedNewScene(JFrame frame) throws SQLException {
         //refreshLogTable();
         new UserDailyMetricsGraphs(frame);
     }

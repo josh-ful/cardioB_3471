@@ -63,7 +63,7 @@ public class Main {
      *
      * @param args runner arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         boolean sql = false;
         Scanner scanner = new Scanner(System.in);
         System.out.print("Use SQL server y/n: ");

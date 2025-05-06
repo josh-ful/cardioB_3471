@@ -17,13 +17,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class HomeScreen extends Scenes{
     /**
      * Constructs a HomeScreen object
      *
      */
-    public HomeScreen(JFrame frame) {
+    public HomeScreen(JFrame frame) throws SQLException {
         createAndShowGUI(frame);
     }
     /**
@@ -34,7 +35,7 @@ public class HomeScreen extends Scenes{
      */
 
     // TODO: Put the GridBagConstraints inside the get<thing>Label method calls
-    protected void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI(JFrame frame) throws SQLException {
         super.createAndShowGUI(frame);
 
         frame.setTitle("Trello Fellows®");

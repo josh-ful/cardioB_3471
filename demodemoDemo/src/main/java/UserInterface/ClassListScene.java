@@ -22,7 +22,7 @@ public class ClassListScene extends Scenes{
      *
      * @param frame which scene is created on
      */
-    public ClassListScene(JFrame frame){
+    public ClassListScene(JFrame frame) throws SQLException {
         createAndShowGUI(frame);
     }
     /**
@@ -32,7 +32,7 @@ public class ClassListScene extends Scenes{
      * @param frame which scene is created on
      */
     @Override
-    protected void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI(JFrame frame) throws SQLException {
         super.createAndShowGUI(frame);
         frame.setLayout(new BorderLayout());
 
@@ -127,12 +127,20 @@ public class ClassListScene extends Scenes{
         JButton actionBtn = new JButton(buttonLabel);
         actionBtn.addActionListener(e -> {
             if(buttonLabel.equals("Continue")) {
-                new  UserSelfPacedClassScene(frame, course);
+                try {
+                    new  UserSelfPacedClassScene(frame, course);
+                } catch (SQLException ex) {
+                    //throw new RuntimeException(ex);
+                }
             }
             else if(buttonLabel.equals("Join")) {
                 System.out.println(course.getName() + " " + course.getId());
                 if(UserController.isCourseJoinable(course.getId())) {
-                    new UserActiveClassScene(frame, course);
+                    try {
+                        new UserActiveClassScene(frame, course);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
                 else{//class is not joinable
                     JOptionPane.showMessageDialog(frame, course.getName() + " is not joinable currently");
@@ -153,7 +161,11 @@ public class ClassListScene extends Scenes{
     private JButton addWorkoutButton(JFrame frame) {
         JButton button = new JButton("Register for New Class");
         button.addActionListener(e -> {
-            new CourseSearch(frame);
+            try {
+                new CourseSearch(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         return button;
     }

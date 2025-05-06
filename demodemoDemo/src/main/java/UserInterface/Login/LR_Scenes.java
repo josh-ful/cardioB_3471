@@ -2,6 +2,8 @@ package UserInterface.Login;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
+
 import UserInterface.*;
 
 public class LR_Scenes extends Scenes {
@@ -15,7 +17,11 @@ public class LR_Scenes extends Scenes {
      * @param frame which scene is created on
      */
     public void createLR_SCENE(JFrame frame) {
-        super.createAndShowGUI(frame);
+        try {
+            super.createAndShowGUI(frame);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         username = new JTextField(20);
         password = new JPasswordField(20);

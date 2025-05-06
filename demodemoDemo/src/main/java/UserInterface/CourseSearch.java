@@ -20,12 +20,12 @@ public class CourseSearch extends Scenes {
     private JPanel resultsPanel;
     private JScrollPane scrollPane;
 
-    public CourseSearch(JFrame frame) {
+    public CourseSearch(JFrame frame) throws SQLException {
         createAndShowGUI(frame);
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI(JFrame frame) throws SQLException {
         super.createAndShowGUI(frame);
 
         JLabel title = new JLabel("Find a Class");

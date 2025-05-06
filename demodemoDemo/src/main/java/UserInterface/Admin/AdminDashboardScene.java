@@ -14,7 +14,11 @@ public class AdminDashboardScene extends Scenes {
 
     @Override
     protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+        try {
+            super.createAndShowGUI(frame);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         JLabel title = new JLabel("Admin Dashboard");
         title.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
