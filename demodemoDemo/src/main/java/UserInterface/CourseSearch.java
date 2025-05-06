@@ -84,54 +84,41 @@ public class CourseSearch extends Scenes {
 
                 // Course name + description panel
                 JPanel textPanel = getTextPanel(course);
+                courseItem.add(textPanel, BorderLayout.CENTER);
 
                 // Register button
-                JButton registerBtn = new JButton("Register");
-                registerBtn.addActionListener(e -> {
-//                    try {
-//                        UserController.addCourseRegistration(course.getId(), course.getName());
-//                        JOptionPane.showMessageDialog(panel, "Successfully registered for: " + course.getName());
-//                    } catch (RuntimeException ex) {
-//                        JOptionPane.showMessageDialog(panel, ex.getMessage());
-//                    } catch (SQLException ex) {
-//                        ex.printStackTrace();
-//                        JOptionPane.showMessageDialog(panel, "Error during registration.")
-//                        todo change to SQLException?
-//                        throw new RuntimeException(ex);
-//                    }
-
-                    try {
-                        //get id from username
-                        //TODO make this something stored in UserStorage
-                        //if not already registered, then register
-                        if (!UserController.isRegistered(course.getId())) {
-                            UserController.registerForClass(course.getId());
-                            JOptionPane.showMessageDialog(panel, "Successfully registered for: " + course.getName());
-                        } else {
-                            JOptionPane.showMessageDialog(panel, "You're already registered for this class.");
-                        }
-
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                        JOptionPane.showMessageDialog(panel, "Error during registration.");
-                    }
-                });
-
-
-            courseItem.add(textPanel, BorderLayout.CENTER);
-            courseItem.add(registerBtn, BorderLayout.EAST);
-            resultsPanel.add(courseItem);
-        }
+                courseItem.add(getRegisterBtn(course), BorderLayout.EAST);
+                resultsPanel.add(courseItem);
+            }
 
         resultsPanel.revalidate();
         resultsPanel.repaint();
        // panelLayout();
             // huh?
-
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(panel, "Database error occurred.");
         }
+    }
+
+    private static JButton getRegisterBtn(Course course) {
+        JButton registerBtn = new JButton("Register");
+        registerBtn.addActionListener(e -> {
+            try {
+                //if not already registered, then register
+                if (!UserController.isRegistered(course.getId())) {
+                    UserController.registerForClass(course.getId());
+                    JOptionPane.showMessageDialog(panel, "Successfully registered for: " + course.getName());
+                } else {
+                    JOptionPane.showMessageDialog(panel, "You're already registered for this class.");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(panel, "Error during registration.");
+            }
+        });
+
+        return registerBtn;
     }
 
     private static JPanel getCoursePanel() {

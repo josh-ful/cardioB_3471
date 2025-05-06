@@ -179,6 +179,7 @@ public class UserController implements Controller {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            //todo throw exception, or error message
         }
         return courseList;
     }
@@ -245,6 +246,7 @@ public class UserController implements Controller {
     }
 
     //TODO probably remove this
+    // todo def put this in a try block
     public static void addCourseRegistration( int courseId, String courseName) throws SQLException {
         String username = CurrentUser.getName();
 
