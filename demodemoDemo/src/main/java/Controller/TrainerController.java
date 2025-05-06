@@ -306,7 +306,63 @@ public class TrainerController implements Controller {
         }
     }
 
+    //add entry to table
+    public static int startCourseSession(int courseId, String initialExercise) {
+        String sql = """
+      INSERT INTO active_courses (course_id, current_exercise)
+           VALUES (?, ?)
+      """;
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement p = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            p.setInt(1, courseId);
+            p.setString(2, initialExercise);
+            p.executeUpdate();
+            try (ResultSet rs = p.getGeneratedKeys()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Error starting session: " + e.getMessage(),
+                    "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return -1;
+    }
 
+    //update current exercise
+    public static void updateCourseSession(int sessionId, String newExercise) {
+        String sql = """
+      UPDATE active_courses
+         SET current_exercise = ?
+       WHERE session_id = ?
+      """;
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement p = c.prepareStatement(sql)) {
+            p.setString(1, newExercise);
+            p.setInt(2, sessionId);
+            p.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Error updating session: " + e.getMessage(),
+                    "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    //delete entry from table when course session ends
+    public static void endCourseSession(int sessionId) {
+        String sql = "DELETE FROM active_courses WHERE session_id = ?";
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement p = c.prepareStatement(sql)) {
+            p.setInt(1, sessionId);
+            p.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Error ending session: " + e.getMessage(),
+                    "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
 
     //TODO add a host class functionality

@@ -1,6 +1,7 @@
 package UserInterface;
 
 import Controller.TrainerController;
+import Controller.UserController;
 import FitnessCourse.Course;
 import FitnessCourse.CourseExercise;
 
@@ -9,13 +10,36 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.List;
 
-public class TrainerActiveClassScene extends ActiveClassScene {
-    public TrainerActiveClassScene(JFrame frame, Course course) {
+public class UserActiveClassScene extends ActiveClassScene {
+    private Timer pollTimer;
+    public UserActiveClassScene(JFrame frame, Course course) {
+
         super(frame, course);
         //cange the DB flag so users can join
-        TrainerController.setCourseJoinable(course.getId(), true);
-        sessionID = TrainerController.startCourseSession(course.getId(),course.getName());
+        //TrainerController.setCourseJoinable(course.getId(), true);
 
+        // start polling  every second
+        pollTimer = new Timer(1000, e -> refreshCurrentExercise(course.getId()));
+        pollTimer.setInitialDelay(0);
+        pollTimer.start();
+
+    }
+
+    private void refreshCurrentExercise(int courseId) {
+        String latest = UserController.getCurrentExerciseName(courseId);
+        // if it changed on the server, update the label and reset the exercise timer
+        if (!latest.equals(currentExerciseLabel.getText())) {
+            currentExerciseLabel.setText(latest);
+            exerciseSecs = 0;
+            exerciseTimeLabel.setText("00:00");
+        }
+    }
+
+    private void leaveClass(JFrame frame) {
+        pollTimer.stop();
+        totalTimer.stop();
+        exerciseTimer.stop();
+        new ClassListScene(frame);
     }
 
     @Override
@@ -24,7 +48,7 @@ public class TrainerActiveClassScene extends ActiveClassScene {
         panel.removeAll();
         panel.setLayout(new BorderLayout(10,10));
 
-        //top total workout duration
+        //Total workout timer
         JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT));
         top.add(new JLabel("Total Time: "));
         totalTimeLabel = new JLabel("00:00");
@@ -47,42 +71,39 @@ public class TrainerActiveClassScene extends ActiveClassScene {
         JList<CourseExercise> list = new JList<>(model);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //show only the name
+        /*
         list.addListSelectionListener((ListSelectionListener) e -> {
             if (!e.getValueIsAdjusting() && list.getSelectedValue() != null) {
                 CourseExercise ce = list.getSelectedValue();
-                currentExerciseLabel.setText(
-                        ce.getOrder() + ". " + ce.getExercise().getName()
-                );
+                //currentExerciseLabel.setText(ce.getOrder() + ". " + ce.getExercise().getName());
                 exerciseSecs = 0;
                 exerciseTimeLabel.setText("00:00");
-                TrainerController.updateCourseSession(sessionID,currentExerciseLabel.getText());
             }
         });
+        */
         panel.add(new JScrollPane(list), BorderLayout.EAST);
 
+        JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+        /*
         //rest button and stop hosting at bottom of screen
         JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         JButton restBtn = new JButton("Rest");
         restBtn.addActionListener(e -> {
             list.clearSelection();
-            currentExerciseLabel.setText("Resting");
-            TrainerController.updateCourseSession(sessionID,currentExerciseLabel.getText());
+            currentExerciseLabel.setText("Rest");
             exerciseSecs = 0;
             exerciseTimeLabel.setText("00:00");
         });
         south.add(restBtn);
 
-        JButton stopBtn = new JButton("End Class");
+        */
+
+        JButton stopBtn = new JButton("Leave Class");
         stopBtn.addActionListener(e -> {
-            totalTimer.stop();
-            exerciseTimer.stop();
-            TrainerController.setCourseJoinable(course.getId(), false);
-            TrainerController.endCourseSession(sessionID);
-            JOptionPane.showMessageDialog(frame, "Class ended.");
-            new TrainerMenuScene(frame);
+            leaveClass(frame);
         });
         south.add(stopBtn);
-
         panel.add(south, BorderLayout.SOUTH);
 
         frame.setContentPane(panel);
