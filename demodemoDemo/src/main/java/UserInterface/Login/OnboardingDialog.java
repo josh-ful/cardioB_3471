@@ -5,11 +5,13 @@ import Exceptions.UserNotFoundException;
 import UserInformation.CurrentUser;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 
 import static UserInformation.SecurityQuestions.securityQuestions;
 
 public class OnboardingDialog extends JDialog {
+    GridBagConstraints c;
     static JSpinner txtAge;
     static JComboBox txtGender;
     static JTextField txtEmail;
@@ -21,7 +23,8 @@ public class OnboardingDialog extends JDialog {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new GridBagLayout());
+        c = new GridBagConstraints();
 
         txtAge = new JSpinner();
         txtAge.setModel(new SpinnerNumberModel(15, 15, 120, 1));
@@ -30,17 +33,17 @@ public class OnboardingDialog extends JDialog {
         txtSecurityQuestion = new JComboBox(securityQuestions);
         txtSecurityAnswer = new JTextField(30);
 
-        panel.add(new JLabel("Age:"));
-        panel.add(txtAge);
-        panel.add(new JLabel("Gender:"));
-        panel.add(txtGender);
-        panel.add(new JLabel("Email:"));
-        panel.add(txtEmail);
-        panel.add(new JLabel("Security Question:"));
-        panel.add(txtSecurityQuestion);
-        panel.add(new JLabel("Security Answer:"));
-        panel.add(txtSecurityAnswer);
-        panel.add(this.getSubmitButton(editOnboarding));
+        addRow(panel, new JLabel("Age:"), 0, 0);
+        addRow(panel, txtAge, 0, 1);
+        addRow(panel, new JLabel("Gender:"), 1, 0);
+        addRow(panel, txtGender, 1, 1);
+        addRow(panel, new JLabel("Email:"), 2, 0);
+        addRow(panel, txtEmail, 2, 1);
+        addRow(panel, new JLabel("Security Question:"), 3, 0);
+        addRow(panel, txtSecurityQuestion, 3, 1);
+        addRow(panel, new JLabel("Security Answer:"), 4, 0);
+        addRow(panel, txtSecurityAnswer, 4, 1);
+        addRow(panel, this.getSubmitButton(editOnboarding), 5, 0);
 
         add(panel);
         setVisible(true);
@@ -77,5 +80,20 @@ public class OnboardingDialog extends JDialog {
         });
 
         return btnSubmit;
+    }
+    public void addRow(JPanel panel, Component comp, int row, int col) {
+        c = new GridBagConstraints();
+        c.gridx = col;
+        c.gridy = row;
+        c.insets = new Insets(5, 5, 5, 5);
+        c.anchor = GridBagConstraints.WEST;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        if(col == 1){
+            c.weightx = 1.0;
+        }
+        else{
+            c.weightx = 0.0;
+        }
+        panel.add(comp, c);
     }
 }

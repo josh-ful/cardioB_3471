@@ -3,7 +3,7 @@
  */
 package UserInterface.graphs;
 
-import UserInterface.ProfileScreen;
+import UserInterface.UserDashboard;
 import UserInterface.Scenes;
 
 import javax.swing.*;
