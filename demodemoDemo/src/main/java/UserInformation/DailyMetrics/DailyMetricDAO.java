@@ -1,23 +1,41 @@
 package UserInterface;
 
-import FitnessCourse.DailyMetric;
-import FitnessCourse.MetricTypes;
-import UserInformation.CurrentUser;
 import main.DBConnection;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
 
 /**
  * Data Access Object for fetching daily user metrics.
  */
 public class DailyMetricDAO {
+    private final DataSource ds;
+    public DailyMetricDAO(DataSource ds) { this.ds = ds; }
 
+// FROM KIERA'S
+//    public static List<Point> fetchMetrics(MetricTypes type) throws SQLException {
+//        String sql = "SELECT " + type +" , metric_date FROM daily_metrics WHERE user_id=? ORDER BY metric_date";
+//
+//        try (Connection c = DBConnection.getConnection();
+//             PreparedStatement p = c.prepareStatement(sql)) {
+//            p.setInt(1, UserController.getUserId());
+//            ResultSet r = p.executeQuery();
+//            List<Point> out = new ArrayList<>();
+//            while (r.next()) {
+//                Point dm = new Point();
+//                dm.setX(r.getDate("date"));
+//                dm.setY(r.getDouble(type.toString()));
+//
+//                out.add(dm);
+//            }
+//            return out;
+//        }
+//    }
     /**
      * Fetches all non-null daily metrics of a specific type for a user, ordered by date.
      * Assumes daily_metrics has columns: user_id, metric_date, weight, sleep, calories, wktduration.

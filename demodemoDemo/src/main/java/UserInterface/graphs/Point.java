@@ -10,7 +10,8 @@ import java.util.Date;
 
 public class Point {
     private Date x;
-    private int y;
+    private Double y;
+
     public Point() {}
     /**
      * constructs a point object
@@ -18,7 +19,7 @@ public class Point {
      * @param l LocalDate
      * @param y int weight
      */
-    public Point(Date l, int y) {
+    public Point(Date l, Double y) {
         this.x = l;
         this.y = y;
     }
@@ -33,7 +34,7 @@ public class Point {
      * returns y weight int
      *
      */
-    public int getY() {
+    public Double getY() {
         return y;
     }
 
@@ -41,7 +42,7 @@ public class Point {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(Double y) {
         this.y = y;
     }
 

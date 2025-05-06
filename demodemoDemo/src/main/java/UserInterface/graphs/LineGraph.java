@@ -66,7 +66,7 @@ public class LineGraph {
 
             while ((line = br.readLine()) != null) {
                 String[] row = line.split(",");
-                points.add(new Point(Point.stringToDate(row[0]), Integer.parseInt(row[1])));
+                points.add(new Point(Point.stringToDate(row[0]), Double.parseDouble(row[1])));
             }
         } catch (FileNotFoundException ex) {
             throw new RuntimeException(ex);

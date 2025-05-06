@@ -10,7 +10,6 @@ package UserInformation;
 import Controller.*;
 import Exceptions.UserNotFoundException;
 import FitnessCourse.*;
-import UserInterface.DailyMetricDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -240,7 +239,6 @@ public class CurrentUser {
     }
 
 
-
     public static void setAvgSleep(Double avgSleep) {
         CurrentUser.avgSleep = avgSleep;
     }
@@ -257,74 +255,74 @@ public class CurrentUser {
     //set goals
     public static void setWeightGoal(Double weightGoal) {
         //UserController.setWeightGoal(weightGoal);
-        UserController.updateUserGoals(getId(), weightGoal, getAvgSleepGoal(), getAvgCaloriesGoal(), getAvgWorkoutGoal());
+        UserController.updateUserGoals(weightGoal, getAvgSleepGoal(), getAvgCaloriesGoal(), getAvgWorkoutGoal());
         CurrentUser.weightGoal = weightGoal;
     }
     public static void setAvgSleepGoal(Double avgSleepGoal) {
         //UserController.setAvgSleepGoal(avgSleepGoal);
-        UserController.updateUserGoals(getId(), getWeightGoal(), avgSleepGoal, getAvgCaloriesGoal(), getAvgWorkoutGoal());
+        UserController.updateUserGoals(getWeightGoal(), avgSleepGoal, getAvgCaloriesGoal(), getAvgWorkoutGoal());
         CurrentUser.avgSleepGoal = avgSleepGoal;
     }
     public static void setAvgCaloriesGoal(Double avgCaloriesGoal) {
         //UserController.setAvgCaloriesGoal(avgCaloriesGoal);
-        UserController.updateUserGoals(getId(), getWeightGoal(), getAvgSleepGoal(), avgCaloriesGoal, getAvgWorkoutGoal());
+        UserController.updateUserGoals(getWeightGoal(), getAvgSleepGoal(), avgCaloriesGoal, getAvgWorkoutGoal());
         CurrentUser.avgCaloriesGoal = avgCaloriesGoal;
     }
     public static void setAvgWorkoutGoal(Double avgWorkoutGoal) {
-        UserController.updateUserGoals(getId(), getWeightGoal(), getAvgSleepGoal(), getAvgCaloriesGoal(), avgWorkoutGoal);
+        UserController.updateUserGoals(getWeightGoal(), getAvgSleepGoal(), getAvgCaloriesGoal(), avgWorkoutGoal);
         CurrentUser.avgWorkoutGoal = avgWorkoutGoal;
     }
 
 
     public static Double getWeightGoal() {
-        if(CurrentUser.weightGoal == null){
-            return UserController.getUserGoal(getId(), "weight");
+        if (CurrentUser.weightGoal == null){
+            return UserController.getUserGoal("weight");
         }
         return weightGoal;
     }
 
     public static Double getAvgSleepGoal() {
-        if(CurrentUser.avgSleepGoal == null){
-            return UserController.getUserGoal(getId(), "sleep");
+        if (CurrentUser.avgSleepGoal == null){
+            return UserController.getUserGoal("sleep");
         }
         return avgSleepGoal;
     }
 
     public static Double getAvgCaloriesGoal() {
-        if(CurrentUser.avgCaloriesGoal == null){
-            return UserController.getUserGoal(getId(), "calories");
+        if (CurrentUser.avgCaloriesGoal == null){
+            return UserController.getUserGoal("calories");
         }
         return avgCaloriesGoal;
     }
 
     public static Double getAvgWorkoutGoal() {
-        if(CurrentUser.avgWorkoutGoal == null){
-            return UserController.getUserGoal(getId(), "workout");
+        if (CurrentUser.avgWorkoutGoal == null){
+            return UserController.getUserGoal("workout");
         }
         return avgWorkoutGoal;
     }
 
     public static Double getAvgSleep() {
         if(avgSleep == null){
-            DailyMetricDAO.getAvgSleep(getId());
+            DailyMetricDAO.getAvgSleep();
         }
         return avgSleep;
     }
     public static Double getCurrentWeight() {
         if(CurrentUser.currentWeight == null){
-            return 0.0;
+            UserController.getCurrentWeight();
         }
         return currentWeight;
     }
     public static Double getAvgCalories() {
         if(avgCalories == null){
-            DailyMetricDAO.getAvgCalories(getId());
+            DailyMetricDAO.getAvgCalories();
         }
         return avgCalories;
     }
     public static Double getAvgWorkout() {
         if(avgWorkout == null){
-            DailyMetricDAO.getAvgWorkout(getId());
+            DailyMetricDAO.getAvgWorkout();
         }
         return avgWorkout;
     }
