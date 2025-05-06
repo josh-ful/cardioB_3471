@@ -39,7 +39,7 @@ public class Profile extends Scenes{
         JButton btnEditOnboarding = new JButton("Edit Information");
 
         btnEditOnboarding.addActionListener(e->{
-            new OnboardingDialog();
+            new OnboardingDialog(true);
         });
 
         return btnEditOnboarding;
@@ -49,11 +49,7 @@ public class Profile extends Scenes{
         JButton btnResetPassword = new JButton("Reset Password");
 
         btnResetPassword.addActionListener(e->{
-            int confirm = JOptionPane.showConfirmDialog(null,
-                    "Are you sure you want to reset your password?");
-            if (confirm == JOptionPane.YES_OPTION) {
-                new UserResetPasswordDialog(Controller.getUsername());
-            }
+            new UserResetPasswordDialog(Controller.getUsername());
         });
 
         return btnResetPassword;

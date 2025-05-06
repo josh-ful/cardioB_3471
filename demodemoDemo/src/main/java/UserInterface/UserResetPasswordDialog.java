@@ -29,7 +29,7 @@ public class UserResetPasswordDialog extends JDialog {
     }
 
     private void createAndShowGui(String user) {
-        JPanel panel = (JPanel) super.getContentPane();
+        JPanel panel = new JPanel();
 
         username = new JTextField(user);
         securityQuestion = new JComboBox(securityQuestions);
@@ -51,6 +51,7 @@ public class UserResetPasswordDialog extends JDialog {
         panel.add(getConfirmButton());
         panel.add(getCancelButton());
 
+        setContentPane(panel);
         setVisible(true);
     }
 
@@ -70,8 +71,13 @@ public class UserResetPasswordDialog extends JDialog {
                     throw new IncorrectPasswordException("Passwords do not match");
                 }
 
-                UserQuery.changePassword(username.getText(), newPasswordField.toString());
-                JOptionPane.showMessageDialog(UserResetPasswordDialog.this, "Password changed successfully");
+                int confirm = JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to reset your password?");
+                if (confirm == JOptionPane.YES_OPTION) {
+                    UserQuery.changePassword(username.getText(), newPasswordField.toString());
+                    JOptionPane.showMessageDialog(UserResetPasswordDialog.this, "Password changed successfully");
+                }
+
                 dispose();
             }catch(UserNotFoundException | IncorrectSecurityAnswer |
                    IncorrectSecurityQuestion | IncorrectPasswordException ex){

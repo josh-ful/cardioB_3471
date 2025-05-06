@@ -16,7 +16,7 @@ public class OnboardingDialog extends JDialog {
     static JComboBox txtSecurityQuestion;
     static JTextField txtSecurityAnswer;
 
-    public OnboardingDialog() {
+    public OnboardingDialog(boolean editOnboarding) {
         setTitle("Onboarding");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -40,21 +40,24 @@ public class OnboardingDialog extends JDialog {
         panel.add(txtSecurityQuestion);
         panel.add(new JLabel("Security Answer:"));
         panel.add(txtSecurityAnswer);
-        panel.add(this.getSubmitButton());
+        panel.add(this.getSubmitButton(editOnboarding));
 
         add(panel);
         setVisible(true);
         pack();
     }
 
-    private JButton getSubmitButton() {
+    private JButton getSubmitButton(boolean editOnboarding) {
         JButton btnSubmit = new JButton("Submit");
 
         btnSubmit.addActionListener(e -> {
             try{
                 Controller.insertOnboardingInfo((int)txtAge.getValue(), txtGender.getSelectedItem().toString(),
                         txtEmail.getText(), txtSecurityQuestion.getSelectedIndex(), txtSecurityAnswer.getText());
-                CurrentUser.initialize();
+
+                if (editOnboarding) {
+                    CurrentUser.initialize(CurrentUser.getName());
+                }
             }catch(SQLException ex){
                 // TODO maybe this should throw a runtime exception cuz it should work
                 JOptionPane.showMessageDialog(null, ex.getMessage() + ". Please try again",
@@ -64,6 +67,12 @@ public class OnboardingDialog extends JDialog {
                 JOptionPane.showMessageDialog(this, ex.getMessage() + ". Please try again",
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
+            JOptionPane.showMessageDialog(this,
+                    "Congrats! You're onboarding information has been inputted. \r\n" +
+                            "Return to main menu and login!",
+                    "Registration Successful",
+                    JOptionPane.INFORMATION_MESSAGE);
+
             dispose();
         });
 

@@ -46,4 +46,6 @@ public interface Controller {
     public static void destroyCurrentUser(){
         CurrentUser.destroy();
     }
+
+
 }

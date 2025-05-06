@@ -30,14 +30,14 @@ public class Login {
     public static boolean loginLogic(String user, String pass) throws RuntimeException, SQLException {
         String query = "SELECT * FROM userInfo WHERE username = ?";
 
-            /*
-                Carter changed the conditional blocks with this -
-                if there's a problem we can change it back
-                 */
-            try (Connection conn = DBConnection.getConnection()) {
-                PreparedStatement stmt = conn.prepareStatement(query);
-                stmt.setString(1, user);
-                ResultSet rs = stmt.executeQuery();
+        /*
+            Carter changed the conditional blocks with this -
+            if there's a problem we can change it back
+             */
+        try (Connection conn = DBConnection.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, user);
+            ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 String hashedPassword = rs.getString("password");
@@ -45,12 +45,10 @@ public class Login {
                 if (!BCrypt.checkpw(pass, hashedPassword)) {
                     throw new IncorrectPasswordException("Incorrect password\n");
                 }
-                setType(rs.getString("type"));
             }
             else{
                 throw new UserNotFoundException("User not found\n");
             }
-
         } catch (UserNotFoundException e) {
             logger.log(Level.WARNING, e.getMessage());
             throw e;
@@ -59,12 +57,7 @@ public class Login {
             throw e;
         }
 
-        UserController.setCurrentUserId();
-
-        //todo take out set name?
-        //make these both in controller
-        CurrentUser.setName(user);
-        CurrentUser.initialize();
+        CurrentUser.initialize(user);
 
         return true;
     }

@@ -67,12 +67,7 @@ public class LoginScene extends LR_Scenes {
         JButton btnResetPassword = new JButton("Reset Password");
 
         btnResetPassword.addActionListener(e->{
-            // TODO change confirm dialog to inside reset dialog?
-            int confirm = JOptionPane.showConfirmDialog(null,
-                    "Are you sure you want to reset your password?");
-            if (confirm == JOptionPane.YES_OPTION) {
-                new UserResetPasswordDialog();
-            }
+            new UserResetPasswordDialog();
         });
 
         return btnResetPassword;

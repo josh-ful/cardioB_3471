@@ -51,16 +51,17 @@ public class CurrentUser {
     }
 
     //TODO make sure this works,
-    public static void initialize() throws UserNotFoundException{
+    public static void initialize(String username) throws UserNotFoundException{
         try (Connection conn = main.DBConnection.getConnection()) {
 
             PreparedStatement stmt = conn.prepareStatement(
                     "SELECT * FROM userInfo WHERE username = ?"
             );
-            stmt.setString(1, name);
+            stmt.setString(1, username);
             ResultSet resultSet = stmt.executeQuery();
 
             if (resultSet.next()) {
+                name = username;
                 id = resultSet.getInt("id");
                 type = resultSet.getString("type");
                 age = resultSet.getInt("age");
@@ -68,6 +69,7 @@ public class CurrentUser {
                 email = resultSet.getString("email");
                 securityQ = resultSet.getInt("securityQ");
                 securityAnswer = resultSet.getString("securityA");
+                createController();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -108,17 +110,6 @@ public class CurrentUser {
         } else {
             return 0;
         }
-    }
-    /**
-     * set the type of the user
-     *
-     * @param userType String
-     */
-    public static void setType(String userType) {
-        type = userType.toLowerCase();
-//        System.out.println("setting type to " + type);
-
-        createController();
     }
 
     public static Integer getId() {

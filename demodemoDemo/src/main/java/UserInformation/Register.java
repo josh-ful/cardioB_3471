@@ -43,8 +43,6 @@ public class Register {
             e.printStackTrace();
         }
 
-        CurrentUser.setName(user);
-
         return success;
     }
 }

@@ -29,25 +29,6 @@ public class UserController implements Controller {
 //        System.out.println("UserController");
     }
 
-
-    public static void setCurrentUserId() {
-        if (DatabaseInfo.states.get("SQL")){
-            try {
-                Connection conn = main.DBConnection.getConnection();
-                PreparedStatement getUserStmt = conn.prepareStatement("SELECT id FROM users WHERE username = ?");
-                getUserStmt.setString(1, CurrentUser.getName());
-                ResultSet userRs = getUserStmt.executeQuery();
-
-                if (!userRs.next()) {
-                    throw new UserNotFoundException("User not found in database.");
-                }
-                CurrentUser.setId(userRs.getInt("id"));
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public static void enterWeight(int weight) {
         CurrentUser.setWeight(weight);
     }
