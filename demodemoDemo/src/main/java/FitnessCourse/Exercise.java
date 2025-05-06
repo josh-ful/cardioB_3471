@@ -4,6 +4,7 @@ package FitnessCourse;
  * containing information about an exercise
  */
 public class Exercise {
+    private int id;
     private String name;
     private String description;
     /**
@@ -24,6 +25,45 @@ public class Exercise {
         this.name = name;
         this.description = description;
     }
+
+    /**
+     * Creates Exercise object
+     *
+     * @param id of exercise
+     * @param name of exercise
+     * @param description of exercise
+     */
+    public Exercise(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    /**
+     * provides string of an Exercise object
+     *
+     * @return string of name of exercise
+     */
+    @Override
+    public String toString() {
+        return name;  //could add description
+    }
+
+    /**
+     * get id of exercise
+     *
+     * @return id int of exercise
+     */
+    public int getId() { return id; }
+
+    /**
+     * set id of exercise
+     *
+     * @return nothing
+     */
+    public void setId(int id) { this.id = id; }
+
+
     /**
      * get name of exercise
      *

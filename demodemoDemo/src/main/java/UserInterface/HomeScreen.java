@@ -37,9 +37,7 @@ public class HomeScreen extends Scenes{
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Trello Fellows®");
-        frame.setSize(FRAME_DIM);
 
         frame.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();

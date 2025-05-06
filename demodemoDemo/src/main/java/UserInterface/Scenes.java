@@ -8,6 +8,9 @@
  */
 package UserInterface;
 
+import Controller.Controller;
+import UserInformation.CurrentUser;
+
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
@@ -41,13 +44,13 @@ public class Scenes {
         frame.getContentPane().repaint();
         frame.getContentPane().revalidate();
 
+        frame.setJMenuBar(createMenuBar(frame));
+
         frame.setSize(FRAME_DIM);
         frame.setResizable(false);
 
-        //frame.setLocation(0,0);
         frame.setBackground(Color.BLUE);
         frame.setVisible(true);
-
         panelLayout();
     }
     /**
@@ -71,5 +74,34 @@ public class Scenes {
         });
 
         return button;
+    }
+
+    protected JMenuBar createMenuBar(JFrame frame) throws RuntimeException {
+        JMenuBar menuBar = new JMenuBar();
+        frame.setJMenuBar(menuBar);
+
+        JMenu menu = new JMenu(Controller.getUsername());
+        menuBar.add(menu);
+
+        JMenuItem menuItem = new JMenuItem("dashboard");
+        JMenuItem menuItem2 = new JMenuItem("profile");
+        JMenuItem menuItem3 = new JMenuItem("log-out");
+
+        menuItem.addActionListener(e -> {
+            CurrentUser.controller.createDashboard(frame);
+        });
+        menuItem2.addActionListener(e -> {
+            new Profile(frame);
+        });
+        menuItem3.addActionListener(e -> {
+            Controller.destroyCurrentUser();
+            new HomeScreen(frame);
+        });
+
+        menu.add(menuItem);
+        menu.add(menuItem2);
+        menu.add(menuItem3);
+
+        return menuBar;
     }
 }

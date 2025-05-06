@@ -5,18 +5,14 @@
 
 package UserInterface;
 
-import FitnessCourse.Exercise;
-import FitnessCourse.ExerciseClass;
-import UserInformation.CurrentUser;
+import FitnessCourse.Course;
 
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 import Controller.*;
-import main.DBConnection;
 
 public class ClassListScene extends Scenes{
     //Replacing
@@ -81,15 +77,15 @@ public class ClassListScene extends Scenes{
             int userId = UserController.getUserId();
 
             // request all registered classes
-            List<ExerciseClass> exerciseList = UserController.getAllExercises(userId);
+            ArrayList<Course> exerciseList = UserController.getAllUserExercises();
             exerciseQuantity = exerciseList.size();
 
             if (exerciseList.isEmpty()) {
                 JLabel error = new JLabel("Error: Classes are empty");
                 resultPanel.add(error);
             }
-            for (ExerciseClass exerciseClass : exerciseList) {
-                resultPanel.add(createCoursePanel(exerciseClass));
+            for (Course course : exerciseList) {
+                resultPanel.add(createCoursePanel(course));
             }
         }catch (SQLException e) {
             JLabel error = new JLabel(e.getMessage());
@@ -105,7 +101,7 @@ public class ClassListScene extends Scenes{
         return scroll;
     }
 
-    private JPanel createCoursePanel(ExerciseClass exercise) {
+    private JPanel createCoursePanel(Course exercise) {
         JPanel coursePanel = new JPanel(new BorderLayout());
         coursePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
         coursePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));

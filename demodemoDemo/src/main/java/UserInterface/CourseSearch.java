@@ -1,7 +1,7 @@
 package UserInterface;
 
 import Controller.UserController;
-import FitnessCourse.ExerciseClass;
+import FitnessCourse.*;
 import UserInformation.CurrentUser;
 import main.DBConnection;
 
@@ -75,63 +75,24 @@ public class CourseSearch extends Scenes {
         performSearch("self", "");
     }
 
+    //todo change logic so perform search doesn't happen here?
+    //todo check if you can register for a class before searching?
     private void performSearch(String type, String query) {
         resultsPanel.removeAll();  // Clear previous results
 
         try {
-            ArrayList<ExerciseClass> classes;
+            ArrayList<Course> classes;
             classes = UserController.getAllExercises(type, query);
 
-            for (ExerciseClass exerciseClass : classes) {
-
-                // Each course item panel
+            for (Course exerciseClass : classes) {
                 JPanel courseItem = getCoursePanel();
-
-                // Course name + description panel
                 JPanel textPanel = getTextPanel(exerciseClass);
+                JButton registerBtn = getRegisterButton(exerciseClass);
 
-                // Register button
-                JButton registerBtn = new JButton("Register");
-                registerBtn.addActionListener(e -> {
-                    try {
-                        UserController.addCourseRegistration((String) courseTypeCombo.getSelectedItem(), exerciseClass.getId(), exerciseClass.getName());
-                        JOptionPane.showMessageDialog(panel, "Successfully registered for: " + exerciseClass.getName());
-                    } catch (RuntimeException ex) {
-                        JOptionPane.showMessageDialog(panel, ex.getMessage());
-                    } catch (SQLException ex) {
-                        //todo change to SQLException?
-                        throw new RuntimeException(ex);
-                    }
-
-//                    String courseType = (String) courseTypeCombo.getSelectedItem();  // "self" or "group"
-//
-//                    try {
-//                        //get id from username
-//                        //TODO make this something stored in UserStorage
-//                        int userId = UserController.getUserId();
-//                        if (userId == 0) {
-//                            JOptionPane.showMessageDialog(panel, "User not found in database.");
-//                            return;
-//                        }
-//                        //if not already registered, then register
-//                        if (!UserController.isRegistered(userId, exerciseClass.getId())) {
-//                             UserController.registerForClass(exerciseClass.getId());
-//                            JOptionPane.showMessageDialog(panel, "Successfully registered for: " + exerciseClass.getName());
-//                        } else {
-//                            JOptionPane.showMessageDialog(panel, "You're already registered for this class.");
-//                        }
-//
-//                    } catch (SQLException ex) {
-//                        ex.printStackTrace();
-//                        JOptionPane.showMessageDialog(panel, "Error during registration.");
-//                    }
-                });
-
-
-            courseItem.add(textPanel, BorderLayout.CENTER);
-            courseItem.add(registerBtn, BorderLayout.EAST);
-            resultsPanel.add(courseItem);
-        }
+                courseItem.add(textPanel, BorderLayout.CENTER);
+                courseItem.add(registerBtn, BorderLayout.EAST);
+                resultsPanel.add(courseItem);
+            }
 
         resultsPanel.revalidate();
         resultsPanel.repaint();
@@ -144,6 +105,25 @@ public class CourseSearch extends Scenes {
         }
     }
 
+    private static JButton getRegisterButton(Course exerciseClass) {
+        JButton registerBtn = new JButton("Register");
+        registerBtn.addActionListener(e -> {
+            try {
+                UserController.registerForClass(exerciseClass.getId());
+                JOptionPane.showMessageDialog(panel, "Successfully registered for: " +
+                        exerciseClass.getName());
+            } catch (SQLException ex) {
+                //todo change to SQLException?
+                JOptionPane.showMessageDialog(panel, "Error with database during registration.");
+                throw new RuntimeException(ex);
+            } catch (RuntimeException ex) {
+                JOptionPane.showMessageDialog(panel, ex.getMessage());
+                //todo throw a runtime exception here?
+            }
+        });
+        return registerBtn;
+    }
+
     private static JPanel getCoursePanel() {
         JPanel courseItem = new JPanel(new BorderLayout());
         courseItem.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
@@ -151,7 +131,7 @@ public class CourseSearch extends Scenes {
         return courseItem;
     }
 
-    private static JPanel getTextPanel(ExerciseClass exerciseClass) {
+    private static JPanel getTextPanel(Course exerciseClass) {
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
         JLabel nameLabel = new JLabel(exerciseClass.getName());

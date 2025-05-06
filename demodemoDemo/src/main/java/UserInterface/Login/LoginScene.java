@@ -6,10 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import Controller.Controller;
 import UserInformation.Login;
 import UserInformation.CurrentUser;
 import UserInterface.AdminDashboardScene;
 import UserInterface.UserMenuScene;
+import UserInterface.UserResetPasswordDialog;
 
 
 public class LoginScene extends LR_Scenes {
@@ -22,6 +24,7 @@ public class LoginScene extends LR_Scenes {
         super.createLR_SCENE(frame);
 
         panel.add(getConfirmLoginButton(frame, username, password), BorderLayout.SOUTH);
+        panel.add(getResetPasswordBtn());
         panel.add(getBackButton(frame), BorderLayout.AFTER_LAST_LINE);
     }
 
@@ -44,23 +47,29 @@ public class LoginScene extends LR_Scenes {
                 String pass = new String(password.getPassword());
                 // give something else the information and allow it to make the screen
                 boolean success = false;
+
                 try {
                     success = Login.loginLogic(user, pass);
                 } catch (RuntimeException | SQLException ex) {
-                    JOptionPane.showMessageDialog(panel,
-                            ex.getMessage(), null, JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, ex.getMessage(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
                 if (success){
                     CurrentUser.controller.createDashboard(frame);
-//                    System.out.println("Loading " + CurrentUser.getType() + " dashboard");
-                }
-
-                else {
-                    new LR_Dialog(success);
                 }
             }
         });
         return loginButton;
+    }
+
+    private static JButton getResetPasswordBtn() {
+        JButton btnResetPassword = new JButton("Reset Password");
+
+        btnResetPassword.addActionListener(e->{
+            new UserResetPasswordDialog();
+        });
+
+        return btnResetPassword;
     }
 }

@@ -27,7 +27,6 @@ public class ExerciseLogScene extends Scenes{
     }
 
 
-
     /**
      * creates a ExerciseLogScene using the super's createAndShowGUI
      * method and adds text and a table
