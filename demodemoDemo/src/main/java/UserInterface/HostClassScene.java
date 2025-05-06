@@ -96,7 +96,7 @@ public class HostClassScene extends Scenes {
                     JOptionPane.WARNING_MESSAGE
             );
             if (choice == JOptionPane.YES_OPTION) {
-                //TODO implement actual hosting class
+                new TrainerActiveClassScene(frame, cls);
                 JOptionPane.showMessageDialog(frame, "Class started.");
             }
         });

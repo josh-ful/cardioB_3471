@@ -56,7 +56,7 @@ public class TrainerViewClassesScene extends Scenes {
         //fetching all classes
         allClasses = TrainerController.getClassesForCurrentTrainer();
 
-        // --- Setup listeners to re-build on filter/search change ---
+        //reload when changing search
         Runnable refreshList = this::rebuildList;
         filterBox.addActionListener(e -> refreshList.run());
         searchField.getDocument().addDocumentListener(new DocumentListener() {
@@ -105,14 +105,28 @@ public class TrainerViewClassesScene extends Scenes {
         JLabel info = new JLabel("<html><b>" + cls.getName() + "</b><br/>" + cls.getTime() + "</html>");
         row.add(info, BorderLayout.CENTER);
 
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
+
+
         //edit button on the right
         JButton editBtn = new JButton("Edit");
         editBtn.addActionListener(e -> {
             System.out.println("Clicking edit button");
             new EditClassDialog((JFrame)SwingUtilities.getWindowAncestor(row), cls);
         });
-        row.add(editBtn, BorderLayout.EAST);
+        buttonPanel.add(editBtn);
 
+
+        // manage exercises button
+        JButton exercisesBtn = new JButton("Exercises");
+        exercisesBtn.addActionListener(e -> {
+            // open a new scene in the same frame
+            JFrame owner = (JFrame) SwingUtilities.getWindowAncestor(row);
+            System.out.println("Clicking exercises button");
+            new ManageCoursesExercisesScene(owner, cls);
+        });
+        buttonPanel.add(exercisesBtn);
+        row.add(buttonPanel, BorderLayout.EAST);
         return row;
     }
 }

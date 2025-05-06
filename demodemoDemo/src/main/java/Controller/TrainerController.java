@@ -4,6 +4,8 @@ package Controller;
 */
 import javax.swing.*;
 import FitnessCourse.Course;
+import FitnessCourse.CourseExercise;
+import FitnessCourse.Exercise;
 import UserInterface.*;
 import UserInformation.CurrentUser;
 import main.DBConnection;
@@ -104,14 +106,216 @@ public class TrainerController implements Controller {
     }
 
 
+    public static void addExerciseToCourse(int courseId, String eName, String eDesc, int orderIndex) throws SQLException {
+        String insertEx =
+                "INSERT INTO exercises (name, description) VALUES (?, ?)";
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement p1 = c.prepareStatement(insertEx, Statement.RETURN_GENERATED_KEYS)) {
+            p1.setString(1, eName);
+            p1.setString(2, eDesc);
+            p1.executeUpdate();
+            ResultSet keys = p1.getGeneratedKeys();
+            if (!keys.next()) throw new SQLException("No exercise ID returned");
+            int exId = keys.getInt(1);
+
+            String linkSql =
+                    "INSERT INTO course_exercises (course_id, exercise_id, exercise_order) VALUES (?, ?, ?)";
+            try (PreparedStatement p2 = c.prepareStatement(linkSql)) {
+                p2.setInt(1, courseId);
+                p2.setInt(2, exId);
+                p2.setInt(3, orderIndex);
+                p2.executeUpdate();
+            }
+        }
+    }
+
+    //remove
+    /**
+     * Remove exactly the one course_exercises row (by its PK)
+     * and resequence the remaining ones.
+     */
+    public static void removeCourseExerciseByLinkId(int linkId, int courseId) {
+        String deleteSql =
+                "DELETE FROM course_exercises WHERE id = ?";
+        String selectSql =
+                "SELECT id FROM course_exercises WHERE course_id = ? ORDER BY exercise_order";
+        String updateSql =
+                "UPDATE course_exercises SET exercise_order = ? WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection()) {
+            conn.setAutoCommit(false);
+
+            // 1) delete exactly that one link-row
+            try (PreparedStatement del = conn.prepareStatement(deleteSql)) {
+                del.setInt(1, linkId);
+                del.executeUpdate();
+            }
+
+            // 2) resequence the remainder
+            List<Integer> ids = new ArrayList<>();
+            try (PreparedStatement sel = conn.prepareStatement(selectSql)) {
+                sel.setInt(1, courseId);
+                try (ResultSet rs = sel.executeQuery()) {
+                    while (rs.next()) ids.add(rs.getInt("id"));
+                }
+            }
+            try (PreparedStatement upd = conn.prepareStatement(updateSql)) {
+                for (int i = 0; i < ids.size(); i++) {
+                    upd.setInt(1, i + 1);
+                    upd.setInt(2, ids.get(i));
+                    upd.executeUpdate();
+                }
+            }
+
+            conn.commit();
+            JOptionPane.showMessageDialog(null, "Exercise removed from course.");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Error removing exercise: " + ex.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE);
+            try {//innoDB don't corrupt or add half of data
+                DBConnection.getConnection().rollback();
+            } catch (Exception ignore) {}
+        } finally {
+            try {
+                DBConnection.getConnection().setAutoCommit(true);
+            } catch (Exception ignore) {}
+        }
+    }
+    //added query to get all exercises in a class
+    public static List<CourseExercise> getCourseExercisesForCourse(int courseId) {
+        List<CourseExercise> list = new ArrayList<>();
+        String sql = """
+        SELECT 
+          ce.id           AS link_id,
+          e.id            AS exercise_id,
+          e.name,
+          e.description,
+          ce.exercise_order
+        FROM course_exercises ce
+        JOIN exercises e 
+          ON e.id = ce.exercise_id
+        WHERE ce.course_id = ?
+        ORDER BY ce.exercise_order
+        """;
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement p = c.prepareStatement(sql)) {
+            p.setInt(1, courseId);
+            try (ResultSet rs = p.executeQuery()) {
+                while (rs.next()) {
+                    Exercise ex = new Exercise(
+                            rs.getInt("exercise_id"),
+                            rs.getString("name"),
+                            rs.getString("description")
+                    );
+                    list.add(new CourseExercise(
+                            rs.getInt("link_id"),
+                            ex,
+                            rs.getInt("exercise_order")
+                    ));
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Error loading exercises: " + ex.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        return list;
+    }
+
+    //added diff func than addExercise that deals with existing exercises
+    public static void linkExistingExerciseToCourse(int courseId, int exerciseId, int orderIndex) {
+        String sql = "INSERT INTO course_exercises (course_id, exercise_id, exercise_order) VALUES (?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, courseId);
+            stmt.setInt(2, exerciseId);
+            stmt.setInt(3, orderIndex);
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Exercise linked to course successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error linking exercise: " + e.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    //search by querying database for list of exercises
+    public static List<Exercise> searchExercises(String term) {
+        List<Exercise> list = new ArrayList<>();
+        String sql =
+                "SELECT id, name, description " +
+                        "  FROM exercises " +
+                        " WHERE LOWER(name) LIKE ? " +
+                        "    OR LOWER(description) LIKE ? " +
+                        " ORDER BY name";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            String wildcard = "%" + term.toLowerCase() + "%";
+            stmt.setString(1, wildcard);
+            stmt.setString(2, wildcard);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new Exercise(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("description")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error searching exercises: " + e.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        return list;
+    }
+
+
+    public static void setCourseJoinable(int courseId, boolean joinable) {
+        String sql = "UPDATE courses SET joinable = ? WHERE id = ?";
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement p = c.prepareStatement(sql)) {
+            p.setBoolean(1, joinable);
+            p.setInt(2, courseId);
+            p.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error updating course status: " + e.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+
+
+
     //TODO add a host class functionality
-        //should set class state to joinable
-        //trainer should be able to select an exercise
-        //currently selected exercise will be displayed to users with a timer
-        //add a visible clock
+        //should set class state to joinable - DONE
+        //trainer should be able to select an exercise - DONE
+        //add a visible clock - DONE
+        //currently selected exercise will be displayed to users with a timer -
         //hook duration up on user side with exercise log
 
-    //TODO add a remove class functionality
 
 
 
