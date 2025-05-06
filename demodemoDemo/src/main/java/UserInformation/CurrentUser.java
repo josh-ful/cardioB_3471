@@ -239,7 +239,6 @@ public class CurrentUser {
     }
 
 
-
     public static void setAvgSleep(Double avgSleep) {
         CurrentUser.avgSleep = avgSleep;
     }
@@ -276,28 +275,28 @@ public class CurrentUser {
 
 
     public static Double getWeightGoal() {
-        if(CurrentUser.weightGoal == null){
+        if (CurrentUser.weightGoal == null){
             return UserController.getUserGoal(getId(), "weight");
         }
         return weightGoal;
     }
 
     public static Double getAvgSleepGoal() {
-        if(CurrentUser.avgSleepGoal == null){
+        if (CurrentUser.avgSleepGoal == null){
             return UserController.getUserGoal(getId(), "sleep");
         }
         return avgSleepGoal;
     }
 
     public static Double getAvgCaloriesGoal() {
-        if(CurrentUser.avgCaloriesGoal == null){
+        if (CurrentUser.avgCaloriesGoal == null){
             return UserController.getUserGoal(getId(), "calories");
         }
         return avgCaloriesGoal;
     }
 
     public static Double getAvgWorkoutGoal() {
-        if(CurrentUser.avgWorkoutGoal == null){
+        if (CurrentUser.avgWorkoutGoal == null){
             return UserController.getUserGoal(getId(), "workout");
         }
         return avgWorkoutGoal;
@@ -305,25 +304,25 @@ public class CurrentUser {
 
     public static Double getAvgSleep() {
         if(avgSleep == null){
-            UserController.getAvgSleep(getId());
+            UserController.getAvgSleep();
         }
         return avgSleep;
     }
     public static Double getCurrentWeight() {
         if(CurrentUser.currentWeight == null){
-            return 0.0;
+            UserController.getCurrentWeight();
         }
         return currentWeight;
     }
     public static Double getAvgCalories() {
         if(avgCalories == null){
-            UserController.getAvgCalories(getId());
+            UserController.getAvgCalories();
         }
         return avgCalories;
     }
     public static Double getAvgWorkout() {
         if(avgWorkout == null){
-            UserController.getAvgWorkout(getId());
+            UserController.getAvgWorkoutDur();
         }
         return avgWorkout;
     }

@@ -12,6 +12,9 @@ package UserInterface;
 
 import Controller.UserController;
 import UserInformation.CurrentUser;
+import UserInformation.DailyMetrics.DailyMetricDAO;
+import UserInformation.DailyMetrics.MetricTypes;
+import UserInterface.graphs.Point;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 
@@ -21,9 +24,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
-import UserInterface.DailyMetric;
+import UserInformation.DailyMetrics.DailyMetric;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
@@ -51,13 +53,13 @@ public class UserMainDash extends Scenes{
         constraints.fill = GridBagConstraints.HORIZONTAL;
     }
 
-    private ChartPanel makeTimeSeriesChart(int userId, MetricTypes type, String title) throws SQLException {
-        List<DailyMetric> data = DailyMetricDAO.fetchMetrics(userId, type);
+    private ChartPanel makeTimeSeriesChart(MetricTypes type, String title) throws SQLException {
+        List<Point> data = DailyMetricDAO.fetchMetrics(type);
         TimeSeries series = new TimeSeries(type.name());
-        for (DailyMetric dm : data) {
-            series.add(new Day(java.util.Date.from(dm.getDate().atStartOfDay(ZoneId.systemDefault()).toInstant())),
-                    dm.getValue());
+        for (Point dm : data) {
+            series.add(new Day(java.util.Date.from(dm.getX().toInstant())), dm.getY());
         }
+
         TimeSeriesCollection dataset = new TimeSeriesCollection(series);
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
                 title,
@@ -68,6 +70,7 @@ public class UserMainDash extends Scenes{
                 true,
                 false
         );
+
         return new ChartPanel(chart);
     }
 
@@ -94,10 +97,10 @@ public class UserMainDash extends Scenes{
         JPanel chartPanel = new JPanel();
         chartPanel.setLayout(new BorderLayout(10,10));
         JPanel chartsGrid = new JPanel(new GridLayout(2,2,5,5));
-        chartsGrid.add(makeTimeSeriesChart(CurrentUser.getId(), MetricTypes.WEIGHT,   "Weight"));
-        chartsGrid.add(makeTimeSeriesChart(CurrentUser.getId(), MetricTypes.SLEEP,    "Sleep (hrs)"));
-        chartsGrid.add(makeTimeSeriesChart(CurrentUser.getId(), MetricTypes.CALORIES, "Calories"));
-        chartsGrid.add(makeTimeSeriesChart(CurrentUser.getId(), MetricTypes.WORKOUT,  "Workout Duration"));
+        chartsGrid.add(makeTimeSeriesChart(MetricTypes.WEIGHT,   "Weight"));
+        chartsGrid.add(makeTimeSeriesChart(MetricTypes.SLEEP,    "Sleep (hrs)"));
+        chartsGrid.add(makeTimeSeriesChart(MetricTypes.CALORIES, "Calories"));
+        chartsGrid.add(makeTimeSeriesChart(MetricTypes.WKTDURATION,  "Workout Duration"));
         chartPanel.add(chartsGrid, BorderLayout.CENTER);
 
         panel.add(chartPanel, BorderLayout.CENTER);
@@ -108,7 +111,7 @@ public class UserMainDash extends Scenes{
         JButton dashBtn = new JButton("Daily Metrics");
         dashBtn.addActionListener(e -> {
                     System.out.println("Clicking daily metrics tab");
-                    new UserDailyMetrics(frame);
+                    new UserDailyMetricsGraphs(frame);
                 }
         );
 
@@ -204,7 +207,7 @@ public class UserMainDash extends Scenes{
         JMenuItem profileItem = new JMenuItem("Dashboard");
         profileItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new UserDailyMetrics(frame);
+                new UserDailyMetricsGraphs(frame);
             }
         });
         menu.add(profileItem);

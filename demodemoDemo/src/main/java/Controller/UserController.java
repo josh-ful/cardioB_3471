@@ -6,6 +6,8 @@ import FitnessCourse.CourseExercise;
 import FitnessCourse.Exercise;
 import FitnessCourse.Course;
 import UserInformation.CurrentUser;
+import UserInformation.DailyMetrics.DailyMetric;
+import UserInformation.DailyMetrics.MetricTypes;
 import UserInterface.UserMainDash;
 import UserInterface.addExercise.ExerciseLogHelper;
 import UserInterface.addExercise.ExerciseLogHelperCSV;
@@ -19,7 +21,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /*
@@ -395,26 +399,26 @@ public class UserController implements Controller {
     }
 
     private static final String GET_LATEST = ""
-            + "SELECT metric_value "
-            + "  FROM daily_metric "
+            + "SELECT ? "
+            + "  FROM daily_metrics "
             + " WHERE user_id = ? "
             + "   AND metric_type = ? "
             + " ORDER BY date DESC "
             + " LIMIT 1";
 
     private static final String GET_AVG = ""
-            + "SELECT AVG(metric_value) AS avg_val "
-            + "  FROM daily_metric "
+            + "SELECT AVG(?) AS avg_val "
+            + "  FROM daily_metrics "
             + " WHERE user_id = ? "
-            + "   AND metric_type = ? "
             + "   AND date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)";
 
 
-    private static double fetchSingle(int userId, String metricType) {
+    private static double fetchSingle(MetricTypes mt) {
         try (Connection c = DBConnection.getConnection();
              PreparedStatement ps = c.prepareStatement(GET_LATEST)) {
-            ps.setInt(1, userId);
-            ps.setString(2, metricType);
+            ps.setString(1, mt.toString());
+            ps.setInt(2, getUserId());
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return rs.getDouble("metric_value");
@@ -426,11 +430,12 @@ public class UserController implements Controller {
         return 0.0;
     }
 
-    private static double fetchAverage(int userId, String metricType) {
+    private static double fetchAverage(MetricTypes mt) {
         try (Connection c = DBConnection.getConnection();
              PreparedStatement ps = c.prepareStatement(GET_AVG)) {
-            ps.setInt(1, userId);
-            ps.setString(2, metricType);
+            ps.setString(1, mt.toString());
+            ps.setInt(2, getUserId());
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return rs.getDouble("avg_val");
@@ -442,26 +447,26 @@ public class UserController implements Controller {
         return 0.0;
     }
 
-    public static void getCurrentWeight(int userId) {
-        double val = fetchSingle(userId, "WEIGHT");
+    public static void getCurrentWeight() {
+        double val = fetchSingle(MetricTypes.WEIGHT);
         CurrentUser.setCurrentWeight(val);
     }
 
-    public static void getAvgSleep(int userId) {
+    public static void getAvgSleep() {
         CurrentUser.setAvgSleep(0.0);
-        double val = fetchAverage(userId, "SLEEP");
+        double val = fetchAverage(MetricTypes.SLEEP);
         CurrentUser.setAvgSleep(val);
     }
 
-    public static void getAvgCalories(int userId) {
+    public static void getAvgCalories() {
         CurrentUser.setAvgCalories(0.0);
-        double val = fetchAverage(userId, "CALORIES");
+        double val = fetchAverage(MetricTypes.CALORIES);
         CurrentUser.setAvgCalories(val);
     }
 
-    public static void getAvgWorkout(int userId) {
+    public static void getAvgWorkoutDur() {
         CurrentUser.setAvgWorkout(0.0);
-        double val = fetchAverage(userId, "WORKOUT");
+        double val = fetchAverage(MetricTypes.WKTDURATION);
         CurrentUser.setAvgWorkout(val);
     }
 
@@ -538,6 +543,14 @@ public class UserController implements Controller {
 
         // no row, or error → treat as zero
         return 0.0;
+    }
+
+    public static void addDailyMetric(Double w, Double s, Double c, Double wkt){
+        LocalDate d = LocalDate.now();
+        DailyMetric dm = new DailyMetric(w, s, c, wkt, d);
+
+        //TODO add to db
+        //TODO add to user
     }
 
 }
