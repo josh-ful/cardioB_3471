@@ -171,4 +171,15 @@ public class CurrentUser {
         clearExercises();
         exerciseList.addAll(set);
     }
+
+    /*public static String[][] getTableMatrix(){
+        int i= 0;
+        String [][] matrix = new String[UserController.getWeightEntries(id).size()][2];
+        for(Exercise e : CurrentUser.getWeightEntries()){
+            matrix[i][0] = e.
+            matrix[i][1] = e.getDescription();
+            i++;
+        }
+        return matrix;
+    }*/
 }

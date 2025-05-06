@@ -14,7 +14,7 @@ public class WeightLineGraph extends LineGraph {
      * @param panel JPanel
      */
     WeightLineGraph(JPanel panel, int goalWeight) {
-        super(panel, goalWeight, "Weight Progress", "Date", "Weight(lbs)");
+        super(panel, goalWeight, "Weight Progress", "Date", "Weight(lbs)", "src/main/java/UserInterface/graphs/dateAndWeight.csv");
 
     }
 

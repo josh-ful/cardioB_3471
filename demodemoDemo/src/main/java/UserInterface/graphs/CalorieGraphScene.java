@@ -38,11 +38,11 @@ public class CalorieGraphScene extends Scenes {
         super.createAndShowGUI(frame);
         panelLayout();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Weight Graph");
+        frame.setTitle("Calorie Graph");
 
         panel.add(createBackButton(frame), c);
-        int goalCalories = 170;
-        SleepLineGraph f = new SleepLineGraph(panel, goalCalories);
+        int goalCalories = 1004;
+        CalorieLineGraph f = new CalorieLineGraph(panel, goalCalories);
 
         frame.add(panel);
         frame.pack();

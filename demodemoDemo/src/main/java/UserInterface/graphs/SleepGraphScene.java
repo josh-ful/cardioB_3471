@@ -38,10 +38,10 @@ public class SleepGraphScene extends Scenes {
         super.createAndShowGUI(frame);
         panelLayout();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Weight Graph");
+        frame.setTitle("Sleep Graph");
 
         panel.add(createBackButton(frame), c);
-        int goalHours = 170;
+        int goalHours = 3;
         SleepLineGraph f = new SleepLineGraph(panel, goalHours);
 
         frame.add(panel);

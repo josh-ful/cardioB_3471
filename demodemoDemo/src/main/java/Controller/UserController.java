@@ -10,7 +10,7 @@ import UserInterface.addExercise.ExerciseLogHelper;
 import UserInterface.addExercise.ExerciseLogHelperCSV;
 import UserInterface.addExercise.ExerciseLogHelperSQL;
 import main.DBConnection;
-import UserInterface.addExercise.ExerciseLogHelper;
+import UserInterface.graphs.Point;
 
 import main.DBConnection;
 import main.DatabaseInfo;
@@ -44,7 +44,25 @@ public class UserController implements Controller {
     public static void enterWeight(int weight) {
         CurrentUser.setWeight(weight);
     }
+    public static ArrayList getWeightEntries(int userId) {
+        ArrayList<Point> weightEntriesList = new ArrayList<>();
+        try (Connection conn = main.DBConnection.getConnection()) {
+            PreparedStatement weightStmt = conn.prepareStatement(
+                    "SELECT weight FROM weight_entries WHERE user_id = ?"
+            );
+            weightStmt.setInt(1, userId);
+            ResultSet weightEntriesResults = weightStmt.executeQuery();
 
+            while (weightEntriesResults.next()) {
+                int weightId = weightEntriesResults.getInt("course_id");
+                Point p = UserController.getWeightPoint(weightId);
+                weightEntriesList.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return weightEntriesList;
+    }
     /**
      * enters exercise information
      *
@@ -89,6 +107,29 @@ public class UserController implements Controller {
 
     public static String[][] getTableMatrix() {
         return ExerciseLogHelper.getTableMatrix();
+    }
+
+    public static Point getWeightPoint(int weightID) {
+        Point retPoint = null;
+        try (Connection conn = main.DBConnection.getConnection()) {
+            PreparedStatement selfStmt = conn.prepareStatement(
+                    "SELECT name, description, time, type FROM courses WHERE id = ?"
+            );
+            selfStmt.setInt(1, weightID);
+            ResultSet rs = selfStmt.executeQuery();
+            if (rs.next()) {
+                //System.out.println("Got exercise");
+                int weight = rs.getInt("weight");
+                Date date = rs.getDate("date_added");
+                retPoint = new Point();
+                retPoint.setX(date);
+                retPoint.setY(weight);
+            }
+        } catch (SQLException exc) {
+            exc.printStackTrace();
+            System.out.println("Exception with getting weight");
+        }
+        return retPoint;
     }
 
     public static ExerciseClass getExercise(int courseId) throws SQLException {
