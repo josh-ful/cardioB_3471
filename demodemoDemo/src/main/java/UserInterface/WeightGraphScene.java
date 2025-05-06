@@ -74,7 +74,7 @@ public class WeightGraphScene extends Scenes {
      * @param frame JFrame which back button is displayed on
      */
     private JButton createBackButton(JFrame frame) {
-        JButton button = super.createBackButton(frame, ProfileScreen.class);
+        JButton button = super.createBackButton(frame, UserDashboard.class);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;

@@ -46,10 +46,6 @@ public class UserController implements Controller {
                 e.printStackTrace();
             }
         }
-        else {
-            new ExerciseLogHelperCSV("src/resources/testCreateExercise.csv");
-            CurrentUser.importExercises(ExerciseLogHelperCSV.readCSV());
-        }
     }
 
     public static void enterWeight(int weight) {
@@ -185,7 +181,8 @@ public class UserController implements Controller {
         return false;
     }
 
-    public static boolean registerForClass(int courseId) {
+    //todo not a boolean?
+    public static boolean registerForClass(int courseId) throws SQLException{
         try (Connection conn = main.DBConnection.getConnection()) {
             PreparedStatement insertStmt = conn.prepareStatement(
                     "INSERT INTO course_registrations (user_id, course_id) VALUES (?, ?)"

@@ -38,18 +38,11 @@ public class CurrentUser {
     // todo move statistics and exercise list to their own classes
     private static ArrayList<Exercise> exerciseList = new ArrayList<>();
     private static Integer weight;
-    private static Integer id;
-
 
     //needs to be called after successful login!
     public static void setId(int userId) {
         id = userId;
     }
-
-    public static Integer getId() {
-        return id;
-    }
-
 
     public static void updateCurrentUser(){
         //query users table with name
@@ -217,10 +210,11 @@ public class CurrentUser {
         return weight;
     }
 
-    public static void importExercises(ArrayList<Exercise> set) {
-        clearExercises();
-        exerciseList.addAll(set);
-    }
+//    public static void importExercises(ArrayList<Exercise> set) {
+//        clearExercises();
+//        exerciseList.addAll(set);
+//    }
+
 
     public static void destroy(){
         id = null;

@@ -1,7 +1,7 @@
 package UserInterface;
 
 import Controller.UserController;
-import FitnessCourse.ExerciseClass;
+import FitnessCourse.*;
 import UserInformation.CurrentUser;
 import main.DBConnection;
 
@@ -81,10 +81,10 @@ public class CourseSearch extends Scenes {
         resultsPanel.removeAll();  // Clear previous results
 
         try {
-            ArrayList<ExerciseClass> classes;
+            ArrayList<Course> classes;
             classes = UserController.getAllExercises(type, query);
 
-            for (ExerciseClass exerciseClass : classes) {
+            for (Course exerciseClass : classes) {
                 JPanel courseItem = getCoursePanel();
                 JPanel textPanel = getTextPanel(exerciseClass);
                 JButton registerBtn = getRegisterButton(exerciseClass);
@@ -105,21 +105,20 @@ public class CourseSearch extends Scenes {
         }
     }
 
-    private static JButton getRegisterButton(ExerciseClass exerciseClass) {
+    private static JButton getRegisterButton(Course exerciseClass) {
         JButton registerBtn = new JButton("Register");
         registerBtn.addActionListener(e -> {
             try {
-                UserController.registerForClass(exerciseClass.getType(),
-                        exerciseClass.getId(), exerciseClass.getName());
+                UserController.registerForClass(exerciseClass.getId());
                 JOptionPane.showMessageDialog(panel, "Successfully registered for: " +
                         exerciseClass.getName());
-            } catch (RuntimeException ex) {
-                JOptionPane.showMessageDialog(panel, ex.getMessage());
-                //todo throw a runtime exception here?
             } catch (SQLException ex) {
                 //todo change to SQLException?
                 JOptionPane.showMessageDialog(panel, "Error with database during registration.");
                 throw new RuntimeException(ex);
+            } catch (RuntimeException ex) {
+                JOptionPane.showMessageDialog(panel, ex.getMessage());
+                //todo throw a runtime exception here?
             }
         });
         return registerBtn;
@@ -132,7 +131,7 @@ public class CourseSearch extends Scenes {
         return courseItem;
     }
 
-    private static JPanel getTextPanel(ExerciseClass exerciseClass) {
+    private static JPanel getTextPanel(Course exerciseClass) {
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
         JLabel nameLabel = new JLabel(exerciseClass.getName());
