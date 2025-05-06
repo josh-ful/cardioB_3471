@@ -10,6 +10,7 @@ package UserInformation;
 import Controller.*;
 import Exceptions.UserNotFoundException;
 import FitnessCourse.*;
+import UserInterface.DailyMetricDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -305,7 +306,7 @@ public class CurrentUser {
 
     public static Double getAvgSleep() {
         if(avgSleep == null){
-            UserController.getAvgSleep(getId());
+            DailyMetricDAO.getAvgSleep(getId());
         }
         return avgSleep;
     }
@@ -317,13 +318,13 @@ public class CurrentUser {
     }
     public static Double getAvgCalories() {
         if(avgCalories == null){
-            UserController.getAvgCalories(getId());
+            DailyMetricDAO.getAvgCalories(getId());
         }
         return avgCalories;
     }
     public static Double getAvgWorkout() {
         if(avgWorkout == null){
-            UserController.getAvgWorkout(getId());
+            DailyMetricDAO.getAvgWorkout(getId());
         }
         return avgWorkout;
     }

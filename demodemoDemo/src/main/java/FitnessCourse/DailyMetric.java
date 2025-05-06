@@ -1,4 +1,4 @@
-package UserInterface;
+package FitnessCourse;
 
 import java.time.LocalDate;
 
@@ -8,7 +8,7 @@ public class DailyMetric {
     private double value;
     private LocalDate date;
 
-    DailyMetric(){}
+    public DailyMetric(){}
 
     DailyMetric(int userId, MetricTypes type, double value) {
         this.userId = userId;

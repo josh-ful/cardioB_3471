@@ -11,6 +11,8 @@
 package UserInterface;
 
 import Controller.UserController;
+import FitnessCourse.DailyMetric;
+import FitnessCourse.MetricTypes;
 import UserInformation.CurrentUser;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -21,9 +23,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
-import UserInterface.DailyMetric;
+
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
@@ -97,7 +98,7 @@ public class UserMainDash extends Scenes{
         chartsGrid.add(makeTimeSeriesChart(CurrentUser.getId(), MetricTypes.WEIGHT,   "Weight"));
         chartsGrid.add(makeTimeSeriesChart(CurrentUser.getId(), MetricTypes.SLEEP,    "Sleep (hrs)"));
         chartsGrid.add(makeTimeSeriesChart(CurrentUser.getId(), MetricTypes.CALORIES, "Calories"));
-        chartsGrid.add(makeTimeSeriesChart(CurrentUser.getId(), MetricTypes.WORKOUT,  "Workout Duration"));
+        chartsGrid.add(makeTimeSeriesChart(CurrentUser.getId(), MetricTypes.WKTDURATION,  "Workout Duration"));
         chartPanel.add(chartsGrid, BorderLayout.CENTER);
 
         panel.add(chartPanel, BorderLayout.CENTER);

@@ -15,10 +15,8 @@ import main.DBConnection;
 import main.DatabaseInfo;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -396,7 +394,7 @@ public class UserController implements Controller {
 
     private static final String GET_LATEST = ""
             + "SELECT metric_value "
-            + "  FROM daily_metric "
+            + "  FROM daily_metrics "
             + " WHERE user_id = ? "
             + "   AND metric_type = ? "
             + " ORDER BY date DESC "
@@ -404,68 +402,45 @@ public class UserController implements Controller {
 
     private static final String GET_AVG = ""
             + "SELECT AVG(metric_value) AS avg_val "
-            + "  FROM daily_metric "
+            + "  FROM daily_metrics "
             + " WHERE user_id = ? "
             + "   AND metric_type = ? "
             + "   AND date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)";
 
 
-    private static double fetchSingle(int userId, String metricType) {
-        try (Connection c = DBConnection.getConnection();
-             PreparedStatement ps = c.prepareStatement(GET_LATEST)) {
-            ps.setInt(1, userId);
-            ps.setString(2, metricType);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getDouble("metric_value");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+
+
+    public static void updateDailyMetrics(int userId, LocalDate date, Double weight, Double sleep, Double calories, Double wktDuration) {
+        String sql = """
+            INSERT INTO daily_metrics
+               (user_id, metric_date, weight, sleep, calories, wktduration)
+            VALUES (?, ?, ?,     ?,     ?,        ?)
+            ON DUPLICATE KEY UPDATE
+              weight      = VALUES(weight),
+              sleep       = VALUES(sleep),
+              calories    = VALUES(calories),
+              wktduration = VALUES(wktduration)
+            """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement p = conn.prepareStatement(sql)) {
+            p.setInt(1, userId);
+            p.setDate(2, Date.valueOf(date));
+            if (weight   != null) p.setDouble(3, weight);   else p.setNull(3, java.sql.Types.DOUBLE);
+            if (sleep    != null) p.setDouble(4, sleep);    else p.setNull(4, java.sql.Types.DOUBLE);
+            if (calories != null) p.setDouble(5, calories); else p.setNull(5, java.sql.Types.DOUBLE);
+            if (wktDuration != null) p.setDouble(6, wktDuration); else p.setNull(6, java.sql.Types.DOUBLE);
+
+            p.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Error updating daily metrics: " + ex.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-        return 0.0;
     }
-
-    private static double fetchAverage(int userId, String metricType) {
-        try (Connection c = DBConnection.getConnection();
-             PreparedStatement ps = c.prepareStatement(GET_AVG)) {
-            ps.setInt(1, userId);
-            ps.setString(2, metricType);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getDouble("avg_val");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0.0;
-    }
-
-    public static void getCurrentWeight(int userId) {
-        double val = fetchSingle(userId, "WEIGHT");
-        CurrentUser.setCurrentWeight(val);
-    }
-
-    public static void getAvgSleep(int userId) {
-        CurrentUser.setAvgSleep(0.0);
-        double val = fetchAverage(userId, "SLEEP");
-        CurrentUser.setAvgSleep(val);
-    }
-
-    public static void getAvgCalories(int userId) {
-        CurrentUser.setAvgCalories(0.0);
-        double val = fetchAverage(userId, "CALORIES");
-        CurrentUser.setAvgCalories(val);
-    }
-
-    public static void getAvgWorkout(int userId) {
-        CurrentUser.setAvgWorkout(0.0);
-        double val = fetchAverage(userId, "WORKOUT");
-        CurrentUser.setAvgWorkout(val);
-    }
-
-
 
 
     public static void updateUserGoals(int userId, double weightGoal, double sleepGoal, double caloriesGoal, double workoutGoal) {
