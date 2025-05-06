@@ -7,7 +7,7 @@ public class Exercise {
     private String name;
     private String description;
     /**
-     * Creates Exercise object
+     * Constructs Exercise object
      *
      * @param name of exercise
      */

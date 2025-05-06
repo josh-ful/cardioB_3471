@@ -3,18 +3,14 @@
  */
 package UserInterface;
 
-import FitnessCourse.Exercise;
 import UserInformation.CurrentUser;
 import UserInterface.addExercise.AddWeightDialog;
+import UserInterface.graphs.CalorieGraphScene;
+import UserInterface.graphs.SleepGraphScene;
+import UserInterface.graphs.WeightGraphScene;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
 
 public class ProfileScreen extends Scenes{
 
@@ -59,6 +55,8 @@ public class ProfileScreen extends Scenes{
         // TODO: don't want to pass frame to create method
         panel.add(createAddWeightButton(frame), c);
         panel.add(weightGraphButton(frame), c);
+        panel.add(sleepGraphButton(frame), c);
+        panel.add(calorieGraphButton(frame), c);
         panel.add(createBackButton(frame), c);
 
         frame.add(panel);
@@ -130,6 +128,43 @@ public class ProfileScreen extends Scenes{
 
         return button;
     }
+
+    /**
+     * creates button to load and display previous scene
+     *
+     * @param frame which scene is created on
+     * @return JButton with back button functionality
+     */
+    private JButton sleepGraphButton(JFrame frame) {
+        JButton button = new JButton("Sleep Graph");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 5;
+
+        button.addActionListener(e -> {
+            new SleepGraphScene(frame);
+        });
+
+        return button;
+    }
+    /**
+     * creates button to load and display previous scene
+     *
+     * @param frame which scene is created on
+     * @return JButton with back button functionality
+     */
+    private JButton calorieGraphButton(JFrame frame) {
+        JButton button = new JButton("Calorie Graph");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 6;
+
+        button.addActionListener(e -> {
+            new CalorieGraphScene(frame);
+        });
+
+        return button;
+    }
     /**
      * back button repaints to previous scene
      *
@@ -140,7 +175,7 @@ public class ProfileScreen extends Scenes{
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 5;
+        c.gridy = 7;
 
         return button;
     }

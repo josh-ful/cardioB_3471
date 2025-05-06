@@ -1,8 +1,6 @@
-/**
- * this class creates a line graph of weight
- */
-package UserInterface;
+package UserInterface.graphs;
 
+import UserInterface.Point;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -19,14 +17,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class WeightLine {
-    /**
-     * constructs a WeightLine objects
-     *
-     * @param panel JPanel
-     */
-    WeightLine(JPanel panel, int goalWeight) {
-        JFreeChart chart= makeLineChart(goalWeight);
+public class LineGraph {
+    public JPanel panel;
+    public int goal;
+
+    ArrayList<UserInterface.Point>points = readInCSV();
+    LineGraph(JPanel jp, int goal, String title, String xAxisLabel, String yAxisLabel) {
+        this.panel = jp;
+        this.goal = goal;
+
+        JFreeChart chart = makeLineChart(title, xAxisLabel, yAxisLabel );
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setBackground(Color.pink);
         chartPanel.setFillZoomRectangle(true);
@@ -35,20 +35,15 @@ public class WeightLine {
         chartPanel.setPreferredSize(new Dimension(800, 600));
         panel.add(chartPanel);
     }
-    /**
-     *
-     *
-     * @param
-     */
-    public static JFreeChart makeLineChart(int goalWeight) {
-        ArrayList<Point> points = readInCSV();
+    public JFreeChart makeLineChart(String title, String xAxisLabel, String yAxisLabel) {
+        ArrayList<UserInterface.Point> points = readInCSV();
         DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
         System.out.println(points.size());
         for(int i = 0; i < points.size(); i++) {
             categoryDataset.addValue((double)points.get(i).getY(), "1", ""+points.get(i).getX());
         }
-        JFreeChart chart = ChartFactory.createLineChart("Weight Progress", "Date", "Weight(lbs)", categoryDataset);
-        ValueMarker marker = new ValueMarker(goalWeight);  // position is the value on the axis
+        JFreeChart chart = ChartFactory.createLineChart(title, xAxisLabel, yAxisLabel, categoryDataset);
+        ValueMarker marker = new ValueMarker(goal);  // position is the value on the axis
         marker.setPaint(Color.RED);
         marker.setLabel("GOAL"); // see JavaDoc for labels, colors, strokes
 
@@ -58,14 +53,6 @@ public class WeightLine {
         marker.setLabelBackgroundColor(Color.PINK);
         plot.addRangeMarker(marker);
 
-        /*CategoryPlot plot = chart.getCategoryPlot();
-        plot.setBackgroundPaint(Color.WHITE);
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setDrawBarOutline(true);
-        chart.getLegend().setFrame(BlockBorder.NONE);*/
-
         return chart;
     }
     /**
@@ -73,15 +60,15 @@ public class WeightLine {
      *
      * @param
      */
-    public static ArrayList<Point> readInCSV() {
-        ArrayList<Point>points = new ArrayList<>();
+    public static ArrayList<UserInterface.Point> readInCSV() {
+        ArrayList<UserInterface.Point>points = new ArrayList<>();
         try {
             BufferedReader br = new BufferedReader( new FileReader("src/main/java/UserInterface/dateAndWeight.csv"));
             String line;
 
             while ((line = br.readLine()) != null) {
                 String[] row = line.split(",");
-                points.add(new Point(Point.stringToDate(row[0]), Integer.parseInt(row[1])));
+                points.add(new UserInterface.Point(Point.stringToDate(row[0]), Integer.parseInt(row[1])));
             }
         } catch (FileNotFoundException ex) {
             throw new RuntimeException(ex);

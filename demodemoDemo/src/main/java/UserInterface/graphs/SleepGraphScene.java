@@ -1,19 +1,22 @@
 /**
  * this class creates scene that shows a graph of the weights
  */
-package UserInterface;
+package UserInterface.graphs;
+
+import UserInterface.ProfileScreen;
+import UserInterface.Scenes;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class WeightGraphScene extends Scenes {
+public class SleepGraphScene extends Scenes {
     GridBagConstraints c;
     /**
-     * constructs a WeightGraphScene object
+     * constructs a SleepGraphScene object
      *
-     * @param frame JFrame that weight graph is created on
+     * @param frame JFrame that sleep graph is created on
      */
-    public WeightGraphScene(JFrame frame) {
+    public SleepGraphScene(JFrame frame) {
         createAndShowGUI(frame);
     }
     /**
@@ -26,7 +29,7 @@ public class WeightGraphScene extends Scenes {
         c = new GridBagConstraints();
     }
     /**
-     * creates gui of weightGraphScene
+     * creates gui of SleepGraphScene
      *
      * @param frame JFrame which the gui will be created on
      */
@@ -37,36 +40,15 @@ public class WeightGraphScene extends Scenes {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Weight Graph");
 
-        DrawingPanel d = createLineChart();
-        //panel.add(d, c);
-
         panel.add(createBackButton(frame), c);
-       //WeightChart w = new WeightChart(panel);
-        int goalWeight = 170;
-        WeightLine f = new WeightLine(panel, goalWeight);
+        int goalHours = 170;
+        SleepLineGraph f = new SleepLineGraph(panel, goalHours);
 
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
 
         // TODO get class list and display
-    }
-    /**
-     * creates a line chart using drawingPanel
-     *
-     */
-    private DrawingPanel createLineChart() {
-        DrawingPanel dPanel = new DrawingPanel();
-        c.gridx = 0;
-        c.gridy = 0;
-        c.weightx = 1;
-        c.weighty = 1;
-        c.gridwidth = 2;
-        c.gridheight = 1;
-        c.fill = GridBagConstraints.BOTH;
-        c.anchor = GridBagConstraints.CENTER;
-        //dPanel.paintComponents(panel.getGraphics());
-        return dPanel;
     }
     /**
      * adds button leading to previous scene

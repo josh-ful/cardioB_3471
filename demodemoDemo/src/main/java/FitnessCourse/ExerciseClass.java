@@ -1,9 +1,15 @@
+/*
+ * this class represents information of exercise classes
+ */
 package FitnessCourse;
 
 public class ExerciseClass {
     String name, description, type;
     int id, trainerId;
-
+    /**
+     *
+     *
+     */
     public ExerciseClass() {
     }
 
