@@ -1,4 +1,4 @@
-package UserInformationTest;
+package UserInformation;
 
 import Controller.UserController;
 import Exceptions.AlreadyRegisteredException;
@@ -20,7 +20,7 @@ public class AddCourseTest {
         Connection conn = DBConnection.getConnection();
         String insertUser = "INSERT INTO userInfo (username, password) VALUES (?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(insertUser)) {
-            addUser(ps, "TEST", "TESTPASSWORD123");
+            addUser(ps, "TEST", "TESTPASSWORD123", "general");
             ps.executeUpdate();
         } catch (SQLIntegrityConstraintViolationException e) {
             System.out.println("Sorry, that username is already in use.!");
