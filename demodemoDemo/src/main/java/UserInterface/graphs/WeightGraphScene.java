@@ -14,7 +14,6 @@ public class WeightGraphScene extends Scenes {
     /**
      * constructs a WeightGraphScene object
      *
-     * @param frame JFrame that weight graph is created on
      */
     public WeightGraphScene() {
         createAndShowGUI();
