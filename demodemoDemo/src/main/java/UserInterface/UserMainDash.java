@@ -34,7 +34,7 @@ public class UserMainDash extends Scenes {
     // Updated to convert sql Date properly via LocalDate
     private ChartPanel makeTimeSeriesChart(MetricTypes type, String title) throws SQLException {
         List<Point> data = DailyMetricDAO.fetchAllMetrics(type);
-        TimeSeries series = new TimeSeries(type.name());
+        TimeSeries series = new TimeSeries(type.getName());
         for (Point dm : data) {
             // dm.getX() returns java.sql.Date
             java.sql.Date sqlDate = (java.sql.Date) dm.getX();

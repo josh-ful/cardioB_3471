@@ -32,11 +32,12 @@ public class DailyMetricDAO {
      * @return list of DailyMetric objects
      * @throws SQLException if a database access error occurs
      */
-    public static List<Point> fetchAllMetrics(MetricTypes type) throws SQLException {
+    public static List<Point> fetchAllMetrics(MetricTypes type) {
 
-        String sql = "SELECT metric_date, " + type + " FROM daily_metrics" +
-                " WHERE user_id = ? AND " + type + " IS NOT NULL" + " ORDER BY metric_date";
+        String sql = "SELECT metric_date, " + type.getName() + " FROM daily_metrics" +
+                " WHERE user_id = ? AND " + type.getName() + " IS NOT NULL" + " ORDER BY metric_date";
         List<Point> metrics = new ArrayList<>();
+
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -50,6 +51,10 @@ public class DailyMetricDAO {
                     metrics.add(dm);
                 }
             }
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Caught error");
         }
         return metrics;
     }
