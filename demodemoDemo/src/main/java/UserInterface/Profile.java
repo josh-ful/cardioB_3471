@@ -12,6 +12,10 @@ public class Profile extends Scenes{
     private static JPanel metricsPanel;
     GridBagConstraints c;
 
+    private static JLabel currAge;
+    private static JLabel currGender;
+    private static JLabel currEmail;
+
     public Profile(JFrame frame) {
         createAndShowGUI(frame);
     }
@@ -60,17 +64,26 @@ public class Profile extends Scenes{
         info.add(new JLabel(CurrentUser.getType()));
 
         info.add(new JLabel("Age:"));
-        info.add(new JLabel(CurrentUser.getAge().toString()));
+        currAge = new JLabel(CurrentUser.getAge().toString());
+        info.add(currAge);
 
         info.add(new JLabel("Gender:"));
-        info.add(new JLabel(CurrentUser.getGender()));
+        currGender = new JLabel(CurrentUser.getGender());
+        info.add(currGender);
 
         info.add(new JLabel("Email:"));
-        info.add(new JLabel(CurrentUser.getEmail()));
+        currEmail = new JLabel(CurrentUser.getEmail());
+        info.add(currEmail);
 
         info.add(getEditOnboardingBtn());
 
         return info;
+    }
+
+    public static void refreshInfoPanel(){
+        currAge.setText(CurrentUser.getAge().toString());
+        currGender.setText(CurrentUser.getGender());
+        currEmail.setText(CurrentUser.getEmail());
     }
 
     private static JPanel makeMetricsGoalsPanel() {
