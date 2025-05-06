@@ -1,13 +1,8 @@
 package Controller;
 
-import UserInformation.UserQuery;
-import UserInterface.AdminDashboardScene;
+import UserInterface.Admin.AdminDashboardScene;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /*
  * this class serves as the admin user type controller

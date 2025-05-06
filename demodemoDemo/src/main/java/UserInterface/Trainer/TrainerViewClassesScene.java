@@ -1,7 +1,8 @@
-package UserInterface;
+package UserInterface.Trainer;
 
 import Controller.TrainerController;
 import FitnessCourse.Course;
+import UserInterface.Scenes;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -48,7 +49,7 @@ public class TrainerViewClassesScene extends Scenes {
 
         //create new class button -> dialog
         JButton newClassBtn = new JButton("Create New Class");
-        newClassBtn.addActionListener(e -> new CreateClassDialog(frame));
+        newClassBtn.addActionListener(e -> new TrainerCreateClassDialog(frame));
         JPanel bottomBar = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomBar.add(newClassBtn);
         panel.add(bottomBar, BorderLayout.SOUTH);
@@ -112,7 +113,7 @@ public class TrainerViewClassesScene extends Scenes {
         JButton editBtn = new JButton("Edit");
         editBtn.addActionListener(e -> {
             System.out.println("Clicking edit button");
-            new EditClassDialog((JFrame)SwingUtilities.getWindowAncestor(row), cls);
+            new TrainerEditClassDialog((JFrame)SwingUtilities.getWindowAncestor(row), cls);
         });
         buttonPanel.add(editBtn);
 
@@ -123,7 +124,7 @@ public class TrainerViewClassesScene extends Scenes {
             // open a new scene in the same frame
             JFrame owner = (JFrame) SwingUtilities.getWindowAncestor(row);
             System.out.println("Clicking exercises button");
-            new ManageCoursesExercisesScene(owner, cls);
+            new TrainerManageCoursesExercisesScene(owner, cls);
         });
         buttonPanel.add(exercisesBtn);
         row.add(buttonPanel, BorderLayout.EAST);

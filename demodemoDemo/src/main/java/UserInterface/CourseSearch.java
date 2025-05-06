@@ -105,13 +105,13 @@ public class CourseSearch extends Scenes {
         }
     }
 
-    private static JButton getRegisterButton(Course exerciseClass) {
+    private static JButton getRegisterButton(Course course) {
         JButton registerBtn = new JButton("Register");
         registerBtn.addActionListener(e -> {
             try {
-                UserController.registerForClass(exerciseClass.getId());
+                UserController.registerForClass(course.getId());
                 JOptionPane.showMessageDialog(panel, "Successfully registered for: " +
-                        exerciseClass.getName());
+                        course.getName());
             } catch (SQLException ex) {
                 //todo change to SQLException?
                 JOptionPane.showMessageDialog(panel, "Error with database during registration.");

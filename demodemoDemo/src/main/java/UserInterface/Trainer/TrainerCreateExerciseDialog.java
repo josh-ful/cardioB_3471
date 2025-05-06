@@ -1,18 +1,18 @@
-package UserInterface;
+package UserInterface.Trainer;
 
 import FitnessCourse.Course;
 import Controller.TrainerController;
-import FitnessCourse.CourseExercise;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
-public class CreateExerciseDialog extends JDialog {
+public class TrainerCreateExerciseDialog extends JDialog {
     private final Course course;
     private JTextField nameField;
     private JTextArea descArea;
 
-    public CreateExerciseDialog(JFrame parent, Course course) {
+    public TrainerCreateExerciseDialog(JFrame parent, Course course) {
         super(parent, "Create New Exercise", true);
         this.course = course;
         initComponents();
@@ -59,7 +59,7 @@ public class CreateExerciseDialog extends JDialog {
             TrainerController.addExerciseToCourse(course.getId(), name, desc, nextIndex);
             JOptionPane.showMessageDialog(this, "Exercise added successfully!");
             dispose();
-            new ManageCoursesExercisesScene((JFrame)getParent(), course);
+            new TrainerManageCoursesExercisesScene((JFrame)getParent(), course);
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this,

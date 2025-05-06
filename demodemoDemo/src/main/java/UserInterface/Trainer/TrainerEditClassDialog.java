@@ -1,4 +1,4 @@
-package UserInterface;
+package UserInterface.Trainer;
 
 import Controller.TrainerController;
 import FitnessCourse.Course;
@@ -6,12 +6,12 @@ import FitnessCourse.Course;
 import javax.swing.*;
 import java.awt.*;
 
-public class EditClassDialog extends JDialog {
+public class TrainerEditClassDialog extends JDialog {
     private JTextField nameField;
     private JTextField descriptionField;
     private JTextField scheduleField;
 
-    public EditClassDialog(JFrame parent, Course course) {
+    public TrainerEditClassDialog(JFrame parent, Course course) {
         super(parent, "Edit Class", true);
         setLayout(new GridLayout(4, 2, 10, 10));
 

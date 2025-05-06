@@ -1,20 +1,21 @@
-package UserInterface;
+package UserInterface.Trainer;
 
 import Controller.TrainerController;
 import FitnessCourse.Course;
 import FitnessCourse.CourseExercise;
-import FitnessCourse.Exercise;
+import UserInterface.Scenes;
+import UserInterface.SearchExercisesDialog;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class ManageCoursesExercisesScene extends Scenes {
+public class TrainerManageCoursesExercisesScene extends Scenes {
     private final Course course;
     private JPanel listContainer;
     private JScrollPane scrollPane;
 
-    public ManageCoursesExercisesScene(JFrame frame, Course course) {
+    public TrainerManageCoursesExercisesScene(JFrame frame, Course course) {
         this.course = course;
         createAndShowGUI(frame);
     }
@@ -34,7 +35,7 @@ public class ManageCoursesExercisesScene extends Scenes {
         });
         JButton createBtn = new JButton("Create New Exercise");
         createBtn.addActionListener(e -> {
-            new CreateExerciseDialog(frame, course);
+            new TrainerCreateExerciseDialog(frame, course);
         });
         topBar.add(searchBtn);
         topBar.add(createBtn);

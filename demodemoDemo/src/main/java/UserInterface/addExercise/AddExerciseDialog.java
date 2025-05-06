@@ -19,6 +19,7 @@ public class AddExerciseDialog{
     private JFrame newFrame;
     private JTextField nameField;
     private JTextField descriptionField;
+    private JTextField durationField;
     /**
      * Constructs AddExerciseDialog object
      *
@@ -43,12 +44,17 @@ public class AddExerciseDialog{
 
         nameField = new JTextField();
         descriptionField = new JTextField();
+        durationField = new JTextField();
 
         panel.add(getExNameLabel());
         panel.add(nameField);
         panel.add(getExDescriptionLabel());
+
         panel.add(descriptionField);
+        panel.add(getExDuration());
+        panel.add(durationField);
         panel.add(getSubmitButton(frame));
+
 
         newFrame.add(panel);
         newFrame.pack();
@@ -62,6 +68,11 @@ public class AddExerciseDialog{
     private static JLabel getExDescriptionLabel() {
         return new JLabel("Exercise Description: ");
     }
+
+    private static JLabel getExDuration() {
+        return new JLabel("Exercise Duration: ");
+    }
+
     /**
      * gets name of exercise in label form
      *
@@ -78,7 +89,7 @@ public class AddExerciseDialog{
     private JButton getSubmitButton(JFrame frame) {
         JButton submit = new JButton("Submit");
         submit.addActionListener(e -> {
-                UserController.addExercise(nameField.getText(), descriptionField.getText());
+                UserController.addExercise(nameField.getText(), descriptionField.getText(), Integer.parseInt(durationField.getText()));
                 newFrame.dispose();
                 ExerciseLogScene.updateTable();
         });

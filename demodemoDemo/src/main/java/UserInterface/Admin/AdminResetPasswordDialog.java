@@ -1,13 +1,9 @@
-package UserInterface;
+package UserInterface.Admin;
 
 import UserInformation.UserQuery;
-import main.DBConnection;
-import org.mindrot.jbcrypt.BCrypt;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 
 
 public class AdminResetPasswordDialog extends JDialog {

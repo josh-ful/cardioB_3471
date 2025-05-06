@@ -14,6 +14,7 @@ import UserInformation.CurrentUser;
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 
 public class Scenes {
     protected static JPanel panel;
@@ -88,7 +89,11 @@ public class Scenes {
         JMenuItem menuItem3 = new JMenuItem("log-out");
 
         menuItem.addActionListener(e -> {
-            CurrentUser.controller.createDashboard(frame);
+            try {
+                CurrentUser.controller.createDashboard(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         menuItem2.addActionListener(e -> {
             new Profile(frame);

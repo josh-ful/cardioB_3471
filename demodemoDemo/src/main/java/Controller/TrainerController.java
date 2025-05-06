@@ -6,20 +6,21 @@ import javax.swing.*;
 import FitnessCourse.Course;
 import FitnessCourse.CourseExercise;
 import FitnessCourse.Exercise;
-import UserInterface.*;
 import UserInformation.CurrentUser;
 import main.DBConnection;
-import UserInterface.TrainerMenuScene;
-import javax.swing.*;
-import java.awt.event.ActionListener;
+import UserInterface.Trainer.TrainerMenuScene;
+
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TrainerController implements Controller {
 
     public void createDashboard(JFrame frame) {
-        new UserInterface.TrainerMenuScene(frame);
+        new TrainerMenuScene(frame);
     }
 
     //Fetches all courses records for the currently logged-in trainer.
@@ -306,14 +307,167 @@ public class TrainerController implements Controller {
         }
     }
 
+    //add entry to table
+    public static int startCourseSession(int courseId, String initialExercise) {
+        String sql = """
+      INSERT INTO active_courses (course_id, current_exercise)
+           VALUES (?, ?)
+      """;
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement p = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            p.setInt(1, courseId);
+            p.setString(2, initialExercise);
+            p.executeUpdate();
+            try (ResultSet rs = p.getGeneratedKeys()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Error starting session: " + e.getMessage(),
+                    "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return -1;
+    }
 
+    //update current exercise
+    public static void updateCourseSession(int sessionId, String newExercise) {
+        String sql = """
+      UPDATE active_courses
+         SET current_exercise = ?
+       WHERE session_id = ?
+      """;
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement p = c.prepareStatement(sql)) {
+            p.setString(1, newExercise);
+            p.setInt(2, sessionId);
+            p.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Error updating session: " + e.getMessage(),
+                    "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    //delete entry from table when course session ends
+    public static void endCourseSession(int sessionId) {
+        String selectSql = "SELECT session_id, course_id, current_exercise, started_at, total_joined " +
+                "FROM active_courses WHERE session_id = ?";
+        String insertSql = "INSERT INTO inactive_courses(session_id, course_id, current_exercise, started_at, total_joined) " +
+                "VALUES (?, ?, ?, ?, ?)";
+        String deleteSql = "DELETE FROM active_courses WHERE session_id = ?";
+
+        try (Connection conn = DBConnection.getConnection()) {
+            conn.setAutoCommit(false);
+
+            // fetch active record
+            try (PreparedStatement sel = conn.prepareStatement(selectSql)) {
+                sel.setInt(1, sessionId);
+                try (ResultSet rs = sel.executeQuery()) {
+                    if (rs.next()) {
+                        int sid = rs.getInt("session_id");
+                        int cid = rs.getInt("course_id");
+                        String exercise = rs.getString("current_exercise");
+                        Timestamp started = rs.getTimestamp("started_at");
+                        int joined = rs.getInt("total_joined");
+
+                        // insert into inactive_courses
+                        try (PreparedStatement ins = conn.prepareStatement(insertSql)) {
+                            ins.setInt(1, sid);
+                            ins.setInt(2, cid);
+                            ins.setString(3, exercise);
+                            ins.setTimestamp(4, started);
+                            ins.setInt(5, joined);
+                            ins.executeUpdate();
+                        }
+                    }
+                }
+            }
+
+            // delete from active_courses
+            try (PreparedStatement del = conn.prepareStatement(deleteSql)) {
+                del.setInt(1, sessionId);
+                del.executeUpdate();
+            }
+
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace(); // TODO: rollback and logging
+            JOptionPane.showMessageDialog(null,
+                    "Error ending session: " + e.getMessage(),
+                    "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
+    public static int getTotalRegistrations(int courseId) {
+        String sql = "SELECT COUNT(*) FROM course_registrations WHERE course_id = ?";
+        int total = 0;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, courseId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    total = rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // TODO: use proper logging
+        }
+        return total;
+    }
+
+    public static Map<String, Integer> getRegistrationCounts(int courseId) {
+        String sql = "SELECT DATE(registered_at) AS day, COUNT(*) AS cnt " +
+                "FROM course_registrations WHERE course_id = ? " +
+                "GROUP BY day ORDER BY day";
+        Map<String, Integer> counts = new LinkedHashMap<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, courseId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String day = rs.getString("day");
+                    int cnt = rs.getInt("cnt");
+                    counts.put(day, cnt);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // TODO: use proper logging
+        }
+        return counts;
+    }
+
+    public static Map<String, Integer> getSessionJoinCounts(int courseId) {
+        String sql = "SELECT started_at, total_joined FROM inactive_courses " +
+                "WHERE course_id = ? ORDER BY started_at";
+        Map<String, Integer> counts = new LinkedHashMap<>();
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, courseId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Timestamp ts = rs.getTimestamp("started_at");
+                    String key = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm").format(ts);
+                    counts.put(key, rs.getInt("total_joined"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // TODO: use proper logging
+        }
+        return counts;
+    }
 
 
     //TODO add a host class functionality
         //should set class state to joinable - DONE
         //trainer should be able to select an exercise - DONE
         //add a visible clock - DONE
-        //currently selected exercise will be displayed to users with a timer -
+        //currently selected exercise will be displayed to users with a timer - DONE
         //hook duration up on user side with exercise log
 
 

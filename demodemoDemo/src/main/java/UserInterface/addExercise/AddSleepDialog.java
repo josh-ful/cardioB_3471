@@ -1,15 +1,16 @@
 //package UserInterface.addExercise;
 //
 //import Controller.UserController;
-//import UserInterface.UserDailyMetricsGraphs;
+//import UserInformation.CurrentUser;
 //
 //import javax.swing.*;
 //import javax.swing.border.EmptyBorder;
 //import java.awt.*;
 //import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
+//import java.time.LocalDate;
 //
-//public class AddWeightDialog extends JDialog {
+//public class AddSleepDialog extends JDialog {
 //    private JFrame newFrame;
 //    private JTextField weightField;
 //    /**
@@ -17,7 +18,7 @@
 //     *
 //     * @param frame which scene is created on
 //     */
-//    public AddWeightDialog(JFrame frame) {
+//    public AddSleepDialog(JFrame frame) {
 //        createAndShowGUI(frame);
 //    }
 //
@@ -37,13 +38,13 @@
 //
 //    protected void createAndShowGUI(JFrame frame) {
 //        JFrame.setDefaultLookAndFeelDecorated(true);
-//        newFrame = new JFrame("Enter weight:");
+//        newFrame = new JFrame("Enter sleep (hrs):");
 //
 //        JPanel panel = panelLayout();
 //
 //        weightField = new JTextField();
 //        panel.add(weightField);
-//        panel.add(getSubmitButton(frame));
+//        panel.add(getSubmitButton(frame, weightField));
 //
 //        newFrame.add(panel);
 //        newFrame.pack();
@@ -54,15 +55,16 @@
 //     * @param frame which scene is created on
 //     * @return button that submits information to storage
 //     */
-//    private JButton getSubmitButton(JFrame frame) {
+//    private JButton getSubmitButton(JFrame frame, JTextField weightField) {
 //        JButton submit = new JButton("Submit");
 //        submit.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
 //                // TODO throw exceptions about invalid input (ie not a integer is entered)
-//                UserController.enterWeight(Integer.parseInt(weightField.getText()));
+//                UserController.updateDailyMetrics(LocalDate.now(), null, Double.parseDouble(weightField.getText()), null, null);
+//                //(Integer.parseInt(weightField.getText()));
 //                newFrame.dispose();
-//                UserDailyMetricsGraphs.submittedNewScene(frame);
+//                UserDailyMetrics.submittedNewScene(frame);
 //            }
 //        });
 //

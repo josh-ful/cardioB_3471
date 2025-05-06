@@ -1,13 +1,10 @@
-package UserInterface;
+package UserInterface.Admin;
 
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
-import java.util.Map;
 
-import UserInformation.CurrentUser.*;
-
-import static UserInformation.CurrentUser.controller;
+import UserInterface.Scenes;
 
 public class AdminDashboardScene extends Scenes {
 

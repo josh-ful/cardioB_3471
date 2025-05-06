@@ -11,9 +11,14 @@ public class CourseExercise {
         this.order    = order;
     }
 
+
     public int getLinkId()   { return linkId; }
     public Exercise getExercise() { return exercise; }
     public int getOrder()    { return order; }
 
 
+    @Override
+    public String toString() {
+        return exercise.toString();
+    }
 }

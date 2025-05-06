@@ -40,9 +40,9 @@ public class ClassListScene extends Scenes{
 
 
         panel.add(addTextELog());
-        panel.add(addScrollClassList());
+        panel.add(addScrollClassList(frame));
         panel.add(addWorkoutButton(frame));
-        panel.add(createBackButton(frame, UserMenuScene.class));
+        panel.add(createBackButton(frame, UserMainDash.class));
 
         panel.add(Box.createVerticalGlue());
 
@@ -66,7 +66,7 @@ public class ClassListScene extends Scenes{
      *
      * @return JScrollPane for classes
      */
-    private JScrollPane addScrollClassList() {
+    private JScrollPane addScrollClassList(JFrame frame) {
         JPanel resultPanel = new JPanel();
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
 
@@ -77,7 +77,7 @@ public class ClassListScene extends Scenes{
             int userId = UserController.getUserId();
 
             // request all registered classes
-            ArrayList<Course> exerciseList = UserController.getAllUserExercises();
+            ArrayList<Course> exerciseList = UserController.getAllUserClasses();
             exerciseQuantity = exerciseList.size();
 
             if (exerciseList.isEmpty()) {
@@ -85,7 +85,7 @@ public class ClassListScene extends Scenes{
                 resultPanel.add(error);
             }
             for (Course course : exerciseList) {
-                resultPanel.add(createCoursePanel(course));
+                resultPanel.add(createCoursePanel(course, frame));
             }
         }catch (SQLException e) {
             JLabel error = new JLabel(e.getMessage());
@@ -101,7 +101,7 @@ public class ClassListScene extends Scenes{
         return scroll;
     }
 
-    private JPanel createCoursePanel(Course exercise) {
+    private JPanel createCoursePanel(Course course, JFrame frame) {
         JPanel coursePanel = new JPanel(new BorderLayout());
         coursePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
         coursePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
@@ -109,16 +109,16 @@ public class ClassListScene extends Scenes{
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
 
-        JLabel nameLabel = new JLabel(exercise.getName());
+        JLabel nameLabel = new JLabel(course.getName());
         nameLabel.setFont(new Font("SansSerif", Font.BOLD, 16));//no wrapping/overlapping
-        JLabel descLabel = new JLabel("<html>" + exercise.getDescription() + "</html>");
+        JLabel descLabel = new JLabel("<html>" + course.getDescription() + "</html>");
         descLabel.setMinimumSize(new Dimension(100, 30));
         descLabel.setPreferredSize(new Dimension(100, 30));
 
         textPanel.add(nameLabel);
         textPanel.add(descLabel);
 
-        String buttonLabel = switch (exercise.getType()) {
+        String buttonLabel = switch (course.getType()) {
             case "self" -> "Continue";
             case "group" -> "Join";
             default -> "Error";
@@ -126,7 +126,19 @@ public class ClassListScene extends Scenes{
 
         JButton actionBtn = new JButton(buttonLabel);
         actionBtn.addActionListener(e -> {
-            JOptionPane.showMessageDialog(panel, buttonLabel + " " + exercise.getName());
+            if(buttonLabel.equals("Continue")) {
+                new  UserSelfPacedClassScene(frame, course);
+            }
+            else if(buttonLabel.equals("Join")) {
+                System.out.println(course.getName() + " " + course.getId());
+                if(UserController.isCourseJoinable(course.getId())) {
+                    new UserActiveClassScene(frame, course);
+                }
+                else{//class is not joinable
+                    JOptionPane.showMessageDialog(frame, course.getName() + " is not joinable currently");
+                }
+            }
+            //JOptionPane.showMessageDialog(panel, buttonLabel + " " + course.getName());
         });
         coursePanel.add(textPanel, BorderLayout.CENTER);
         coursePanel.add(actionBtn, BorderLayout.EAST);

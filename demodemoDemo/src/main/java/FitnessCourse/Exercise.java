@@ -7,8 +7,9 @@ public class Exercise {
     private int id;
     private String name;
     private String description;
+    private int duration;
     /**
-     * Creates Exercise object
+     * Constructs Exercise object
      *
      * @param name of exercise
      */
@@ -26,6 +27,17 @@ public class Exercise {
         this.description = description;
     }
 
+
+    public Exercise(String name, Integer duration) {
+        this.name = name;
+        this.duration = duration;
+    }
+
+    public Exercise(int id, String name, Integer duration) {
+        this.id = id;
+        this.name = name;
+        this.duration = duration;
+    }
     /**
      * Creates Exercise object
      *
@@ -39,6 +51,13 @@ public class Exercise {
         this.description = description;
     }
 
+
+    public Exercise(int id, String name, String description, Integer duration) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.duration = duration;
+    }
     /**
      * provides string of an Exercise object
      *
@@ -95,5 +114,13 @@ public class Exercise {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

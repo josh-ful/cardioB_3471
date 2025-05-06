@@ -1,7 +1,8 @@
-package UserInterface;
+package UserInterface.Trainer;
 
 import Controller.TrainerController;
 import FitnessCourse.Course;
+import UserInterface.Scenes;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -10,13 +11,13 @@ import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HostClassScene extends Scenes {
+public class TrainerHostClassScene extends Scenes {
 
     private List<Course> allClasses;
     private JPanel listContainer;
     private JScrollPane scrollPane;
 
-    public HostClassScene(JFrame frame) {
+    public TrainerHostClassScene(JFrame frame) {
         createAndShowGUI(frame);
     }
 
@@ -38,6 +39,11 @@ public class HostClassScene extends Scenes {
         listContainer.setLayout(new BoxLayout(listContainer, BoxLayout.Y_AXIS));
         scrollPane = new JScrollPane(listContainer);
         panel.add(scrollPane, BorderLayout.CENTER);
+
+        // Back button to return to trainer menu
+        JButton backBtn = new JButton("Back");
+        backBtn.addActionListener(e -> new TrainerMenuScene(frame));
+        panel.add(backBtn, BorderLayout.SOUTH);
 
         //fetch all classes but show only group courses
         allClasses = TrainerController.getClassesForCurrentTrainer();

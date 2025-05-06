@@ -1,10 +1,11 @@
-package UserInterface;
+package UserInterface.Trainer;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import UserInformation.CurrentUser;
+import UserInterface.Scenes;
 
 public class TrainerMenuScene extends Scenes {
 
@@ -39,14 +40,15 @@ public class TrainerMenuScene extends Scenes {
         JButton hostClassBtn = new JButton("Host Class");
         hostClassBtn.addActionListener(e -> {
                     System.out.println("Clicking host class");
-                    new HostClassScene(frame);
+                    new TrainerHostClassScene(frame);
                 }
         );
 
         JButton viewReportsBtn = new JButton("View Reports");
-        viewReportsBtn.addActionListener(e ->
-                        System.out.println("Clicking view reports")
-                /* TODO: open ReportsScene or dialog here */
+        viewReportsBtn.addActionListener(e -> {
+                        System.out.println("Clicking view reports");
+                new TrainerReportsScene(frame);
+                }
         );
 
         navBar.add(createClassBtn);
