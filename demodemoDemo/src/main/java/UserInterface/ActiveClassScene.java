@@ -9,13 +9,44 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.List;
 
-public class TrainerActiveClassScene extends ActiveClassScene {
-    public TrainerActiveClassScene(JFrame frame, Course course) {
-        super(frame, course);
-        //cange the DB flag so users can join
-        TrainerController.setCourseJoinable(course.getId(), true);
-        sessionID = TrainerController.startCourseSession(course.getId(),course.getName());
+abstract class ActiveClassScene extends Scenes {
+    protected final Course course;
+    protected final List<CourseExercise> exercises;
+    protected int sessionID;
 
+    protected JLabel totalTimeLabel;
+    protected JLabel currentExerciseLabel;
+    protected JLabel exerciseTimeLabel;
+    protected Timer totalTimer, exerciseTimer;
+    protected int totalSecs = 0, exerciseSecs = 0;
+
+    public ActiveClassScene(JFrame frame, Course course) {
+        this.course = course;
+        //fetch ordered list of exercises
+        this.exercises = TrainerController.getCourseExercisesForCourse(course.getId());
+        createAndShowGUI(frame);
+        startTimers();
+    }
+
+    private void startTimers() {
+        //total workout timer
+        totalTimer = new Timer(1000, e -> {
+            totalSecs++;
+            totalTimeLabel.setText(formatTime(totalSecs));
+        });
+        totalTimer.start();
+
+        //per-exercise timer
+        exerciseTimer = new Timer(1000, e -> {
+            exerciseSecs++;
+            exerciseTimeLabel.setText(formatTime(exerciseSecs));
+        });
+        exerciseTimer.start();
+    }
+
+    private String formatTime(int secs) {
+        int m = secs / 60, s = secs % 60;
+        return String.format("%02d:%02d", m, s);
     }
 
     @Override
@@ -24,7 +55,7 @@ public class TrainerActiveClassScene extends ActiveClassScene {
         panel.removeAll();
         panel.setLayout(new BorderLayout(10,10));
 
-        //top total workout duration
+        //Total workout timer
         JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT));
         top.add(new JLabel("Total Time: "));
         totalTimeLabel = new JLabel("00:00");
@@ -47,26 +78,25 @@ public class TrainerActiveClassScene extends ActiveClassScene {
         JList<CourseExercise> list = new JList<>(model);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //show only the name
+        /*
         list.addListSelectionListener((ListSelectionListener) e -> {
             if (!e.getValueIsAdjusting() && list.getSelectedValue() != null) {
                 CourseExercise ce = list.getSelectedValue();
-                currentExerciseLabel.setText(
-                        ce.getOrder() + ". " + ce.getExercise().getName()
-                );
+                //currentExerciseLabel.setText(ce.getOrder() + ". " + ce.getExercise().getName());
                 exerciseSecs = 0;
                 exerciseTimeLabel.setText("00:00");
-                TrainerController.updateCourseSession(sessionID,currentExerciseLabel.getText());
             }
         });
+        */
         panel.add(new JScrollPane(list), BorderLayout.EAST);
 
+        /*
         //rest button and stop hosting at bottom of screen
         JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         JButton restBtn = new JButton("Rest");
         restBtn.addActionListener(e -> {
             list.clearSelection();
-            currentExerciseLabel.setText("Resting");
-            TrainerController.updateCourseSession(sessionID,currentExerciseLabel.getText());
+            currentExerciseLabel.setText("Rest");
             exerciseSecs = 0;
             exerciseTimeLabel.setText("00:00");
         });
@@ -77,13 +107,13 @@ public class TrainerActiveClassScene extends ActiveClassScene {
             totalTimer.stop();
             exerciseTimer.stop();
             TrainerController.setCourseJoinable(course.getId(), false);
-            TrainerController.endCourseSession(sessionID);
             JOptionPane.showMessageDialog(frame, "Class ended.");
             new TrainerMenuScene(frame);
         });
         south.add(stopBtn);
 
         panel.add(south, BorderLayout.SOUTH);
+        */
 
         frame.setContentPane(panel);
         frame.revalidate();
