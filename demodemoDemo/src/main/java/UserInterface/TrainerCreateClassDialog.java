@@ -5,12 +5,12 @@ import Controller.TrainerController;
 import javax.swing.*;
 import java.awt.*;
 
-public class CreateClassDialog extends JDialog {
+public class TrainerCreateClassDialog extends JDialog {
     private JTextField nameField;
     private JTextField descriptionField;
     private JTextField scheduleField;
 
-    public CreateClassDialog(JFrame parent) {
+    public TrainerCreateClassDialog(JFrame parent) {
         super(parent, "Create New Class", true);
         setLayout(new GridLayout(4, 2, 10, 10));
 

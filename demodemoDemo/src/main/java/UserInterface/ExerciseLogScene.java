@@ -1,6 +1,5 @@
 package UserInterface;
 
-import UserInformation.CurrentUser;
 import UserInterface.addExercise.AddExerciseDialog;
 import UserInterface.addExercise.ExerciseLogHelper;
 import Controller.UserController;
@@ -100,7 +99,7 @@ public class ExerciseLogScene extends Scenes{
      * @return button with back button functionality
      */
     private JButton createBackButton(JFrame frame) {
-        return createBackButton(frame, UserMenuScene.class);
+        return createBackButton(frame, UserMainDash.class);
     }
 
     /**

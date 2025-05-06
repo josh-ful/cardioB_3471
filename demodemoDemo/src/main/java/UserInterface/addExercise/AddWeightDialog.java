@@ -1,7 +1,7 @@
 package UserInterface.addExercise;
 
 import Controller.UserController;
-import UserInterface.UserDashboard;
+import UserInterface.UserDailyMetrics;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -62,7 +62,7 @@ public class AddWeightDialog extends JDialog {
                 // TODO throw exceptions about invalid input (ie not a integer is entered)
                 UserController.enterWeight(Integer.parseInt(weightField.getText()));
                 newFrame.dispose();
-                UserDashboard.submittedNewScene(frame);
+                UserDailyMetrics.submittedNewScene(frame);
             }
         });
 

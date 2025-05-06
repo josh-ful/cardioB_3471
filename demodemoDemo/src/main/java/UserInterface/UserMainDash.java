@@ -11,15 +11,26 @@
 package UserInterface;
 
 import Controller.UserController;
+import UserInformation.CurrentUser;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.sql.SQLException;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
+import UserInterface.DailyMetric;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.time.Day;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
 
 //TODO fix some method/formatting things here
-public class UserMenuScene extends Scenes{
+public class UserMainDash extends Scenes{
     GridBagConstraints constraints = new GridBagConstraints();
     /**
      *
@@ -27,7 +38,7 @@ public class UserMenuScene extends Scenes{
      *
      * @param frame which scene is created on
      */
-    public UserMenuScene(JFrame frame){
+    public UserMainDash(JFrame frame) throws SQLException {
         createUM_SCENE(frame);
     }
     /**
@@ -36,24 +47,104 @@ public class UserMenuScene extends Scenes{
      *
      */
     protected void panelLayout() {
-        panel.setLayout(new GridBagLayout());
+        panel.setLayout(new BorderLayout(10,10));
         constraints.fill = GridBagConstraints.HORIZONTAL;
     }
+
+    private ChartPanel makeTimeSeriesChart(int userId, MetricTypes type, String title) throws SQLException {
+        List<DailyMetric> data = DailyMetricDAO.fetchMetrics(userId, type);
+        TimeSeries series = new TimeSeries(type.name());
+        for (DailyMetric dm : data) {
+            series.add(new Day(java.util.Date.from(dm.getDate().atStartOfDay(ZoneId.systemDefault()).toInstant())),
+                    dm.getValue());
+        }
+        TimeSeriesCollection dataset = new TimeSeriesCollection(series);
+        JFreeChart chart = ChartFactory.createTimeSeriesChart(
+                title,
+                "Date",//x-axis
+                type.name(),//y-axis
+                dataset,//data
+                false,
+                true,
+                false
+        );
+        return new ChartPanel(chart);
+    }
+
+
     /**
      * creates a UserMenuScene using the super's createAndShowGUI
      * method and adds on a menu and text
      *
      */
-    protected void createUM_SCENE(JFrame frame) {
+    protected void createUM_SCENE(JFrame frame) throws SQLException {
         new UserController();
         super.createAndShowGUI(frame);
         panelLayout();
 
+        //welcome text
+        JPanel top = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel welcome = new JLabel("Hello, " + CurrentUser.getName() + "!");
+        welcome.setFont(new Font("Roboto", Font.BOLD, 24));
+        top.add(welcome);
+        panel.add(top, BorderLayout.NORTH);
 
-        addTextMenu();
-        initMenu(frame);
+        //addTextMenu();
+        //initMenu(frame);
+        JPanel chartPanel = new JPanel();
+        chartPanel.setLayout(new BorderLayout(10,10));
+        JPanel chartsGrid = new JPanel(new GridLayout(2,2,5,5));
+        chartsGrid.add(makeTimeSeriesChart(CurrentUser.getId(), MetricTypes.WEIGHT,   "Weight"));
+        chartsGrid.add(makeTimeSeriesChart(CurrentUser.getId(), MetricTypes.SLEEP,    "Sleep (hrs)"));
+        chartsGrid.add(makeTimeSeriesChart(CurrentUser.getId(), MetricTypes.CALORIES, "Calories"));
+        chartsGrid.add(makeTimeSeriesChart(CurrentUser.getId(), MetricTypes.WORKOUT,  "Workout Duration"));
+        chartPanel.add(chartsGrid, BorderLayout.CENTER);
+
+        panel.add(chartPanel, BorderLayout.CENTER);
+        //nav bar with three buttons on the bottom
+        JPanel navBar = new JPanel();
+        navBar.setLayout(new GridLayout(1, 4));
+
+        JButton dashBtn = new JButton("Daily Metrics");
+        dashBtn.addActionListener(e -> {
+                    System.out.println("Clicking daily metrics tab");
+                    new UserDailyMetrics(frame);
+                }
+        );
+
+        JButton classBtn = new JButton("Classes");
+        classBtn.addActionListener(e -> {
+                    System.out.println("Clicking  classes tab");
+                    new ClassListScene(frame);
+                }
+        );
+
+        JButton exerciseLogBtn = new JButton("Exercise Log");
+        exerciseLogBtn.addActionListener(e -> {
+                    System.out.println("Clicking profile tab");
+                    new ExerciseLogScene(frame);
+                }
+        );
+
+        JButton profileBtn = new JButton("Profile");
+        profileBtn.addActionListener(e -> {
+                    System.out.println("Clicking profile tab");
+                    new Profile(frame);
+                }
+        );
+
+
+
+        navBar.add(dashBtn);
+        navBar.add(classBtn);
+        navBar.add(exerciseLogBtn);
+        navBar.add(profileBtn);
+        panel.add(navBar, BorderLayout.SOUTH);
 
         frame.add(panel);
+
+        frame.setContentPane(panel);
+        frame.revalidate();
     }
     /**
      * adds a welcome message using constraints
@@ -113,7 +204,7 @@ public class UserMenuScene extends Scenes{
         JMenuItem profileItem = new JMenuItem("Dashboard");
         profileItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new UserDashboard(frame);
+                new UserDailyMetrics(frame);
             }
         });
         menu.add(profileItem);

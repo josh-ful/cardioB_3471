@@ -3,7 +3,7 @@
  */
 package UserInterface.graphs;
 
-import UserInterface.UserDashboard;
+import UserInterface.UserDailyMetrics;
 import UserInterface.Scenes;
 
 import javax.swing.*;
@@ -56,7 +56,7 @@ public class CalorieGraphScene extends Scenes {
      * @param frame JFrame which back button is displayed on
      */
     private JButton createBackButton(JFrame frame) {
-        JButton button = super.createBackButton(frame, UserDashboard.class);
+        JButton button = super.createBackButton(frame, UserDailyMetrics.class);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;

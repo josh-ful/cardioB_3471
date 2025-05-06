@@ -6,11 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-import Controller.Controller;
 import UserInformation.Login;
 import UserInformation.CurrentUser;
-import UserInterface.AdminDashboardScene;
-import UserInterface.UserMenuScene;
 import UserInterface.UserResetPasswordDialog;
 
 
@@ -56,7 +53,11 @@ public class LoginScene extends LR_Scenes {
                 }
 
                 if (success){
-                    CurrentUser.controller.createDashboard(frame);
+                    try {
+                        CurrentUser.controller.createDashboard(frame);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
             }
         });

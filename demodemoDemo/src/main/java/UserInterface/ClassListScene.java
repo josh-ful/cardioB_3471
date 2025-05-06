@@ -42,7 +42,7 @@ public class ClassListScene extends Scenes{
         panel.add(addTextELog());
         panel.add(addScrollClassList(frame));
         panel.add(addWorkoutButton(frame));
-        panel.add(createBackButton(frame, UserMenuScene.class));
+        panel.add(createBackButton(frame, UserMainDash.class));
 
         panel.add(Box.createVerticalGlue());
 

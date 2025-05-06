@@ -5,7 +5,6 @@ import FitnessCourse.Exercise;
 import Controller.TrainerController;
 import javax.swing.*;
 import java.awt.*;
-import java.sql.SQLException;
 import java.util.List;
 
 public class SearchExercisesDialog extends JDialog {
@@ -72,6 +71,6 @@ public class SearchExercisesDialog extends JDialog {
         TrainerController.linkExistingExerciseToCourse(course.getId(), selected.getId(), nextIndex);
         JOptionPane.showMessageDialog(this, "Exercise linked successfully!");
         dispose();
-        new ManageCoursesExercisesScene((JFrame)getParent(), course);
+        new TrainerManageCoursesExercisesScene((JFrame)getParent(), course);
     }
 }

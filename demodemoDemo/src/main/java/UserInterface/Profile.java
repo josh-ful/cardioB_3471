@@ -9,82 +9,126 @@ import UserInterface.Login.OnboardingDialog;
 import java.awt.*;
 
 public class Profile extends Scenes{
+    private static JPanel metricsPanel;
     GridBagConstraints c;
+
     public Profile(JFrame frame) {
         createAndShowGUI(frame);
     }
 
+    @Override
     protected void panelLayout() {
-        //panel.setSize(600, 600);
-        panel.setLayout(new GridBagLayout());
-        c = new GridBagConstraints();
+        //north center south layout
+        panel.setLayout(new BorderLayout(20, 20));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
     }
-    /**
-     * creates gui of weightGraphScene
-     *
-     * @param frame JFrame which the gui will be created on
-     */
+
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
+        //frame.setLocationRelativeTo(frame);
         panelLayout();
-        c = new GridBagConstraints();
 
-        //TODO make this look so much nicer
-        addRow(panel, new JLabel("Username:"), 0, 1);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 1;
-        c.gridy = 1;
-        addRow(panel, new JLabel("Username:"), 1, 1);
+        //user info
+        panel.add(makeUserInfoPanel(), BorderLayout.NORTH);
 
-        panel.add(new JLabel(CurrentUser.getName()),c);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.gridy = 2;
-        panel.add(new JLabel("User Type:"),c);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 1;
-        c.gridy = 2;
-        panel.add(new JLabel(CurrentUser.getType()),c);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.gridy = 3;
-        panel.add(new JLabel("Age:"),c);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 1;
-        c.gridy = 3;
-        panel.add(new JLabel(CurrentUser.getAge().toString()),c);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.gridy = 4;
-        panel.add(new JLabel("Gender:"),c);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 1;
-        c.gridy = 4;
-        panel.add(new JLabel(CurrentUser.getGender()),c);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.gridy = 5;
-        panel.add(new JLabel("Email:"),c);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 1;
-        c.gridy = 5;
-        panel.add(new JLabel(CurrentUser.getEmail()),c);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.gridy = 6;
-        panel.add(getEditOnboardingBtn(),c);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.gridy = 7;
-        panel.add(getResetPasswordBtn(),c);
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 0;
-        c.gridy = 8;
-        panel.add(getLogoutBtn(frame),c);
-        frame.add(panel);
+        //current metrics compared to goals
+        metricsPanel = makeMetricsGoalsPanel();
+        panel.add(metricsPanel, BorderLayout.CENTER);
+
+        //buttons
+        panel.add(makeButtonBar(frame), BorderLayout.SOUTH);
+
+        frame.setContentPane(panel);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.revalidate();
+        frame.repaint();
     }
 
+    private JPanel makeUserInfoPanel() {
+        JPanel info = new JPanel(new GridLayout(0, 2, 10, 10));
+        info.setBorder(
+                BorderFactory.createTitledBorder("Profile Information")
+        );
+
+        info.add(new JLabel("Username:"));
+        info.add(new JLabel(CurrentUser.getName()));
+
+        info.add(new JLabel("User Type:"));
+        info.add(new JLabel(CurrentUser.getType()));
+
+        info.add(new JLabel("Age:"));
+        info.add(new JLabel(CurrentUser.getAge().toString()));
+
+        info.add(new JLabel("Gender:"));
+        info.add(new JLabel(CurrentUser.getGender()));
+
+        info.add(new JLabel("Email:"));
+        info.add(new JLabel(CurrentUser.getEmail()));
+
+        return info;
+    }
+
+    private static JPanel makeMetricsGoalsPanel() {
+        // assume MetricService provides these four current numbers
+        double currentWeight     = CurrentUser.getCurrentWeight();
+        double avgSleep          = CurrentUser.getAvgSleep();
+        double avgCalories       = CurrentUser.getAvgCalories();
+        double avgWorkoutDur     = CurrentUser.getAvgWorkout();
+
+        // assume GoalService provides saved goals
+        double goalWeight        = CurrentUser.getWeightGoal();
+        double goalSleep         = CurrentUser.getAvgSleepGoal();
+        double goalCalories      = CurrentUser.getAvgCaloriesGoal();
+        double goalWorkoutDur    = CurrentUser.getAvgWorkoutGoal();
+
+        JPanel box = new JPanel(new BorderLayout());
+        box.setBorder(
+                BorderFactory.createTitledBorder("This Week: Current vs. Goal")
+        );
+
+        String[] cols = { "", "Current", "Goal" };
+        String[][] data = {
+                { "Weight",      String.valueOf(currentWeight),   String.valueOf(goalWeight) },
+                { "Sleep (hrs)", String.format("%.1f", avgSleep),  String.valueOf(goalSleep) },
+                { "Calories",    String.format("%.0f", avgCalories),String.valueOf(goalCalories)},
+                { "Workout (min)",String.format("%.0f", avgWorkoutDur),String.valueOf(goalWorkoutDur) }
+        };
+
+        JTable table = new JTable(data, cols);
+        table.setEnabled(false);
+        box.add(new JScrollPane(table), BorderLayout.CENTER);
+
+        return box;
+    }
+
+    private JPanel makeButtonBar(JFrame frame) {
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
+
+        buttons.add(getGoalsBtn(frame));
+        buttons.add(getEditOnboardingBtn());
+        buttons.add(getResetPasswordBtn());
+        buttons.add(getLogoutBtn(frame));
+
+        return buttons;
+    }
+
+    private JButton getGoalsBtn(JFrame frame) {
+        JButton setGoals = new JButton("Set Goals");
+
+        setGoals.addActionListener(e -> {
+            GoalsDialog dlg = new GoalsDialog(frame);
+            dlg.setVisible(true);
+            panel.remove(metricsPanel);
+            metricsPanel = makeMetricsGoalsPanel();
+            panel.add(metricsPanel, BorderLayout.CENTER);
+
+            panel.revalidate();
+            panel.repaint();
+        });
+        return setGoals;
+    }
     private static JButton getEditOnboardingBtn() {
         JButton btnEditOnboarding = new JButton("Edit Information");
 

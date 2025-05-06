@@ -8,11 +8,15 @@ import UserInterface.addExercise.AddWeightDialog;
 import UserInterface.graphs.CalorieGraphScene;
 import UserInterface.graphs.SleepGraphScene;
 import UserInterface.graphs.WeightGraphScene;
+import UserInterface.MetricTypes;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDate;
 
-public class UserDashboard extends Scenes{
+public class UserDailyMetrics extends Scenes{
+
+
 
     GridBagConstraints c;
     /**
@@ -20,7 +24,7 @@ public class UserDashboard extends Scenes{
      *
      * @param frame which scene is created on
      */
-    public UserDashboard(JFrame frame) {
+    public UserDailyMetrics(JFrame frame) {
         createAndShowGUI(frame);
     }
     /**
@@ -171,7 +175,7 @@ public class UserDashboard extends Scenes{
      * @param frame JFrame which back button is added on
      */
     private JButton createBackButton(JFrame frame) {
-        JButton button = super.createBackButton(frame, UserMenuScene.class);
+        JButton button = super.createBackButton(frame, UserMainDash.class);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -188,7 +192,7 @@ public class UserDashboard extends Scenes{
      */
     public static void submittedNewScene(JFrame frame) {
         //refreshLogTable();
-        new UserDashboard(frame);
+        new UserDailyMetrics(frame);
     }
 
 

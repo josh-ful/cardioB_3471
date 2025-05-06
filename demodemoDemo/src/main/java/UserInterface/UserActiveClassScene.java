@@ -17,7 +17,8 @@ public class UserActiveClassScene extends ActiveClassScene {
         super(frame, course);
         //cange the DB flag so users can join
         //TrainerController.setCourseJoinable(course.getId(), true);
-
+        sessionID = UserController.getSessionId(course);
+        UserController.setUserAsJoined(sessionID);
         // start polling  every second
         pollTimer = new Timer(1000, e -> refreshCurrentExercise(course.getId()));
         pollTimer.setInitialDelay(0);

@@ -6,7 +6,7 @@ import FitnessCourse.CourseExercise;
 import FitnessCourse.Exercise;
 import FitnessCourse.Course;
 import UserInformation.CurrentUser;
-import UserInterface.UserMenuScene;
+import UserInterface.UserMainDash;
 import UserInterface.addExercise.ExerciseLogHelper;
 import UserInterface.addExercise.ExerciseLogHelperCSV;
 import UserInterface.addExercise.ExerciseLogHelperSQL;
@@ -246,8 +246,36 @@ public class UserController implements Controller {
         insertStmt.executeUpdate();
     }
 
-    public void createDashboard(JFrame frame) {
-        new UserMenuScene(frame);
+    public static int getSessionId(Course course) {
+        String sql = "SELECT session_id FROM active_courses WHERE course_id = ?";
+        int sessionID = 0;
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement p = c.prepareStatement(sql)) {
+
+            p.setInt(1, course.getId());
+            try (ResultSet rs = p.executeQuery()) {
+                if (rs.next()) {
+                    // getString of current exercise
+                    sessionID = rs.getInt("session_id");
+                } else {//no current exercise
+                    return 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error getting current exercise: " + e.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        return sessionID;
+    }
+
+
+    public void createDashboard(JFrame frame) throws SQLException {
+        new UserMainDash(frame);
     }
 
     public static List<CourseExercise> getCourseExercisesForCourse(int courseId) {
@@ -292,6 +320,23 @@ public class UserController implements Controller {
         return list;
     }
 
+
+    public static void setUserAsJoined(int sessionId) {
+        String sql = "UPDATE active_courses SET total_joined = total_joined + 1 WHERE session_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, sessionId);
+            int rows = stmt.executeUpdate();
+            if (rows != 1) {
+                System.err.println("Warning: updated " + rows + " rows for session_id=" + sessionId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Error incrementing total join amount: " + e.getMessage(),
+                    "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     public static boolean isCourseJoinable(int courseId) {
         String sql = "SELECT joinable FROM courses WHERE id = ?";
@@ -347,6 +392,152 @@ public class UserController implements Controller {
             );
         }
         return exerciseName;
+    }
+
+    private static final String GET_LATEST = ""
+            + "SELECT metric_value "
+            + "  FROM daily_metric "
+            + " WHERE user_id = ? "
+            + "   AND metric_type = ? "
+            + " ORDER BY date DESC "
+            + " LIMIT 1";
+
+    private static final String GET_AVG = ""
+            + "SELECT AVG(metric_value) AS avg_val "
+            + "  FROM daily_metric "
+            + " WHERE user_id = ? "
+            + "   AND metric_type = ? "
+            + "   AND date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)";
+
+
+    private static double fetchSingle(int userId, String metricType) {
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement ps = c.prepareStatement(GET_LATEST)) {
+            ps.setInt(1, userId);
+            ps.setString(2, metricType);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("metric_value");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    private static double fetchAverage(int userId, String metricType) {
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement ps = c.prepareStatement(GET_AVG)) {
+            ps.setInt(1, userId);
+            ps.setString(2, metricType);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("avg_val");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    public static void getCurrentWeight(int userId) {
+        double val = fetchSingle(userId, "WEIGHT");
+        CurrentUser.setCurrentWeight(val);
+    }
+
+    public static void getAvgSleep(int userId) {
+        CurrentUser.setAvgSleep(0.0);
+        double val = fetchAverage(userId, "SLEEP");
+        CurrentUser.setAvgSleep(val);
+    }
+
+    public static void getAvgCalories(int userId) {
+        CurrentUser.setAvgCalories(0.0);
+        double val = fetchAverage(userId, "CALORIES");
+        CurrentUser.setAvgCalories(val);
+    }
+
+    public static void getAvgWorkout(int userId) {
+        CurrentUser.setAvgWorkout(0.0);
+        double val = fetchAverage(userId, "WORKOUT");
+        CurrentUser.setAvgWorkout(val);
+    }
+
+
+
+
+    public static void updateUserGoals(int userId, double weightGoal, double sleepGoal, double caloriesGoal, double workoutGoal) {
+        String sql = """
+    INSERT INTO user_goals
+      (user_id, weight_goal, avg_sleep_goal, avg_calories_goal, avg_workout_goal)
+    VALUES (?, ?, ?, ?, ?)
+    ON DUPLICATE KEY UPDATE
+      weight_goal        = VALUES(weight_goal),
+      avg_sleep_goal     = VALUES(avg_sleep_goal),
+      avg_calories_goal  = VALUES(avg_calories_goal),
+      avg_workout_goal   = VALUES(avg_workout_goal)
+    """;
+        CurrentUser.setCurrentWeight(weightGoal);
+        CurrentUser.setAvgSleep(sleepGoal);
+        CurrentUser.setAvgCalories(caloriesGoal);
+        CurrentUser.setAvgWorkout(workoutGoal);
+
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement p = c.prepareStatement(sql)) {
+
+            p.setInt(1, userId);
+            p.setDouble(2, weightGoal);
+            p.setDouble(3, sleepGoal);
+            p.setDouble(4, caloriesGoal);
+            p.setDouble(5, workoutGoal);
+
+            p.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Error saving goals: " + ex.getMessage(),
+                    "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static double getUserGoal(int userId, String goalType) {
+        String column;
+        switch (goalType.toLowerCase()) {
+            case "weight":
+                column = "weight_goal";
+                break;
+            case "sleep":
+                column = "avg_sleep_goal";
+                break;
+            case "calories":
+                column = "avg_calories_goal";
+                break;
+            case "workout":
+                column = "avg_workout_goal";
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown goal type: " + goalType);
+        }
+
+        String sql = "SELECT " + column + " FROM user_goals WHERE user_id = ?";
+        try ( Connection conn = DBConnection.getConnection();
+              PreparedStatement ps = conn.prepareStatement(sql) ) {
+
+            ps.setInt(1, userId);
+            try ( ResultSet rs = ps.executeQuery() ) {
+                if (rs.next()) {
+                    return rs.getDouble(column);
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Error loading " + goalType + " goal: " + ex.getMessage(),
+                    "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        // no row, or error → treat as zero
+        return 0.0;
     }
 
 }
