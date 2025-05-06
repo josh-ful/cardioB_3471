@@ -18,7 +18,7 @@ import java.sql.SQLException;
 
 public class Scenes {
     protected static JPanel panel;
-
+    protected static JFrame frame;
     /*
      * description: creates blank GUI to be overridden
      * by other scene classes
@@ -30,13 +30,17 @@ public class Scenes {
     public static final Dimension FRAME_DIM = new Dimension(450, 800);
     public static final int FRAME_W = FRAME_DIM.width;
     public static final int FRAME_H = FRAME_DIM.height;
+
+    protected Scenes() {
+        frame = new JFrame();
+    }
     /**
      * creates a new GUI by repainting and removing the content
      * to reset to its original state
      *
-     * @param frame which scene is created on
+     *
      */
-    protected void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI() {
         panel = new JPanel();
         frame.setLayout(new FlowLayout());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
