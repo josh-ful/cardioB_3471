@@ -77,7 +77,7 @@ public class ClassListScene extends Scenes{
             int userId = UserController.getUserId();
 
             // request all registered classes
-            ArrayList<Course> exerciseList = UserController.getAllUserExercises();
+            ArrayList<Course> exerciseList = UserController.getAllUserClasses();
             exerciseQuantity = exerciseList.size();
 
             if (exerciseList.isEmpty()) {

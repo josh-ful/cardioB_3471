@@ -49,6 +49,10 @@ public class Login {
             else{
                 throw new UserNotFoundException("User not found\n");
             }
+            CurrentUser.setId(rs.getInt("id"));
+            CurrentUser.setName(rs.getString("username"));
+            CurrentUser.setType(rs.getString("type"));
+
         } catch (UserNotFoundException e) {
             logger.log(Level.WARNING, e.getMessage());
             throw e;

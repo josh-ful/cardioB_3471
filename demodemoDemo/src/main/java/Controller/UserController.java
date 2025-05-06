@@ -110,7 +110,7 @@ public class UserController implements Controller {
         return CurrentUser.getId();
     }
 
-    public static ArrayList getAllUserExercises() {
+    public static ArrayList<Course> getAllUserClasses() {
         ArrayList<Course> courseList = new ArrayList<>();
         try (Connection conn = main.DBConnection.getConnection()) {
             PreparedStatement registrationStmt = conn.prepareStatement(
@@ -214,7 +214,7 @@ public class UserController implements Controller {
         Connection conn2 = DBConnection.getConnection();
         //get id from username
         //TODO make this something stored in UserStorage
-        PreparedStatement getUserStmt = conn2.prepareStatement("SELECT id FROM users WHERE username = ?");
+        PreparedStatement getUserStmt = conn2.prepareStatement("SELECT id FROM usersInfo WHERE username = ?");
         getUserStmt.setString(1, username);
         ResultSet userRs = getUserStmt.executeQuery();
 
