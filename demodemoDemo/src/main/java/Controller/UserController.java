@@ -52,9 +52,6 @@ public class UserController implements Controller {
         }
     }
 
-
-
-
     public static void enterWeight(int weight) {
         CurrentUser.setWeight(weight);
     }
@@ -133,22 +130,7 @@ public class UserController implements Controller {
     }
 
     public static int getUserId() throws SQLException {
-        int userId = 0;
-        try (Connection conn = main.DBConnection.getConnection()) {
-            // get user id from table users
-            PreparedStatement stmt = conn.prepareStatement(
-                    "SELECT id FROM users WHERE username = ?"
-            );
-            stmt.setString(1, CurrentUser.getName());
-            ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) {
-                userId = resultSet.getInt("id");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new SQLException("User not found");
-        }
-        return userId;
+        return CurrentUser.getId();
     }
 
     public static ArrayList getAllUserExercises() {
@@ -189,18 +171,18 @@ public class UserController implements Controller {
             PreparedStatement checkStmt = conn.prepareStatement(
                     "SELECT * FROM course_registrations WHERE user_id = ? AND course_id = ?"
             );
-            checkStmt.setInt(1, CurrentUser.getId());
+            checkStmt.setInt(1, getUserId());
             checkStmt.setInt(2, courseId);
             ResultSet checkRs = checkStmt.executeQuery();
             if (checkRs.next()) {
                 return true;
-            } else {
-                return false;
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new SQLException("Error registering for classes");
         }
+
+        return false;
     }
 
     public static boolean registerForClass(int courseId) {
@@ -213,6 +195,7 @@ public class UserController implements Controller {
             insertStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            //todo rethrow??
             return false;
         }
         return true;

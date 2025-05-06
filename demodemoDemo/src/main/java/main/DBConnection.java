@@ -76,10 +76,11 @@ public class DBConnection implements DatabaseInfo {
      * @param username string username
      * @param plainPassword string normal text password
      */
-    public static void addUser(PreparedStatement ps, String username, String plainPassword) throws SQLException {
+    public static void addUser(PreparedStatement ps, String username, String plainPassword, String type) throws SQLException {
         String hashed = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
         ps.setString(1, username);
         ps.setString(2, hashed);
+        ps.setString(3, type);
         //ps.executeUpdate();
     }
     /**

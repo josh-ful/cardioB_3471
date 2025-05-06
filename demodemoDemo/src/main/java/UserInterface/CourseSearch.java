@@ -1,11 +1,16 @@
 package UserInterface;
 
 import Controller.UserController;
-import FitnessCourse.Course;
+import FitnessCourse.ExerciseClass;
+import UserInformation.CurrentUser;
+import main.DBConnection;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -70,24 +75,22 @@ public class CourseSearch extends Scenes {
         performSearch("self", "");
     }
 
+    //todo change logic so perform search doesn't happen here?
+    //todo check if you can register for a class before searching?
     private void performSearch(String type, String query) {
         resultsPanel.removeAll();  // Clear previous results
 
         try {
-            ArrayList<Course> classes;
+            ArrayList<ExerciseClass> classes;
             classes = UserController.getAllExercises(type, query);
 
-            for (Course course : classes) {
-
-                // Each course item panel
+            for (ExerciseClass exerciseClass : classes) {
                 JPanel courseItem = getCoursePanel();
+                JPanel textPanel = getTextPanel(exerciseClass);
+                JButton registerBtn = getRegisterButton(exerciseClass);
 
-                // Course name + description panel
-                JPanel textPanel = getTextPanel(course);
                 courseItem.add(textPanel, BorderLayout.CENTER);
-
-                // Register button
-                courseItem.add(getRegisterBtn(course), BorderLayout.EAST);
+                courseItem.add(registerBtn, BorderLayout.EAST);
                 resultsPanel.add(courseItem);
             }
 
@@ -95,29 +98,30 @@ public class CourseSearch extends Scenes {
         resultsPanel.repaint();
        // panelLayout();
             // huh?
+
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(panel, "Database error occurred.");
         }
     }
 
-    private static JButton getRegisterBtn(Course course) {
+    private static JButton getRegisterButton(ExerciseClass exerciseClass) {
         JButton registerBtn = new JButton("Register");
         registerBtn.addActionListener(e -> {
             try {
-                //if not already registered, then register
-                if (!UserController.isRegistered(course.getId())) {
-                    UserController.registerForClass(course.getId());
-                    JOptionPane.showMessageDialog(panel, "Successfully registered for: " + course.getName());
-                } else {
-                    JOptionPane.showMessageDialog(panel, "You're already registered for this class.");
-                }
+                UserController.registerForClass(exerciseClass.getType(),
+                        exerciseClass.getId(), exerciseClass.getName());
+                JOptionPane.showMessageDialog(panel, "Successfully registered for: " +
+                        exerciseClass.getName());
+            } catch (RuntimeException ex) {
+                JOptionPane.showMessageDialog(panel, ex.getMessage());
+                //todo throw a runtime exception here?
             } catch (SQLException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(panel, "Error during registration.");
+                //todo change to SQLException?
+                JOptionPane.showMessageDialog(panel, "Error with database during registration.");
+                throw new RuntimeException(ex);
             }
         });
-
         return registerBtn;
     }
 
@@ -128,13 +132,13 @@ public class CourseSearch extends Scenes {
         return courseItem;
     }
 
-    private static JPanel getTextPanel(Course course) {
+    private static JPanel getTextPanel(ExerciseClass exerciseClass) {
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
-        JLabel nameLabel = new JLabel(course.getName());
+        JLabel nameLabel = new JLabel(exerciseClass.getName());
         nameLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
         //for no overlap
-        JLabel descLabel = new JLabel("<html><body style='width: 400px'>" + course.getDescription() + "</body></html>");
+        JLabel descLabel = new JLabel("<html><body style='width: 400px'>" + exerciseClass.getDescription() + "</body></html>");
         descLabel.setPreferredSize(new Dimension(100, 30));
 
         textPanel.add(nameLabel);

@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 import static UserInformation.CurrentUser.*;
 
-public class Login implements LoginHardCodes {
+public class Login {
     private static final Logger logger = Logger.getLogger(Login.class.getName());
     /**
      * validates login inputs with logins stored in database
@@ -28,70 +28,44 @@ public class Login implements LoginHardCodes {
      */
 
     public static boolean loginLogic(String user, String pass) throws RuntimeException, SQLException {
-        boolean success = false;
-        boolean usingSQL = DatabaseInfo.states.get("SQL");
+        String query = "SELECT * FROM userInfo WHERE username = ?";
 
-        if (usingSQL) {
-            String query = "SELECT * FROM users WHERE username = ?";
-            Connection conn = DBConnection.getConnection();
-
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            /*
+                Carter changed the conditional blocks with this -
+                if there's a problem we can change it back
+                 */
+            try (Connection conn = DBConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(query);
                 stmt.setString(1, user);
                 ResultSet rs = stmt.executeQuery();
 
-                if (rs.next()) {
-                    String hashedPassword = rs.getString("password");
-                    int userId = rs.getInt("id");
-                    if (!BCrypt.checkpw(pass, hashedPassword)) {
-                        throw new IncorrectPasswordException("Incorrect password\n");
-                    }
-                    setId(userId);
-                    setName(rs.getString("username")); // or whatever your name-column is
-                    setType(rs.getString("type"));
-                }
-                else{
-                    throw new UserNotFoundException("User not found\n");
-                }
+            if (rs.next()) {
+                String hashedPassword = rs.getString("password");
 
-            } catch (UserNotFoundException e) {
-                logger.log(Level.WARNING, e.getMessage());
-                throw e;
-            } catch (IncorrectPasswordException e) {
-                logger.log(Level.INFO, e.getMessage());
-                throw e;
+                if (!BCrypt.checkpw(pass, hashedPassword)) {
+                    throw new IncorrectPasswordException("Incorrect password\n");
+                }
+                setType(rs.getString("type"));
+            }
+            else{
+                throw new UserNotFoundException("User not found\n");
             }
 
-            success = true;
-        }
-        else {
-            success = localLoginLogic(user, pass, success);
-        }
-
-        //TODO make one function that does this in controller and put it up with setUserType
-        if (success) {
-            //setId(); no id numbers for local, local will be sort of impossible to use soon
-            //TODO REMOVE ALL LOCAL IMPLEMENTATIONS
-            setName(user);
-            setPassword(pass); // Idk anywhere that the program uses password anymore
-            UserController.setCurrentUserId();
-            System.out.println(CurrentUser.getId());
+        } catch (UserNotFoundException e) {
+            logger.log(Level.WARNING, e.getMessage());
+            throw e;
+        } catch (IncorrectPasswordException e) {
+            logger.log(Level.INFO, e.getMessage());
+            throw e;
         }
 
-        return success;
+        UserController.setCurrentUserId();
+
+        //todo take out set name?
+        //make these both in controller
+        CurrentUser.setName(user);
+        CurrentUser.initialize();
+
+        return true;
     }
-
-    /**
-     * validates login inputs with locally stored login pairs
-     * @param user string username
-     * @param pass string password
-     * @param success boolean successStatus
-     * @return boolean of login based on locally stored login inputs
-     */
-    private static boolean localLoginLogic(String user, String pass, boolean success) {
-        if(logins.containsKey(user) && pass.equals(logins.get(user))){
-            success = true;
-        }
-        return success;
-    }
-
 }

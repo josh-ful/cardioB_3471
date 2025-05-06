@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-public class ProfileScreen extends Scenes{
+public class UserDashboard extends Scenes{
 
     GridBagConstraints c;
     /**
@@ -24,7 +24,7 @@ public class ProfileScreen extends Scenes{
      *
      * @param frame which scene is created on
      */
-    public ProfileScreen(JFrame frame) {
+    public UserDashboard(JFrame frame) {
         createAndShowGUI(frame);
     }
     /**
@@ -63,7 +63,7 @@ public class ProfileScreen extends Scenes{
 
         frame.add(panel);
 
-        // TODO get class list and display
+        // TODO get metrics and display
     }
 
     /**
@@ -153,7 +153,7 @@ public class ProfileScreen extends Scenes{
      */
     public static void submittedNewScene(JFrame frame) {
         //refreshLogTable();
-        new ProfileScreen(frame);
+        new UserDashboard(frame);
     }
 
 
