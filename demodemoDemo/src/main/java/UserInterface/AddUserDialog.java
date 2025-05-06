@@ -40,7 +40,7 @@ public class AddUserDialog extends JDialog {
 
             try (Connection conn = DBConnection.getConnection()) {
                 PreparedStatement stmt = conn.prepareStatement(
-                        "INSERT INTO users (username, password, type) VALUES (?, ?, ?)"
+                        "INSERT INTO userInfo (username, password, type) VALUES (?, ?, ?)"
                 );
                 stmt.setString(1, username);
                 stmt.setString(2, hashed);

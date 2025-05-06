@@ -1,6 +1,5 @@
 package UserInterface;
 
-import Controller.TrainerController;
 import FitnessCourse.Course;
 import FitnessCourse.CourseExercise;
 
@@ -9,13 +8,10 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.List;
 
-public class TrainerActiveClassScene extends ActiveClassScene {
-    public TrainerActiveClassScene(JFrame frame, Course course) {
-        super(frame, course);
-        //cange the DB flag so users can join
-        TrainerController.setCourseJoinable(course.getId(), true);
-        sessionID = TrainerController.startCourseSession(course.getId(),course.getName());
+public class UserSelfPacedClassScene extends ActiveClassScene {
 
+    public UserSelfPacedClassScene(JFrame frame, Course course) {
+        super(frame, course);
     }
 
     @Override
@@ -55,7 +51,6 @@ public class TrainerActiveClassScene extends ActiveClassScene {
                 );
                 exerciseSecs = 0;
                 exerciseTimeLabel.setText("00:00");
-                TrainerController.updateCourseSession(sessionID,currentExerciseLabel.getText());
             }
         });
         panel.add(new JScrollPane(list), BorderLayout.EAST);
@@ -66,20 +61,17 @@ public class TrainerActiveClassScene extends ActiveClassScene {
         restBtn.addActionListener(e -> {
             list.clearSelection();
             currentExerciseLabel.setText("Resting");
-            TrainerController.updateCourseSession(sessionID,currentExerciseLabel.getText());
             exerciseSecs = 0;
             exerciseTimeLabel.setText("00:00");
         });
         south.add(restBtn);
 
-        JButton stopBtn = new JButton("End Class");
+        JButton stopBtn = new JButton("End Session");
         stopBtn.addActionListener(e -> {
             totalTimer.stop();
             exerciseTimer.stop();
-            TrainerController.setCourseJoinable(course.getId(), false);
-            TrainerController.endCourseSession(sessionID);
             JOptionPane.showMessageDialog(frame, "Class ended.");
-            new TrainerMenuScene(frame);
+            new ClassListScene(frame);
         });
         south.add(stopBtn);
 

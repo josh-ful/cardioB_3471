@@ -44,6 +44,10 @@ public class CurrentUser {
         id = userId;
     }
 
+    public static void setType(String type) {
+        type = type;
+    }
+
     public static void updateCurrentUser(){
         //query users table with name
         //set id? type? (in theory) these can't be changed

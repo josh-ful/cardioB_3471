@@ -37,6 +37,8 @@ public class Course {
         this.exercises = exercises;
     }
 
+
+
     public int getId() {
         return id;
     }

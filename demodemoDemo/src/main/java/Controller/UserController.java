@@ -2,6 +2,7 @@ package Controller;
 
 import Exceptions.AlreadyRegisteredException;
 import Exceptions.UserNotFoundException;
+import FitnessCourse.CourseExercise;
 import FitnessCourse.Exercise;
 import FitnessCourse.Course;
 import UserInformation.CurrentUser;
@@ -19,6 +20,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * this class serves as the general user type controller
@@ -110,7 +112,7 @@ public class UserController implements Controller {
         return CurrentUser.getId();
     }
 
-    public static ArrayList getAllUserExercises() {
+    public static ArrayList<Course> getAllUserClasses() {
         ArrayList<Course> courseList = new ArrayList<>();
         try (Connection conn = main.DBConnection.getConnection()) {
             PreparedStatement registrationStmt = conn.prepareStatement(
@@ -126,11 +128,12 @@ public class UserController implements Controller {
             ResultSet registrationResults = registrationStmt.executeQuery();
 
             while (registrationResults.next()) {
-                //int courseId = registrationResults.getInt("id");
+                int courseId = registrationResults.getInt("id");
                 String name = registrationResults.getString("name");
                 String desc = registrationResults.getString("description");
                 String type = registrationResults.getString("type");
                 Course retExercise = new Course();
+                retExercise.setId(courseId);
                 retExercise.setName(name);
                 retExercise.setDescription(desc);
                 retExercise.setType(type);
@@ -214,7 +217,7 @@ public class UserController implements Controller {
         Connection conn2 = DBConnection.getConnection();
         //get id from username
         //TODO make this something stored in UserStorage
-        PreparedStatement getUserStmt = conn2.prepareStatement("SELECT id FROM users WHERE username = ?");
+        PreparedStatement getUserStmt = conn2.prepareStatement("SELECT id FROM usersInfo WHERE username = ?");
         getUserStmt.setString(1, username);
         ResultSet userRs = getUserStmt.executeQuery();
 
@@ -246,4 +249,104 @@ public class UserController implements Controller {
     public void createDashboard(JFrame frame) {
         new UserMenuScene(frame);
     }
+
+    public static List<CourseExercise> getCourseExercisesForCourse(int courseId) {
+        List<CourseExercise> list = new ArrayList<>();
+        String sql = """
+        SELECT 
+          ce.id           AS link_id,
+          e.id            AS exercise_id,
+          e.name,
+          e.description,
+          ce.exercise_order
+        FROM course_exercises ce
+        JOIN exercises e 
+          ON e.id = ce.exercise_id
+        WHERE ce.course_id = ?
+        ORDER BY ce.exercise_order
+        """;
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement p = c.prepareStatement(sql)) {
+            p.setInt(1, courseId);
+            try (ResultSet rs = p.executeQuery()) {
+                while (rs.next()) {
+                    Exercise ex = new Exercise(
+                            rs.getInt("exercise_id"),
+                            rs.getString("name"),
+                            rs.getString("description")
+                    );
+                    list.add(new CourseExercise(
+                            rs.getInt("link_id"),
+                            ex,
+                            rs.getInt("exercise_order")
+                    ));
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Error loading exercises: " + ex.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        return list;
+    }
+
+
+    public static boolean isCourseJoinable(int courseId) {
+        String sql = "SELECT joinable FROM courses WHERE id = ?";
+        boolean join = false;
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement p = c.prepareStatement(sql)) {
+
+            p.setInt(1, courseId);
+            try (ResultSet rs = p.executeQuery()) {
+                if (rs.next()) {
+                    // getBoolean will map 0=false, 1=true
+                    return rs.getBoolean("joinable");
+                } else {
+                    //no such course, treat as not joinable (or throw)
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error checking course status: " + e.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return false;
+        }
+    }
+
+
+    public static String getCurrentExerciseName(int courseId) {
+        String sql = "SELECT current_exercise FROM active_courses WHERE course_id = ?";
+        String exerciseName = "";
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement p = c.prepareStatement(sql)) {
+
+            p.setInt(1, courseId);
+            try (ResultSet rs = p.executeQuery()) {
+                if (rs.next()) {
+                    // getString of current exercise
+                    exerciseName = rs.getString("current_exercise");
+                } else {//no current exercise
+                    return "";
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error getting current exercise: " + e.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        return exerciseName;
+    }
+
 }

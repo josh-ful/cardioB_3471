@@ -18,7 +18,7 @@ public class AddCourseTest {
     static void addTestUser() throws SQLException {
         DBConnection dbConnection = new DBConnection("3312");
         Connection conn = DBConnection.getConnection();
-        String insertUser = "INSERT INTO users (username, password) VALUES (?, ?)";
+        String insertUser = "INSERT INTO userInfo (username, password) VALUES (?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(insertUser)) {
             addUser(ps, "TEST", "TESTPASSWORD123");
             ps.executeUpdate();
@@ -37,7 +37,7 @@ public class AddCourseTest {
 
 
         //Remove TEST user
-        String removeUser = "DELETE FROM users WHERE username = 'TEST'";
+        String removeUser = "DELETE FROM userInfo WHERE username = 'TEST'";
         try(PreparedStatement ps = conn.prepareStatement(removeUser)) {
             ps.execute();
         }
