@@ -94,7 +94,7 @@ public class HomeScreen extends Scenes{
     private static JLabel getCompanyNameLabel() {
         JLabel companyName = new JLabel("CardioB");
 
-        companyName.setFont(new Font("Comic Sans MS", Font.BOLD, 70));
+        companyName.setFont(new Font("Roboto", Font.BOLD, 70));
         companyName.setForeground(Color.BLACK);
         companyName.setAlignmentY(Component.CENTER_ALIGNMENT);
         companyName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -111,7 +111,7 @@ public class HomeScreen extends Scenes{
     private static JButton getLoginButton(JFrame frame) {
         JButton loginButton = new JButton("Login");
         loginButton.setMaximumSize(new Dimension(100, 50));
-        loginButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+        loginButton.setFont(new Font("Roboto", Font.BOLD, 15));
 
         loginButton.addActionListener(al -> new LoginScene(frame));
 
@@ -128,7 +128,7 @@ public class HomeScreen extends Scenes{
 
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerButton.setMaximumSize(new Dimension(100, 50));
-        registerButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+        registerButton.setFont(new Font("Roboto", Font.BOLD, 15));
 
         registerButton.addActionListener(al -> new RegisterScene(frame));
 

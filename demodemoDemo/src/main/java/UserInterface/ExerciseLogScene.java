@@ -39,9 +39,10 @@ public class ExerciseLogScene extends Scenes{
         super.createAndShowGUI(frame);
         // src/resources/testCreateExercise.csv
 
-        panel.add(createWorkoutButton(frame));
+
         panel.add(createExerciseLogText());
         panel.add(createLogTable());
+        panel.add(createWorkoutButton(frame));
         panel.add(createBackButton(frame));
 
         frame.add(panel);
@@ -72,7 +73,7 @@ public class ExerciseLogScene extends Scenes{
      */
     private JLabel createExerciseLogText() {
         JLabel exerciseText = new JLabel("Exercise Log!");
-        exerciseText.setFont(new Font("Comic Sans MS", Font.BOLD, 60));
+        exerciseText.setFont(new Font("Roboto", Font.BOLD, 60));
         exerciseText.setForeground(Color.BLACK);
         exerciseText.setAlignmentX(Component.CENTER_ALIGNMENT);
 
