@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,12 +18,12 @@ public class TrainerViewClassesScene extends Scenes {
     private JPanel listContainer;
     private JScrollPane scrollPane;
 
-    public TrainerViewClassesScene(JFrame frame) {
+    public TrainerViewClassesScene(JFrame frame) throws SQLException {
         createAndShowGUI(frame);
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI(JFrame frame) throws SQLException {
         super.createAndShowGUI(frame);
         panel.removeAll();
         panel.setLayout(new BorderLayout(10, 10));
@@ -124,7 +125,11 @@ public class TrainerViewClassesScene extends Scenes {
             // open a new scene in the same frame
             JFrame owner = (JFrame) SwingUtilities.getWindowAncestor(row);
             System.out.println("Clicking exercises button");
-            new TrainerManageCoursesExercisesScene(owner, cls);
+            try {
+                new TrainerManageCoursesExercisesScene(owner, cls);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         buttonPanel.add(exercisesBtn);
         row.add(buttonPanel, BorderLayout.EAST);

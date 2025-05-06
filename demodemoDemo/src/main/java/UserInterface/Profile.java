@@ -7,6 +7,7 @@ import UserInformation.CurrentUser;
 import UserInterface.Login.OnboardingDialog;
 
 import java.awt.*;
+import java.sql.SQLException;
 
 public class Profile extends Scenes{
     private static JPanel metricsPanel;
@@ -16,7 +17,7 @@ public class Profile extends Scenes{
     private static JLabel currGender;
     private static JLabel currEmail;
 
-    public Profile(JFrame frame) {
+    public Profile(JFrame frame) throws SQLException {
         createAndShowGUI(frame);
     }
 
@@ -28,7 +29,7 @@ public class Profile extends Scenes{
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI(JFrame frame) throws SQLException {
         super.createAndShowGUI(frame);
         //frame.setLocationRelativeTo(frame);
         panelLayout();
@@ -86,7 +87,7 @@ public class Profile extends Scenes{
         currEmail.setText(CurrentUser.getEmail());
     }
 
-    private static JPanel makeMetricsGoalsPanel() {
+    private static JPanel makeMetricsGoalsPanel() throws SQLException {
         // assume MetricService provides these four current numbers
         double currentWeight     = CurrentUser.getCurrentWeight();
         double avgSleep          = CurrentUser.getAvgSleep();
@@ -137,7 +138,11 @@ public class Profile extends Scenes{
             GoalsDialog dlg = new GoalsDialog(frame);
             dlg.setVisible(true);
             panel.remove(metricsPanel);
-            metricsPanel = makeMetricsGoalsPanel();
+            try {
+                metricsPanel = makeMetricsGoalsPanel();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             panel.add(metricsPanel, BorderLayout.CENTER);
 
             panel.revalidate();
@@ -171,7 +176,11 @@ public class Profile extends Scenes{
 
         btnLogout.addActionListener(e->{
             Controller.destroyCurrentUser();
-            new HomeScreen(frame);
+            try {
+                new HomeScreen(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         return btnLogout;

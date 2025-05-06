@@ -2,6 +2,7 @@ package UserInterface.Trainer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.List;
 import FitnessCourse.Course;
 import Controller.TrainerController;
@@ -49,7 +50,13 @@ public class TrainerReportsScene extends Scenes {
 
         // Back button to return to trainer menu
         JButton backBtn = new JButton("Back");
-        backBtn.addActionListener(e -> new TrainerMenuScene(frame));
+        backBtn.addActionListener(e -> {
+            try {
+                new TrainerMenuScene(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         panel.add(backBtn, BorderLayout.SOUTH);
 
         // Set content pane and refresh

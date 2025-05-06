@@ -8,6 +8,7 @@ import UserInterface.Scenes;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class CalorieGraphScene extends Scenes {
     GridBagConstraints c;
@@ -35,7 +36,11 @@ public class CalorieGraphScene extends Scenes {
      */
     @Override
     protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+        try {
+            super.createAndShowGUI(frame);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         panelLayout();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Calorie Graph");

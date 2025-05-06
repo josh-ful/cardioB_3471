@@ -36,7 +36,7 @@ public class Scenes {
      *
      * @param frame which scene is created on
      */
-    protected void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI(JFrame frame) throws SQLException {
         panel = new JPanel();
         frame.setLayout(new FlowLayout());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -96,11 +96,19 @@ public class Scenes {
             }
         });
         menuItem2.addActionListener(e -> {
-            new Profile(frame);
+            try {
+                new Profile(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         menuItem3.addActionListener(e -> {
             Controller.destroyCurrentUser();
-            new HomeScreen(frame);
+            try {
+                new HomeScreen(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         menu.add(menuItem);

@@ -23,6 +23,7 @@ import UserInterface.HomeScreen;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 //From main we are starting program so we need to bring the UI to scene 1 (login),
 // and then from there try to give control to the individual controllers based on userType
@@ -68,7 +69,7 @@ public class ProfileBackDoor {
      *
      * @param
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         JFrame frame = new JFrame();
         HomeScreen hs = new HomeScreen(frame);
         //when me has information stored in it

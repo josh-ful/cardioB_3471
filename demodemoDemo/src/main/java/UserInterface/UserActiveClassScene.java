@@ -8,11 +8,12 @@ import FitnessCourse.CourseExercise;
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserActiveClassScene extends ActiveClassScene {
     private Timer pollTimer;
-    public UserActiveClassScene(JFrame frame, Course course) {
+    public UserActiveClassScene(JFrame frame, Course course) throws SQLException {
 
         super(frame, course);
         //cange the DB flag so users can join
@@ -36,7 +37,7 @@ public class UserActiveClassScene extends ActiveClassScene {
         }
     }
 
-    private void leaveClass(JFrame frame) {
+    private void leaveClass(JFrame frame) throws SQLException {
         pollTimer.stop();
         totalTimer.stop();
         exerciseTimer.stop();
@@ -44,7 +45,7 @@ public class UserActiveClassScene extends ActiveClassScene {
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI(JFrame frame) throws SQLException {
         super.createAndShowGUI(frame);
         panel.removeAll();
         panel.setLayout(new BorderLayout(10,10));
@@ -102,7 +103,11 @@ public class UserActiveClassScene extends ActiveClassScene {
 
         JButton stopBtn = new JButton("Leave Class");
         stopBtn.addActionListener(e -> {
-            leaveClass(frame);
+            try {
+                leaveClass(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         south.add(stopBtn);
         panel.add(south, BorderLayout.SOUTH);

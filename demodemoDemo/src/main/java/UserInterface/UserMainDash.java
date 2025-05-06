@@ -81,13 +81,31 @@ public class UserMainDash extends Scenes {
 
         JPanel navBar = new JPanel(new GridLayout(1,4));
         JButton dashBtn = new JButton("Daily Metrics");
-        dashBtn.addActionListener(e -> new UserDailyMetricsGraphs(frame));
+        dashBtn.addActionListener(e -> {
+            try {
+                new UserDailyMetricsGraphs(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         JButton classBtn = new JButton("Classes");
-        classBtn.addActionListener(e -> new ClassListScene(frame));
+        classBtn.addActionListener(e -> {
+            try {
+                new ClassListScene(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         JButton exerciseLogBtn = new JButton("Exercise Log");
         exerciseLogBtn.addActionListener(e -> new ExerciseLogScene(frame));
         JButton profileBtn = new JButton("Profile");
-        profileBtn.addActionListener(e -> new Profile(frame));
+        profileBtn.addActionListener(e -> {
+            try {
+                new Profile(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         navBar.add(dashBtn);
         navBar.add(classBtn);
         navBar.add(exerciseLogBtn);

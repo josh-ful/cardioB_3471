@@ -7,6 +7,7 @@ import FitnessCourse.CourseExercise;
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.List;
 
 abstract public class ActiveClassScene extends Scenes {
@@ -20,7 +21,7 @@ abstract public class ActiveClassScene extends Scenes {
     protected Timer totalTimer, exerciseTimer;
     protected int totalSecs = 0, exerciseSecs = 0;
 
-    public ActiveClassScene(JFrame frame, Course course) {
+    public ActiveClassScene(JFrame frame, Course course) throws SQLException {
         this.course = course;
         //fetch ordered list of exercises
         this.exercises = TrainerController.getCourseExercisesForCourse(course.getId());
@@ -50,7 +51,7 @@ abstract public class ActiveClassScene extends Scenes {
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI(JFrame frame) throws SQLException {
         super.createAndShowGUI(frame);
         panel.removeAll();
         panel.setLayout(new BorderLayout(10,10));

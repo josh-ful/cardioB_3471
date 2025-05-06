@@ -6,16 +6,17 @@ import FitnessCourse.CourseExercise;
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserSelfPacedClassScene extends ActiveClassScene {
 
-    public UserSelfPacedClassScene(JFrame frame, Course course) {
+    public UserSelfPacedClassScene(JFrame frame, Course course) throws SQLException {
         super(frame, course);
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI(JFrame frame) throws SQLException {
         super.createAndShowGUI(frame);
         panel.removeAll();
         panel.setLayout(new BorderLayout(10,10));
@@ -71,7 +72,12 @@ public class UserSelfPacedClassScene extends ActiveClassScene {
             totalTimer.stop();
             exerciseTimer.stop();
             JOptionPane.showMessageDialog(frame, "Class ended.");
-            new ClassListScene(frame);
+            try {
+                new ClassListScene(frame);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                //throw new RuntimeException(ex);
+            }
         });
         south.add(stopBtn);
 

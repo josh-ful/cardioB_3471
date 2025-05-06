@@ -7,6 +7,7 @@ import Controller.UserController;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.sql.SQLException;
 
 /**
  * this class contains functionality to read and to write from a
@@ -34,7 +35,11 @@ public class ExerciseLogScene extends Scenes{
      */
     @Override
     protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+        try {
+            super.createAndShowGUI(frame);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         // src/resources/testCreateExercise.csv
 
 
