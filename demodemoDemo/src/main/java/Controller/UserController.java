@@ -40,9 +40,10 @@ public class UserController implements Controller {
      * @param name        of exercise
      * @param description of exercise
      */
-    public static void addExercise(String name, String description) {
+    public static void addExercise(String name, String description, Integer duration) {
         Exercise e = new Exercise(name);
         e.setDescription(description);
+        e.setDuration(duration);
 //        System.out.println("Name:" + e.getName());
 //        System.out.println("Description: " + e.getDescription());
         CurrentUser.addExercise(e);
@@ -463,8 +464,8 @@ public class UserController implements Controller {
         return 0.0;
     }
 
-    public static void addDailyMetric(Double w, Double s, Double c, Double wkt, LocalDate d) throws SQLException {
-        DailyMetric dm = new DailyMetric(w, s, c, wkt, d);
+    public static void addDailyMetric(LocalDate date, Double w, Double s, Double c, Double wkt) throws SQLException {
+        DailyMetric dm = new DailyMetric( w, s, c, wkt, date);
 
         DailyMetricDAO.updateDailyMetrics(dm);
     }

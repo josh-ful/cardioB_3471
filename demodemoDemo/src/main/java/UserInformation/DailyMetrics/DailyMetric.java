@@ -10,8 +10,6 @@ public class DailyMetric {
     private Double wkt;
     private LocalDate date;
 
-    DailyMetric(){}
-
     public DailyMetric(Double w, Double s, Double c, Double wkt, LocalDate date){
         this.w = w;
         this.s = s;
@@ -19,6 +17,8 @@ public class DailyMetric {
         this.wkt = wkt;
         this.date = date;
     }
+
+
 
     public Double getC() {
         return c;
@@ -52,8 +52,8 @@ public class DailyMetric {
         this.wkt = wkt;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public String getDate() {
+        return date.toString();
     }
 
     public void setDate(LocalDate date) {

@@ -3,6 +3,7 @@ package UserInterface.Login;
 import Controller.Controller;
 import Exceptions.UserNotFoundException;
 import UserInformation.CurrentUser;
+import UserInterface.Profile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,9 +59,18 @@ public class OnboardingDialog extends JDialog {
             try{
                 Controller.insertOnboardingInfo((int)txtAge.getValue(), txtGender.getSelectedItem().toString(),
                         txtEmail.getText(), txtSecurityQuestion.getSelectedIndex(), txtSecurityAnswer.getText());
-
                 if (editOnboarding) {
                     CurrentUser.initialize(CurrentUser.getName());
+                    Profile.refreshInfoPanel();
+                    JOptionPane.showMessageDialog(this,
+                            "Your information has been updated!");
+                }
+                else {
+                    JOptionPane.showMessageDialog(this,
+                            "Congrats! You're onboarding information has been inputted. \r\n" +
+                                    "Return to main menu and login!",
+                            "Registration Successful",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             }catch(SQLException ex){
                 // TODO maybe this should throw a runtime exception cuz it should work
@@ -71,12 +81,6 @@ public class OnboardingDialog extends JDialog {
                 JOptionPane.showMessageDialog(this, ex.getMessage() + ". Please try again",
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
-            JOptionPane.showMessageDialog(this,
-                    "Congrats! You're onboarding information has been inputted. \r\n" +
-                            "Return to main menu and login!",
-                    "Registration Successful",
-                    JOptionPane.INFORMATION_MESSAGE);
-
             dispose();
         });
 
