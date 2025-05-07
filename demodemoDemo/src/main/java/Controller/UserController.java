@@ -30,9 +30,9 @@ public class UserController implements Controller {
 //        System.out.println("UserController");
     }
 
-    public static void enterWeight(int weight) {
-        CurrentUser.setWeight(weight);
-    }
+//    public static void enterWeight(int weight) {
+//        CurrentUser.setWeight(weight);
+//    }
 
     /**
      * enters exercise information
