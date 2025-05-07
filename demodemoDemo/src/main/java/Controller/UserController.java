@@ -403,10 +403,10 @@ public class UserController implements Controller {
       avg_calories_goal  = VALUES(avg_calories_goal),
       avg_workout_goal   = VALUES(avg_workout_goal)
     """;
-        CurrentUser.setCurrentWeight(weightGoal);
-        CurrentUser.setAvgSleep(sleepGoal);
-        CurrentUser.setAvgCalories(caloriesGoal);
-        CurrentUser.setAvgWorkout(workoutGoal);
+        CurrentUser.setWeightGoal(weightGoal);
+        CurrentUser.setAvgSleepGoal(sleepGoal);
+        CurrentUser.setAvgCaloriesGoal(caloriesGoal);
+        CurrentUser.setAvgWorkoutGoal(workoutGoal);
 
         try (Connection c = DBConnection.getConnection();
              PreparedStatement p = c.prepareStatement(sql)) {

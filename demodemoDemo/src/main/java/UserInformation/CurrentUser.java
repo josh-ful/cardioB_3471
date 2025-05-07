@@ -212,6 +212,7 @@ public class CurrentUser {
     }
 
 
+    //set avg/curr metrics
     public static void setAvgSleep(Double avgSleep) {
         CurrentUser.avgSleep = avgSleep;
     }
@@ -227,76 +228,69 @@ public class CurrentUser {
 
     //set goals
     public static void setWeightGoal(Double weightGoal) {
-        //UserController.setWeightGoal(weightGoal);
-        UserController.updateUserGoals(weightGoal, getAvgSleepGoal(), getAvgCaloriesGoal(), getAvgWorkoutGoal());
         CurrentUser.weightGoal = weightGoal;
     }
     public static void setAvgSleepGoal(Double avgSleepGoal) {
-        //UserController.setAvgSleepGoal(avgSleepGoal);
-        UserController.updateUserGoals(getWeightGoal(), avgSleepGoal, getAvgCaloriesGoal(), getAvgWorkoutGoal());
         CurrentUser.avgSleepGoal = avgSleepGoal;
     }
     public static void setAvgCaloriesGoal(Double avgCaloriesGoal) {
-        //UserController.setAvgCaloriesGoal(avgCaloriesGoal);
-        UserController.updateUserGoals(getWeightGoal(), getAvgSleepGoal(), avgCaloriesGoal, getAvgWorkoutGoal());
         CurrentUser.avgCaloriesGoal = avgCaloriesGoal;
     }
     public static void setAvgWorkoutGoal(Double avgWorkoutGoal) {
-        UserController.updateUserGoals(getWeightGoal(), getAvgSleepGoal(), getAvgCaloriesGoal(), avgWorkoutGoal);
         CurrentUser.avgWorkoutGoal = avgWorkoutGoal;
     }
 
 
     public static Double getWeightGoal() {
-//        if (CurrentUser.weightGoal == null){
-//            return UserController.getUserGoal("weight");
-//        }
+        if (CurrentUser.weightGoal == null){
+            return UserController.getUserGoal("weight");
+        }
         return weightGoal;
     }
 
     public static Double getAvgSleepGoal() {
-//        if (CurrentUser.avgSleepGoal == null){
-//            return UserController.getUserGoal("sleep");
-//        }
+        if (CurrentUser.avgSleepGoal == null){
+            return UserController.getUserGoal("sleep");
+        }
         return avgSleepGoal;
     }
 
     public static Double getAvgCaloriesGoal() {
-//        if (CurrentUser.avgCaloriesGoal == null){
-//            return UserController.getUserGoal("calories");
-//        }
+        if (CurrentUser.avgCaloriesGoal == null){
+            return UserController.getUserGoal("calories");
+        }
         return avgCaloriesGoal;
     }
 
     public static Double getAvgWorkoutGoal() {
-//        if (CurrentUser.avgWorkoutGoal == null){
-//            return UserController.getUserGoal("workout");
-//        }
+        if (CurrentUser.avgWorkoutGoal == null){
+            return UserController.getUserGoal("workout");
+        }
         return avgWorkoutGoal;
     }
 
     public static Double getAvgSleep() throws SQLException {
-//        if(avgSleep == null){
-//            DailyMetricDAO.getAvgSleep();
-//        }
+        if(avgSleep == null){
+            DailyMetricDAO.getAvgSleep();
+        }
         return avgSleep;
     }
     public static Double getCurrentWeight() throws SQLException {
-//        if(CurrentUser.currentWeight == null){
-//            DailyMetricDAO.getCurrentWeight();
-//        }
+        if(CurrentUser.currentWeight == null){
+            DailyMetricDAO.getCurrentWeight();
+        }
         return currentWeight;
     }
     public static Double getAvgCalories() throws SQLException {
-//        if(avgCalories == null){
-//            DailyMetricDAO.getAvgCalories();
-//        }
+        if(avgCalories == null){
+            DailyMetricDAO.getAvgCalories();
+        }
         return avgCalories;
     }
     public static Double getAvgWorkout() throws SQLException {
-//        if(avgWorkout == null){
-//            DailyMetricDAO.getAvgWorkoutDur();
-//        }
+        if(avgWorkout == null){
+            DailyMetricDAO.getAvgWorkoutDur();
+        }
         return avgWorkout;
     }
 
