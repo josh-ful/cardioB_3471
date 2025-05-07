@@ -22,13 +22,13 @@ public class Login {
     /**
      * validates login inputs with logins stored in database
      *
-     * @param user string username
+     * @param username string username
      * @param pass string password
      * @return boolean of login success
      */
 
-    public static boolean loginLogic(String user, String pass) throws RuntimeException, SQLException {
-        String query = "SELECT * FROM userInfo WHERE username = ?";
+    public static boolean loginLogic(String username, String pass) throws UserNotFoundException, IncorrectPasswordException, SQLException {
+        String query = "SELECT password FROM userInfo WHERE username = ?";
 
         /*
             Carter changed the conditional blocks with this -
@@ -36,7 +36,7 @@ public class Login {
              */
         try (Connection conn = DBConnection.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, user);
+            stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -49,9 +49,6 @@ public class Login {
             else{
                 throw new UserNotFoundException("User not found\n");
             }
-            CurrentUser.setId(rs.getInt("id"));
-            CurrentUser.setName(rs.getString("username"));
-            CurrentUser.setType(rs.getString("type"));
 
         } catch (UserNotFoundException e) {
             logger.log(Level.WARNING, e.getMessage());
@@ -61,8 +58,7 @@ public class Login {
             throw e;
         }
 
-        CurrentUser.initialize(user);
-
+        CurrentUser.initialize(username);
         return true;
     }
 }

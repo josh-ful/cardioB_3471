@@ -39,22 +39,18 @@ public class CurrentUser {
     private static Double avgCalories;
     private static Double avgWorkout;
 
-
     //goal metrics
     private static Double weightGoal;
     private static Double avgSleepGoal;
     private static Double avgCaloriesGoal;
     private static Double avgWorkoutGoal;
 
-
     //TODO make controller global/static in main?
     public static Controller controller;
 
     // todo move statistics and exercise list to their own classes
     private static ArrayList<Exercise> exerciseList = new ArrayList<>();
-    private static Integer weight;
 
-    //needs to be called after successful login!
     public static void setId(int userId) {
         id = userId;
     }
@@ -63,13 +59,6 @@ public class CurrentUser {
         type = type;
     }
 
-    public static void updateCurrentUser(){
-        //query users table with name
-        //set id? type? (in theory) these can't be changed
-        //def set age, gender, email, sQ, sA from what is stored in database
-    }
-
-    //TODO make sure this works,
     public static void initialize(String username) throws UserNotFoundException{
         try (Connection conn = main.DBConnection.getConnection()) {
 
@@ -121,15 +110,15 @@ public class CurrentUser {
     public static String getType() {
         return type;
     }
-    public static int getTypeInt() {
-        if(type.equals("Admin")){
-            return 2;
-        } else if (type .equals("Trainer")) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
+//    public static int getTypeInt() {
+//        if(type.equals("Admin")){
+//            return 2;
+//        } else if (type .equals("Trainer")) {
+//            return 1;
+//        } else {
+//            return 0;
+//        }
+//    }
 
     public static Integer getId() {
         return id;
@@ -176,9 +165,9 @@ public class CurrentUser {
      *
      * @return username and description
      */
-    public static String userInfo() {
-        return name + " " + type;
-    }
+//    public static String userInfo() {
+//        return name + " " + type;
+//    }
     /**
      * adds an exercise to the user's exercise set
      *
@@ -203,22 +192,6 @@ public class CurrentUser {
     public static void clearExercises() {
         exerciseList.clear();
     }
-    /**
-     * set user's weight
-     *
-     * @param w int weight
-     */
-    public static void setWeight(int w) {
-        weight = w;
-    }
-    /**
-     * get the user's weight
-     *
-     * @return weight of the user
-     */
-    public static Integer getWeight() {
-        return weight;
-    }
 
 //    public static void importExercises(ArrayList<Exercise> set) {
 //        clearExercises();
@@ -235,7 +208,6 @@ public class CurrentUser {
         email = null;
 
         exerciseList.clear();
-        weight = null;
         controller = null;
     }
 

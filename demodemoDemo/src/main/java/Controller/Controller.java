@@ -6,7 +6,6 @@ import UserInformation.CurrentUser;
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /*
@@ -20,16 +19,16 @@ public interface Controller {
         return CurrentUser.getName();
     }
 
-    public static boolean insertOnboardingInfo(int age, String gender,
-                                            String email, int securityQ,
-                                            String securityA) throws SQLException {
+    public static boolean updateOnboardingInfo(String username, int age, String gender,
+                                               String email, int securityQ,
+                                               String securityA) throws SQLException {
         String query = "UPDATE userInfo "
                 + "SET AGE = " + age + ", "
                 + "GENDER = '" + gender + "', "
                 + "EMAIL = '" + email + "', "
                 + "SECURITYQ = " + securityQ + ", "
                 + "SECURITYA = '" + securityA + "' "
-                + "WHERE USERNAME = '" + CurrentUser.getName() + "'";
+                + "WHERE USERNAME = '" + username + "'";
         boolean success = false;
 
         try (Connection conn = main.DBConnection.getConnection()) {

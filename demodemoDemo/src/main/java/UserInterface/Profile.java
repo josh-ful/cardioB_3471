@@ -85,6 +85,9 @@ public class Profile extends Scenes{
         currAge.setText(CurrentUser.getAge().toString());
         currGender.setText(CurrentUser.getGender());
         currEmail.setText(CurrentUser.getEmail());
+
+        metricsPanel.revalidate();
+        metricsPanel.repaint();
     }
 
     private static JPanel makeMetricsGoalsPanel() throws SQLException {
@@ -154,7 +157,7 @@ public class Profile extends Scenes{
         JButton btnEditOnboarding = new JButton("Edit Information");
 
         btnEditOnboarding.addActionListener(e->{
-            new OnboardingDialog(true);
+            new OnboardingDialog(false, Controller.getUsername());
         });
 
         return btnEditOnboarding;
@@ -186,19 +189,4 @@ public class Profile extends Scenes{
         return btnLogout;
     }
 
-    public void addRow(JPanel panel, Component comp, int row, int col) {
-        c = new GridBagConstraints();
-        c.gridx = col;
-        c.gridy = row;
-        c.insets = new Insets(5, 5, 5, 5);
-        c.anchor = GridBagConstraints.WEST;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        if(col == 1){
-            c.weightx = 1.0;
-        }
-        else{
-            c.weightx = 0.0;
-        }
-        panel.add(comp, c);
-    }
 }

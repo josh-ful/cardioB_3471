@@ -19,7 +19,7 @@ public class OnboardingDialog extends JDialog {
     static JComboBox txtSecurityQuestion;
     static JTextField txtSecurityAnswer;
 
-    public OnboardingDialog(boolean editOnboarding) {
+    public OnboardingDialog(boolean editing, String username) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         setTitle("Onboarding");
@@ -45,22 +45,23 @@ public class OnboardingDialog extends JDialog {
         addRow(panel, txtSecurityQuestion, 3, 1);
         addRow(panel, new JLabel("Security Answer:"), 4, 0);
         addRow(panel, txtSecurityAnswer, 4, 1);
-        addRow(panel, this.getSubmitButton(editOnboarding), 5, 0);
+        addRow(panel, this.getSubmitButton(editing, username), 5, 0);
 
         add(panel);
         setVisible(true);
         pack();
     }
 
-    private JButton getSubmitButton(boolean editOnboarding) {
+    private JButton getSubmitButton(boolean editing, String username) {
         JButton btnSubmit = new JButton("Submit");
 
         btnSubmit.addActionListener(e -> {
             try{
-                Controller.insertOnboardingInfo((int)txtAge.getValue(), txtGender.getSelectedItem().toString(),
+                Controller.updateOnboardingInfo(username, (int)txtAge.getValue(), txtGender.getSelectedItem().toString(),
                         txtEmail.getText(), txtSecurityQuestion.getSelectedIndex(), txtSecurityAnswer.getText());
-                if (editOnboarding) {
-                    CurrentUser.initialize(CurrentUser.getName());
+
+                if (editing) {
+                    CurrentUser.initialize(username);
                     Profile.refreshInfoPanel();
                     JOptionPane.showMessageDialog(this,
                             "Your information has been updated!");
