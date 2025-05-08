@@ -32,7 +32,7 @@ public class ClassListScene extends Scenes{
      * @param frame which scene is created on
      */
     @Override
-    protected void createAndShowGUI(JFrame frame) throws SQLException {
+    protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
         frame.setLayout(new BorderLayout());
 
@@ -71,28 +71,22 @@ public class ClassListScene extends Scenes{
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
 
         int exerciseQuantity = 0;
+        // get user id
+        int userId = UserController.getUserId();
 
-        try {
-            // get user id
-            int userId = UserController.getUserId();
+        // request all registered classes
+        ArrayList<Course> exerciseList = UserController.getAllUserClasses();
+        exerciseQuantity = exerciseList.size();
 
-            // request all registered classes
-            ArrayList<Course> exerciseList = UserController.getAllUserClasses();
-            exerciseQuantity = exerciseList.size();
-
-            if (exerciseList.isEmpty()) {
-                JLabel error = new JLabel("Error: Classes are empty");
-                resultPanel.add(error);
-            }
-            for (Course course : exerciseList) {
-                resultPanel.add(createCoursePanel(course, frame));
-            }
-        }catch (SQLException e) {
-            JLabel error = new JLabel(e.getMessage());
+        if (exerciseList.isEmpty()) {
+            JLabel error = new JLabel("Error: Classes are empty");
             resultPanel.add(error);
         }
+        for (Course course : exerciseList) {
+            resultPanel.add(createCoursePanel(course, frame));
+        }
 
-        resultPanel.setPreferredSize(new Dimension(400, exerciseQuantity*80));
+        resultPanel.setPreferredSize(new Dimension(400, exerciseQuantity * 80));
         JScrollPane scroll = new JScrollPane(resultPanel);
         scroll.setPreferredSize(new Dimension(FRAME_W, 400));
 
@@ -127,11 +121,7 @@ public class ClassListScene extends Scenes{
         JButton actionBtn = new JButton(buttonLabel);
         actionBtn.addActionListener(e -> {
             if(buttonLabel.equals("Continue")) {
-                try {
                     new  UserSelfPacedClassScene(frame, course);
-                } catch (SQLException ex) {
-                    //throw new RuntimeException(ex);
-                }
             }
             else if(buttonLabel.equals("Join")) {
                 System.out.println(course.getName() + " " + course.getId());

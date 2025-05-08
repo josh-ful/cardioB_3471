@@ -40,10 +40,9 @@ public class UserController implements Controller {
      * @param name        of exercise
      * @param description of exercise
      */
-    public static void addExercise(String name, String description, Integer duration) {
+    public static void addExercise(String name, String description) {
         Exercise e = new Exercise(name);
         e.setDescription(description);
-        e.setDuration(duration);
 //        System.out.println("Name:" + e.getName());
 //        System.out.println("Description: " + e.getDescription());
         CurrentUser.addExercise(e);
@@ -51,6 +50,24 @@ public class UserController implements Controller {
         if (DatabaseInfo.states.get("SQL")) {
             // TODO SQL Implementation
             ExerciseLogHelperSQL.addExercise(name, description);
+            String sqlInsert = "INSERT INTO exercises (name, description)" +
+                    "VALUES ('" + e.getName() + "', '" + e.getDescription() + "')";
+            try {
+                Connection con = DBConnection.getConnection();
+                Statement statement = con.createStatement();
+                statement.executeUpdate(sqlInsert);
+                ResultSet rs = statement.executeQuery("SELECT MAX(id) FROM exercises");
+                if (rs.next()) {
+                    int exerciseId = rs.getInt(1);
+                    String UserExerciseInsert = "INSERT INTO user_exercises (user_id, exercise_id) VALUES ('"
+                            + UserController.getUserId() + "', '" + exerciseId + "')";
+                    statement.executeUpdate(UserExerciseInsert);
+                    System.out.println("Inserted" );
+                }
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } else {
             ExerciseLogHelperCSV.update();
         }
@@ -77,8 +94,14 @@ public class UserController implements Controller {
         return CurrentUser.getExercises();
     }
 
-    public static String[][] getTableMatrix() {
-        return ExerciseLogHelper.getTableMatrix();
+    public static String[][] getExerciseLogTable() {
+        ArrayList<Exercise> exerciseList = UserController.getAllUserExercises();
+        String[][] exerciseArray = new String[exerciseList.size()][2];
+        for (int i = 0; i < exerciseList.size(); i++) {
+            exerciseArray[i][0] = exerciseList.get(i).getName();
+            exerciseArray[i][1] = exerciseList.get(i).getDescription();
+        }
+        return exerciseArray;
     }
 
     public static Course getExercise(int courseId) throws SQLException {
@@ -108,7 +131,7 @@ public class UserController implements Controller {
         return retExercise;
     }
 
-    public static int getUserId() throws SQLException {
+    public static int getUserId() {
         return CurrentUser.getId();
     }
 
@@ -146,6 +169,37 @@ public class UserController implements Controller {
         return courseList;
     }
 
+    public static ArrayList<Exercise> getAllUserExercises() {
+        ArrayList<Exercise> courseList = new ArrayList<>();
+        try (Connection conn = main.DBConnection.getConnection()) {
+            PreparedStatement registrationStmt = conn.prepareStatement(
+                    "SELECT c.name, c.description " +
+                            "FROM exercises c " +
+                            "WHERE c.id IN ( " +
+                            "    SELECT cr.exercise_id " +
+                            "    FROM user_exercises cr " +
+                            "    WHERE cr.user_id = ? " +
+                            ");"
+            );
+            registrationStmt.setInt(1, CurrentUser.getId());
+            ResultSet registrationResults = registrationStmt.executeQuery();
+
+            while (registrationResults.next()) {
+                String name = registrationResults.getString("name");
+                String desc = registrationResults.getString("description");
+                Exercise retExercise = new Exercise(name, desc);
+                retExercise.setName(name);
+                retExercise.setDescription(desc);
+                courseList.add(retExercise);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //todo throw exception, or error message
+        }
+        return courseList;
+    }
+
+
     public static boolean isRegistered(int courseId) throws SQLException{
         try (Connection conn = main.DBConnection.getConnection()) {
             PreparedStatement checkStmt = conn.prepareStatement(
@@ -168,12 +222,23 @@ public class UserController implements Controller {
     //todo not a boolean?
     public static boolean registerForClass(int courseId) throws SQLException{
         try (Connection conn = main.DBConnection.getConnection()) {
-            PreparedStatement insertStmt = conn.prepareStatement(
-                    "INSERT INTO course_registrations (user_id, course_id) VALUES (?, ?)"
-            );
-            insertStmt.setInt(1, UserController.getUserId());
-            insertStmt.setInt(2, courseId);
-            insertStmt.executeUpdate();
+            if (!isRegistered(courseId)) {
+                PreparedStatement insertStmt = conn.prepareStatement(
+                        "INSERT INTO course_registrations (user_id, course_id) VALUES (?, ?)"
+                );
+                insertStmt.setInt(1, UserController.getUserId());
+                insertStmt.setInt(2, courseId);
+                insertStmt.executeUpdate();
+            }
+            else {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Already registered for class",
+                        "Warning",
+                        JOptionPane.WARNING_MESSAGE
+                );
+                return false;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             //todo rethrow??

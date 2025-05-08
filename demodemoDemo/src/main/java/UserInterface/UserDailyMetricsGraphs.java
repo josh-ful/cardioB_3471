@@ -43,7 +43,7 @@ public class UserDailyMetricsGraphs extends Scenes{
      * @param
      */
     @Override
-    protected void createAndShowGUI(JFrame frame) throws SQLException {
+    protected void createAndShowGUI(JFrame frame)  {
         super.createAndShowGUI(frame);
         panelLayout();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

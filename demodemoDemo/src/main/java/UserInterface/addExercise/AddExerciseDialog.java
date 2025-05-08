@@ -49,28 +49,38 @@ public class AddExerciseDialog{
         panel.add(getExNameLabel());
         panel.add(nameField);
         panel.add(getExDescriptionLabel());
-
         panel.add(descriptionField);
-        panel.add(getExDuration());
-        panel.add(durationField);
-        panel.add(getSubmitButton(frame));
+        panel.add(getButtons());
 
 
         newFrame.add(panel);
         newFrame.pack();
         newFrame.setVisible(true);
     }
+
+    private JPanel getButtons() {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        buttonPanel.add(getSubmitButton());
+        buttonPanel.add(getCancelButton());
+        return buttonPanel;
+    }
+
+    private JButton getCancelButton() {
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(e-> {
+            newFrame.dispose();
+        });
+        return cancelButton;
+    }
+
     /**
      * gets description of exercise in label form
      *
      * @return JLabel with description of exercise
      */
     private static JLabel getExDescriptionLabel() {
-        return new JLabel("Exercise Description: ");
-    }
-
-    private static JLabel getExDuration() {
-        return new JLabel("Exercise Duration: ");
+        return new JLabel("Description: ");
     }
 
     /**
@@ -83,15 +93,30 @@ public class AddExerciseDialog{
     }
     /**
      * gets button that submits information of exercise to list
-     * @param frame which scene is created on
      * @return button that submits information to storage
      */
-    private JButton getSubmitButton(JFrame frame) {
+    private JButton getSubmitButton() {
         JButton submit = new JButton("Submit");
-        submit.addActionListener(e -> {
-                UserController.addExercise(nameField.getText(), descriptionField.getText(), Integer.parseInt(durationField.getText()));
-                newFrame.dispose();
-                ExerciseLogScene.updateTable();
+        submit.addActionListener(ae -> {
+            try {
+                if (!nameField.getText().equals("")) {
+                    UserController.addExercise(nameField.getText(), descriptionField.getText());
+                    newFrame.dispose();
+                    ExerciseLogScene.updateTable();
+                }
+                else {
+                    throw new Exception("Please enter a valid exercise name");
+                }
+
+            }
+            catch (Exception e) {
+                JOptionPane.showMessageDialog(newFrame,
+                        "Make sure the exercise details are correct",
+                        "Warning",
+                        JOptionPane.WARNING_MESSAGE);
+                e.printStackTrace();
+            }
+
         });
 
         return submit;
