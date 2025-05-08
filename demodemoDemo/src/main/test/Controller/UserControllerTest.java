@@ -99,7 +99,7 @@ public class UserControllerTest {
 	    String username = "TEST";
         CurrentUser.setName(username);
         Exercise e = new Exercise("test", "test exercise", 10);
-        UserController.addExercise(e.getName(), e.getDescription(),e.getDuration());
+        UserController.addExercise(e.getName(), e.getDescription());
         ArrayList<Exercise> exercises = UserController.getExercises();
         assertFalse(exercises.contains(e));
    }
@@ -170,7 +170,7 @@ public class UserControllerTest {
         assertEquals(CurrentUser.getAvgCaloriesGoal(), 500);
         assertEquals(CurrentUser.getAvgWorkoutGoal(), 500);
     }
-    
+
 
 
 

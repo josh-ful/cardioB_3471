@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TrainerControllerTest {
     @BeforeAll
@@ -82,5 +83,44 @@ public class TrainerControllerTest {
         int n = TrainerController.getCourseExercisesForCourse(35).size();
         TrainerController.linkExistingExerciseToCourse(35, 1, 9);
         assertEquals(n+1, TrainerController.getCourseExercisesForCourse(35).size());
+    }
+
+    @Test
+    void searchExercisesTest() {
+        int n = TrainerController.searchExercises("Test").size();
+        assertEquals(4, n);
+    }
+
+    @Test
+    void setCourseJoinableTest() {
+        TrainerController.setCourseJoinable(35, true);
+        TrainerController.setCourseJoinable(35, false);
+    }
+
+    @Test
+    void startCourseSessionTest() {
+        int n = TrainerController.startCourseSession(35, TrainerController.getCourseExercisesForCourse(35).get(0).getExercise().getName());
+        assertEquals(9, n);
+        TrainerController.endCourseSession(35);
+    }
+
+    @Test
+    void updateCourseSessionTest() {
+    }
+
+    @Test
+    void endCourseSessionTest() {
+        TrainerController.startCourseSession(35, "TestExercise1");
+        TrainerController.endCourseSession(35);
+    }
+
+    @Test
+    void getRegistrationCountsTest() {
+        assertEquals(TrainerController.getRegistrationCounts(35).size(), 0);
+    }
+
+    @Test
+    void getSessionJoinCountsTest() {
+        assertEquals(TrainerController.getSessionJoinCounts(35).size(), 0);
     }
 }

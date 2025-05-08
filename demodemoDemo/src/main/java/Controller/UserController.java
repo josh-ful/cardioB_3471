@@ -187,7 +187,7 @@ public class UserController implements Controller {
             while (registrationResults.next()) {
                 String name = registrationResults.getString("name");
                 String desc = registrationResults.getString("description");
-                Exercise retExercise = new Exercise(name, desc);
+                Exercise retExercise = new Exercise(name, desc, 5);
                 retExercise.setName(name);
                 retExercise.setDescription(desc);
                 courseList.add(retExercise);
