@@ -18,11 +18,19 @@ import java.util.List;
 import java.util.Map;
 
 public class TrainerController implements Controller {
-
+    /**
+     * creates dashboard on frame
+     *
+     * @param frame JFrame which dashboard is displayed on
+     */
     public void createDashboard(JFrame frame) throws SQLException {
         new TrainerMenuScene(frame);
     }
-
+    /**
+     * gets current trainer's classes as a list
+     *
+     * @return List<Course> list of current trainers classes
+     */
     //Fetches all courses records for the currently logged-in trainer.
     public static List<Course> getClassesForCurrentTrainer() {
         List<Course> classes = new ArrayList<>();
@@ -47,7 +55,13 @@ public class TrainerController implements Controller {
         }
         return classes;
     }
-
+    /**
+     * creates a class by inserting information into the database
+     *
+     * @param name String name of course
+     * @param description String description of course
+     * @param schedule String schedule of course
+     */
     public static void createClass(String name, String description, String schedule) {
         String sql = "INSERT INTO courses (name, type, trainer_id, description, time) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
@@ -73,7 +87,14 @@ public class TrainerController implements Controller {
             JOptionPane.showMessageDialog(null, "Error creating class: " + e.getMessage());
         }
     }
-
+    /**
+     * updates a class by modifying information in the database
+     *
+     * @param courseID int ID of course
+     * @param name String name of course
+     * @param description String description of course
+     * @param schedule String schedule of course
+     */
     public static void updateClass(int courseID, String name, String description, String schedule) {
         String sql = "UPDATE courses "
                 + "SET name = ?, "
@@ -106,7 +127,14 @@ public class TrainerController implements Controller {
         }
     }
 
-
+    /**
+     * adds exercise to a course in the database
+     *
+     * @param courseId int ID of course
+     * @param eName String description of exercise
+     * @param eDesc String description of course
+     * @param orderIndex int
+     */
     public static void addExerciseToCourse(int courseId, String eName, String eDesc, int orderIndex) throws SQLException {
         String insertEx =
                 "INSERT INTO exercises (name, description) VALUES (?, ?)";
@@ -134,6 +162,9 @@ public class TrainerController implements Controller {
     /**
      * Remove exactly the one course_exercises row (by its PK)
      * and resequence the remaining ones.
+     *
+     * @param linkId
+     * @param courseId
      */
     public static void removeCourseExerciseByLinkId(int linkId, int courseId) {
         String deleteSql =
@@ -185,6 +216,12 @@ public class TrainerController implements Controller {
             } catch (Exception ignore) {}
         }
     }
+    /**
+     * gets list of course exercises from the course
+     *
+     * @param courseId int ID of course
+     * @return List<CourseExercise> list of course exercises
+     */
     //added query to get all exercises in a class
     public static List<CourseExercise> getCourseExercisesForCourse(int courseId) {
         List<CourseExercise> list = new ArrayList<>();
@@ -227,7 +264,12 @@ public class TrainerController implements Controller {
         }
         return list;
     }
-
+    /**
+     * gets list of course exercises from the course
+     *
+     * @param courseId int ID of course
+     * @return List<CourseExercise> list of course exercises
+     */
     //added diff func than addExercise that deals with existing exercises
     public static void linkExistingExerciseToCourse(int courseId, int exerciseId, int orderIndex) {
         String sql = "INSERT INTO course_exercises (course_id, exercise_id, exercise_order) VALUES (?, ?, ?)";

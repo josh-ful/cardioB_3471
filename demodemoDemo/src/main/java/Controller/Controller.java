@@ -13,13 +13,29 @@ import java.sql.SQLException;
  * this interface serves as the controller
  */
 public interface Controller {
-
+    /**
+     * creates dashboard on frame
+     *
+     * @param frame JFrame which dashboard is displayed on
+     */
     public void createDashboard(JFrame frame) throws SQLException;
-
+    /**
+     * gets username of current user
+     *
+     * @return String Current User's name
+     */
     public static String getUsername(){
         return CurrentUser.getName();
     }
-
+    /**
+     * receives onboarding info and inserts info
+     *
+     * @param age int onboarding insert
+     * @param gender String onboarding insert gender
+     * @param email String onboarding insert email
+     * @param securityQ int onboarding insert securityQ
+     * @param securityA String onboarding insert securityA
+     */
     public static boolean insertOnboardingInfo(int age, String gender,
                                             String email, int securityQ,
                                             String securityA) throws SQLException {
@@ -42,7 +58,10 @@ public interface Controller {
 
         return success;
     }
-
+    /**
+     * destroys current user
+     *
+     */
     public static void destroyCurrentUser(){
         CurrentUser.destroy();
     }
