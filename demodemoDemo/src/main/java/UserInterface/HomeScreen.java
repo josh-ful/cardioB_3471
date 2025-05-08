@@ -35,7 +35,7 @@ public class HomeScreen extends Scenes{
      */
 
     // TODO: Put the GridBagConstraints inside the get<thing>Label method calls
-    protected void createAndShowGUI(JFrame frame) throws SQLException {
+    protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
 
         frame.setTitle("Trello Fellows®");
