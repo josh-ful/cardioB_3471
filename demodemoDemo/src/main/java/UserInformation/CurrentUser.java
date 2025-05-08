@@ -328,6 +328,10 @@ public class CurrentUser {
         return avgWorkout;
     }
 
+    public static int getID() {
+        return id;
+    }
+
     /*public static String[][] getTableMatrix(){
         int i= 0;
         String [][] matrix = new String[UserController.getWeightEntries(id).size()][2];

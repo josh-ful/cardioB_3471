@@ -217,7 +217,7 @@ public class UserController implements Controller {
         Connection conn2 = DBConnection.getConnection();
         //get id from username
         //TODO make this something stored in UserStorage
-        PreparedStatement getUserStmt = conn2.prepareStatement("SELECT id FROM usersInfo WHERE username = ?");
+        PreparedStatement getUserStmt = conn2.prepareStatement("SELECT id FROM userInfo WHERE username = ?");
         getUserStmt.setString(1, username);
         ResultSet userRs = getUserStmt.executeQuery();
 
