@@ -23,7 +23,7 @@ public class Register {
      * confirms that a registration scenario was a success
      * @param user username of user
      * @param pass password of user
-     * @param type
+     * @param type of user
      */
     public static boolean registerLogic(String user, String pass, String type)
             throws SQLException, AlreadyRegisteredException {

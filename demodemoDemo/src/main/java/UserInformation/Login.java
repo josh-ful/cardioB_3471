@@ -26,7 +26,6 @@ public class Login {
      * @param pass string password
      * @return boolean of login success
      */
-
     public static boolean loginLogic(String user, String pass) throws RuntimeException, SQLException {
         String query = "SELECT * FROM userInfo WHERE username = ?";
 

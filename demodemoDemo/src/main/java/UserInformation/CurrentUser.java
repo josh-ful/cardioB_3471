@@ -53,22 +53,28 @@ public class CurrentUser {
     // todo move statistics and exercise list to their own classes
     private static ArrayList<Exercise> exerciseList = new ArrayList<>();
     private static Integer weight;
-
+    /**
+     * sets current user's id
+     *
+     * @param userId int id of current user
+     */
     //needs to be called after successful login!
     public static void setId(int userId) {
         id = userId;
     }
-
+    /**
+     * sets current user's type
+     *
+     * @param type String type of current user
+     */
     public static void setType(String type) {
         type = type;
     }
-
-    public static void updateCurrentUser(){
-        //query users table with name
-        //set id? type? (in theory) these can't be changed
-        //def set age, gender, email, sQ, sA from what is stored in database
-    }
-
+    /**
+     * initializes a new user in the database
+     *
+     * @param username String username of current user
+     */
     //TODO make sure this works,
     public static void initialize(String username) throws UserNotFoundException{
         try (Connection conn = main.DBConnection.getConnection()) {
@@ -130,26 +136,42 @@ public class CurrentUser {
             return 0;
         }
     }
-
+    /**
+     * gets current user's id
+     *
+     * @return Integer userId id of current user
+     */
     public static Integer getId() {
         return id;
     }
+    /**
+     * gets current user's age
+     *
+     * @return Integer age of current user
+     */
     public static Integer getAge() {
         return age;
     }
+    /**
+     * gets current user's gender
+     *
+     * @return String gender of current user
+     */
     public static String getGender() {
         return gender;
     }
+    /**
+     * gets current user's email
+     *
+     * @return String email of current user
+     */
     public static String getEmail() {
         return email;
     }
-    public static String getSecurityQ() {
-        return securityQuestions[securityQ];
-    }
-    public static String getSecurityAnswer() {
-        return securityAnswer;
-    }
-
+    /**
+     * creates controller of type of current user
+     *
+     */
     private static void createController() {
         switch (type){
             case ("admin"):
@@ -225,7 +247,10 @@ public class CurrentUser {
 //        exerciseList.addAll(set);
 //    }
 
-
+    /**
+     * clears information of current user
+     *
+     */
     public static void destroy(){
         id = null;
         name = null;
@@ -238,108 +263,124 @@ public class CurrentUser {
         weight = null;
         controller = null;
     }
-
-
+    /**
+     * sets user's average sleep to parameter
+     *
+     * @param avgSleep Double average sleep time of current user
+     */
     public static void setAvgSleep(Double avgSleep) {
         CurrentUser.avgSleep = avgSleep;
     }
+    /**
+     * sets user's current weight to parameter
+     *
+     * @param currentWeight Double current weight of current user
+     */
     public static void setCurrentWeight(Double currentWeight) {//TODO hook up with database
         CurrentUser.currentWeight = currentWeight;
     }
+    /**
+     * sets user's average calories to parameter
+     *
+     * @param avgCalories Double average calories consumed of current user
+     */
     public static void setAvgCalories(Double avgCalories) {
         CurrentUser.avgCalories = avgCalories;
     }
+    /**
+     * sets user's average workout duration to parameter
+     *
+     * @param avgWorkout Double average workout duration of current user
+     */
     public static void setAvgWorkout(Double avgWorkout) {
         CurrentUser.avgWorkout = avgWorkout;
     }
-
-    //set goals
-    public static void setWeightGoal(Double weightGoal) {
-        //UserController.setWeightGoal(weightGoal);
-        UserController.updateUserGoals(weightGoal, getAvgSleepGoal(), getAvgCaloriesGoal(), getAvgWorkoutGoal());
-        CurrentUser.weightGoal = weightGoal;
-    }
-    public static void setAvgSleepGoal(Double avgSleepGoal) {
-        //UserController.setAvgSleepGoal(avgSleepGoal);
-        UserController.updateUserGoals(getWeightGoal(), avgSleepGoal, getAvgCaloriesGoal(), getAvgWorkoutGoal());
-        CurrentUser.avgSleepGoal = avgSleepGoal;
-    }
-    public static void setAvgCaloriesGoal(Double avgCaloriesGoal) {
-        //UserController.setAvgCaloriesGoal(avgCaloriesGoal);
-        UserController.updateUserGoals(getWeightGoal(), getAvgSleepGoal(), avgCaloriesGoal, getAvgWorkoutGoal());
-        CurrentUser.avgCaloriesGoal = avgCaloriesGoal;
-    }
-    public static void setAvgWorkoutGoal(Double avgWorkoutGoal) {
-        UserController.updateUserGoals(getWeightGoal(), getAvgSleepGoal(), getAvgCaloriesGoal(), avgWorkoutGoal);
-        CurrentUser.avgWorkoutGoal = avgWorkoutGoal;
-    }
-
-
+    /**
+     * gets user's weight goal
+     *
+     * @return Double weight goal
+     */
     public static Double getWeightGoal() {
         if (CurrentUser.weightGoal == null){
             return UserController.getUserGoal("weight");
         }
         return weightGoal;
     }
-
+    /**
+     * gets user's average sleep goal
+     *
+     * @return Double average sleep goal
+     */
     public static Double getAvgSleepGoal() {
         if (CurrentUser.avgSleepGoal == null){
             return UserController.getUserGoal("sleep");
         }
         return avgSleepGoal;
     }
-
+    /**
+     * gets user's average calories goal
+     *
+     * @return Double average calories goal
+     */
     public static Double getAvgCaloriesGoal() {
         if (CurrentUser.avgCaloriesGoal == null){
             return UserController.getUserGoal("calories");
         }
         return avgCaloriesGoal;
     }
-
+    /**
+     * gets user's average workout duration goal
+     *
+     * @return Double average workout duration goal
+     */
     public static Double getAvgWorkoutGoal() {
         if (CurrentUser.avgWorkoutGoal == null){
             return UserController.getUserGoal("workout");
         }
         return avgWorkoutGoal;
     }
-
+    /**
+     * gets user's average sleep time goal
+     *
+     * @return Double average sleep time goal
+     */
     public static Double getAvgSleep() throws SQLException {
         if(avgSleep == null){
             DailyMetricDAO.getAvgSleep();
         }
         return avgSleep;
     }
+    /**
+     * gets user's current weight
+     *
+     * @return Double current weight
+     */
     public static Double getCurrentWeight() throws SQLException {
         if(CurrentUser.currentWeight == null){
             DailyMetricDAO.getCurrentWeight();
         }
         return currentWeight;
     }
+    /**
+     * gets user's average calories consumed
+     *
+     * @return Double average calories consumed
+     */
     public static Double getAvgCalories() throws SQLException {
         if(avgCalories == null){
             DailyMetricDAO.getAvgCalories();
         }
         return avgCalories;
     }
+    /**
+     * gets user's average workout duration
+     *
+     * @return Double average workout duration
+     */
     public static Double getAvgWorkout() throws SQLException {
         if(avgWorkout == null){
             DailyMetricDAO.getAvgWorkoutDur();
         }
         return avgWorkout;
     }
-
-    public static int getID() {
-        return id;
-    }
-
-    /*public static String[][] getTableMatrix(){
-        int i= 0;
-        String [][] matrix = new String[UserController.getWeightEntries(id).size()][2];
-        for(Exercise e : CurrentUser.getWeightEntries()){
-            matrix[i][0] = e.
-            matrix[i][1] = e.getDescription();
-            i++;
-        }
-        return matrix;
-    }*/
 }

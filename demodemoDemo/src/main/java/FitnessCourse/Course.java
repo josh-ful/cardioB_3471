@@ -59,7 +59,6 @@ public class Course {
         this.exercises = exercises;
     }
 
-
     /**
      * gets course id
      *

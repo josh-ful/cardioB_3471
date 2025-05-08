@@ -10,8 +10,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-
+/*
+ * this class represents a UserQuery object
+ * containing information about UserQuery's
+ */
 public class UserQuery {
+    /**
+     * determines if a user exists
+     *
+     * @param user String user name
+     */
     public static void userExists(String user) {
         try(Connection con = DBConnection.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT id FROM userInfo WHERE username = ?");
@@ -25,8 +33,11 @@ public class UserQuery {
             throw new UserNotFoundException("User not found");
         }
     }
-
-
+    /**
+     * executes security question from specific user
+     *
+     * @param username String username of user
+     */
     public static int securityQ(String username) {
         try(Connection con = DBConnection.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT securityQ FROM userInfo WHERE username = ?");
@@ -42,7 +53,12 @@ public class UserQuery {
 
         return -1;
     }
-
+    /**
+     * gets security answer from user
+     *
+     * @param username String username of user
+     * @return String response
+     */
     public static String securityA(String username) {
         try(Connection con = DBConnection.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT securityA FROM userInfo WHERE username = ?");
@@ -58,7 +74,12 @@ public class UserQuery {
 
         return null;
     }
-
+    /**
+     * changes password to parameter
+     *
+     * @param username String username of user
+     * @param newPassword String new password
+     */
     public static int changePassword(String username, String newPassword) {
         int updated = 0;
 
