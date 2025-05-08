@@ -17,7 +17,7 @@ public class Exercise {
         this.name = name;
     }
     /**
-     * Creates Exercise object
+     * Constructs Exercise object
      *
      * @param name of exercise
      * @param description of exercise
@@ -27,20 +27,29 @@ public class Exercise {
         this.description = description;
         this.duration = duration;
     }
-
-
+    /**
+     * Constructs Exercise object
+     *
+     * @param name String name of exercise
+     * @param duration Integer duration of exercise
+     */
     public Exercise(String name, Integer duration) {
         this.name = name;
         this.duration = duration;
     }
-
+    /**
+     * Constructs Exercise object
+     *
+     * @param id int id of exercise
+     * @param name String name of exercise
+     */
     public Exercise(int id, String name, Integer duration) {
         this.id = id;
         this.name = name;
         this.duration = duration;
     }
     /**
-     * Creates Exercise object
+     * Constructs Exercise object
      *
      * @param id of exercise
      * @param name of exercise
@@ -51,8 +60,13 @@ public class Exercise {
         this.name = name;
         this.description = description;
     }
-
-
+    /**
+     * Constructs Exercise object
+     *
+     * @param name of exercise
+     * @param description of exercise
+     * @param duration Integer duration of exercise
+     */
     public Exercise(int id, String name, String description, Integer duration) {
         this.id = id;
         this.name = name;
@@ -103,7 +117,7 @@ public class Exercise {
     /**
      * get description of exercise
      *
-     * @return description string of exercise
+     * @return description String description of exercise
      */
     public String getDescription() {
         return description;
@@ -111,16 +125,24 @@ public class Exercise {
     /**
      * sets the description of the exercise to the parameter
      *
-     * @param description string of exercise
+     * @param description String description of exercise
      */
     public void setDescription(String description) {
         this.description = description;
     }
-
+    /**
+     * get duration of exercise
+     *
+     * @return int duration of exercise
+     */
     public int getDuration() {
         return duration;
     }
-
+    /**
+     * sets duration of exercise
+     *
+     * @param duration int duration of exercise
+     */
     public void setDuration(int duration) {
         this.duration = duration;
     }
