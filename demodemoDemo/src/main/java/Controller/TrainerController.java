@@ -169,7 +169,7 @@ public class TrainerController implements Controller {
             }
 
             conn.commit();
-            JOptionPane.showMessageDialog(null, "Exercise removed from course.");
+//            JOptionPane.showMessageDialog(null, "Exercise removed from course.");
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null,
@@ -239,7 +239,7 @@ public class TrainerController implements Controller {
             stmt.setInt(3, orderIndex);
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Exercise linked to course successfully!");
+//            JOptionPane.showMessageDialog(null, "Exercise linked to course successfully!");
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(
