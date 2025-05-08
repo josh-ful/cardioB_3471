@@ -466,29 +466,6 @@ public class TrainerController implements Controller {
                     "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    /**
-     * gets total number of registrations for a course
-     *
-     * @param courseId int id of course
-     * @return int total registrations
-     */
-    public static int getTotalRegistrations(int courseId) {
-        String sql = "SELECT COUNT(*) FROM course_registrations WHERE course_id = ?";
-        int total = 0;
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, courseId);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    total = rs.getInt(1);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // TODO: use proper logging
-        }
-        return total;
-    }
     /**
      * gets map total number of registrations to each day of a course
      *
@@ -543,18 +520,6 @@ public class TrainerController implements Controller {
         }
         return counts;
     }
-
-
-    //TODO add a host class functionality
-        //should set class state to joinable - DONE
-        //trainer should be able to select an exercise - DONE
-        //add a visible clock - DONE
-        //currently selected exercise will be displayed to users with a timer - DONE
-        //hook duration up on user side with exercise log
-
-
-
-
 }
 
 

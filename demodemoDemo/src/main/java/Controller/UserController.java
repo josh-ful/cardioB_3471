@@ -25,11 +25,18 @@ import java.util.List;
  * this class serves as the general user type controller
  */
 public class UserController implements Controller {
-
+    /**
+     * constructs object of type UserController
+     *
+     */
     public UserController() {
 //        System.out.println("UserController");
     }
-
+    /**
+     * inputs weight and sets it to current weight
+     *
+     * @param weight int current weight
+     */
     public static void enterWeight(int weight) {
         CurrentUser.setWeight(weight);
     }
@@ -57,61 +64,41 @@ public class UserController implements Controller {
     }
 
     /**
-     * adds exercise
-     *
-     * @param name        String name
-     * @param description String description
-     */
-    public static void newExercise(String name, String description) {
-        ExerciseLogHelper.addExercise(name, description);
-    }
-
-    /**
+     * clears exercises from current user
      *
      */
     public static void clearExercises() {
         CurrentUser.clearExercises();
     }
-
+    /**
+     * gets exercises from current user
+     *
+     * @return ArrayList<Exercise> list of current user's exercises
+     */
     public static ArrayList<Exercise> getExercises() {
         return CurrentUser.getExercises();
     }
-
+    /**
+     * gets matrix of current user's exercises
+     *
+     * @return String[][] matrix of current user's exercises
+     */
     public static String[][] getTableMatrix() {
         return ExerciseLogHelper.getTableMatrix();
     }
-
-    public static Course getExercise(int courseId) throws SQLException {
-        Course retExercise = null;
-        try (Connection conn = main.DBConnection.getConnection()) {
-            PreparedStatement selfStmt = conn.prepareStatement(
-                    "SELECT name, description, time, type FROM courses WHERE id = ?"
-            );
-            selfStmt.setInt(1, courseId);
-            ResultSet rs = selfStmt.executeQuery();
-            if (rs.next()) {
-                //System.out.println("Got exercise");
-                String name = rs.getString("name");
-                String desc = rs.getString("description");
-                String type = rs.getString("type");
-                retExercise = new Course();
-                retExercise.setName(name);
-                retExercise.setDescription(desc);
-                retExercise.setType(type);
-                //retExercise.setTrainerId(trainerId);
-            }
-        } catch (SQLException exc) {
-            exc.printStackTrace();
-            System.out.println("Exception with getting exercise");
-            //throw new SQLException("Error getting exercise");
-        }
-        return retExercise;
-    }
-
+    /**
+     * gets current user's id
+     *
+     * @return int id of user
+     */
     public static int getUserId() throws SQLException {
         return CurrentUser.getId();
     }
-
+    /**
+     * gets classes that the current user is registered for
+     *
+     * @return ArrayList<Course> list of current user's courses
+     */
     public static ArrayList<Course> getAllUserClasses() {
         ArrayList<Course> courseList = new ArrayList<>();
         try (Connection conn = main.DBConnection.getConnection()) {
@@ -145,26 +132,12 @@ public class UserController implements Controller {
         }
         return courseList;
     }
-
-    public static boolean isRegistered(int courseId) throws SQLException{
-        try (Connection conn = main.DBConnection.getConnection()) {
-            PreparedStatement checkStmt = conn.prepareStatement(
-                    "SELECT * FROM course_registrations WHERE user_id = ? AND course_id = ?"
-            );
-            checkStmt.setInt(1, getUserId());
-            checkStmt.setInt(2, courseId);
-            ResultSet checkRs = checkStmt.executeQuery();
-            if (checkRs.next()) {
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new SQLException("Error registering for classes");
-        }
-
-        return false;
-    }
-
+    /**
+     * registers user for a class by inserting into their course_registrations
+     * in the database
+     *
+     * @return boolean if successfully registered
+     */
     //todo not a boolean?
     public static boolean registerForClass(int courseId) throws SQLException{
         try (Connection conn = main.DBConnection.getConnection()) {
@@ -181,8 +154,12 @@ public class UserController implements Controller {
         }
         return true;
     }
-
-    public static ArrayList<Course> getAllExercises(String type, String query) throws SQLException{
+    /**
+     * gets list of courses user is registered for
+     *
+     * @return ArrayList<Course> list of courses of user
+     */
+    public static ArrayList<Course> getAllCourses(String type, String query) throws SQLException{
         String sql = "SELECT id, name, description FROM courses WHERE type LIKE ? AND name LIKE ?";
 
         ArrayList<Course> courseList = new ArrayList<>();
@@ -208,44 +185,11 @@ public class UserController implements Controller {
         }
         return courseList;
     }
-
-    //TODO probably remove this
-    // todo def put this in a try block
-    public static void addCourseRegistration( int courseId, String courseName) throws SQLException {
-        String username = CurrentUser.getName();
-
-        Connection conn2 = DBConnection.getConnection();
-        //get id from username
-        //TODO make this something stored in UserStorage
-        PreparedStatement getUserStmt = conn2.prepareStatement("SELECT id FROM userInfo WHERE username = ?");
-        getUserStmt.setString(1, username);
-        ResultSet userRs = getUserStmt.executeQuery();
-
-        if (!userRs.next()) {
-            throw new UserNotFoundException("User not found in database.");
-        }
-        int userId = userRs.getInt("id");
-
-        //check edge case already registered
-        PreparedStatement checkStmt = conn2.prepareStatement(
-                "SELECT * FROM course_registrations WHERE user_id = ? AND course_id = ?"
-        );
-        checkStmt.setInt(1, userId);
-        checkStmt.setInt(2, courseId);
-        ResultSet checkRs = checkStmt.executeQuery();
-        if (checkRs.next()) {
-            throw new AlreadyRegisteredException("You're already registered for this class.");
-        }
-
-        //finally register
-        PreparedStatement insertStmt = conn2.prepareStatement(
-                "INSERT INTO course_registrations (user_id, course_id) VALUES (?, ?)"
-        );
-        insertStmt.setInt(1, userId);
-        insertStmt.setInt(2, courseId);
-        insertStmt.executeUpdate();
-    }
-
+    /**
+     * gets list of courses user is registered for
+     *
+     * @return ArrayList<Course> list of courses of user
+     */
     public static int getSessionId(Course course) {
         String sql = "SELECT session_id FROM active_courses WHERE course_id = ?";
         int sessionID = 0;
@@ -272,54 +216,19 @@ public class UserController implements Controller {
         }
         return sessionID;
     }
-
-
+    /**
+     * displays user dashboard to frame
+     *
+     * @param frame JFrame dashboard is displayed to
+     */
     public void createDashboard(JFrame frame) throws SQLException {
         new UserMainDash(frame);
     }
-
-    public static List<CourseExercise> getCourseExercisesForCourse(int courseId) {
-        List<CourseExercise> list = new ArrayList<>();
-        String sql = """
-        SELECT 
-          ce.id           AS link_id,
-          e.id            AS exercise_id,
-          e.name,
-          e.description,
-          ce.exercise_order
-        FROM course_exercises ce
-        JOIN exercises e 
-          ON e.id = ce.exercise_id
-        WHERE ce.course_id = ?
-        ORDER BY ce.exercise_order
-        """;
-        try (Connection c = DBConnection.getConnection();
-             PreparedStatement p = c.prepareStatement(sql)) {
-            p.setInt(1, courseId);
-            try (ResultSet rs = p.executeQuery()) {
-                while (rs.next()) {
-                    Exercise ex = new Exercise(
-                            rs.getInt("exercise_id"),
-                            rs.getString("name"),
-                            rs.getString("description")
-                    );
-                    list.add(new CourseExercise(
-                            rs.getInt("link_id"),
-                            ex,
-                            rs.getInt("exercise_order")
-                    ));
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null,
-                    "Error loading exercises: " + ex.getMessage(),
-                    "Database Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-        return list;
-    }
-
+    /**
+     * user's state is set to joined
+     *
+     * @param sessionId id of session
+     */
     public static void setUserAsJoined(int sessionId) {
         String sql = "UPDATE active_courses SET total_joined = total_joined + 1 WHERE session_id = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -336,7 +245,11 @@ public class UserController implements Controller {
                     "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    /**
+     * determines if a course is joinable
+     *
+     * @return boolean if a course is joinable
+     */
     public static boolean isCourseJoinable(int courseId) {
         String sql = "SELECT joinable FROM courses WHERE id = ?";
         boolean join = false;
@@ -364,7 +277,12 @@ public class UserController implements Controller {
             return false;
         }
     }
-
+    /**
+     * gets the current exercise name
+     *
+     * @param courseId id of course
+     * @return String name of exercise
+     */
     public static String getCurrentExerciseName(int courseId) {
         String sql = "SELECT current_exercise FROM active_courses WHERE course_id = ?";
         String exerciseName = "";
@@ -391,7 +309,14 @@ public class UserController implements Controller {
         }
         return exerciseName;
     }
-
+    /**
+     * updates user's goals by taking in new values and updating them in the database
+     *
+     * @param weightGoal double goal weight
+     * @param sleepGoal double goal sleep
+     * @param caloriesGoal double goal cal
+     * @param workoutGoal double goal workout
+     */
     public static void updateUserGoals(double weightGoal, double sleepGoal, double caloriesGoal, double workoutGoal) {
         String sql = """
     INSERT INTO user_goals
@@ -463,7 +388,15 @@ public class UserController implements Controller {
         // no row, or error → treat as zero
         return 0.0;
     }
-
+    /**
+     * gets the current exercise name
+     *
+     * @param date date of daily metric
+     * @param w desired weight to input
+     * @param s hours of sleep to input
+     * @param c calories to input
+     * @param wkt workout time
+     */
     public static void addDailyMetric(LocalDate date, Double w, Double s, Double c, Double wkt) throws SQLException {
         DailyMetric dm = new DailyMetric( w, s, c, wkt, date);
 

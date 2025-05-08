@@ -82,7 +82,7 @@ public class CourseSearch extends Scenes {
 
         try {
             ArrayList<Course> classes;
-            classes = UserController.getAllExercises(type, query);
+            classes = UserController.getAllCourses(type, query);
 
             for (Course exerciseClass : classes) {
                 JPanel courseItem = getCoursePanel();
