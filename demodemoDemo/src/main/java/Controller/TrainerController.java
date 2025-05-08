@@ -265,10 +265,11 @@ public class TrainerController implements Controller {
         return list;
     }
     /**
-     * gets list of course exercises from the course
+     * deals with existing exercises and links to course
      *
      * @param courseId int ID of course
-     * @return List<CourseExercise> list of course exercises
+     * @param exerciseId int ID of exercise
+     * @param orderIndex int
      */
     //added diff func than addExercise that deals with existing exercises
     public static void linkExistingExerciseToCourse(int courseId, int exerciseId, int orderIndex) {
@@ -292,6 +293,11 @@ public class TrainerController implements Controller {
             );
         }
     }
+    /**
+     * searches by querying database for list of exercises
+     *
+     * @param term String
+     */
 
     //search by querying database for list of exercises
     public static List<Exercise> searchExercises(String term) {
@@ -330,7 +336,12 @@ public class TrainerController implements Controller {
         return list;
     }
 
-
+    /**
+     * searches by querying database for list of exercises
+     *
+     * @param courseId int id of course
+     * @param joinable boolean if course is live
+     */
     public static void setCourseJoinable(int courseId, boolean joinable) {
         String sql = "UPDATE courses SET joinable = ? WHERE id = ?";
         try (Connection c = DBConnection.getConnection();
@@ -348,7 +359,12 @@ public class TrainerController implements Controller {
             );
         }
     }
-
+    /**
+     * searches by querying database for list of exercises
+     *
+     * @param courseId int id of course
+     * @param initialExercise String current exercise to start on
+     */
     //add entry to table
     public static int startCourseSession(int courseId, String initialExercise) {
         String sql = """
@@ -371,7 +387,12 @@ public class TrainerController implements Controller {
         }
         return -1;
     }
-
+    /**
+     * updates current exer
+     *
+     * @param sessionId int id of session
+     * @param newExercise String exercise to be added
+     */
     //update current exercise
     public static void updateCourseSession(int sessionId, String newExercise) {
         String sql = """
@@ -391,7 +412,11 @@ public class TrainerController implements Controller {
                     "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    /**
+     * ends the current course session by deleting entry from table
+     *
+     * @param sessionId int id of session
+     */
     //delete entry from table when course session ends
     public static void endCourseSession(int sessionId) {
         String selectSql = "SELECT session_id, course_id, current_exercise, started_at, total_joined " +
@@ -442,7 +467,12 @@ public class TrainerController implements Controller {
         }
     }
 
-
+    /**
+     * gets total number of registrations for a course
+     *
+     * @param courseId int id of course
+     * @return int total registrations
+     */
     public static int getTotalRegistrations(int courseId) {
         String sql = "SELECT COUNT(*) FROM course_registrations WHERE course_id = ?";
         int total = 0;
@@ -459,7 +489,12 @@ public class TrainerController implements Controller {
         }
         return total;
     }
-
+    /**
+     * gets map total number of registrations to each day of a course
+     *
+     * @param courseId int id of course
+     * @return Map<String, Integer> map of registrations to day
+     */
     public static Map<String, Integer> getRegistrationCounts(int courseId) {
         String sql = "SELECT DATE(registered_at) AS day, COUNT(*) AS cnt " +
                 "FROM course_registrations WHERE course_id = ? " +
@@ -482,7 +517,12 @@ public class TrainerController implements Controller {
         }
         return counts;
     }
-
+    /**
+     * gets map total number of registrations to each time of a course
+     *
+     * @param courseId int id of course
+     * @return Map<String, Integer> map of registrations to time
+     */
     public static Map<String, Integer> getSessionJoinCounts(int courseId) {
         String sql = "SELECT started_at, total_joined FROM inactive_courses " +
                 "WHERE course_id = ? ORDER BY started_at";
