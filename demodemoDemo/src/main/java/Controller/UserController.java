@@ -541,4 +541,9 @@ public class UserController implements Controller {
     public void createDashboard() throws SQLException {
         new UserMainDash();
     }
+
+    @Override
+    public void createDashboard() throws SQLException {
+        new UserMainDash();
+    }
 }
