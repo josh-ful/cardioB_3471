@@ -67,7 +67,7 @@ public class TrainerController implements Controller {
             stmt.setString(5, schedule);
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Class created successfully!");
+//            JOptionPane.showMessageDialog(null, "Class created successfully!");
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error creating class: " + e.getMessage());
@@ -99,7 +99,7 @@ public class TrainerController implements Controller {
 
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Class edited successfully!");
+//            JOptionPane.showMessageDialog(null, "Class edited successfully!");
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error editing class: " + e.getMessage());
