@@ -22,9 +22,10 @@ public class Exercise {
      * @param name of exercise
      * @param description of exercise
      */
-    public Exercise(String name, String description) {
+    public Exercise(String name, String description, int duration) {
         this.name = name;
         this.description = description;
+        this.duration = duration;
     }
 
 

@@ -70,7 +70,7 @@ public class ExerciseLogHelperCSV extends ExerciseLogHelper {
                 // System.out.println(line);
                 String[] row = line.split(",");
 //                System.out.println(row[0]+","+row[1]);
-                exercises.add(new Exercise(row[0], row[1]));
+                exercises.add(new Exercise(row[0], row[1], 4));
             }
         } catch (FileNotFoundException e) {
             logger.log(Level.WARNING, e.getMessage());

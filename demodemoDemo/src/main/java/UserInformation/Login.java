@@ -30,10 +30,6 @@ public class Login {
     public static boolean loginLogic(String user, String pass) throws RuntimeException, SQLException {
         String query = "SELECT * FROM userInfo WHERE username = ?";
 
-        /*
-            Carter changed the conditional blocks with this -
-            if there's a problem we can change it back
-             */
         try (Connection conn = DBConnection.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, user);
