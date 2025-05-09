@@ -34,7 +34,6 @@ public class HomeScreen extends Scenes{
      * @param frame which scenes are created on
      */
 
-    // TODO: Put the GridBagConstraints inside the get<thing>Label method calls
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
 

@@ -3,8 +3,6 @@ package UserInformation;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-//TODO this entire file can go into register.java because it does not use login
 /*
  * this class represents a ValidateLRInputs object which
  * confirms that the information inputted into each dialog

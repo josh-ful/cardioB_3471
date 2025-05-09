@@ -11,6 +11,7 @@ public class CalorieLineGraph extends LineGraph {
      * @param goalSleep int
      */
     CalorieLineGraph(JPanel panel, int goalSleep) {
-        super(panel, goalSleep, "Calorie Intake", "Date", "Calorie Intake", "src/main/java/UserInterface/graphs/dateAndCalories.csv");
+        super(panel, goalSleep, "Calorie Intake", "Date",
+                "Calorie Intake", "src/main/java/UserInterface/graphs/dateAndCalories.csv");
     }
 }

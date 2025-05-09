@@ -56,7 +56,6 @@ public class UserDailyMetricsGraphs extends Scenes{
         panel.add(profilePageText, c);
         panel.add(createNameLabel(), c);
 
-        // TODO: don't want to pass frame to create method
         panel.add(createAddDailyMetric(frame), c);
         panel.add(weightGraphButton(frame), c);
         panel.add(sleepGraphButton(frame), c);
@@ -64,8 +63,6 @@ public class UserDailyMetricsGraphs extends Scenes{
         panel.add(createBackButton(frame), c);
 
         frame.add(panel);
-
-        // TODO get metrics and display
     }
 
     /**

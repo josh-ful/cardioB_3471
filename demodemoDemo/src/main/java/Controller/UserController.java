@@ -42,7 +42,6 @@ public class UserController implements Controller {
         CurrentUser.addExercise(e);
 
         if (DatabaseInfo.states.get("SQL")) {
-            // TODO SQL Implementation
             ExerciseLogHelperSQL.addExercise(name, description);
             String sqlInsert = "INSERT INTO exercises (name, description)" +
                     "VALUES ('" + e.getName() + "', '" + e.getDescription() + "')";
@@ -207,7 +206,6 @@ public class UserController implements Controller {
         return false;
     }
 
-    //todo not a boolean?
     public static boolean registerForClass(int courseId) throws SQLException{
         try (Connection conn = main.DBConnection.getConnection()) {
             if (!isRegistered(courseId)) {
@@ -229,7 +227,6 @@ public class UserController implements Controller {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            //todo rethrow??
             return false;
         }
         return true;

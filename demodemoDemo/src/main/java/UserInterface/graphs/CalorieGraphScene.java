@@ -50,8 +50,6 @@ public class CalorieGraphScene extends Scenes {
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
-
-        // TODO get class list and display
     }
     /**
      * adds button leading to previous scene

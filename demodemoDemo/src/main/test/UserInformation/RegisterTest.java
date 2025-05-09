@@ -1,6 +1,8 @@
 package UserInformationTest;
 
 import Exceptions.AlreadyRegisteredException;
+import UserInformation.Login;
+import UserInformation.Register;
 import main.DBConnection;
 import org.junit.jupiter.api.Test;
 

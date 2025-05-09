@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import Controller.*;
 
 public class ClassListScene extends Scenes{
-    //Replacing
-    //JTextArea textArea = new JTextArea(10, 30);
+
     /**
      * Constructs a ClassListScene object
      *

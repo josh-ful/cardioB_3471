@@ -21,8 +21,6 @@ import java.util.Locale;
 
 import static UserInformation.SecurityQuestions.securityQuestions;
 
-//todo make sure all onboarding info is inputted at register
-
 public class CurrentUser {
     private static Integer id;
     private static String name;
@@ -47,12 +45,10 @@ public class CurrentUser {
     private static Double avgWorkoutGoal;
 
 
-    //TODO make controller global/static in main?
     public static Controller controller;
 
-    // todo move statistics and exercise list to their own classes
     private static ArrayList<Exercise> exerciseList = new ArrayList<>();
-    private static Integer weight;
+
     /**
      * sets current user's id
      *
@@ -75,7 +71,6 @@ public class CurrentUser {
      *
      * @param username String username of current user
      */
-    //TODO make sure this works,
     public static void initialize(String username) throws UserNotFoundException{
         try (Connection conn = main.DBConnection.getConnection()) {
 
@@ -225,22 +220,6 @@ public class CurrentUser {
     public static void clearExercises() {
         exerciseList.clear();
     }
-    /**
-     * set user's weight
-     *
-     * @param w int weight
-     */
-    public static void setWeight(int w) {
-        weight = w;
-    }
-    /**
-     * get the user's weight
-     *
-     * @return weight of the user
-     */
-    public static Integer getWeight() {
-        return weight;
-    }
 
 //    public static void importExercises(ArrayList<Exercise> set) {
 //        clearExercises();
@@ -258,10 +237,21 @@ public class CurrentUser {
         age = null;
         gender = null;
         email = null;
+        securityQ = 0;
+        securityAnswer = null;
 
-        exerciseList.clear();
-        weight = null;
+        currentWeight = null;
+        avgSleep = null;
+        avgCalories = null;
+        avgWorkout = null;
+
+        weightGoal = null;
+        avgSleepGoal = null;
+        avgCaloriesGoal = null;
+        avgWorkoutGoal = null;
+
         controller = null;
+        exerciseList.clear();
     }
     /**
      * sets user's average sleep to parameter
@@ -276,7 +266,7 @@ public class CurrentUser {
      *
      * @param currentWeight Double current weight of current user
      */
-    public static void setCurrentWeight(Double currentWeight) {//TODO hook up with database
+    public static void setCurrentWeight(Double currentWeight) {
         CurrentUser.currentWeight = currentWeight;
     }
     /**

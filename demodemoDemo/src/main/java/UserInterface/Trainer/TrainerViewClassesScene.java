@@ -23,7 +23,7 @@ public class TrainerViewClassesScene extends Scenes {
      *
      * @param frame JFrame
      */
-    public TrainerViewClassesScene(JFrame frame) throws SQLException {
+    public TrainerViewClassesScene(JFrame frame) {
         createAndShowGUI(frame);
     }
 
@@ -33,7 +33,7 @@ public class TrainerViewClassesScene extends Scenes {
      * @param frame JFrame
      */
     @Override
-    protected void createAndShowGUI(JFrame frame) throws SQLException {
+    protected void createAndShowGUI(JFrame frame)  {
         super.createAndShowGUI(frame);
         panel.removeAll();
         panel.setLayout(new BorderLayout(10, 10));

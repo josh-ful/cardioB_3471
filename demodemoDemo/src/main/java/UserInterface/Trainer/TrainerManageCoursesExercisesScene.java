@@ -60,7 +60,6 @@ public class TrainerManageCoursesExercisesScene extends Scenes {
         scrollPane = new JScrollPane(listContainer);
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        //TODO replace with Lawsons back button?
         JButton backBtn = new JButton("Back");
         backBtn.addActionListener(e -> {
             // go back to the trainer view

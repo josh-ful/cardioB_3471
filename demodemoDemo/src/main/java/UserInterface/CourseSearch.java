@@ -77,14 +77,12 @@ public class CourseSearch extends Scenes {
         performSearch("self", "");
     }
 
-    //todo change logic so perform search doesn't happen here?
-    //todo check if you can register for a class before searching?
     private void performSearch(String type, String query) {
         resultsPanel.removeAll();  // Clear previous results
 
         try {
             ArrayList<Course> classes;
-            classes = UserController.getAllCourses(type, query);
+            classes = UserController.getAllExercises(type, query);
 
             for (Course exerciseClass : classes) {
                 JPanel courseItem = getCoursePanel();
