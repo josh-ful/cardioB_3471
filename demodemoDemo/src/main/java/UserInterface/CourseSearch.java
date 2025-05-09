@@ -20,13 +20,14 @@ public class CourseSearch extends Scenes {
     private JPanel resultsPanel;
     private JScrollPane scrollPane;
 
-    public CourseSearch(JFrame frame) throws SQLException {
-        createAndShowGUI(frame);
+    public CourseSearch() {
+        createAndShowGUI();
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void
+    createAndShowGUI() {
+        super.createAndShowGUI();
 
         JLabel title = new JLabel("Find a Class");
         title.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
@@ -56,7 +57,7 @@ public class CourseSearch extends Scenes {
         panel.add(scrollPane);
 
         // Back button
-        panel.add(createBackButton(frame, ClassListScene.class));
+        panel.add(createBackButton(ClassListScene.class));
 
         // Action Listeners
         searchBtn.addActionListener(e ->
@@ -109,10 +110,9 @@ public class CourseSearch extends Scenes {
         JButton registerBtn = new JButton("Register");
         registerBtn.addActionListener(e -> {
             try {
-                if (UserController.registerForClass(course.getId())) {
-                    JOptionPane.showMessageDialog(panel, "Successfully registered for: " +
-                            course.getName());
-                }
+                UserController.registerForClass(course.getId());
+                JOptionPane.showMessageDialog(panel, "Successfully registered for: " +
+                        course.getName());
             } catch (SQLException ex) {
                 //todo change to SQLException?
                 JOptionPane.showMessageDialog(panel, "Error with database during registration.");

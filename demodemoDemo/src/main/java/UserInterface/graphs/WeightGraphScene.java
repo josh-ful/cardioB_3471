@@ -8,17 +8,15 @@ import UserInterface.Scenes;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.SQLException;
 
 public class WeightGraphScene extends Scenes {
     GridBagConstraints c;
     /**
      * constructs a WeightGraphScene object
      *
-     * @param frame JFrame that weight graph is created on
      */
-    public WeightGraphScene(JFrame frame) throws SQLException {
-        createAndShowGUI(frame);
+    public WeightGraphScene() {
+        createAndShowGUI();
     }
     /**
      * sets layout of panel to GridBagLayout
@@ -32,11 +30,10 @@ public class WeightGraphScene extends Scenes {
     /**
      * creates gui of weightGraphScene
      *
-     * @param frame JFrame which the gui will be created on
      */
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
         panelLayout();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Weight Graph");
@@ -57,7 +54,7 @@ public class WeightGraphScene extends Scenes {
      * @param frame JFrame which back button is displayed on
      */
     private JButton createBackButton(JFrame frame) {
-        JButton button = super.createBackButton(frame, UserDailyMetricsGraphs.class);
+        JButton button = super.createBackButton(UserDailyMetricsGraphs.class);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;

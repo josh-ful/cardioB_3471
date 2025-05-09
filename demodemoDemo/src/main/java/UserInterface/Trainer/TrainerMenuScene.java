@@ -4,20 +4,18 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.sql.SQLException;
-
 import UserInformation.CurrentUser;
 import UserInterface.Scenes;
 
 public class TrainerMenuScene extends Scenes {
 
-    public TrainerMenuScene(JFrame frame) throws SQLException {
-        createAndShowGUI(frame);
+    public TrainerMenuScene() {
+        createAndShowGUI();
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
 
         //clear existing comps
         panel.removeAll();
@@ -35,25 +33,21 @@ public class TrainerMenuScene extends Scenes {
         JButton createClassBtn = new JButton("View Classes");
         createClassBtn.addActionListener(e -> {
                     System.out.println("Clicking view classes");
-                        new TrainerViewClassesScene(frame);
+                    new TrainerViewClassesScene();
                 }
         );
 
         JButton hostClassBtn = new JButton("Host Class");
         hostClassBtn.addActionListener(e -> {
                     System.out.println("Clicking host class");
-                    try {
-                        new TrainerHostClassScene(frame);
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    new TrainerHostClassScene();
                 }
         );
 
         JButton viewReportsBtn = new JButton("View Reports");
         viewReportsBtn.addActionListener(e -> {
                         System.out.println("Clicking view reports");
-                new TrainerReportsScene(frame);
+                new TrainerReportsScene();
                 }
         );
 

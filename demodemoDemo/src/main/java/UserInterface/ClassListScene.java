@@ -20,20 +20,20 @@ public class ClassListScene extends Scenes{
     /**
      * Constructs a ClassListScene object
      *
-     * @param frame which scene is created on
+     *
      */
-    public ClassListScene(JFrame frame) throws SQLException {
-        createAndShowGUI(frame);
+    public ClassListScene(){
+        createAndShowGUI();
     }
     /**
      * creates a ClassListScene using the super's createAndShowGUI
      * method and adds on a menu and text
      *
-     * @param frame which scene is created on
+     *
      */
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
         frame.setLayout(new BorderLayout());
 
         System.out.println(panel.getLayout().getClass().getSimpleName());
@@ -42,7 +42,7 @@ public class ClassListScene extends Scenes{
         panel.add(addTextELog());
         panel.add(addScrollClassList(frame));
         panel.add(addWorkoutButton(frame));
-        panel.add(createBackButton(frame, UserMainDash.class));
+        panel.add(createBackButton(UserMainDash.class));
 
         panel.add(Box.createVerticalGlue());
 
@@ -121,16 +121,12 @@ public class ClassListScene extends Scenes{
         JButton actionBtn = new JButton(buttonLabel);
         actionBtn.addActionListener(e -> {
             if(buttonLabel.equals("Continue")) {
-                    new  UserSelfPacedClassScene(frame, course);
+                new  UserSelfPacedClassScene(course);
             }
             else if(buttonLabel.equals("Join")) {
                 System.out.println(course.getName() + " " + course.getId());
                 if(UserController.isCourseJoinable(course.getId())) {
-                    try {
-                        new UserActiveClassScene(frame, course);
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    new UserActiveClassScene(course);
                 }
                 else{//class is not joinable
                     JOptionPane.showMessageDialog(frame, course.getName() + " is not joinable currently");
@@ -151,11 +147,7 @@ public class ClassListScene extends Scenes{
     private JButton addWorkoutButton(JFrame frame) {
         JButton button = new JButton("Register for New Class");
         button.addActionListener(e -> {
-            try {
-                new CourseSearch(frame);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
+            new CourseSearch();
         });
         return button;
     }

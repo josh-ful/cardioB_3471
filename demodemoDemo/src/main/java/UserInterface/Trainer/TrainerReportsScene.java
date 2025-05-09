@@ -2,7 +2,6 @@ package UserInterface.Trainer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.SQLException;
 import java.util.List;
 import FitnessCourse.Course;
 import Controller.TrainerController;
@@ -11,12 +10,12 @@ import UserInterface.Scenes;
 
 public class TrainerReportsScene extends Scenes {
 
-    public TrainerReportsScene(JFrame frame) {
-        createAndShowGUI(frame);
+    public TrainerReportsScene() {
+        createAndShowGUI();
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
+    protected void createAndShowGUI() {
         //clear existing components
         panel.removeAll();
         panel.setLayout(new BorderLayout(10, 10));
@@ -38,7 +37,7 @@ public class TrainerReportsScene extends Scenes {
             JLabel nameLabel = new JLabel(course.getName());
             JButton viewBtn = new JButton("View Report");
             viewBtn.addActionListener(e -> {
-                new TrainerReportDetailsScene(frame, course);
+                new TrainerReportDetailsScene(course);
             });
             row.add(nameLabel);
             row.add(viewBtn);
@@ -50,13 +49,7 @@ public class TrainerReportsScene extends Scenes {
 
         // Back button to return to trainer menu
         JButton backBtn = new JButton("Back");
-        backBtn.addActionListener(e -> {
-            try {
-                new TrainerMenuScene(frame);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+        backBtn.addActionListener(e -> new TrainerMenuScene());
         panel.add(backBtn, BorderLayout.SOUTH);
 
         // Set content pane and refresh

@@ -71,7 +71,7 @@ public class ProfileBackDoor {
      */
     public static void main(String[] args) throws SQLException {
         JFrame frame = new JFrame();
-        HomeScreen hs = new HomeScreen(frame);
+        HomeScreen hs = new HomeScreen();
         //when me has information stored in it
 //        System.out.println("next command ran anyways");
 

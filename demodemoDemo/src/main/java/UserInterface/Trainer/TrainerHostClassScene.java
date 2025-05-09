@@ -8,7 +8,6 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,13 +17,13 @@ public class TrainerHostClassScene extends Scenes {
     private JPanel listContainer;
     private JScrollPane scrollPane;
 
-    public TrainerHostClassScene(JFrame frame) throws SQLException {
-        createAndShowGUI(frame);
+    public TrainerHostClassScene() {
+        createAndShowGUI();
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
         panel.removeAll();
         panel.setLayout(new BorderLayout(10, 10));
 
@@ -43,13 +42,7 @@ public class TrainerHostClassScene extends Scenes {
 
         // Back button to return to trainer menu
         JButton backBtn = new JButton("Back");
-        backBtn.addActionListener(e -> {
-            try {
-                new TrainerMenuScene(frame);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+        backBtn.addActionListener(e -> new TrainerMenuScene());
         panel.add(backBtn, BorderLayout.SOUTH);
 
         //fetch all classes but show only group courses
@@ -109,11 +102,7 @@ public class TrainerHostClassScene extends Scenes {
                     JOptionPane.WARNING_MESSAGE
             );
             if (choice == JOptionPane.YES_OPTION) {
-                try {
-                    new TrainerActiveClassScene(frame, cls);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
+                new TrainerActiveClassScene(cls);
                 JOptionPane.showMessageDialog(frame, "Class started.");
             }
         });

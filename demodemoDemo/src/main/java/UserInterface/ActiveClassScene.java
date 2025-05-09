@@ -21,11 +21,11 @@ abstract public class ActiveClassScene extends Scenes {
     protected Timer totalTimer, exerciseTimer;
     protected int totalSecs = 0, exerciseSecs = 0;
 
-    public ActiveClassScene(JFrame frame, Course course) {
+    public ActiveClassScene(Course course) {
         this.course = course;
         //fetch ordered list of exercises
         this.exercises = TrainerController.getCourseExercisesForCourse(course.getId());
-        createAndShowGUI(frame);
+        createAndShowGUI();
         startTimers();
     }
 
@@ -51,8 +51,8 @@ abstract public class ActiveClassScene extends Scenes {
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) {
-        super.createAndShowGUI(frame);
+    protected void createAndShowGUI() {
+        super.createAndShowGUI();
         panel.removeAll();
         panel.setLayout(new BorderLayout(10,10));
 
