@@ -9,13 +9,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
-
+/*
+ * this class represents a SearchExercisesDialog object
+ * containing information about SearchExercisesDialogs
+ */
 public class SearchExercisesDialog extends JDialog {
     private final Course course;
     private JTextField searchField;
     private JList<Exercise> resultList;
     private DefaultListModel<Exercise> listModel;
-
+    /**
+     * constructs a SearchExercisesDialog object
+     *
+     * @param parent JFrame which dialog is pertaining to
+     * @param course Course to be searched
+     */
     public SearchExercisesDialog(JFrame parent, Course course) {
         super(parent, "Search Exercises", true);
         this.course = course;
@@ -24,7 +32,10 @@ public class SearchExercisesDialog extends JDialog {
         setLocationRelativeTo(parent);
         setVisible(true);
     }
-
+    /**
+     * initializes components of search
+     *
+     */
     private void initComponents() {
         JPanel main = new JPanel(new BorderLayout(10,10));
 
@@ -61,7 +72,10 @@ public class SearchExercisesDialog extends JDialog {
 
         setContentPane(main);
     }
-
+    /**
+     * performs search
+     *
+     */
     private void doSearch() {
         String term = searchField.getText().trim();
         listModel.clear();
@@ -69,7 +83,10 @@ public class SearchExercisesDialog extends JDialog {
         List<Exercise> results = TrainerController.searchExercises(term);
         results.forEach(listModel::addElement);
     }
-
+    /**
+     * state of exercise on add
+     *
+     */
     private void onAdd() throws SQLException {
         Exercise selected = resultList.getSelectedValue();
         if (selected == null) {

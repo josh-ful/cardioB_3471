@@ -11,6 +11,12 @@ public class TrainerEditClassDialog extends JDialog {
     private JTextField descriptionField;
     private JTextField scheduleField;
 
+    /**
+     * constructs a TrainerEditClassDialog object
+     *
+     * @param parent JFrame
+     * @param course Course
+     */
     public TrainerEditClassDialog(JFrame parent, Course course) {
         super(parent, "Edit Class", true);
         setLayout(new GridLayout(4, 2, 10, 10));

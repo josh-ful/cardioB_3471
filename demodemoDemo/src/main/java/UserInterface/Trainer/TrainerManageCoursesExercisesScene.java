@@ -16,11 +16,23 @@ public class TrainerManageCoursesExercisesScene extends Scenes {
     private JPanel listContainer;
     private JScrollPane scrollPane;
 
+
+    /**
+     * constructs a TrainerManageCoursesExercisesScene
+     *
+     * @param frame JFrame
+     * @param course Course
+     */
     public TrainerManageCoursesExercisesScene(JFrame frame, Course course) throws SQLException {
         this.course = course;
         createAndShowGUI(frame);
     }
 
+    /**
+     * creates and displays GUI for course manager scene
+     *
+     * @param frame JFrame
+     */
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
@@ -65,6 +77,10 @@ public class TrainerManageCoursesExercisesScene extends Scenes {
         frame.revalidate();
     }
 
+    /**
+     * repaints the exercise list after an update to the list
+     *
+     */
     private void reloadExercises() {
         listContainer.removeAll();
 

@@ -11,10 +11,21 @@ import UserInterface.Scenes;
 
 public class TrainerReportsScene extends Scenes {
 
+    /**
+     * constructs a TrainerReportsScene object
+     *
+     * @param frame JFrame
+     */
     public TrainerReportsScene(JFrame frame) {
         createAndShowGUI(frame);
     }
 
+
+    /**
+     * creates and displays GUI for trainer report scene
+     *
+     * @param frame JFrame
+     */
     @Override
     protected void createAndShowGUI(JFrame frame) {
         //clear existing components

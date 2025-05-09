@@ -12,6 +12,12 @@ public class TrainerCreateExerciseDialog extends JDialog {
     private JTextField nameField;
     private JTextArea descArea;
 
+    /**
+     * constructs a TrainerCreateExerciseDialog object
+     *
+     * @param parent JFrame
+     * @param course Course
+     */
     public TrainerCreateExerciseDialog(JFrame parent, Course course) {
         super(parent, "Create New Exercise", true);
         this.course = course;
@@ -21,6 +27,10 @@ public class TrainerCreateExerciseDialog extends JDialog {
         setVisible(true);
     }
 
+    /**
+     * creates components and sets initial values
+     *
+     */
     private void initComponents() {
         JPanel main = new JPanel(new BorderLayout(10,10));
 
@@ -47,6 +57,10 @@ public class TrainerCreateExerciseDialog extends JDialog {
         setContentPane(main);
     }
 
+    /**
+     * executes functionality of an action listener for save button
+     *
+     */
     private void onSave() {
         String name = nameField.getText().trim();
         String desc = descArea.getText().trim();

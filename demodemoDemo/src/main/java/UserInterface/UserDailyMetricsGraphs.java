@@ -101,46 +101,6 @@ public class UserDailyMetricsGraphs extends Scenes{
         return button;
     }
 
-    private JButton createAddSleepButton(JFrame frame) {
-        JButton button = new JButton("Add Weight");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 3;
-
-        button.addActionListener(e -> {
-            //new AddSleepDialog(frame);
-        });
-
-        return button;
-    }
-
-
-    private JButton createAddCaloriesButton(JFrame frame) {
-        JButton button = new JButton("Add Weight");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 3;
-
-        button.addActionListener(e -> {
-            //new AddCaloriesDialog(frame);
-        });
-
-        return button;
-    }
-
-
-    private JButton createAddWorkoutButton(JFrame frame) {
-        JButton button = new JButton("Add Weight");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 3;
-
-        button.addActionListener(e -> {
-            //new AddWorkoutDialog(frame);
-        });
-
-        return button;
-    }
     /**
      * creates button to load and display previous scene
      *

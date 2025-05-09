@@ -8,13 +8,25 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
-
+/*
+ * this class represents a UserSelfPacedClassScene object
+ * containing information about UserSelfPacedClassScene
+ */
 public class UserSelfPacedClassScene extends ActiveClassScene {
-
+    /**
+     * constructs a UserSelfPacedClassScene object
+     *
+     * @param frame JFrame
+     * @param course Course
+     */
     public UserSelfPacedClassScene(JFrame frame, Course course) {
         super(frame, course);
     }
-
+    /**
+     * creates and displays gui
+     *
+     * @param frame JFrame
+     */
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);

@@ -18,14 +18,25 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
-
+/*
+ * this class represents a UserMainDash object
+ * containing information about UserMainDash
+ */
 public class UserMainDash extends Scenes {
     GridBagConstraints constraints = new GridBagConstraints();
-
+    /**
+     * constructs a UserMainDash object
+     *
+     * @param frame JFrame
+     */
     public UserMainDash(JFrame frame) throws SQLException {
         createUM_SCENE(frame);
     }
-
+    /**
+     * sets the panel layout to GridBagLayout and initializes
+     * the GridBagConstraints
+     *
+     */
     protected void panelLayout() {
         panel.setLayout(new BorderLayout(10,10));
         constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -57,7 +68,11 @@ public class UserMainDash extends Scenes {
 
         return new ChartPanel(chart);
     }
-
+    /**
+     * creates a createUM_SCENE displaying dashboard information
+     *
+     * @param frame JFrame
+     */
     protected void createUM_SCENE(JFrame frame) throws SQLException {
         new UserController();
         super.createAndShowGUI(frame);
@@ -115,7 +130,4 @@ public class UserMainDash extends Scenes {
         frame.setContentPane(panel);
         frame.revalidate();
     }
-
-    private static JMenuBar getjMenu() { /*...*/ return new JMenuBar(); }
-    private static ImageIcon getMenuIcon() { /*...*/ return new ImageIcon(); }
 }

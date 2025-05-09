@@ -72,6 +72,10 @@ public class LoginScene extends LR_Scenes {
         return loginButton;
     }
 
+    /**
+     * constructs a reset password button
+     *
+     */
     private static JButton getResetPasswordBtn() {
         JButton btnResetPassword = new JButton("Reset Password");
         btnResetPassword.setFont(new Font("Tahoma", Font.BOLD, 15));

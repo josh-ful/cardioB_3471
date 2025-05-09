@@ -18,11 +18,19 @@ import java.util.List;
 import java.util.Map;
 
 public class TrainerController implements Controller {
-
+    /**
+     * creates dashboard on frame
+     *
+     * @param frame JFrame which dashboard is displayed on
+     */
     public void createDashboard(JFrame frame) throws SQLException {
         new TrainerMenuScene(frame);
     }
-
+    /**
+     * gets current trainer's classes as a list
+     *
+     * @return List<Course> list of current trainers classes
+     */
     //Fetches all courses records for the currently logged-in trainer.
     public static List<Course> getClassesForCurrentTrainer() {
         List<Course> classes = new ArrayList<>();
@@ -47,7 +55,13 @@ public class TrainerController implements Controller {
         }
         return classes;
     }
-
+    /**
+     * creates a class by inserting information into the database
+     *
+     * @param name String name of course
+     * @param description String description of course
+     * @param schedule String schedule of course
+     */
     public static void createClass(String name, String description, String schedule) {
         String sql = "INSERT INTO courses (name, type, trainer_id, description, time) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
@@ -73,7 +87,14 @@ public class TrainerController implements Controller {
             JOptionPane.showMessageDialog(null, "Error creating class: " + e.getMessage());
         }
     }
-
+    /**
+     * updates a class by modifying information in the database
+     *
+     * @param courseID int ID of course
+     * @param name String name of course
+     * @param description String description of course
+     * @param schedule String schedule of course
+     */
     public static void updateClass(int courseID, String name, String description, String schedule) {
         String sql = "UPDATE courses "
                 + "SET name = ?, "
@@ -106,7 +127,14 @@ public class TrainerController implements Controller {
         }
     }
 
-
+    /**
+     * adds exercise to a course in the database
+     *
+     * @param courseId int ID of course
+     * @param eName String description of exercise
+     * @param eDesc String description of course
+     * @param orderIndex int
+     */
     public static void addExerciseToCourse(int courseId, String eName, String eDesc, int orderIndex) throws SQLException {
         String insertEx =
                 "INSERT INTO exercises (name, description) VALUES (?, ?)";
@@ -134,6 +162,9 @@ public class TrainerController implements Controller {
     /**
      * Remove exactly the one course_exercises row (by its PK)
      * and resequence the remaining ones.
+     *
+     * @param linkId
+     * @param courseId
      */
     public static void removeCourseExerciseByLinkId(int linkId, int courseId) {
         String deleteSql =
@@ -185,6 +216,12 @@ public class TrainerController implements Controller {
             } catch (Exception ignore) {}
         }
     }
+    /**
+     * gets list of course exercises from the course
+     *
+     * @param courseId int ID of course
+     * @return List<CourseExercise> list of course exercises
+     */
     //added query to get all exercises in a class
     public static List<CourseExercise> getCourseExercisesForCourse(int courseId) {
         List<CourseExercise> list = new ArrayList<>();
@@ -227,7 +264,13 @@ public class TrainerController implements Controller {
         }
         return list;
     }
-
+    /**
+     * deals with existing exercises and links to course
+     *
+     * @param courseId int ID of course
+     * @param exerciseId int ID of exercise
+     * @param orderIndex int
+     */
     //added diff func than addExercise that deals with existing exercises
     public static void linkExistingExerciseToCourse(int courseId, int exerciseId, int orderIndex) {
         String sql = "INSERT INTO course_exercises (course_id, exercise_id, exercise_order) VALUES (?, ?, ?)";
@@ -250,6 +293,11 @@ public class TrainerController implements Controller {
             );
         }
     }
+    /**
+     * searches by querying database for list of exercises
+     *
+     * @param term String
+     */
 
     //search by querying database for list of exercises
     public static List<Exercise> searchExercises(String term) {
@@ -288,7 +336,12 @@ public class TrainerController implements Controller {
         return list;
     }
 
-
+    /**
+     * searches by querying database for list of exercises
+     *
+     * @param courseId int id of course
+     * @param joinable boolean if course is live
+     */
     public static void setCourseJoinable(int courseId, boolean joinable) {
         String sql = "UPDATE courses SET joinable = ? WHERE id = ?";
         try (Connection c = DBConnection.getConnection();
@@ -306,7 +359,12 @@ public class TrainerController implements Controller {
             );
         }
     }
-
+    /**
+     * searches by querying database for list of exercises
+     *
+     * @param courseId int id of course
+     * @param initialExercise String current exercise to start on
+     */
     //add entry to table
     public static int startCourseSession(int courseId, String initialExercise) {
         String sql = """
@@ -329,7 +387,12 @@ public class TrainerController implements Controller {
         }
         return -1;
     }
-
+    /**
+     * updates current exer
+     *
+     * @param sessionId int id of session
+     * @param newExercise String exercise to be added
+     */
     //update current exercise
     public static void updateCourseSession(int sessionId, String newExercise) {
         String sql = """
@@ -349,7 +412,11 @@ public class TrainerController implements Controller {
                     "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    /**
+     * ends the current course session by deleting entry from table
+     *
+     * @param sessionId int id of session
+     */
     //delete entry from table when course session ends
     public static void endCourseSession(int sessionId) {
         String selectSql = "SELECT session_id, course_id, current_exercise, started_at, total_joined " +
@@ -399,25 +466,12 @@ public class TrainerController implements Controller {
                     "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-
-    public static int getTotalRegistrations(int courseId) {
-        String sql = "SELECT COUNT(*) FROM course_registrations WHERE course_id = ?";
-        int total = 0;
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, courseId);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    total = rs.getInt(1);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // TODO: use proper logging
-        }
-        return total;
-    }
-
+    /**
+     * gets map total number of registrations to each day of a course
+     *
+     * @param courseId int id of course
+     * @return Map<String, Integer> map of registrations to day
+     */
     public static Map<String, Integer> getRegistrationCounts(int courseId) {
         String sql = "SELECT DATE(registered_at) AS day, COUNT(*) AS cnt " +
                 "FROM course_registrations WHERE course_id = ? " +
@@ -440,7 +494,12 @@ public class TrainerController implements Controller {
         }
         return counts;
     }
-
+    /**
+     * gets map total number of registrations to each time of a course
+     *
+     * @param courseId int id of course
+     * @return Map<String, Integer> map of registrations to time
+     */
     public static Map<String, Integer> getSessionJoinCounts(int courseId) {
         String sql = "SELECT started_at, total_joined FROM inactive_courses " +
                 "WHERE course_id = ? ORDER BY started_at";
@@ -461,18 +520,6 @@ public class TrainerController implements Controller {
         }
         return counts;
     }
-
-
-    //TODO add a host class functionality
-        //should set class state to joinable - DONE
-        //trainer should be able to select an exercise - DONE
-        //add a visible clock - DONE
-        //currently selected exercise will be displayed to users with a timer - DONE
-        //hook duration up on user side with exercise log
-
-
-
-
 }
 
 

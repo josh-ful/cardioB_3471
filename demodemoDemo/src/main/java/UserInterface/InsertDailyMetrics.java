@@ -20,7 +20,11 @@ public class InsertDailyMetrics extends JDialog {
     private final JTextField caloriesField;
     private final JTextField workoutField;
     private final JSpinner dateSpinner;
-
+    /**
+     * constructs a InsertDailyMetrics object
+     *
+     * @param owner Frame which daily metrics are displayed
+     */
     public InsertDailyMetrics(Frame owner) {
         super(owner, "Add Daily Metrics", true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -63,7 +67,11 @@ public class InsertDailyMetrics extends JDialog {
         setLocationRelativeTo(owner);
         setVisible(true);
     }
-
+    /**
+     * performs saving actions when save button is clicked
+     *
+     * @return JButton save button
+     */
     private JButton getSaveBtn(Frame owner) {
         JButton save = new JButton("Save");
         save.addActionListener(e -> {
@@ -97,12 +105,25 @@ public class InsertDailyMetrics extends JDialog {
         });
         return save;
     }
-
+    /**
+     * returns text to double output
+     *
+     * @param text String text to be converted
+     * @return Double parse of double
+     */
     private Double parseDoubleOrNull(String text) {
         if (text == null || text.isBlank()) return null;
         return Double.valueOf(text.trim());
     }
-
+    /**
+     * adds a row to daily metrics
+     *
+     * @param panel JPanel panel which row is displayed
+     * @param comp component to be added
+     * @param c GridBagConstraints for row
+     * @param row int
+     * @param col int
+     */
     private void addRow(JPanel panel, Component comp,
                         GridBagConstraints c, int row, int col) {
         c.gridx = col;

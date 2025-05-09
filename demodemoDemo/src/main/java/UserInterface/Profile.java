@@ -8,7 +8,10 @@ import UserInterface.Login.OnboardingDialog;
 
 import java.awt.*;
 import java.sql.SQLException;
-
+/*
+ * this class represents a Profile object
+ * containing information about Profiles
+ */
 public class Profile extends Scenes{
     private static JPanel metricsPanel;
     GridBagConstraints c;
@@ -16,18 +19,29 @@ public class Profile extends Scenes{
     private static JLabel currAge;
     private static JLabel currGender;
     private static JLabel currEmail;
-
+    /**
+     * constructs a Profile object
+     *
+     * @param frame JFrame
+     */
     public Profile(JFrame frame) throws SQLException {
         createAndShowGUI(frame);
     }
-
+    /**
+     * sets panel layout to borderlayout
+     *
+     */
     @Override
     protected void panelLayout() {
         //north center south layout
         panel.setLayout(new BorderLayout(20, 20));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
     }
-
+    /**
+     * creates and displays gui
+     *
+     * @param frame JFrame
+     */
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
@@ -55,7 +69,11 @@ public class Profile extends Scenes{
         frame.revalidate();
         frame.repaint();
     }
-
+    /**
+     * creates user info panel
+     *
+     * @return JPanel with user info on it
+     */
     private JPanel makeUserInfoPanel() {
         JPanel info = new JPanel(new GridLayout(0, 2, 10, 10));
         info.setBorder(
@@ -84,13 +102,21 @@ public class Profile extends Scenes{
 
         return info;
     }
-
+    /**
+     * creates user info panel
+     *
+     * @return JPanel with user info on it
+     */
     public static void refreshInfoPanel(){
         currAge.setText(CurrentUser.getAge().toString());
         currGender.setText(CurrentUser.getGender());
         currEmail.setText(CurrentUser.getEmail());
     }
-
+    /**
+     * creates user goals panel
+     *
+     * @return JPanel
+     */
     private static JPanel makeMetricsGoalsPanel() throws SQLException {
         // assume MetricService provides these four current numbers
         double currentWeight     = CurrentUser.getCurrentWeight();
@@ -123,7 +149,11 @@ public class Profile extends Scenes{
 
         return box;
     }
-
+    /**
+     * makes button formatting to fit page better
+     *
+     * @return JPanel with buttons on it
+     */
     private JPanel makeButtonBar1(JFrame frame) {
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
 
@@ -134,7 +164,12 @@ public class Profile extends Scenes{
 
         return buttons;
     }
-
+    /**
+     * creates the goals button
+     *
+     * @param frame JFrame
+     * @return JButton
+     */
     private JButton getGoalsBtn(JFrame frame) {
         JButton setGoals = new JButton("Set Goals");
 
@@ -154,6 +189,11 @@ public class Profile extends Scenes{
         });
         return setGoals;
     }
+    /**
+     * makes button to edit onboarding information
+     *
+     * @return JButton
+     */
     private static JButton getEditOnboardingBtn() {
         JButton btnEditOnboarding = new JButton("Edit Information");
 
@@ -163,7 +203,11 @@ public class Profile extends Scenes{
 
         return btnEditOnboarding;
     }
-
+    /**
+     * makes button to reset password
+     *
+     * @return JButton
+     */
     private static JButton getResetPasswordBtn() {
         JButton btnResetPassword = new JButton("Reset Password");
 
@@ -174,7 +218,11 @@ public class Profile extends Scenes{
 
         return btnResetPassword;
     }
-
+    /**
+     * makes button to log out of session
+     *
+     * @return JButton
+     */
     private static JButton getLogoutBtn(JFrame frame) {
         JButton btnLogout = new JButton("Logout");
 
@@ -188,21 +236,5 @@ public class Profile extends Scenes{
         });
 
         return btnLogout;
-    }
-
-    public void addRow(JPanel panel, Component comp, int row, int col) {
-        c = new GridBagConstraints();
-        c.gridx = col;
-        c.gridy = row;
-        c.insets = new Insets(5, 5, 5, 5);
-        c.anchor = GridBagConstraints.WEST;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        if(col == 1){
-            c.weightx = 1.0;
-        }
-        else{
-            c.weightx = 0.0;
-        }
-        panel.add(comp, c);
     }
 }

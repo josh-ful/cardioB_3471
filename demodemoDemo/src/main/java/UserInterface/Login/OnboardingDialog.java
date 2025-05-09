@@ -19,6 +19,11 @@ public class OnboardingDialog extends JDialog {
     static JComboBox txtSecurityQuestion;
     static JTextField txtSecurityAnswer;
 
+    /**
+     * constructs an OnboardingDialog object
+     *
+     * @param editOnboarding boolean
+     */
     public OnboardingDialog(boolean editOnboarding) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -52,6 +57,11 @@ public class OnboardingDialog extends JDialog {
         pack();
     }
 
+    /**
+     * constructs a submit button
+     *
+     * @param editOnboarding boolean
+     */
     private JButton getSubmitButton(boolean editOnboarding) {
         JButton btnSubmit = new JButton("Submit");
 
@@ -84,6 +94,15 @@ public class OnboardingDialog extends JDialog {
 
         return btnSubmit;
     }
+
+    /**
+     * adds a row to the grid bag constraints
+     *
+     * @param panel JPanel
+     * @param comp Component
+     * @param row int
+     * @param col int
+     */
     public void addRow(JPanel panel, Component comp, int row, int col) {
         c = new GridBagConstraints();
         c.gridx = col;

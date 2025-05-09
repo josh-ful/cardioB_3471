@@ -16,7 +16,7 @@ public class DBConnection implements DatabaseInfo {
     /**
      * establishes connection to the port
      *
-     * @param port id
+     * @param port String port id
      */
     public DBConnection(String port) {
         states.put("SQL", true);
@@ -51,7 +51,6 @@ public class DBConnection implements DatabaseInfo {
     /**
      * Creates DBConnection object
      *
-     *
      */
     public DBConnection() {
     }
@@ -59,8 +58,8 @@ public class DBConnection implements DatabaseInfo {
      * adds user
      *
      * @param ps PreparedStatement ps
-     * @param username string username
-     * @param plainPassword string normal text password
+     * @param username String username
+     * @param plainPassword String normal text password
      */
     public static void addUser(PreparedStatement ps, String username, String plainPassword, String type) throws SQLException {
         String hashed = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
@@ -72,7 +71,7 @@ public class DBConnection implements DatabaseInfo {
     /**
      * gets connection
      *
-     * @return Connection
+     * @return Connection to database
      */
     public static Connection getConnection() {
         try {

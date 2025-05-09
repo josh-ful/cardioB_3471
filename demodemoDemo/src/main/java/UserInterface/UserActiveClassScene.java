@@ -10,9 +10,18 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
-
+/*
+ * this class represents a UserActiveClassScene object
+ * containing information about courses
+ */
 public class UserActiveClassScene extends ActiveClassScene {
     private Timer pollTimer;
+    /**
+     * constructs a UserActiveClassScene object
+     *
+     * @param frame JFrame
+     * @param course Course
+     */
     public UserActiveClassScene(JFrame frame, Course course) throws SQLException {
 
         super(frame, course);
@@ -25,7 +34,11 @@ public class UserActiveClassScene extends ActiveClassScene {
         pollTimer.start();
 
     }
-
+    /**
+     * refreshes current exercise if any changes occur
+     *
+     * @param courseId int
+     */
     private void refreshCurrentExercise(int courseId) {
         String latest = UserController.getCurrentExerciseName(courseId);
         // if it changed on the server, update the label and reset the exercise timer
@@ -35,14 +48,22 @@ public class UserActiveClassScene extends ActiveClassScene {
             exerciseTimeLabel.setText("00:00");
         }
     }
-
+    /**
+     * leaving class by stopping timers
+     *
+     * @param frame JFrame
+     */
     private void leaveClass(JFrame frame) throws SQLException {
         pollTimer.stop();
         totalTimer.stop();
         exerciseTimer.stop();
         new ClassListScene(frame);
     }
-
+    /**
+     * creates and displays gui
+     *
+     * @param frame JFrame
+     */
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);

@@ -1,5 +1,8 @@
 package UserInformation;
-
+/*
+ * this class represents a SecurityQuestions object
+ * containing information about SecurityQuestions
+ */
 public class SecurityQuestions {
     public final static String[] securityQuestions = {"What is the name of your first pet?",
             "What is your mother's maiden name?",

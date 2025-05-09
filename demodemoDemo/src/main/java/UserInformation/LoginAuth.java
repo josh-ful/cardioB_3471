@@ -7,7 +7,7 @@ import main.DBConnection;
  */
 public class LoginAuth extends DBConnection {
     /**
-     *
+     * constructs a LoginAuth object
      *
      * @param ip string ip
      */

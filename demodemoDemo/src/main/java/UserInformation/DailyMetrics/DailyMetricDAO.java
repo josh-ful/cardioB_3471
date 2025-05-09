@@ -84,6 +84,8 @@ public class DailyMetricDAO {
 
     /**
      * Returns the most recent value for a given metric.
+     *
+     * @param mt MetricTypes
      */
     private static double fetchSingle(MetricTypes mt) throws SQLException {
         String column = mapTypeToColumn(mt);
@@ -109,8 +111,11 @@ public class DailyMetricDAO {
             }
         }
         return 0.0;
-    }    /**
+    }
+    /**
      * Returns the 7-day average for a given metric.
+     *
+     * @param mt MetricTypes
      */
     private static double fetchAverage(MetricTypes mt) throws SQLException {
         String column = mapTypeToColumn(mt);
@@ -136,42 +141,47 @@ public class DailyMetricDAO {
             }
         }
         return 0.0;
-    }    /**
+    }
+    /**
      * Updates CurrentUser with the latest stored weight.
+     *
      */
     public static void getCurrentWeight() throws SQLException {
         double val = fetchSingle(MetricTypes.WEIGHT);
         CurrentUser.setCurrentWeight(val);
     }
-
     /**
      * Updates CurrentUser with the average sleep over the past 7 days.
+     *
      */
     public static void getAvgSleep() throws SQLException {
         CurrentUser.setAvgSleep(0.0);
         double val = fetchAverage(MetricTypes.SLEEP);
         CurrentUser.setAvgSleep(val);
     }
-
     /**
      * Updates CurrentUser with the average calories over the past 7 days.
+     *
      */
     public static void getAvgCalories() throws SQLException {
         CurrentUser.setAvgCalories(0.0);
         double val = fetchAverage(MetricTypes.CALORIES);
         CurrentUser.setAvgCalories(val);
     }
-
-
     /**
      * Updates CurrentUser with the average workout duration over the past 7 days.
+     *
      */
     public static void getAvgWorkoutDur() throws SQLException {
         CurrentUser.setAvgWorkout(0.0);
         double val = fetchAverage(MetricTypes.WKTDURATION);
         CurrentUser.setAvgWorkout(val);
     }
-
+    /**
+     * Updates DailyMetrics of CurrentUser with new DailyMetric information
+     *
+     * @param dm DailyMetric new daily metric information
+     */
     public static void updateDailyMetrics(DailyMetric dm) throws SQLException {
         String sql = """
                 INSERT INTO daily_metrics
