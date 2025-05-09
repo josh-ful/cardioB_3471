@@ -11,10 +11,22 @@ import UserInterface.Scenes;
 
 public class TrainerMenuScene extends Scenes {
 
+
+    /**
+     * constructs a TrainerMenuScene
+     *
+     * @param frame JFrame
+     */
     public TrainerMenuScene(JFrame frame) throws SQLException {
         createAndShowGUI(frame);
     }
 
+
+    /**
+     * create and display GUI for trainer menu scene
+     *
+     * @param frame JFrame
+     */
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);

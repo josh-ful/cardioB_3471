@@ -20,6 +20,17 @@ public class LineGraph {
     public JPanel panel;
     public int goal;
 
+    /**
+     * constructs a LineGraph object
+     *
+     * @param jp JPanel
+     * @param goal int
+     * @param title String
+     * @param xAxisLabel String
+     * @param yAxisLabel String
+     * @param fileName String
+     */
+
     LineGraph(JPanel jp, int goal, String title, String xAxisLabel, String yAxisLabel, String fileName) {
         this.panel = jp;
         this.goal = goal;
@@ -33,6 +44,15 @@ public class LineGraph {
         chartPanel.setPreferredSize(new Dimension(800, 600));
         panel.add(chartPanel);
     }
+
+    /**
+     * constructs a line chart using JFreeChart
+     *
+     * @param title String
+     * @param xAxisLabel String
+     * @param yAxisLabel String
+     * @param fileName String
+     */
     public JFreeChart makeLineChart(String title, String xAxisLabel, String yAxisLabel, String fileName) {
         ArrayList<Point> points = readInCSV(fileName);
         DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
@@ -53,10 +73,11 @@ public class LineGraph {
 
         return chart;
     }
+
     /**
+     * creates an array of Points based off an inputted CSV file
      *
-     *
-     * @param
+     * @param fileName String
      */
     public static ArrayList<Point> readInCSV(String fileName) {
         ArrayList<Point>points = new ArrayList<>();
