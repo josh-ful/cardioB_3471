@@ -22,7 +22,7 @@ public class TrainerManageCoursesExercisesScene extends Scenes {
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) throws SQLException {
+    protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
         panel.removeAll();
         panel.setLayout(new BorderLayout(10, 10));
@@ -52,11 +52,7 @@ public class TrainerManageCoursesExercisesScene extends Scenes {
         JButton backBtn = new JButton("Back");
         backBtn.addActionListener(e -> {
             // go back to the trainer view
-            try {
                 new TrainerViewClassesScene(frame);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
         });
         JPanel bottomBar = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         bottomBar.add(backBtn);

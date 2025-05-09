@@ -20,9 +20,21 @@ public class LoginScene extends LR_Scenes {
     public LoginScene(JFrame frame) {
         super.createLR_SCENE(frame);
 
+        JPanel loginPanel = new JPanel();
+        loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
+        loginPanel.add(Box.createVerticalStrut(30));
+        loginPanel.add(getConfirmLoginButton(frame, username, password));
+        loginPanel.add(Box.createVerticalStrut(10));
+
+        loginPanel.add(getResetPasswordBtn());
+        loginPanel.add(Box.createVerticalStrut(10));
+        loginPanel.add(getBackButton(frame));
+
+        panel.add(loginPanel);
+        /*
         panel.add(getConfirmLoginButton(frame, username, password), BorderLayout.SOUTH);
         panel.add(getResetPasswordBtn());
-        panel.add(getBackButton(frame), BorderLayout.AFTER_LAST_LINE);
+        panel.add(getBackButton(frame), BorderLayout.AFTER_LAST_LINE);*/
     }
 
     /**
@@ -34,6 +46,7 @@ public class LoginScene extends LR_Scenes {
      */
     private static JButton getConfirmLoginButton(JFrame frame, JTextField username, JPasswordField password) {
         JButton loginButton = new JButton("Login");
+        loginButton.setFont(new Font("Tahoma", Font.BOLD, 15));
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginButton.setMaximumSize(new Dimension(400, 30));
 
@@ -66,6 +79,9 @@ public class LoginScene extends LR_Scenes {
 
     private static JButton getResetPasswordBtn() {
         JButton btnResetPassword = new JButton("Reset Password");
+        btnResetPassword.setFont(new Font("Tahoma", Font.BOLD, 15));
+        btnResetPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnResetPassword.setMaximumSize(new Dimension(400, 30));
 
         btnResetPassword.addActionListener(e->{
             new UserResetPasswordDialog();

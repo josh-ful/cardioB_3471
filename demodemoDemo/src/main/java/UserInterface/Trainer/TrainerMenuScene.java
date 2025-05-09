@@ -16,7 +16,7 @@ public class TrainerMenuScene extends Scenes {
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) throws SQLException {
+    protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
 
         //clear existing comps
@@ -35,11 +35,7 @@ public class TrainerMenuScene extends Scenes {
         JButton createClassBtn = new JButton("View Classes");
         createClassBtn.addActionListener(e -> {
                     System.out.println("Clicking view classes");
-                    try {
                         new TrainerViewClassesScene(frame);
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
                 }
         );
 

@@ -3,6 +3,8 @@
  */
 package UserInterface.graphs;
 
+import Controller.UserController;
+import UserInformation.CurrentUser;
 import UserInterface.UserDailyMetricsGraphs;
 import UserInterface.Scenes;
 
@@ -36,18 +38,14 @@ public class CalorieGraphScene extends Scenes {
      */
     @Override
     protected void createAndShowGUI(JFrame frame) {
-        try {
             super.createAndShowGUI(frame);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
         panelLayout();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Calorie Graph");
 
         panel.add(createBackButton(frame), c);
-        int goalCalories = 1004;
-        CalorieLineGraph f = new CalorieLineGraph(panel, goalCalories);
+        int goalCalories = (int)Math.round(CurrentUser.getAvgCaloriesGoal());
+        new CalorieLineGraph(panel, goalCalories);
 
         frame.add(panel);
         frame.pack();

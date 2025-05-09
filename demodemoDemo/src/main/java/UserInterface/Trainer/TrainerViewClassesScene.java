@@ -18,12 +18,12 @@ public class TrainerViewClassesScene extends Scenes {
     private JPanel listContainer;
     private JScrollPane scrollPane;
 
-    public TrainerViewClassesScene(JFrame frame) throws SQLException {
+    public TrainerViewClassesScene(JFrame frame) {
         createAndShowGUI(frame);
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) throws SQLException {
+    protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
         panel.removeAll();
         panel.setLayout(new BorderLayout(10, 10));

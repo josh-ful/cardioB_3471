@@ -1,5 +1,6 @@
 package Controller;
 
+import FitnessCourse.CourseExercise;
 import UserInformation.Login;
 import UserInformation.Register;
 import main.DBConnection;
@@ -59,5 +60,27 @@ public class TrainerControllerTest {
     @Test
     void updateClassTest() {
         TrainerController.updateClass(35, "CODING", "5 sets of infinite", "");
+    }
+
+    @Test
+    void addExerciseToCourseTest() throws SQLException {
+        int n = TrainerController.getCourseExercisesForCourse(35).size();
+        TrainerController.addExerciseToCourse(35, "New", "desc", n+1);
+        assertEquals(n+1, TrainerController.getCourseExercisesForCourse(35).size());
+    }
+
+    @Test
+    void removeCourseExerciseByLinkIdTest() {
+        CourseExercise c = TrainerController.getCourseExercisesForCourse(35).get(0);
+        int n = TrainerController.getCourseExercisesForCourse(35).size();
+        TrainerController.removeCourseExerciseByLinkId(c.getLinkId(), 35);
+        assertEquals(n-1, TrainerController.getCourseExercisesForCourse(35).size());
+    }
+
+    @Test
+    void linkExistingExerciseToCourseTest() {
+        int n = TrainerController.getCourseExercisesForCourse(35).size();
+        TrainerController.linkExistingExerciseToCourse(35, 1, 9);
+        assertEquals(n+1, TrainerController.getCourseExercisesForCourse(35).size());
     }
 }

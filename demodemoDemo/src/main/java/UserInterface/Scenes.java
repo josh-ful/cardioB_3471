@@ -36,7 +36,7 @@ public class Scenes {
      *
      * @param frame which scene is created on
      */
-    protected void createAndShowGUI(JFrame frame) throws SQLException {
+    protected void createAndShowGUI(JFrame frame) {
         panel = new JPanel();
         frame.setLayout(new FlowLayout());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

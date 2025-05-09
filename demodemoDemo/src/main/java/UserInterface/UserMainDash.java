@@ -116,6 +116,6 @@ public class UserMainDash extends Scenes {
         frame.revalidate();
     }
 
-    private static JMenuBar getjMenu(JFrame frame) { /*...*/ return new JMenuBar(); }
+    private static JMenuBar getjMenu() { /*...*/ return new JMenuBar(); }
     private static ImageIcon getMenuIcon() { /*...*/ return new ImageIcon(); }
 }

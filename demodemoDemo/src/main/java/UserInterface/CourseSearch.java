@@ -25,7 +25,7 @@ public class CourseSearch extends Scenes {
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) throws SQLException {
+    protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
 
         JLabel title = new JLabel("Find a Class");
@@ -109,9 +109,10 @@ public class CourseSearch extends Scenes {
         JButton registerBtn = new JButton("Register");
         registerBtn.addActionListener(e -> {
             try {
-                UserController.registerForClass(course.getId());
-                JOptionPane.showMessageDialog(panel, "Successfully registered for: " +
-                        course.getName());
+                if (UserController.registerForClass(course.getId())) {
+                    JOptionPane.showMessageDialog(panel, "Successfully registered for: " +
+                            course.getName());
+                }
             } catch (SQLException ex) {
                 //todo change to SQLException?
                 JOptionPane.showMessageDialog(panel, "Error with database during registration.");

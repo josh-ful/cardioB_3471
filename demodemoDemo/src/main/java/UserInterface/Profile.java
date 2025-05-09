@@ -29,7 +29,7 @@ public class Profile extends Scenes{
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) throws SQLException {
+    protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
         //frame.setLocationRelativeTo(frame);
         panelLayout();
@@ -38,8 +38,12 @@ public class Profile extends Scenes{
         panel.add(makeUserInfoPanel(), BorderLayout.NORTH);
 
         //current metrics compared to goals
-        metricsPanel = makeMetricsGoalsPanel();
-        panel.add(metricsPanel, BorderLayout.CENTER);
+        try {
+            metricsPanel = makeMetricsGoalsPanel();
+            panel.add(metricsPanel, BorderLayout.CENTER);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         //buttons
         panel.add(makeButtonBar1(frame), BorderLayout.SOUTH);

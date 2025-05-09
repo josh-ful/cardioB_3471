@@ -35,11 +35,7 @@ public class ExerciseLogScene extends Scenes{
      */
     @Override
     protected void createAndShowGUI(JFrame frame) {
-        try {
-            super.createAndShowGUI(frame);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        super.createAndShowGUI(frame);
         // src/resources/testCreateExercise.csv
 
 
@@ -60,7 +56,7 @@ public class ExerciseLogScene extends Scenes{
     public static JScrollPane createLogTable(){
         String[] columnNames = {"Name", "Description"};
 
-        DefaultTableModel tableModel = new DefaultTableModel(UserController.getTableMatrix(), columnNames);
+        DefaultTableModel tableModel = new DefaultTableModel(UserController.getExerciseLogTable(), columnNames);
         table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -123,7 +119,7 @@ public class ExerciseLogScene extends Scenes{
      */
     public static void updateTable() {
         String[] columnNames = {"Name", "Description"};
-        DefaultTableModel model = (DefaultTableModel) new DefaultTableModel(UserController.getTableMatrix(), columnNames);
+        DefaultTableModel model = new DefaultTableModel(UserController.getExerciseLogTable(), columnNames);
         table.setModel(model);
         table.repaint();
     }
