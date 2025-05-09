@@ -10,6 +10,11 @@ public class TrainerCreateClassDialog extends JDialog {
     private JTextField descriptionField;
     private JTextField scheduleField;
 
+    /**
+     * constructs a TrainerCreateClassDialog object
+     *
+     * @param parent JFrame
+     */
     public TrainerCreateClassDialog(JFrame parent) {
         super(parent, "Create New Class", true);
         setLayout(new GridLayout(4, 2, 10, 10));

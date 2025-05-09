@@ -18,10 +18,21 @@ public class TrainerHostClassScene extends Scenes {
     private JPanel listContainer;
     private JScrollPane scrollPane;
 
+    /**
+     * constructs a TrainerHostClassScene
+     *
+     * @param frame JFrame
+     */
     public TrainerHostClassScene(JFrame frame) throws SQLException {
         createAndShowGUI(frame);
     }
 
+
+    /**
+     * creates and displays GUI screen for host class scene for trainer
+     *
+     * @param frame JFrame
+     */
     @Override
     protected void createAndShowGUI(JFrame frame) throws SQLException {
         super.createAndShowGUI(frame);
@@ -70,7 +81,12 @@ public class TrainerHostClassScene extends Scenes {
         frame.revalidate();
     }
 
-
+    /**
+     * repaints the list after an update to the system's state
+     *
+     * @param searchText String
+     * @param frame JFrame
+     */
     private void rebuildList(String searchText, JFrame frame) {
         String search = searchText.trim().toLowerCase();
 
@@ -87,6 +103,12 @@ public class TrainerHostClassScene extends Scenes {
         listContainer.repaint();
     }
 
+    /**
+     * constructs a class panel
+     *
+     * @param cls Course
+     * @param frame JFrame
+     */
     private JPanel makeClassPanel(Course cls, JFrame frame) {
         JPanel row = new JPanel(new BorderLayout(10, 5));
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));

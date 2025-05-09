@@ -18,10 +18,20 @@ public class TrainerViewClassesScene extends Scenes {
     private JPanel listContainer;
     private JScrollPane scrollPane;
 
+    /**
+     * constructs a TrainerViewClassesScene
+     *
+     * @param frame JFrame
+     */
     public TrainerViewClassesScene(JFrame frame) throws SQLException {
         createAndShowGUI(frame);
     }
 
+    /**
+     * creates and displays GUI for viewing classes for trainers
+     *
+     * @param frame JFrame
+     */
     @Override
     protected void createAndShowGUI(JFrame frame) throws SQLException {
         super.createAndShowGUI(frame);
@@ -74,6 +84,10 @@ public class TrainerViewClassesScene extends Scenes {
         frame.revalidate();
     }
 
+    /**
+     * rebuilds list of classes after an update to the system's state
+     *
+     */
     private void rebuildList() {
         //Grab current filter & search
         JComboBox<?> filterBox = (JComboBox<?>)((JPanel)panel.getComponent(0)).getComponent(1);
@@ -98,6 +112,11 @@ public class TrainerViewClassesScene extends Scenes {
         listContainer.repaint();
     }
 
+    /**
+     * constructs the panel to display a course
+     *
+     * @param cls Course
+     */
     private JPanel makeClassPanel(Course cls) {
         JPanel row = new JPanel(new BorderLayout(10, 5));
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));

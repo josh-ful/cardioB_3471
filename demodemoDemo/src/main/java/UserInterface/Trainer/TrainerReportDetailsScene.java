@@ -13,10 +13,23 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class TrainerReportDetailsScene extends Scenes {
 
+    /**
+     * constructs a TrainerReportDetailsScene
+     *
+     * @param frame JFrame
+     * @param course Course
+     */
     public TrainerReportDetailsScene(JFrame frame, Course course) {
         createAndShowGUI(frame, course);
     }
 
+
+    /**
+     * creates and displays GUI for trainer detailed report scene
+     *
+     * @param frame JFrame
+     * @param course Course
+     */
     private void createAndShowGUI(JFrame frame, Course course) {
         panel.removeAll();
         panel.setLayout(new BorderLayout(10, 10));

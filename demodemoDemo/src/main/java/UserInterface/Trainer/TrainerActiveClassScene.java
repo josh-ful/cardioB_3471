@@ -11,6 +11,12 @@ import java.awt.*;
 import java.sql.SQLException;
 
 public class TrainerActiveClassScene extends ActiveClassScene {
+    /**
+     * constructs a TrainerActiveClassScene object
+     *
+     * @param frame JFrame
+     * @param course Course
+     */
     public TrainerActiveClassScene(JFrame frame, Course course) throws SQLException {
         super(frame, course);
         //cange the DB flag so users can join
@@ -19,6 +25,11 @@ public class TrainerActiveClassScene extends ActiveClassScene {
 
     }
 
+    /**
+     * creates an active class screen for trainer and displays it
+     *
+     * @param frame JFrame
+     */
     @Override
     protected void createAndShowGUI(JFrame frame) throws SQLException {
         super.createAndShowGUI(frame);
