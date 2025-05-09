@@ -7,13 +7,18 @@ import UserInformation.CurrentUser;
 import UserInterface.Login.OnboardingDialog;
 
 import java.awt.*;
+import java.sql.SQLException;
 
 public class Profile extends Scenes{
     private static JPanel metricsPanel;
     GridBagConstraints c;
 
-    public Profile() {
-        createAndShowGUI();
+    private static JLabel currAge;
+    private static JLabel currGender;
+    private static JLabel currEmail;
+
+    public Profile(JFrame frame) throws SQLException {
+        createAndShowGUI(frame);
     }
 
     @Override
@@ -24,8 +29,8 @@ public class Profile extends Scenes{
     }
 
     @Override
-    protected void createAndShowGUI() {
-        super.createAndShowGUI();
+    protected void createAndShowGUI(JFrame frame) {
+        super.createAndShowGUI(frame);
         //frame.setLocationRelativeTo(frame);
         panelLayout();
 
@@ -33,15 +38,20 @@ public class Profile extends Scenes{
         panel.add(makeUserInfoPanel(), BorderLayout.NORTH);
 
         //current metrics compared to goals
-        metricsPanel = makeMetricsGoalsPanel();
-        panel.add(metricsPanel, BorderLayout.CENTER);
+        try {
+            metricsPanel = makeMetricsGoalsPanel();
+            panel.add(metricsPanel, BorderLayout.CENTER);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         //buttons
-        panel.add(makeButtonBar(frame), BorderLayout.SOUTH);
+        panel.add(makeButtonBar1(frame), BorderLayout.SOUTH);
 
         frame.setContentPane(panel);
         frame.pack();
-        frame.setLocationRelativeTo(null);
+        frame.setSize(FRAME_DIM);
+        frame.setLocationRelativeTo(frame);
         frame.revalidate();
         frame.repaint();
     }
@@ -49,7 +59,7 @@ public class Profile extends Scenes{
     private JPanel makeUserInfoPanel() {
         JPanel info = new JPanel(new GridLayout(0, 2, 10, 10));
         info.setBorder(
-                BorderFactory.createTitledBorder("Profile Information")
+            BorderFactory.createTitledBorder("Profile Information")
         );
 
         info.add(new JLabel("Username:"));
@@ -59,18 +69,29 @@ public class Profile extends Scenes{
         info.add(new JLabel(CurrentUser.getType()));
 
         info.add(new JLabel("Age:"));
-        info.add(new JLabel(CurrentUser.getAge().toString()));
+        currAge = new JLabel(CurrentUser.getAge().toString());
+        info.add(currAge);
 
         info.add(new JLabel("Gender:"));
-        info.add(new JLabel(CurrentUser.getGender()));
+        currGender = new JLabel(CurrentUser.getGender());
+        info.add(currGender);
 
         info.add(new JLabel("Email:"));
-        info.add(new JLabel(CurrentUser.getEmail()));
+        currEmail = new JLabel(CurrentUser.getEmail());
+        info.add(currEmail);
+
+        info.add(getEditOnboardingBtn());
 
         return info;
     }
 
-    private static JPanel makeMetricsGoalsPanel() {
+    public static void refreshInfoPanel(){
+        currAge.setText(CurrentUser.getAge().toString());
+        currGender.setText(CurrentUser.getGender());
+        currEmail.setText(CurrentUser.getEmail());
+    }
+
+    private static JPanel makeMetricsGoalsPanel() throws SQLException {
         // assume MetricService provides these four current numbers
         double currentWeight     = CurrentUser.getCurrentWeight();
         double avgSleep          = CurrentUser.getAvgSleep();
@@ -85,7 +106,7 @@ public class Profile extends Scenes{
 
         JPanel box = new JPanel(new BorderLayout());
         box.setBorder(
-                BorderFactory.createTitledBorder("This Week: Current vs. Goal")
+            BorderFactory.createTitledBorder("This Week: Current vs. Goal")
         );
 
         String[] cols = { "", "Current", "Goal" };
@@ -103,13 +124,13 @@ public class Profile extends Scenes{
         return box;
     }
 
-    private JPanel makeButtonBar(JFrame frame) {
+    private JPanel makeButtonBar1(JFrame frame) {
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
 
         buttons.add(getGoalsBtn(frame));
-        buttons.add(getEditOnboardingBtn());
         buttons.add(getResetPasswordBtn());
         buttons.add(getLogoutBtn(frame));
+        buttons.add(createBackButton(frame, UserMainDash.class));
 
         return buttons;
     }
@@ -121,7 +142,11 @@ public class Profile extends Scenes{
             GoalsDialog dlg = new GoalsDialog(frame);
             dlg.setVisible(true);
             panel.remove(metricsPanel);
-            metricsPanel = makeMetricsGoalsPanel();
+            try {
+                metricsPanel = makeMetricsGoalsPanel();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             panel.add(metricsPanel, BorderLayout.CENTER);
 
             panel.revalidate();
@@ -155,11 +180,16 @@ public class Profile extends Scenes{
 
         btnLogout.addActionListener(e->{
             Controller.destroyCurrentUser();
-            new HomeScreen();
+            try {
+                new HomeScreen(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         return btnLogout;
     }
+
     public void addRow(JPanel panel, Component comp, int row, int col) {
         c = new GridBagConstraints();
         c.gridx = col;

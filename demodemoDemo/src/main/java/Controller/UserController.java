@@ -34,8 +34,6 @@ public class UserController implements Controller {
         CurrentUser.setWeight(weight);
     }
 
-
-
     /**
      * enters exercise information
      *
@@ -342,7 +340,7 @@ public class UserController implements Controller {
 
 
     public void createDashboard(JFrame frame) throws SQLException {
-        new UserMainDash();
+        new UserMainDash(frame);
     }
 
     public static List<CourseExercise> getCourseExercisesForCourse(int courseId) {
@@ -535,15 +533,5 @@ public class UserController implements Controller {
         DailyMetric dm = new DailyMetric( w, s, c, wkt, date);
 
         DailyMetricDAO.updateDailyMetrics(dm);
-    }
-
-    @Override
-    public void createDashboard() throws SQLException {
-        new UserMainDash();
-    }
-
-    @Override
-    public void createDashboard() throws SQLException {
-        new UserMainDash();
     }
 }

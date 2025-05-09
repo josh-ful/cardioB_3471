@@ -18,7 +18,7 @@ import java.sql.SQLException;
 
 public class Scenes {
     protected static JPanel panel;
-    protected static JFrame frame;
+
     /*
      * description: creates blank GUI to be overridden
      * by other scene classes
@@ -30,21 +30,14 @@ public class Scenes {
     public static final Dimension FRAME_DIM = new Dimension(450, 800);
     public static final int FRAME_W = FRAME_DIM.width;
     public static final int FRAME_H = FRAME_DIM.height;
-
-    protected Scenes() {
-        if (frame == null) {
-            frame = new JFrame();
-        }
-    }
     /**
      * creates a new GUI by repainting and removing the content
      * to reset to its original state
      *
-     *
+     * @param frame which scene is created on
      */
-    protected void createAndShowGUI() {
+    protected void createAndShowGUI(JFrame frame) {
         panel = new JPanel();
-//        frame = new JFrame();
         frame.setLayout(new FlowLayout());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,7 +62,7 @@ public class Scenes {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     }
 
-    protected JButton createBackButton(Class<? extends Scenes> scene) throws RuntimeException {
+    protected JButton createBackButton(JFrame frame, Class<? extends Scenes> scene) throws RuntimeException {
 
         JButton button = new JButton("Back");
         button.addActionListener(e -> {
@@ -97,17 +90,25 @@ public class Scenes {
 
         menuItem.addActionListener(e -> {
             try {
-                CurrentUser.controller.createDashboard();
+                CurrentUser.controller.createDashboard(frame);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
         });
         menuItem2.addActionListener(e -> {
-            new Profile();
+            try {
+                new Profile(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         menuItem3.addActionListener(e -> {
             Controller.destroyCurrentUser();
-            new HomeScreen();
+            try {
+                new HomeScreen(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         menu.add(menuItem);
