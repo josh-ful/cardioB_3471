@@ -9,9 +9,10 @@ public class WeightLineGraph extends LineGraph {
 
     private int goal;
     /**
-     * constructs a WeightLine objects
+     * constructs a WeightLineGraph object
      *
      * @param panel JPanel
+     * @param goalWeight int
      */
     WeightLineGraph(JPanel panel, int goalWeight) {
         super(panel, goalWeight, "Weight Progress", "Date", "Weight(lbs)", "src/main/java/UserInterface/graphs/dateAndWeight.csv");
