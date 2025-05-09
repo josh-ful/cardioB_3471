@@ -1,4 +1,4 @@
-package UserInformation;
+package UserInformationTest;
 
 import Exceptions.AlreadyRegisteredException;
 import main.DBConnection;
