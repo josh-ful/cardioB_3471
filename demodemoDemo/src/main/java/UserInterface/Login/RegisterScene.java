@@ -21,17 +21,26 @@ public class RegisterScene extends LR_Scenes {
 
     public RegisterScene(JFrame frame) {
         super.createLR_SCENE(frame);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
         JRadioButton trainerButton = getSelectTrainerButton();
         JRadioButton userButton = getSelectUserButton();
+
+        trainerButton.setFont(new Font("Tahoma", Font.BOLD, 20));
+        userButton.setFont(new Font("Tahoma", Font.BOLD, 20));
+
 
         ButtonGroup group = new ButtonGroup();
         group.add(userButton);
         group.add(trainerButton);
 
-        panel.add(userButton);
-        panel.add(trainerButton);
-        panel.add(getConfirmRegisterButton(username, password));
 
+        buttonPanel.add(userButton);
+        buttonPanel.add(trainerButton);
+        buttonPanel.add(Box.createVerticalGlue());
+        panel.add(buttonPanel);
+
+        panel.add(getConfirmRegisterButton(username, password));
         panel.add(getBackButton(frame));
         panel.add(getSpecificationLabel());
     }
@@ -69,6 +78,7 @@ public class RegisterScene extends LR_Scenes {
      */
     private JButton getConfirmRegisterButton(JTextField username, JPasswordField password) {
         JButton registerButton = new JButton("Register");
+        registerButton.setFont(new Font("Tahoma", Font.BOLD, 15));
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerButton.setMaximumSize(new Dimension(400, 30));
 
