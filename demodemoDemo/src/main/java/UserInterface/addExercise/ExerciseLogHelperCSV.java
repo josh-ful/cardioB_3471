@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/*
+ * this class represents a ExerciseLogHelperCSV object
+ * containing information about ExerciseLogHelperCSV
+ */
 public class ExerciseLogHelperCSV extends ExerciseLogHelper {
     protected static String fileName;
     private static final Logger logger = Logger.getLogger(ExerciseLogHelperCSV.class.getName());
@@ -57,6 +60,7 @@ public class ExerciseLogHelperCSV extends ExerciseLogHelper {
     /**
      * reads CSV and updates exercise list
      *
+     * @return ArrayList<Exercise> list of exercises to add to
      */
     public static ArrayList<Exercise> readCSV(){
         ArrayList<Exercise> exercises = new ArrayList<>();

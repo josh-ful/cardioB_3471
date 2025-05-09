@@ -13,17 +13,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+/*
+ * this class represents a CourseSearch object
+ * containing information about CourseSearches
+ */
 public class CourseSearch extends Scenes {
     private JComboBox<String> courseTypeCombo;
     private JTextField searchField;
     private JPanel resultsPanel;
     private JScrollPane scrollPane;
-
+    /**
+     * constructs a CourseSearch object
+     *
+     * @param frame JFrame which CourseSearch is displayed
+     */
     public CourseSearch(JFrame frame) throws SQLException {
         createAndShowGUI(frame);
     }
-
+    /**
+     * creates and displays gui on frame
+     *
+     * @param frame JFrame which gui is displayed
+     */
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
@@ -104,7 +115,11 @@ public class CourseSearch extends Scenes {
             JOptionPane.showMessageDialog(panel, "Database error occurred.");
         }
     }
-
+    /**
+     * adds action listener to register button to register for class
+     *
+     * @param course course to be registered for
+     */
     private static JButton getRegisterButton(Course course) {
         JButton registerBtn = new JButton("Register");
         registerBtn.addActionListener(e -> {
@@ -124,14 +139,22 @@ public class CourseSearch extends Scenes {
         });
         return registerBtn;
     }
-
+    /**
+     * gets course panel
+     *
+     * @return JPanel which the course is displayed
+     */
     private static JPanel getCoursePanel() {
         JPanel courseItem = new JPanel(new BorderLayout());
         courseItem.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
         courseItem.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
         return courseItem;
     }
-
+    /**
+     * gets text panel from class
+     *
+     * @param exerciseClass Course to get text from
+     */
     private static JPanel getTextPanel(Course exerciseClass) {
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));

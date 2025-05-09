@@ -5,9 +5,15 @@ import java.awt.*;
 import java.sql.*;
 
 import UserInterface.Scenes;
-
+/**
+ * this class creates scene that shows the admin dashboard
+ */
 public class AdminDashboardScene extends Scenes {
-
+    /**
+     * constructs a AdminDashboardScene object
+     *
+     * @param frame JFrame that AdminDashboardScene is created on
+     */
     public AdminDashboardScene(JFrame frame) {
         createAndShowGUI(frame);
     }

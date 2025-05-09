@@ -64,6 +64,7 @@ public class ClassListScene extends Scenes{
     /**
      * creates scroll pane for classes
      *
+     * @param frame JFrame which scroll pane is displayed on
      * @return JScrollPane for classes
      */
     private JScrollPane addScrollClassList(JFrame frame) {
@@ -94,7 +95,13 @@ public class ClassListScene extends Scenes{
 
         return scroll;
     }
-
+    /**
+     * creates the panel display for the courses
+     *
+     * @param course Course which is displayed
+     * @param frame JFrame which course is displayed on
+     * @return JPanel for classes to be displayed on
+     */
     private JPanel createCoursePanel(Course course, JFrame frame) {
         JPanel coursePanel = new JPanel(new BorderLayout());
         coursePanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));

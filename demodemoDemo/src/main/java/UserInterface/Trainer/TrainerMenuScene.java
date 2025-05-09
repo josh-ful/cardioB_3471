@@ -11,7 +11,6 @@ import UserInterface.Scenes;
 
 public class TrainerMenuScene extends Scenes {
 
-
     /**
      * constructs a TrainerMenuScene
      *

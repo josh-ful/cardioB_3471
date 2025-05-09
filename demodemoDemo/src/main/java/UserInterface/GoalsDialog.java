@@ -6,13 +6,20 @@ import java.awt.event.ActionEvent;
 
 import Controller.UserController;
 import UserInformation.CurrentUser;
-
+/*
+ * this class represents a GoalsDialog object
+ * containing information about GoalsDialogs
+ */
 public class GoalsDialog extends JDialog {
     private final JTextField weightField   = new JTextField(6);
     private final JTextField sleepField    = new JTextField(6);
     private final JTextField caloriesField = new JTextField(6);
     private final JTextField workoutField  = new JTextField(6);
-
+    /**
+     * constructs a GoalsDialog object
+     *
+     * @param owner Frame which dialog is displayed on
+     */
     public GoalsDialog(Frame owner) {
         super(owner, "Set Your Weekly Goals", true);
         setLayout(new BorderLayout(10,10));
@@ -43,7 +50,11 @@ public class GoalsDialog extends JDialog {
         pack();
         setLocationRelativeTo(owner);
     }
-
+    /**
+     * saves inputted goals
+     *
+     * @param e ActionEvent to perform
+     */
     private void onSave(ActionEvent e) {
         double w, s, c, wkt;
         try {
@@ -55,7 +66,6 @@ public class GoalsDialog extends JDialog {
             JOptionPane.showMessageDialog(this, "Please enter valid numbers…");
             return;
         }
-
         // do the database work in the background
         new SwingWorker<Void, Void>() {
             @Override protected Void doInBackground() throws Exception {

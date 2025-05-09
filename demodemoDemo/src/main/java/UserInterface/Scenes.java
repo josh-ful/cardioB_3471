@@ -76,7 +76,11 @@ public class Scenes {
 
         return button;
     }
-
+    /**
+     * creates menu bar for app
+     *
+     * @param frame which menu is created on
+     */
     protected JMenuBar createMenuBar(JFrame frame) throws RuntimeException {
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);

@@ -9,7 +9,10 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
-
+/*
+ * this class represents a ActiveClassScene object
+ * containing information about ActiveClassScenes
+ */
 abstract public class ActiveClassScene extends Scenes {
     protected final Course course;
     protected final List<CourseExercise> exercises;
@@ -20,7 +23,12 @@ abstract public class ActiveClassScene extends Scenes {
     protected JLabel exerciseTimeLabel;
     protected Timer totalTimer, exerciseTimer;
     protected int totalSecs = 0, exerciseSecs = 0;
-
+    /**
+     * constructs a ActiveClassScene object
+     *
+     * @param frame JFrame which ActiveClassScene is displayed on
+     * @param course Course that is active
+     */
     public ActiveClassScene(JFrame frame, Course course) {
         this.course = course;
         //fetch ordered list of exercises
@@ -28,7 +36,10 @@ abstract public class ActiveClassScene extends Scenes {
         createAndShowGUI(frame);
         startTimers();
     }
-
+    /**
+     * starts timer of class
+     *
+     */
     private void startTimers() {
         //total workout timer
         totalTimer = new Timer(1000, e -> {
@@ -44,12 +55,20 @@ abstract public class ActiveClassScene extends Scenes {
         });
         exerciseTimer.start();
     }
-
+    /**
+     * formats time display
+     *
+     * @param secs int total seconds
+     */
     private String formatTime(int secs) {
         int m = secs / 60, s = secs % 60;
         return String.format("%02d:%02d", m, s);
     }
-
+    /**
+     * creates and displays gui to frame
+     *
+     * @param frame JFrame which gui is displayed on
+     */
     @Override
     protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
@@ -78,43 +97,8 @@ abstract public class ActiveClassScene extends Scenes {
         for (CourseExercise ce : exercises) model.addElement(ce);
         JList<CourseExercise> list = new JList<>(model);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //show only the name
-        /*
-        list.addListSelectionListener((ListSelectionListener) e -> {
-            if (!e.getValueIsAdjusting() && list.getSelectedValue() != null) {
-                CourseExercise ce = list.getSelectedValue();
-                //currentExerciseLabel.setText(ce.getOrder() + ". " + ce.getExercise().getName());
-                exerciseSecs = 0;
-                exerciseTimeLabel.setText("00:00");
-            }
-        });
-        */
+
         panel.add(new JScrollPane(list), BorderLayout.EAST);
-
-        /*
-        //rest button and stop hosting at bottom of screen
-        JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        JButton restBtn = new JButton("Rest");
-        restBtn.addActionListener(e -> {
-            list.clearSelection();
-            currentExerciseLabel.setText("Rest");
-            exerciseSecs = 0;
-            exerciseTimeLabel.setText("00:00");
-        });
-        south.add(restBtn);
-
-        JButton stopBtn = new JButton("End Class");
-        stopBtn.addActionListener(e -> {
-            totalTimer.stop();
-            exerciseTimer.stop();
-            TrainerController.setCourseJoinable(course.getId(), false);
-            JOptionPane.showMessageDialog(frame, "Class ended.");
-            new TrainerMenuScene(frame);
-        });
-        south.add(stopBtn);
-
-        panel.add(south, BorderLayout.SOUTH);
-        */
 
         frame.setContentPane(panel);
         frame.revalidate();

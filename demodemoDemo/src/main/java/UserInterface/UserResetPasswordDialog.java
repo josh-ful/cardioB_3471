@@ -11,7 +11,10 @@ import java.awt.*;
 import java.util.Arrays;
 
 import static UserInformation.SecurityQuestions.securityQuestions;
-
+/*
+ * this class represents a UserResetPasswordDialog object
+ * containing information about UserResetPasswordDialogs
+ */
 public class UserResetPasswordDialog extends JDialog {
     GridBagConstraints c;
     JTextField username;
@@ -20,21 +23,32 @@ public class UserResetPasswordDialog extends JDialog {
     JPasswordField newPasswordField;
     JPasswordField newPasswordField2;
     public static final Dimension FRAME_DIM = new Dimension(450, 800);
-
+    /**
+     * constructs a UserResetPasswordDialog object
+     *
+     */
     public UserResetPasswordDialog() {
         super((Frame)null, "Reset Your Password", true);
         createAndShowGui(null);
         this.setSize(FRAME_DIM);
         this.setResizable(false);
     }
-
+    /**
+     * constructs a UserResetPasswordDialog object
+     *
+     * @param user String name
+     */
     public UserResetPasswordDialog(String user) {
         super((Frame)null, "Reset Your Password", true);
         createAndShowGui(user);
         this.setSize(FRAME_DIM);
         this.setResizable(false);
     }
-
+    /**
+     * creates and displays gui
+     *
+     * @param user String name
+     */
     private void createAndShowGui(String user) {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -76,7 +90,11 @@ public class UserResetPasswordDialog extends JDialog {
         pack();
         setVisible(true);
     }
-
+    /**
+     * creates button to confirm resetting a password and updates
+     *
+     * @return JButton
+     */
     private JButton getConfirmButton(){
         JButton confirmBtn = new JButton("Confirm");
 
@@ -113,7 +131,11 @@ public class UserResetPasswordDialog extends JDialog {
         c.gridy = 11;
         return confirmBtn;
     }
-
+    /**
+     * creates button to cancel resetting a password
+     *
+     * @return JButton
+     */
     private JButton getCancelButton() {
         JButton cancelBtn = new JButton("Cancel");
 
@@ -125,6 +147,13 @@ public class UserResetPasswordDialog extends JDialog {
         c.gridy = 12;
         return cancelBtn;
     }
+    /**
+     * adds a row to the display
+     *
+     * @param panel displayed on
+     * @param comp component added
+     * @param row added
+     */
     public void addRow(JPanel panel, Component comp, int row) {
         c.gridx = 0;
         c.gridy = row;
