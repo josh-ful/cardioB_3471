@@ -14,12 +14,13 @@ public class RegisterScene extends LR_Scenes {
     /**
      * Constructs a RegisterScene object
      *
+     * @param frame which scene is created on
      */
 
     // TODO: change utStatus name to utButtonStatus
 
-    public RegisterScene() {
-        super.createLR_SCENE();
+    public RegisterScene(JFrame frame) {
+        super.createLR_SCENE(frame);
         JRadioButton trainerButton = getSelectTrainerButton();
         JRadioButton userButton = getSelectUserButton();
 
@@ -31,7 +32,7 @@ public class RegisterScene extends LR_Scenes {
         panel.add(trainerButton);
         panel.add(getConfirmRegisterButton(username, password));
 
-        panel.add(getBackButton());
+        panel.add(getBackButton(frame));
         panel.add(getSpecificationLabel());
     }
 

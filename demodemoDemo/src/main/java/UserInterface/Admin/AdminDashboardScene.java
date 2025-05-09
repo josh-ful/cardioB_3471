@@ -8,13 +8,13 @@ import UserInterface.Scenes;
 
 public class AdminDashboardScene extends Scenes {
 
-    public AdminDashboardScene() {
-        createAndShowGUI();
+    public AdminDashboardScene(JFrame frame) {
+        createAndShowGUI(frame);
     }
 
     @Override
-    protected void createAndShowGUI() {
-        super.createAndShowGUI();
+    protected void createAndShowGUI(JFrame frame) {
+            super.createAndShowGUI(frame);
 
         JLabel title = new JLabel("Admin Dashboard");
         title.setFont(new Font("Comic Sans MS", Font.BOLD, 36));

@@ -8,10 +8,11 @@ import UserInterface.ActiveClassScene;
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class TrainerActiveClassScene extends ActiveClassScene {
-    public TrainerActiveClassScene(Course course) {
-        super(course);
+    public TrainerActiveClassScene(JFrame frame, Course course) throws SQLException {
+        super(frame, course);
         //cange the DB flag so users can join
         TrainerController.setCourseJoinable(course.getId(), true);
         sessionID = TrainerController.startCourseSession(course.getId(),course.getName());
@@ -19,8 +20,8 @@ public class TrainerActiveClassScene extends ActiveClassScene {
     }
 
     @Override
-    protected void createAndShowGUI() {
-        super.createAndShowGUI();
+    protected void createAndShowGUI(JFrame frame) {
+        super.createAndShowGUI(frame);
         panel.removeAll();
         panel.setLayout(new BorderLayout(10,10));
 
@@ -79,7 +80,11 @@ public class TrainerActiveClassScene extends ActiveClassScene {
             TrainerController.setCourseJoinable(course.getId(), false);
             TrainerController.endCourseSession(sessionID);
             JOptionPane.showMessageDialog(frame, "Class ended.");
-            new TrainerMenuScene();
+            try {
+                new TrainerMenuScene(frame);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         south.add(stopBtn);
 

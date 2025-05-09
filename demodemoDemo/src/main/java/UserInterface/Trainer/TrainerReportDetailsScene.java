@@ -13,11 +13,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class TrainerReportDetailsScene extends Scenes {
 
-    public TrainerReportDetailsScene(Course course) {
-        createAndShowGUI(course);
+    public TrainerReportDetailsScene(JFrame frame, Course course) {
+        createAndShowGUI(frame, course);
     }
 
-    private void createAndShowGUI(Course course) {
+    private void createAndShowGUI(JFrame frame, Course course) {
         panel.removeAll();
         panel.setLayout(new BorderLayout(10, 10));
 
@@ -71,7 +71,7 @@ public class TrainerReportDetailsScene extends Scenes {
 
         // Back button
         JButton backBtn = new JButton("Back");
-        backBtn.addActionListener(e -> new TrainerReportsScene());
+        backBtn.addActionListener(e -> new TrainerReportsScene(frame));
         panel.add(backBtn, BorderLayout.SOUTH);
 
         // Finalize

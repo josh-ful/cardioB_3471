@@ -9,8 +9,8 @@ import javax.swing.*;
  */
 public class AdminController implements Controller{
 
-    public void createDashboard() {
-        new AdminDashboardScene();
+    public void createDashboard(JFrame frame) {
+        new AdminDashboardScene(frame);
     }
 
 //    public ArrayList<Map<String, String>> getAllUsers() {

@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public interface Controller {
 
-    public void createDashboard() throws SQLException;
+    public void createDashboard(JFrame frame) throws SQLException;
 
     public static String getUsername(){
         return CurrentUser.getName();
