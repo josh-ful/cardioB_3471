@@ -47,12 +47,6 @@ public class UserControllerTest {
     }
 
     @Test
-    void enterWeightTest() {
-        UserController.enterWeight(200);
-        assertEquals(CurrentUser.getWeight(), 200);
-    }
-
-    @Test
     void addCourse() throws SQLException {
         String username = "TEST";
         UserController.addCourseRegistration(999, "test course");

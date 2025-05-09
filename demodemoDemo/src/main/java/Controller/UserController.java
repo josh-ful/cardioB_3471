@@ -26,10 +26,6 @@ import java.util.List;
  */
 public class UserController implements Controller {
 
-    public static void enterWeight(int weight) {
-        CurrentUser.setWeight(weight);
-    }
-
     /**
      * enters exercise information
      *
