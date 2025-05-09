@@ -44,15 +44,10 @@ public class CourseSearch extends Scenes {
         filterPanel.add(searchBtn);
         panel.add(filterPanel);
 
-        // Results panel inside scroll
         resultsPanel = new JPanel();
-
-        //todo change panelLayout(JPanel)
         resultsPanel.setLayout(new BoxLayout(resultsPanel, BoxLayout.Y_AXIS));
-
         scrollPane = new JScrollPane(resultsPanel);
         scrollPane.setPreferredSize(new Dimension(600, 400));
-//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         panel.add(scrollPane);
 
         // Back button
@@ -68,10 +63,6 @@ public class CourseSearch extends Scenes {
         });
 
         frame.setContentPane(panel);
-//        frame.revalidate();
-//        frame.repaint();
-
-        // updates resultsPanel
         performSearch("self", "");
     }
 
@@ -96,8 +87,6 @@ public class CourseSearch extends Scenes {
 
         resultsPanel.revalidate();
         resultsPanel.repaint();
-       // panelLayout();
-            // huh?
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -114,12 +103,10 @@ public class CourseSearch extends Scenes {
                             course.getName());
                 }
             } catch (SQLException ex) {
-                //todo change to SQLException?
                 JOptionPane.showMessageDialog(panel, "Error with database during registration.");
                 throw new RuntimeException(ex);
             } catch (RuntimeException ex) {
                 JOptionPane.showMessageDialog(panel, ex.getMessage());
-                //todo throw a runtime exception here?
             }
         });
         return registerBtn;

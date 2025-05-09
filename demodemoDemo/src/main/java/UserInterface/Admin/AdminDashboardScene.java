@@ -35,10 +35,6 @@ public class AdminDashboardScene extends Scenes {
         JPanel userListPanel = new JPanel();
         userListPanel.setLayout(new BoxLayout(userListPanel, BoxLayout.Y_AXIS));
 
-        //todo figure out why this won't work
-//        List<Map<String, String>> allUsers = controller.getAllUsers();
-//        for (int i = 0; i < allUsers.getLength; i++)
-
         //todo move this elsewhere
         try (Connection conn = main.DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement("SELECT username, type FROM users ORDER BY type, username");

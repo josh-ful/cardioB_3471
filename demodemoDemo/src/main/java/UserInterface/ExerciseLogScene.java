@@ -52,7 +52,6 @@ public class ExerciseLogScene extends Scenes{
      *
      * @return JScrollPane containing exercise names and descriptions
      */
-    //TODO: make this a table? I think ScrollPane is over the top
     public static JScrollPane createLogTable(){
         String[] columnNames = {"Name", "Description"};
 
@@ -109,7 +108,6 @@ public class ExerciseLogScene extends Scenes{
      * @param frame which scene is created on
      */
     public static void submittedNewScene(JFrame frame) {
-        //refreshLogTable();
         new ExerciseLogScene(frame);
     }
 

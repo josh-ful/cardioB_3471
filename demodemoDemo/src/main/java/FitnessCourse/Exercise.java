@@ -11,9 +11,10 @@ public class Exercise {
     /**
      * Constructs Exercise object
      *
+     * @param s
      * @param name of exercise
      */
-    public Exercise(String name) {
+    public Exercise(String s, String name) {
         this.name = name;
     }
     /**

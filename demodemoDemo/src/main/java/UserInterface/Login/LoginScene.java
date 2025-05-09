@@ -31,10 +31,7 @@ public class LoginScene extends LR_Scenes {
         loginPanel.add(getBackButton(frame));
 
         panel.add(loginPanel);
-        /*
-        panel.add(getConfirmLoginButton(frame, username, password), BorderLayout.SOUTH);
-        panel.add(getResetPasswordBtn());
-        panel.add(getBackButton(frame), BorderLayout.AFTER_LAST_LINE);*/
+
     }
 
     /**
@@ -57,14 +54,12 @@ public class LoginScene extends LR_Scenes {
                 String pass = new String(password.getPassword());
                 // give something else the information and allow it to make the screen
                 boolean success = false;
-
                 try {
                     success = Login.loginLogic(user, pass);
                 } catch (RuntimeException | SQLException ex) {
                     JOptionPane.showMessageDialog(panel, ex.getMessage(),
                             "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
                 if (success){
                     try {
                         CurrentUser.controller.createDashboard(frame);

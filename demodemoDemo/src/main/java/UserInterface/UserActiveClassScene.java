@@ -17,7 +17,6 @@ public class UserActiveClassScene extends ActiveClassScene {
 
         super(frame, course);
         //cange the DB flag so users can join
-        //TrainerController.setCourseJoinable(course.getId(), true);
         sessionID = UserController.getSessionId(course);
         UserController.setUserAsJoined(sessionID);
         // start polling  every second
@@ -73,33 +72,10 @@ public class UserActiveClassScene extends ActiveClassScene {
         JList<CourseExercise> list = new JList<>(model);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //show only the name
-        /*
-        list.addListSelectionListener((ListSelectionListener) e -> {
-            if (!e.getValueIsAdjusting() && list.getSelectedValue() != null) {
-                CourseExercise ce = list.getSelectedValue();
-                //currentExerciseLabel.setText(ce.getOrder() + ". " + ce.getExercise().getName());
-                exerciseSecs = 0;
-                exerciseTimeLabel.setText("00:00");
-            }
-        });
-        */
         panel.add(new JScrollPane(list), BorderLayout.EAST);
 
         JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        /*
-        //rest button and stop hosting at bottom of screen
-        JPanel south = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        JButton restBtn = new JButton("Rest");
-        restBtn.addActionListener(e -> {
-            list.clearSelection();
-            currentExerciseLabel.setText("Rest");
-            exerciseSecs = 0;
-            exerciseTimeLabel.setText("00:00");
-        });
-        south.add(restBtn);
-
-        */
 
         JButton stopBtn = new JButton("Leave Class");
         stopBtn.addActionListener(e -> {

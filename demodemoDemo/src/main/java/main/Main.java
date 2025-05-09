@@ -74,7 +74,6 @@ public class Main {
                 do {
                     System.out.print("Enter your specified port (33XX): ");
                     String portNumber = scanner.nextLine();
-//            System.out.println("Connecting to " + portNumber + "...");
                     scanner.close();
 
                     new DBConnection(portNumber);
@@ -87,11 +86,5 @@ public class Main {
         JFrame frame = new JFrame();
         new HomeScreen(frame);
 
-        //when me has information stored in it
-
-        if (CurrentUser.infoInputted()) {
-//            System.out.println("Login Successful");
-//            System.out.println(CurrentUser.userInfo());
-        }
     }
 }

@@ -67,9 +67,7 @@ public class ExerciseLogHelperCSV extends ExerciseLogHelper {
             String line;
 
             while ((line = br.readLine()) != null) {
-                // System.out.println(line);
                 String[] row = line.split(",");
-//                System.out.println(row[0]+","+row[1]);
                 exercises.add(new Exercise(row[0], row[1], 4));
             }
         } catch (FileNotFoundException e) {
@@ -94,7 +92,6 @@ public class ExerciseLogHelperCSV extends ExerciseLogHelper {
                 if( lastExercise != null){
                     br.write(lastExercise.getName() + ","
                             + lastExercise.getDescription() + "\n");
-//                    System.out.println(lastExercise.getName() + "," + lastExercise.getDescription());
                 }
             }
             br.flush();

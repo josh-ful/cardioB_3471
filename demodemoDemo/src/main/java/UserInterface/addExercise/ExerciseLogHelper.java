@@ -4,13 +4,7 @@ import Controller.UserController;
 import FitnessCourse.Exercise;
 import UserInformation.CurrentUser;
 
-//TODO these shouldn't be static??
-/**
- * this class contains functionality to read and to write from a
- * CSV file and use the information to include in our classes
- */
-// RESOLVED no they should because otherwise they wouldn't be accessible
-// it breaks if it's not static
+
 
 public abstract class ExerciseLogHelper {
 
@@ -26,9 +20,7 @@ public abstract class ExerciseLogHelper {
         String [][] matrix = new String[UserController.getExercises().size()][2];
         for(Exercise e : CurrentUser.getExercises()){
             matrix[i][0] = e.getName();
-            //System.out.println(matrix[i][0]);
             matrix[i][1] = e.getDescription();
-            // System.out.println(matrix[i][1]);
             i++;
         }
         return matrix;

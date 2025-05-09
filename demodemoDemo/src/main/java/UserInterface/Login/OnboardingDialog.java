@@ -73,11 +73,9 @@ public class OnboardingDialog extends JDialog {
                             JOptionPane.INFORMATION_MESSAGE);
                 }
             }catch(SQLException ex){
-                // TODO maybe this should throw a runtime exception cuz it should work
                 JOptionPane.showMessageDialog(null, ex.getMessage() + ". Please try again",
                         "Error", JOptionPane.ERROR_MESSAGE);
             }catch(UserNotFoundException ex){
-                // TODO maybe this should throw a runtime exception cuz it should work
                 JOptionPane.showMessageDialog(this, ex.getMessage() + ". Please try again",
                         "Error", JOptionPane.ERROR_MESSAGE);
             }

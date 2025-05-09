@@ -136,7 +136,6 @@ public class ClassListScene extends Scenes{
                     JOptionPane.showMessageDialog(frame, course.getName() + " is not joinable currently");
                 }
             }
-            //JOptionPane.showMessageDialog(panel, buttonLabel + " " + course.getName());
         });
         coursePanel.add(textPanel, BorderLayout.CENTER);
         coursePanel.add(actionBtn, BorderLayout.EAST);

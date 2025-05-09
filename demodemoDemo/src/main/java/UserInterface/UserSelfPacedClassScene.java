@@ -76,7 +76,6 @@ public class UserSelfPacedClassScene extends ActiveClassScene {
                 new ClassListScene(frame);
             } catch (SQLException ex) {
                 ex.printStackTrace();
-                //throw new RuntimeException(ex);
             }
         });
         south.add(stopBtn);

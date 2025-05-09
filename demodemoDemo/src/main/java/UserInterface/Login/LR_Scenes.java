@@ -9,8 +9,6 @@ import UserInterface.*;
 public class LR_Scenes extends Scenes {
     protected JTextField username;
     protected JPasswordField password;
-//    protected String user;
-//    protected String pass;
     /**
      * Constructs a RegisterScene object
      *
@@ -50,13 +48,6 @@ public class LR_Scenes extends Scenes {
 
         panel.add(usernamePanel);
         panel.add(passwordPanel);
-
-        /*
-        panel.add(getUsernameLabel(), BorderLayout.CENTER);
-        panel.add(username, BorderLayout.AFTER_LAST_LINE);
-        panel.add(getPasswordLabel(), BorderLayout.CENTER);
-        panel.add(password, BorderLayout.AFTER_LAST_LINE);
-*/
 
         frame.add(panel, BorderLayout.SOUTH);
     }

@@ -26,10 +26,6 @@ import java.util.List;
  */
 public class UserController implements Controller {
 
-    public UserController() {
-//        System.out.println("UserController");
-    }
-
     public static void enterWeight(int weight) {
         CurrentUser.setWeight(weight);
     }
@@ -41,10 +37,8 @@ public class UserController implements Controller {
      * @param description of exercise
      */
     public static void addExercise(String name, String description) {
-        Exercise e = new Exercise(name);
+        Exercise e = new Exercise(name, name);
         e.setDescription(description);
-//        System.out.println("Name:" + e.getName());
-//        System.out.println("Description: " + e.getDescription());
         CurrentUser.addExercise(e);
 
         if (DatabaseInfo.states.get("SQL")) {
@@ -82,10 +76,6 @@ public class UserController implements Controller {
     public static void newExercise(String name, String description) {
         ExerciseLogHelper.addExercise(name, description);
     }
-
-    /**
-     *
-     */
     public static void clearExercises() {
         CurrentUser.clearExercises();
     }
@@ -164,7 +154,6 @@ public class UserController implements Controller {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            //todo throw exception, or error message
         }
         return courseList;
     }
@@ -194,7 +183,6 @@ public class UserController implements Controller {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            //todo throw exception, or error message
         }
         return courseList;
     }
@@ -274,14 +262,11 @@ public class UserController implements Controller {
         return courseList;
     }
 
-    //TODO probably remove this
-    // todo def put this in a try block
     public static void addCourseRegistration( int courseId, String courseName) throws SQLException {
         String username = CurrentUser.getName();
 
         Connection conn2 = DBConnection.getConnection();
         //get id from username
-        //TODO make this something stored in UserStorage
         PreparedStatement getUserStmt = conn2.prepareStatement("SELECT id FROM userInfo WHERE username = ?");
         getUserStmt.setString(1, username);
         ResultSet userRs = getUserStmt.executeQuery();
@@ -411,10 +396,8 @@ public class UserController implements Controller {
             p.setInt(1, courseId);
             try (ResultSet rs = p.executeQuery()) {
                 if (rs.next()) {
-                    // getBoolean will map 0=false, 1=true
                     return rs.getBoolean("joinable");
                 } else {
-                    //no such course, treat as not joinable (or throw)
                     return false;
                 }
             }
