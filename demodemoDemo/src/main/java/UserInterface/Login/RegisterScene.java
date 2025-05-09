@@ -17,8 +17,6 @@ public class RegisterScene extends LR_Scenes {
      * @param frame which scene is created on
      */
 
-    // TODO: change utStatus name to utButtonStatus
-
     public RegisterScene(JFrame frame) {
         super.createLR_SCENE(frame);
         JRadioButton trainerButton = getSelectTrainerButton();
@@ -59,7 +57,6 @@ public class RegisterScene extends LR_Scenes {
         return label;
     }
 
-    //TODO make sure one of the options are selected for user type before register can occur
     /**
      * gets button with functionality confirming registration is valid
      *
