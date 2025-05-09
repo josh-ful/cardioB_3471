@@ -35,7 +35,7 @@ public class WeightGraphScene extends Scenes {
      * @param frame JFrame which the gui will be created on
      */
     @Override
-    protected void createAndShowGUI(JFrame frame) throws SQLException {
+    protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
         panelLayout();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

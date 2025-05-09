@@ -21,7 +21,7 @@ abstract public class ActiveClassScene extends Scenes {
     protected Timer totalTimer, exerciseTimer;
     protected int totalSecs = 0, exerciseSecs = 0;
 
-    public ActiveClassScene(JFrame frame, Course course) throws SQLException {
+    public ActiveClassScene(JFrame frame, Course course) {
         this.course = course;
         //fetch ordered list of exercises
         this.exercises = TrainerController.getCourseExercisesForCourse(course.getId());
@@ -51,7 +51,7 @@ abstract public class ActiveClassScene extends Scenes {
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) throws SQLException {
+    protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
         panel.removeAll();
         panel.setLayout(new BorderLayout(10,10));

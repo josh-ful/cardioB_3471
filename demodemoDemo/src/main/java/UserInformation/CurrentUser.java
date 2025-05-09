@@ -310,9 +310,10 @@ public class CurrentUser {
         return avgSleep;
     }
     public static Double getCurrentWeight() throws SQLException {
-        if(CurrentUser.currentWeight == null){
+        if(currentWeight == null){
             DailyMetricDAO.getCurrentWeight();
         }
+        System.out.println(currentWeight);
         return currentWeight;
     }
     public static Double getAvgCalories() throws SQLException {
@@ -326,6 +327,10 @@ public class CurrentUser {
             DailyMetricDAO.getAvgWorkoutDur();
         }
         return avgWorkout;
+    }
+
+    public static int getID() {
+        return id;
     }
 
     /*public static String[][] getTableMatrix(){

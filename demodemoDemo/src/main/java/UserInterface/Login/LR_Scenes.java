@@ -17,11 +17,7 @@ public class LR_Scenes extends Scenes {
      * @param frame which scene is created on
      */
     public void createLR_SCENE(JFrame frame) {
-        try {
             super.createAndShowGUI(frame);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
         username = new JTextField(20);
         password = new JPasswordField(20);

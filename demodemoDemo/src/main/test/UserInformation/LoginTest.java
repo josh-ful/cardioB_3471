@@ -18,9 +18,9 @@ public class LoginTest {
     static void init() throws SQLException {
         DBConnection dbConnection = new DBConnection("3312");
         Connection conn = DBConnection.getConnection();
-        String insertUser = "INSERT INTO users (username, password) VALUES (?, ?)";
+        String insertUser = "INSERT INTO userInfo (username, password, type) VALUES (?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(insertUser)) {
-            addUser(ps, "TEST", "TESTPASSWORD123");
+            addUser(ps, "TEST", "TESTPASSWORD123", "general");
             ps.executeUpdate();
         } catch (SQLIntegrityConstraintViolationException e) {
             System.out.println("Sorry, that username is already in use.!");
@@ -32,7 +32,7 @@ public class LoginTest {
     @AfterAll
     static void clean() throws SQLException {
         Connection conn = DBConnection.getConnection();
-        String removeUser = "DELETE FROM users WHERE username = 'TEST'";
+        String removeUser = "DELETE FROM userInfo WHERE username = 'TEST'";
         try(PreparedStatement ps = conn.prepareStatement(removeUser)) {
             ps.execute();
         }
@@ -41,7 +41,7 @@ public class LoginTest {
     @Test
     @DisplayName("Test SQL connection")
     void logInTestUser() throws SQLException {
-        String query = "SELECT password FROM users WHERE username = ?";
+        String query = "SELECT password FROM userInfo WHERE username = ?";
         Connection conn = DBConnection.getConnection();
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -66,7 +66,7 @@ public class LoginTest {
     @DisplayName("Password incorrect case")
     void incorrectCasePasswordLoginLogic() throws SQLException {
         assertThrows(IncorrectPasswordException.class, () -> {
-            Login.loginLogic("TEST", "testpassword123");
+            Login.loginLogic("TEST", "testpas");
         });
     }
 

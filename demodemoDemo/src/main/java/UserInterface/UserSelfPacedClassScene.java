@@ -11,12 +11,12 @@ import java.util.List;
 
 public class UserSelfPacedClassScene extends ActiveClassScene {
 
-    public UserSelfPacedClassScene(JFrame frame, Course course) throws SQLException {
+    public UserSelfPacedClassScene(JFrame frame, Course course) {
         super(frame, course);
     }
 
     @Override
-    protected void createAndShowGUI(JFrame frame) throws SQLException {
+    protected void createAndShowGUI(JFrame frame) {
         super.createAndShowGUI(frame);
         panel.removeAll();
         panel.setLayout(new BorderLayout(10,10));
